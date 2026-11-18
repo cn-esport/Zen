@@ -3,62 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Last Soul Studio</title>
+  <title>Zen // Animation Studio</title>
   <link rel="stylesheet" href="studio.css" />
   <link rel="stylesheet" href="skill.css" />
+  <style>
+    /* Ensure controls & timer always look crisp and responsive */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      font-family: monospace;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: #9cb3d9;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      padding: 10px 12px 16px;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .ctrl-btn {
+      background: #101726;
+      border: 1px solid #23324d;
+      color: #d8e6ff;
+      border-radius: 12px;
+      padding: 10px 4px;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .ctrl-btn.on {
+      background: #192b4a;
+      border-color: #5ca8ff;
+      color: #ffffff;
+    }
+    #scrub-wrap {
+      padding: 0 14px 6px;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    #scrub {
+      width: 100%;
+      accent-color: #5ca8ff;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body class="v">
-  <div id="app">
-    <header id="top-bar">
-      <span class="brand">ANIMATION // STUDIO</span>
-      <span id="timer">00:00 / 00:15</span>
-    </header>
-
-    <main id="preview-area">
-      <div id="stage">
-        <div id="camera">
-          <svg id="L-bg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
-          <svg id="L-mid" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
-          <svg id="L-char" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
-          <svg id="L-fg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
-          <div id="dust"></div>
-        </div>
-
-        <div id="vignette"></div>
-        <div id="caps"></div>
-        <div id="fade"></div>
-        <div id="fs-hint">Tap anywhere to exit Full Screen</div>
-      </div>
-    </main>
-
-    <div id="progress-wrap">
-      <div id="progress-bar"></div>
-    </div>
-
-    <nav id="bottom-controls">
-      <button class="nav-btn" id="muteBtn">
-        <span class="icon">🔊</span>
-        <span>Sound</span>
-      </button>
-
-      <button class="nav-btn primary" id="playPauseBtn">
-        <span class="icon" id="playIcon">⏸</span>
-        <span id="playText">Pause</span>
-      </button>
-
-      <button class="nav-btn" id="replayBtn">
-        <span class="icon">↺</span>
-        <span>Replay</span>
-      </button>
-
-      <button class="nav-btn" id="fullBtn">
-        <span class="icon">⛶</span>
-        <span>Full Screen</span>
-      </button>
-    </nav>
+  <div class="top-bar">
+    <span>ANIMATION // STUDIO</span>
+    <span id="time">00:00 / 00:50</span>
   </div>
 
-  <script src="scene.js"></script>
-  <script src="engine.js"></script>
+  <div id="stage">
+    <div id="camera">
+      <svg id="L-bg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+      <svg id="L-mid" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+      <svg id="L-char" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+      <svg id="L-fg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+    </div>
+    <div id="dust"></div>
+    <div id="vignette"></div>
+    <div id="caps"></div>
+    <div id="fade"></div>
+  </div>
+
+  <div id="scrub-wrap">
+    <input id="scrub" type="range" min="0" max="1000" value="0" />
+  </div>
+
+  <div class="controls">
+    <button id="sound" class="ctrl-btn" type="button"><span>🔊</span>Sound</button>
+    <button id="play" class="ctrl-btn on" type="button"><span>❚❚</span>Pause</button>
+    <button id="cc" class="ctrl-btn on" type="button"><span>CC</span>Subtitles</button>
+    <button id="replay" class="ctrl-btn" type="button"><span>↺</span>Replay</button>
+    <button id="fs" class="ctrl-btn" type="button"><span>⛶</span>Full</button>
+  </div>
+
+  <script src="scene.js?v=7"></script>
+  <script src="engine.js?v=7"></script>
 </body>
 </html>
