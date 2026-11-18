@@ -66,14 +66,12 @@ svg.layer {
 @keyframes pan-mid { to { transform: translateX(-1.3%); } }
 @keyframes pan-fg  { to { transform: translateX(-2.8%); } }
 
-/* Depth-of-field blur for foreground silhouettes & background props */
 .dof-soft { filter: blur(4px); }
 .dof-deep { filter: blur(9px); }
 
 /* ==========================================
    3. LAST SOUL CHARACTER ANATOMY & SEPARATED LIMBS
    ========================================== */
-/* Main body & head silhouette with crisp 1.8px rim separation */
 .sil {
   fill: #07080b;
   stroke: rgba(185, 205, 230, 0.42);
@@ -82,7 +80,6 @@ svg.layer {
   stroke-linecap: round;
 }
 
-/* Overlapping arms/hands get a slightly brighter edge so limbs never merge into a blob */
 .limb {
   fill: #07080b;
   stroke: rgba(205, 222, 245, 0.58);
@@ -91,7 +88,6 @@ svg.layer {
   stroke-linecap: round;
 }
 
-/* Expressive Curved Eyebrows */
 .brow {
   fill: none;
   stroke: #d8e6f8;
@@ -194,7 +190,7 @@ svg.layer {
 }
 
 /* ==========================================
-   7. SOFT GOUACHE VIGNETTE, FLOATING DIALOGUE PILLS & FADE
+   7. SOFT VIGNETTE, CAPTIONS & FADE CURTAIN
    ========================================== */
 #vignette {
   position: absolute;
