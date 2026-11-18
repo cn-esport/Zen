@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Zen // Animation Studio</title>
+  <title>Zen // 16:9 Cinema Studio</title>
   <link rel="stylesheet" href="studio.css" />
   <link rel="stylesheet" href="skill.css" />
   <style>
@@ -17,6 +17,7 @@
       font-family: system-ui, -apple-system, sans-serif;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
     }
     .top-bar {
       flex: 0 0 auto;
@@ -31,24 +32,45 @@
       background: #050811;
       z-index: 30;
     }
-    #stage {
-      position: relative;
+    .stage-wrap {
       flex: 1 1 auto;
       min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
       width: 100%;
-      max-width: 540px;
-      margin: 0 auto;
+    }
+    #stage {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      aspect-ratio: 16 / 9;
+      max-height: 100%;
       overflow: hidden;
-      border-radius: 14px;
-      border: 1px solid #18253d;
+      border-radius: 12px;
+      border: 1px solid #1d2d4a;
       background: #04070f;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75);
+    }
+    #stage:fullscreen {
+      max-width: none;
+      border-radius: 0;
+      border: none;
+    }
+    /* Crisp Widescreen Subtitles */
+    .cap {
+      font-size: clamp(12px, 2.1vw, 24px) !important;
+      bottom: 8% !important;
+      width: 84% !important;
+      max-width: 84% !important;
     }
     #scrub-wrap {
       flex: 0 0 auto;
       width: 100%;
-      max-width: 540px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 8px 14px 4px;
+      padding: 6px 14px 4px;
       background: #050811;
       z-index: 30;
     }
@@ -61,7 +83,7 @@
     .controls {
       flex: 0 0 auto;
       width: 100%;
-      max-width: 540px;
+      max-width: 720px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -97,23 +119,25 @@
     }
   </style>
 </head>
-<body class="v">
+<body>
   <div class="top-bar">
-    <span>ANIMATION // STUDIO</span>
-    <span id="time">00:00 / 00:50</span>
+    <span>ZEN // 16:9 YOUTUBE STUDIO</span>
+    <span id="time">00:00 / 03:30</span>
   </div>
 
-  <div id="stage">
-    <div id="camera">
-      <svg id="L-bg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
-      <svg id="L-mid" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
-      <svg id="L-char" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
-      <svg id="L-fg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+  <div class="stage-wrap">
+    <div id="stage">
+      <div id="camera">
+        <svg id="L-bg" class="layer" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"></svg>
+        <svg id="L-mid" class="layer" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"></svg>
+        <svg id="L-char" class="layer" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"></svg>
+        <svg id="L-fg" class="layer" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"></svg>
+      </div>
+      <div id="dust"></div>
+      <div id="vignette"></div>
+      <div id="caps"></div>
+      <div id="fade"></div>
     </div>
-    <div id="dust"></div>
-    <div id="vignette"></div>
-    <div id="caps"></div>
-    <div id="fade"></div>
   </div>
 
   <div id="scrub-wrap">
@@ -128,7 +152,7 @@
     <button id="fs" class="ctrl-btn" type="button"><span>⛶</span>Full</button>
   </div>
 
-  <script src="scene.js?v=8"></script>
-  <script src="engine.js?v=8"></script>
+  <script src="scene.js?v=10"></script>
+  <script src="engine.js?v=10"></script>
 </body>
 </html>
