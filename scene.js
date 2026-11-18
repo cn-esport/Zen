@@ -1,9 +1,9 @@
 // ==========================================
-// SCENE SCRIPT (Edit only this file for new videos)
+// SCENE SCRIPT (Edit only this section for new videos)
 // ==========================================
 const SCENE_DATA = {
-  duration: 15, // Total length in seconds
-  soundMode: "clock-night", // "clock-night" | "heartbeat" | "wind"
+  duration: 15,
+  soundMode: "clock-night", // "clock-night" | "heartbeat"
   captions: [
     { start: 0.6, end: 4.9, text: "It’s 2:14 AM… and your mind still refuses to shut off." },
     { start: 5.2, end: 9.9, text: "You aren’t tired because you worked too hard today." },
@@ -27,23 +27,19 @@ const SCENE_DATA = {
       </linearGradient>
     </defs>
 
-    <!-- Moonlight Window -->
     <rect x="42" y="65" width="135" height="230" rx="4" fill="url(#windowGlow)" />
     <line x1="109" y1="65" x2="109" y2="295" stroke="#070a10" stroke-width="4" />
     <line x1="42" y1="180" x2="177" y2="180" stroke="#070a10" stroke-width="4" />
     <circle cx="82" cy="115" r="14" fill="#d9e6ff" opacity="0.22" />
 
-    <!-- Dust Motes -->
     <circle class="dust" cx="95" cy="260" r="1.4" style="animation-duration: 9s;" />
     <circle class="dust" cx="145" cy="310" r="1.1" style="animation-duration: 11s; animation-delay: 2s;" />
     <circle class="dust" cx="220" cy="280" r="1.6" style="animation-duration: 10s; animation-delay: 1s;" />
     <circle class="dust" cx="170" cy="380" r="1.2" style="animation-duration: 8s; animation-delay: 3s;" />
 
-    <!-- Ambient Phone Glow -->
     <circle id="phone-glow" cx="185" cy="405" r="150" fill="url(#phoneLight)" />
     <path d="M0 510 Q180 495 360 515 L360 640 L0 640 Z" fill="#030304" />
 
-    <!-- Silhouette Character -->
     <g id="character-torso">
       <path d="M88 530 C92 435, 130 395, 180 395 C230 395, 268 435, 272 530 Z" fill="url(#rimLight)" />
       <g id="character-head">
@@ -59,33 +55,36 @@ const SCENE_DATA = {
 };
 
 // ==========================================
-// ENGINE (Loads skill.json + Runs Scene)
+// STUDIO ENGINE
 // ==========================================
 const stage = document.getElementById("stage");
 const sceneSvg = document.getElementById("scene-svg");
 const captionEl = document.getElementById("caption");
-const controls = document.getElementById("controls");
-const playPauseBtn = document.getElementById("playPauseBtn");
-const replayBtn = document.getElementById("replayBtn");
-const muteBtn = document.getElementById("muteBtn");
-const hideBtn = document.getElementById("hideBtn");
+const timerEl = document.getElementById("timer");
+const progressBar = document.getElementById("progress-bar");
+const fsHint = document.getElementById("fs-hint");
 
-// Load skill.json visual rules
+const muteBtn = document.getElementById("muteBtn");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const playIcon = document.getElementById("playIcon");
+const playText = document.getElementById("playText");
+const replayBtn = document.getElementById("replayBtn");
+const fullBtn = document.getElementById("fullBtn");
+
 fetch("skill.json")
   .then(res => res.json())
   .then(skill => {
-    const root = document.documentElement.style;
-    root.setProperty("--silhouette", skill.style.silhouetteColor);
-    root.setProperty("--eye-color", skill.style.eyeColor);
-    root.setProperty("--eye-glow", skill.style.eyeGlow);
-    root.setProperty("--bg-top", skill.style.backgroundTop);
-    root.setProperty("--bg-mid", skill.style.backgroundMid);
-    root.setProperty("--bg-bottom", skill.style.backgroundBottom);
-    root.setProperty("--caption-color", skill.style.captionColor);
+    const r = document.documentElement.style;
+    r.setProperty("--silhouette", skill.style.silhouetteColor);
+    r.setProperty("--eye-color", skill.style.eyeColor);
+    r.setProperty("--eye-glow", skill.style.eyeGlow);
+    r.setProperty("--bg-top", skill.style.backgroundTop);
+    r.setProperty("--bg-mid", skill.style.backgroundMid);
+    r.setProperty("--bg-bottom", skill.style.backgroundBottom);
+    r.setProperty("--caption-color", skill.style.captionColor);
   })
   .catch(() => {});
 
-// Inject scene duration & SVG
 document.documentElement.style.setProperty("--duration", `${SCENE_DATA.duration}s`);
 sceneSvg.innerHTML = SCENE_DATA.svgArtwork;
 
@@ -96,6 +95,11 @@ let isMuted = false;
 let audioCtx = null;
 let masterGain = null;
 let lastSecondTick = 0;
+
+function formatTime(sec) {
+  const s = Math.min(Math.floor(sec), SCENE_DATA.duration);
+  return `00:${String(s).padStart(2, "0")}`;
+}
 
 function initAudio() {
   if (audioCtx) return;
@@ -145,6 +149,10 @@ function loop(now) {
 
   if (!isPaused && elapsed <= SCENE_DATA.duration) {
     elapsed += dt;
+    const pct = Math.min((elapsed / SCENE_DATA.duration) * 100, 100);
+    progressBar.style.width = `${pct}%`;
+    timerEl.textContent = `${formatTime(elapsed)} / ${formatTime(SCENE_DATA.duration)}`;
+
     const sec = Math.floor(elapsed);
     if (sec > lastSecondTick && sec < SCENE_DATA.duration) {
       lastSecondTick = sec;
@@ -168,33 +176,43 @@ window.addEventListener("pointerdown", () => {
   if (audioCtx && audioCtx.state === "suspended" && !isPaused) audioCtx.resume();
 });
 
-playPauseBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
+playPauseBtn.addEventListener("click", () => {
   initAudio();
   isPaused = !isPaused;
   stage.classList.toggle("paused", isPaused);
-  playPauseBtn.textContent = isPaused ? "Play" : "Pause";
+  playIcon.textContent = isPaused ? "▶" : "⏸";
+  playText.textContent = isPaused ? "Play" : "Pause";
   if (audioCtx) isPaused ? audioCtx.suspend() : audioCtx.resume();
 });
 
-replayBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  location.reload();
-});
+replayBtn.addEventListener("click", () => location.reload());
 
-muteBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
+muteBtn.addEventListener("click", () => {
   initAudio();
   isMuted = !isMuted;
-  muteBtn.textContent = isMuted ? "Sound: OFF" : "Sound: ON";
+  muteBtn.querySelector(".icon").textContent = isMuted ? "🔇" : "🔊";
+  muteBtn.querySelector("span:last-child").textContent = isMuted ? "Muted" : "Sound";
   if (masterGain) masterGain.gain.value = isMuted ? 0 : 1;
 });
 
-hideBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  controls.classList.add("hidden");
+// Enter True Full Screen
+fullBtn.addEventListener("click", async () => {
+  initAudio();
+  document.body.classList.add("is-fullscreen");
+  fsHint.classList.add("show");
+  setTimeout(() => fsHint.classList.remove("show"), 1800);
+
+  if (document.documentElement.requestFullscreen) {
+    try { await document.documentElement.requestFullscreen(); } catch (_) {}
+  }
 });
 
-stage.addEventListener("click", () => {
-  if (controls.classList.contains("hidden")) controls.classList.remove("hidden");
+// Exit Full Screen when tapping the stage
+stage.addEventListener("click", async () => {
+  if (document.body.classList.contains("is-fullscreen")) {
+    document.body.classList.remove("is-fullscreen");
+    if (document.fullscreenElement) {
+      try { await document.exitFullscreen(); } catch (_) {}
+    }
+  }
 });
