@@ -3,28 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Last Soul Animator</title>
+  <title>Last Soul Studio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="stage">
-    <!-- Floating Player Controls (Tap background to show after hiding) -->
-    <div id="controls">
-      <button class="btn" id="playPauseBtn">Pause</button>
-      <button class="btn" id="replayBtn">Replay</button>
-      <button class="btn" id="muteBtn">Sound: ON</button>
-      <button class="btn" id="hideBtn">Hide UI</button>
+  <div id="app">
+    <!-- Top Header -->
+    <header id="top-bar">
+      <span class="brand">LAST SOUL // STUDIO</span>
+      <span id="timer">00:00 / 00:15</span>
+    </header>
+
+    <!-- Framed Video Preview Box -->
+    <main id="preview-area">
+      <div id="stage">
+        <div id="camera">
+          <svg id="scene-svg" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice"></svg>
+        </div>
+
+        <div id="caption-box">
+          <div id="caption"></div>
+        </div>
+
+        <!-- Subtle Exit Fullscreen Hint (Fades out quickly) -->
+        <div id="fs-hint">Tap anywhere to exit Full Screen</div>
+      </div>
+    </main>
+
+    <!-- Progress Bar -->
+    <div id="progress-wrap">
+      <div id="progress-bar"></div>
     </div>
 
-    <!-- Animated Camera & SVG Stage -->
-    <div id="camera">
-      <svg id="scene-svg" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice"></svg>
-    </div>
+    <!-- Bottom Navigation Controls -->
+    <nav id="bottom-controls">
+      <button class="nav-btn" id="muteBtn">
+        <span class="icon">🔊</span>
+        <span>Sound</span>
+      </button>
 
-    <!-- Synced Captions -->
-    <div id="caption-box">
-      <div id="caption"></div>
-    </div>
+      <button class="nav-btn primary" id="playPauseBtn">
+        <span class="icon" id="playIcon">⏸</span>
+        <span id="playText">Pause</span>
+      </button>
+
+      <button class="nav-btn" id="replayBtn">
+        <span class="icon">↺</span>
+        <span>Replay</span>
+      </button>
+
+      <button class="nav-btn" id="fullBtn">
+        <span class="icon">⛶</span>
+        <span>Full Screen</span>
+      </button>
+    </nav>
   </div>
 
   <script src="scene.js"></script>
