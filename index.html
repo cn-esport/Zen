@@ -7,55 +7,93 @@
   <link rel="stylesheet" href="studio.css" />
   <link rel="stylesheet" href="skill.css" />
   <style>
-    /* Ensure controls & timer always look crisp and responsive */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;
+      background: #050811;
+      color: #e6f0ff;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
     .top-bar {
+      flex: 0 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 16px;
+      padding: 10px 16px;
       font-family: monospace;
       font-size: 13px;
       letter-spacing: 1px;
       color: #9cb3d9;
+      background: #050811;
+      z-index: 30;
     }
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      padding: 10px 12px 16px;
+    #stage {
+      position: relative;
+      flex: 1 1 auto;
+      min-height: 0;
+      width: 100%;
       max-width: 540px;
       margin: 0 auto;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid #18253d;
+      background: #04070f;
+    }
+    #scrub-wrap {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 8px 14px 4px;
+      background: #050811;
+      z-index: 30;
+    }
+    #scrub {
+      width: 100%;
+      height: 6px;
+      accent-color: #5ca8ff;
+      cursor: pointer;
+    }
+    .controls {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 7px;
+      padding: 6px 12px 14px;
+      background: #050811;
+      z-index: 30;
     }
     .ctrl-btn {
-      background: #101726;
-      border: 1px solid #23324d;
-      color: #d8e6ff;
-      border-radius: 12px;
-      padding: 10px 4px;
+      background: #0f1624;
+      border: 1px solid #22324f;
+      color: #9cb3d9;
+      border-radius: 11px;
+      padding: 9px 2px;
       font-size: 11px;
       font-weight: 600;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      gap: 3px;
       cursor: pointer;
       user-select: none;
-      transition: background 0.2s, border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.18s ease;
     }
+    .ctrl-btn span { font-size: 14px; line-height: 1; }
     .ctrl-btn.on {
-      background: #192b4a;
+      background: #182947;
       border-color: #5ca8ff;
       color: #ffffff;
-    }
-    #scrub-wrap {
-      padding: 0 14px 6px;
-      max-width: 540px;
-      margin: 0 auto;
-    }
-    #scrub {
-      width: 100%;
-      accent-color: #5ca8ff;
-      cursor: pointer;
+      box-shadow: 0 0 12px rgba(92, 168, 255, 0.22);
     }
   </style>
 </head>
@@ -83,14 +121,14 @@
   </div>
 
   <div class="controls">
-    <button id="sound" class="ctrl-btn" type="button"><span>🔊</span>Sound</button>
+    <button id="sound" class="ctrl-btn" type="button"><span>🔇</span>Sound Off</button>
     <button id="play" class="ctrl-btn on" type="button"><span>❚❚</span>Pause</button>
     <button id="cc" class="ctrl-btn on" type="button"><span>CC</span>Subtitles</button>
     <button id="replay" class="ctrl-btn" type="button"><span>↺</span>Replay</button>
     <button id="fs" class="ctrl-btn" type="button"><span>⛶</span>Full</button>
   </div>
 
-  <script src="scene.js?v=7"></script>
-  <script src="engine.js?v=7"></script>
+  <script src="scene.js?v=8"></script>
+  <script src="engine.js?v=8"></script>
 </body>
 </html>
