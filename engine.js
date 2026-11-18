@@ -1,5 +1,5 @@
 // ==========================================
-// ZEN CINEMA ENGINE V9 — DUAL RATIO (16:9 / 9:16) + DEEP AUDIO + CONTROLS
+// ZEN CINEMA ENGINE V10 — GLITCH-FREE TOUCH SCRUBBER + FRAME-LOCKED AUDIO
 // ==========================================
 const $ = s => document.querySelector(s);
 const stage = $('#stage'), caps = $('#caps'), fade = $('#fade');
@@ -8,8 +8,10 @@ const ratioBtn = $('#ratio'), studioLabel = $('#studio-label');
 const scrub = $('#scrub'), timeEl = $('#time'), fsBtn = $('#fs'), replayBtn = $('#replay');
 
 let DUR = 50, playing = true, soundOn = false, ccOn = true, isVertical = false;
+let isDragging = false, wasPlayingBeforeDrag = false;
 let currentTime = 0, lastFrame = performance.now();
-let actx = null, masterGain = null, compressor = null, tickTimer = null, heartbeatTimer = null, firedSfx = new Set();
+let lastTickSec = -1, lastBeatIndex = -1;
+let actx = null, masterGain = null, compressor = null, firedSfx = new Set();
 
 const canvas = document.createElement('canvas');
 canvas.id = 'cinema-canvas';
@@ -27,14 +29,24 @@ function resizeCanvas() {
   if (!stage) return;
   const r = stage.getBoundingClientRect();
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  canvas.width = Math.max(1, Math.floor(r.width * dpr));
-  canvas.height = Math.max(1, Math.floor(r.height * dpr));
+  const nw = Math.max(1, Math.floor(r.width * dpr));
+  const nh = Math.max(1, Math.floor(r.height * dpr));
+  if (canvas.width !== nw || canvas.height !== nh) {
+    canvas.width = nw;
+    canvas.height = nh;
+  }
 }
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
 function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
 function fmt(s) { return `${pad(s / 60)}:${pad(s % 60)}`; }
+
+function updatePlayButtonUI() {
+  if (!playBtn) return;
+  playBtn.classList.toggle('on', playing);
+  playBtn.innerHTML = playing ? '<span>❚❚</span>Pause' : '<span>▶</span>Play';
+}
 
 function setupCaptions() {
   if (typeof SCENE_DATA !== 'undefined' && SCENE_DATA.duration) {
@@ -51,7 +63,7 @@ function setupCaptions() {
     d.dataset.start = c.start;
     d.dataset.end = c.start + c.length;
     d.textContent = c.text;
-    d.style.cssText = 'opacity:0;transform:translate(-50%,8px);transition:opacity .32s ease,transform .32s ease;';
+    d.style.cssText = 'opacity:0;transform:translate(-50%,8px);transition:opacity .25s ease,transform .25s ease;';
     caps.appendChild(d);
   });
 }
@@ -69,8 +81,8 @@ function updateCaptions(t) {
     }
   }
   if (fade) {
-    if (t < 0.8) fade.style.opacity = String(1 - t / 0.8);
-    else if (t > DUR - 0.8) fade.style.opacity = String((t - (DUR - 0.8)) / 0.8);
+    if (t < 0.7) fade.style.opacity = String(1 - t / 0.7);
+    else if (t > DUR - 0.7) fade.style.opacity = String((t - (DUR - 0.7)) / 0.7);
     else fade.style.opacity = '0';
   }
 }
@@ -84,12 +96,12 @@ function toggleRatio() {
   if (studioLabel) {
     studioLabel.textContent = isVertical ? 'ZEN // 9:16 SHORTS' : 'ZEN // 16:9 YOUTUBE';
   }
-  setTimeout(resizeCanvas, 50);
-  setTimeout(resizeCanvas, 280);
+  resizeCanvas();
+  requestAnimationFrame(resizeCanvas);
 }
 
 // ==========================================
-// CINEMA-GRADE WEB AUDIO ENGINE
+// GLITCH-FREE FRAME-LOCKED WEB AUDIO ENGINE
 // ==========================================
 function ensureAudio() {
   if (actx) return;
@@ -109,10 +121,9 @@ function ensureAudio() {
   compressor.connect(actx.destination);
 
   const padNotes = [
-    { f: 73.42, type: 'sine',     vol: 0.26, cut: 180 },
-    { f: 110.0, type: 'triangle', vol: 0.16, cut: 280 },
-    { f: 164.8, type: 'sine',     vol: 0.11, cut: 360 },
-    { f: 174.6, type: 'sine',     vol: 0.10, cut: 360 }
+    { f: 73.42, type: 'sine',     vol: 0.24, cut: 180 },
+    { f: 110.0, type: 'triangle', vol: 0.14, cut: 280 },
+    { f: 164.8, type: 'sine',     vol: 0.10, cut: 360 }
   ];
   padNotes.forEach(n => {
     const osc = actx.createOscillator();
@@ -128,8 +139,29 @@ function ensureAudio() {
   });
 }
 
+function updateAmbientGain() {
+  if (!actx || !masterGain) return;
+  const shouldPlayPad = soundOn && playing && !isDragging;
+  masterGain.gain.cancelScheduledValues(actx.currentTime);
+  masterGain.gain.setTargetAtTime(shouldPlayPad ? 1.0 : 0.0001, actx.currentTime, 0.08);
+}
+
+function playClockTick() {
+  if (!actx || !soundOn || !playing || isDragging) return;
+  const t = actx.currentTime;
+  const o = actx.createOscillator(), g = actx.createGain();
+  o.type = 'triangle';
+  o.frequency.setValueAtTime(920, t);
+  o.frequency.exponentialRampToValueAtTime(260, t + 0.024);
+  g.gain.setValueAtTime(0.001, t);
+  g.gain.exponentialRampToValueAtTime(0.16, t + 0.004);
+  g.gain.exponentialRampToValueAtTime(0.0008, t + 0.042);
+  o.connect(g); g.connect(masterGain);
+  o.start(t); o.stop(t + 0.05);
+}
+
 function playHeartbeat() {
-  if (!actx || !soundOn || !playing) return;
+  if (!actx || !soundOn || !playing || isDragging) return;
   const now = actx.currentTime;
   [0, 0.22].forEach((offset, idx) => {
     const o = actx.createOscillator(), g = actx.createGain();
@@ -137,7 +169,7 @@ function playHeartbeat() {
     o.frequency.setValueAtTime(idx === 0 ? 78 : 64, now + offset);
     o.frequency.exponentialRampToValueAtTime(28, now + offset + 0.16);
     g.gain.setValueAtTime(0.001, now + offset);
-    g.gain.exponentialRampToValueAtTime(idx === 0 ? 0.34 : 0.24, now + offset + 0.02);
+    g.gain.exponentialRampToValueAtTime(idx === 0 ? 0.32 : 0.22, now + offset + 0.02);
     g.gain.exponentialRampToValueAtTime(0.0008, now + offset + 0.18);
     o.connect(g); g.connect(masterGain);
     o.start(now + offset);
@@ -155,14 +187,14 @@ function triggerSFX(type) {
       o.type = 'sine';
       o.frequency.setValueAtTime(freq, now + idx * 0.085);
       g.gain.setValueAtTime(0.001, now + idx * 0.085);
-      g.gain.exponentialRampToValueAtTime(0.36, now + idx * 0.085 + 0.015);
-      g.gain.exponentialRampToValueAtTime(0.0008, now + idx * 0.085 + 0.55);
+      g.gain.exponentialRampToValueAtTime(0.34, now + idx * 0.085 + 0.015);
+      g.gain.exponentialRampToValueAtTime(0.0008, now + idx * 0.085 + 0.5);
       o.connect(g); g.connect(masterGain);
       o.start(now + idx * 0.085);
-      o.stop(now + idx * 0.085 + 0.58);
+      o.stop(now + idx * 0.085 + 0.54);
     });
   } else if (type === 'swipe' || type === 'whoosh') {
-    const buf = actx.createBuffer(1, actx.sampleRate * 0.34, actx.sampleRate);
+    const buf = actx.createBuffer(1, actx.sampleRate * 0.3, actx.sampleRate);
     const data = buf.getChannelData(0);
     for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
     const src = actx.createBufferSource(), f = actx.createBiquadFilter(), g = actx.createGain();
@@ -170,10 +202,10 @@ function triggerSFX(type) {
     f.type = 'bandpass';
     f.Q.value = 1.4;
     f.frequency.setValueAtTime(320, now);
-    f.frequency.exponentialRampToValueAtTime(1750, now + 0.24);
+    f.frequency.exponentialRampToValueAtTime(1750, now + 0.22);
     g.gain.setValueAtTime(0.001, now);
-    g.gain.exponentialRampToValueAtTime(0.42, now + 0.06);
-    g.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+    g.gain.exponentialRampToValueAtTime(0.38, now + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
     src.connect(f); f.connect(g); g.connect(masterGain);
     src.start(now);
   } else if (type === 'chime') {
@@ -182,87 +214,70 @@ function triggerSFX(type) {
       o.type = 'sine';
       o.frequency.setValueAtTime(freq, now + idx * 0.07);
       g.gain.setValueAtTime(0.001, now + idx * 0.07);
-      g.gain.exponentialRampToValueAtTime(0.26, now + idx * 0.07 + 0.03);
-      g.gain.exponentialRampToValueAtTime(0.0008, now + idx * 0.07 + 0.95);
+      g.gain.exponentialRampToValueAtTime(0.24, now + idx * 0.07 + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.0008, now + idx * 0.07 + 0.85);
       o.connect(g); g.connect(masterGain);
       o.start(now + idx * 0.07);
-      o.stop(now + idx * 0.07 + 1.0);
+      o.stop(now + idx * 0.07 + 0.9);
     });
   } else if (type === 'boom') {
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'sine';
     o.frequency.setValueAtTime(125, now);
-    o.frequency.exponentialRampToValueAtTime(32, now + 0.85);
-    g.gain.setValueAtTime(0.58, now);
-    g.gain.exponentialRampToValueAtTime(0.001, now + 0.92);
+    o.frequency.exponentialRampToValueAtTime(32, now + 0.8);
+    g.gain.setValueAtTime(0.52, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.88);
     o.connect(g); g.connect(masterGain);
-    o.start(now); o.stop(now + 0.95);
+    o.start(now); o.stop(now + 0.9);
   } else if (type === 'lock') {
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'triangle';
     o.frequency.setValueAtTime(1150, now);
     o.frequency.exponentialRampToValueAtTime(160, now + 0.045);
-    g.gain.setValueAtTime(0.45, now);
+    g.gain.setValueAtTime(0.42, now);
     g.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
     o.connect(g); g.connect(masterGain);
     o.start(now); o.stop(now + 0.07);
   }
 }
 
-function checkTimelineSFX(t) {
-  if (!soundOn || typeof SCENE_DATA === 'undefined' || !SCENE_DATA.sfx) return;
-  SCENE_DATA.sfx.forEach((item, i) => {
-    if (!firedSfx.has(i) && t >= item.at && t < item.at + 0.25) {
-      firedSfx.add(i);
-      triggerSFX(item.type);
+function processFrameAudio(t) {
+  if (!soundOn || !playing || isDragging) return;
+
+  // 1. Timeline One-Shot SFX
+  if (typeof SCENE_DATA !== 'undefined' && SCENE_DATA.sfx) {
+    SCENE_DATA.sfx.forEach((item, i) => {
+      if (!firedSfx.has(i) && t >= item.at && t < item.at + 0.25) {
+        firedSfx.add(i);
+        triggerSFX(item.type);
+      }
+    });
+  }
+
+  // 2. Frame-Synced Clock Tick & Heartbeat (Zero setInterval drift!)
+  const secInt = Math.floor(t);
+  if (t >= 14.3 && t < 25.0) {
+    const beatIdx = Math.floor(t / 1.15);
+    if (beatIdx !== lastBeatIndex) {
+      lastBeatIndex = beatIdx;
+      playHeartbeat();
     }
-  });
-}
-
-function enableSoundNow() {
-  ensureAudio();
-  if (actx.state === 'suspended') actx.resume();
-  soundOn = true;
-  masterGain.gain.setTargetAtTime(1.0, actx.currentTime, 0.15);
-  if (soundBtn) soundBtn.classList.add('on');
-  clearInterval(tickTimer);
-  clearInterval(heartbeatTimer);
-
-  tickTimer = setInterval(() => {
-    if (!playing || !soundOn || !actx || currentTime >= (DUR - 3.6)) return;
-    const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime;
-    o.type = 'triangle';
-    o.frequency.setValueAtTime(940, t);
-    o.frequency.exponentialRampToValueAtTime(260, t + 0.025);
-    g.gain.setValueAtTime(0.001, t);
-    g.gain.exponentialRampToValueAtTime(0.18, t + 0.004);
-    g.gain.exponentialRampToValueAtTime(0.0008, t + 0.045);
-    o.connect(g); g.connect(masterGain);
-    o.start(t); o.stop(t + 0.05);
-  }, 1000);
-
-  heartbeatTimer = setInterval(() => {
-    if (currentTime >= 14.3 && currentTime < 25.0) playHeartbeat();
-  }, 1150);
-}
-
-function toggleSound() {
-  if (!soundOn) {
-    enableSoundNow();
-    triggerSFX('chime');
-  } else {
-    soundOn = false;
-    if (masterGain && actx) masterGain.gain.setTargetAtTime(0.0001, actx.currentTime, 0.15);
-    if (soundBtn) soundBtn.classList.remove('on');
-    clearInterval(tickTimer);
-    clearInterval(heartbeatTimer);
+  } else if (t < DUR - 3.6 && secInt !== lastTickSec) {
+    lastTickSec = secInt;
+    playClockTick();
   }
 }
 
-if (stage) {
-  stage.addEventListener('click', () => {
-    if (!soundOn) enableSoundNow();
-  }, { once: true });
+function toggleSound() {
+  ensureAudio();
+  if (actx.state === 'suspended') actx.resume();
+  soundOn = !soundOn;
+  if (soundBtn) {
+    soundBtn.classList.toggle('on', soundOn);
+    soundBtn.innerHTML = soundOn ? '<span>🔊</span>Sound' : '<span>🔇</span>Sound';
+  }
+  updateAmbientGain();
+  if (soundOn) triggerSFX('chime');
 }
 
 function toggleCC() {
@@ -273,59 +288,91 @@ function toggleCC() {
 
 function seekTo(sec) {
   currentTime = Math.max(0, Math.min(DUR, sec));
+  lastTickSec = Math.floor(currentTime);
+  lastBeatIndex = Math.floor(currentTime / 1.15);
   firedSfx.clear();
   if (typeof SCENE_DATA !== 'undefined' && SCENE_DATA.sfx) {
-    SCENE_DATA.sfx.forEach((item, i) => { if (item.at < currentTime) firedSfx.add(i); });
+    SCENE_DATA.sfx.forEach((item, i) => {
+      if (item.at < currentTime) firedSfx.add(i);
+    });
   }
   updateCaptions(currentTime);
-  if (scrub) scrub.value = (currentTime / DUR) * 1000;
   if (timeEl) timeEl.textContent = `${fmt(currentTime)} / ${fmt(DUR)}`;
+  if (!isDragging && scrub) {
+    scrub.value = String(Math.round((currentTime / DUR) * 1000));
+  }
 }
 
 function togglePlay() {
-  if (!playing && currentTime >= DUR - 0.05) seekTo(0);
-  playing = !playing;
-  if (playBtn) {
-    playBtn.classList.toggle('on', playing);
-    playBtn.innerHTML = playing ? '<span>❚❚</span>Pause' : '<span>▶</span>Play';
+  if (!playing && currentTime >= DUR - 0.05) {
+    replay();
+    return;
   }
+  playing = !playing;
+  lastFrame = performance.now();
+  updatePlayButtonUI();
+  updateAmbientGain();
 }
 
 function replay() {
+  isDragging = false;
   seekTo(0);
+  if (scrub) scrub.value = '0';
   playing = true;
-  if (playBtn) {
-    playBtn.classList.add('on');
-    playBtn.innerHTML = '<span>❚❚</span>Pause';
-  }
+  lastFrame = performance.now();
+  updatePlayButtonUI();
+  updateAmbientGain();
 }
 
+// ==========================================
+// SMOOTH TOUCH DRAG SCRUBBER (NO FIGHTING FINGER)
+// ==========================================
+if (scrub) {
+  const startDrag = () => {
+    if (!isDragging) {
+      isDragging = true;
+      wasPlayingBeforeDrag = playing;
+      playing = false;
+      updateAmbientGain();
+    }
+  };
+  const endDrag = () => {
+    if (isDragging) {
+      isDragging = false;
+      playing = wasPlayingBeforeDrag && currentTime < DUR - 0.05;
+      lastFrame = performance.now();
+      updatePlayButtonUI();
+      updateAmbientGain();
+    }
+  };
+
+  scrub.addEventListener('pointerdown', startDrag);
+  scrub.addEventListener('touchstart', startDrag, { passive: true });
+  scrub.addEventListener('input', () => {
+    const targetSec = (Number(scrub.value) / 1000) * DUR;
+    seekTo(targetSec);
+  });
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('touchend', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+}
+
+// Button Bindings
+if (playBtn) playBtn.addEventListener('click', togglePlay);
+if (replayBtn) replayBtn.addEventListener('click', replay);
+if (soundBtn) soundBtn.addEventListener('click', toggleSound);
+if (ccBtn) ccBtn.addEventListener('click', toggleCC);
+if (ratioBtn) ratioBtn.addEventListener('click', toggleRatio);
 if (fsBtn) {
-  fsBtn.onclick = () => {
+  fsBtn.addEventListener('click', () => {
     if (!document.fullscreenElement) stage.requestFullscreen().catch(() => {});
     else document.exitFullscreen();
-  };
+  });
 }
 document.addEventListener('fullscreenchange', () => {
   document.body.classList.toggle('is-fullscreen', !!document.fullscreenElement);
   setTimeout(resizeCanvas, 60);
 });
-
-if (playBtn) playBtn.onclick = togglePlay;
-if (replayBtn) replayBtn.onclick = replay;
-if (soundBtn) soundBtn.onclick = toggleSound;
-if (ccBtn) ccBtn.onclick = toggleCC;
-if (ratioBtn) ratioBtn.onclick = toggleRatio;
-if (scrub) {
-  scrub.oninput = () => {
-    playing = false;
-    if (playBtn) {
-      playBtn.classList.remove('on');
-      playBtn.innerHTML = '<span>▶</span>Play';
-    }
-    seekTo((scrub.value / 1000) * DUR);
-  };
-}
 
 setupCaptions();
 lastFrame = performance.now();
@@ -334,17 +381,15 @@ requestAnimationFrame(function loop(now) {
   const dt = Math.min((now - lastFrame) / 1000, 0.1);
   lastFrame = now;
 
-  if (playing) {
+  if (playing && !isDragging) {
     currentTime = Math.min(currentTime + dt, DUR);
-    checkTimelineSFX(currentTime);
-    if (scrub) scrub.value = (currentTime / DUR) * 1000;
+    processFrameAudio(currentTime);
+    if (scrub) scrub.value = String(Math.round((currentTime / DUR) * 1000));
     if (timeEl) timeEl.textContent = `${fmt(currentTime)} / ${fmt(DUR)}`;
     if (currentTime >= DUR) {
       playing = false;
-      if (playBtn) {
-        playBtn.classList.remove('on');
-        playBtn.innerHTML = '<span>▶</span>Play';
-      }
+      updatePlayButtonUI();
+      updateAmbientGain();
     }
   }
 
