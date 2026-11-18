@@ -1,5 +1,6 @@
 // ==========================================
 // SCENE: THE 2:00 AM SCROLL TRAP — DUAL-RATIO 2.5D DIORAMA (16:9 & 9:16 NATIVE FIT • 50s)
+// Complete Updated File (Symmetric Lamp Cone + Aligned Eye Gaze + Natural Arm)
 // ==========================================
 const SCENE_DATA = {
   duration: 50,
@@ -34,14 +35,13 @@ const SCENE_DATA = {
     ctx.save();
     ctx.clearRect(0, 0, W, H);
 
-    // True Adaptive Framing: Fits entire bedroom width in 9:16 WITHOUT cropping!
+    // True Adaptive Framing: Fits entire bedroom width in 9:16 WITHOUT cropping
     const isPortrait = W < H;
     const targetSpanW = isPortrait ? 1040 : 1920;
     const scale = isPortrait ? (W / targetSpanW) : Math.max(W / 1920, H / 1080);
     const ox = (W - 1920 * scale) * 0.5 + (isPortrait ? 45 * scale : 0);
     const oy = (H - 1080 * scale) * 0.5 + (isPortrait ? 85 * scale : 0);
 
-    // Fill full vertical ceiling & floor background in 9:16 mode so there are never black bars
     if (isPortrait) {
       const bgFill = ctx.createLinearGradient(0, 0, 0, H);
       bgFill.addColorStop(0, '#0a0c12');
@@ -71,7 +71,7 @@ const SCENE_DATA = {
       ctx.scale(zoom, zoom);
       ctx.translate(-960, -540);
 
-      // Extended Wall (Covers tall 9:16 ceiling seamlessly)
+      // Extended Wall
       const wallGrad = ctx.createRadialGradient(780, 480, 80, 960, 540, 1450);
       wallGrad.addColorStop(0, lampOn ? '#2a282c' : '#141926');
       wallGrad.addColorStop(0.55, '#171920');
@@ -100,7 +100,7 @@ const SCENE_DATA = {
         ctx.stroke();
       });
 
-      // Night Window (Positioned over bed so both 16:9 & 9:16 frame it cleanly)
+      // Night Window
       const wx = 860, wy = 145, ww = 390, wh = 430;
       ctx.fillStyle = '#090b10';
       ctx.fillRect(wx - 10, wy - 10, ww + 20, wh + 20);
@@ -238,20 +238,20 @@ const SCENE_DATA = {
       ctx.roundRect(bx + 495, by - 12, 182, 64, 14);
       ctx.fill();
 
-      // Volumetric Warm Lamp Light Cone
+      // Volumetric Warm Lamp Light Cone (Clean Symmetric Cone)
       if (lampOn) {
         ctx.save();
         ctx.globalCompositeOperation = 'screen';
-        const cone = ctx.createRadialGradient(lx, ly + 40, 15, lx + 180, ly + 220, 560);
+        const cone = ctx.createRadialGradient(lx, ly + 40, 15, lx, ly + 220, 420);
         cone.addColorStop(0, 'rgba(255, 214, 140, 0.55)');
-        cone.addColorStop(0.45, 'rgba(255, 185, 100, 0.16)');
+        cone.addColorStop(0.5, 'rgba(255, 185, 100, 0.16)');
         cone.addColorStop(1, 'rgba(255, 185, 100, 0)');
         ctx.fillStyle = cone;
         ctx.beginPath();
         ctx.moveTo(lx - 42, ly + 68);
         ctx.lineTo(lx + 42, ly + 68);
-        ctx.lineTo(lx + 560, 860);
-        ctx.lineTo(lx - 140, 860);
+        ctx.lineTo(lx + 155, 845);
+        ctx.lineTo(lx - 155, 845);
         ctx.closePath();
         ctx.fill();
         ctx.restore();
@@ -276,7 +276,7 @@ const SCENE_DATA = {
     };
 
     // ==========================================
-    // HELPER 2: RIM-LIT STICK-FIGURE CHARACTER (NATURAL ELBOW-ON-BED POSTURE)
+    // HELPER 2: RIM-LIT STICK-FIGURE CHARACTER
     // ==========================================
     const drawStickCharacterOnBed = (opts = {}) => {
       const {
@@ -363,15 +363,15 @@ const SCENE_DATA = {
       ctx.arc(headX, headY, 32, 0, Math.PI * 2);
       ctx.fill();
 
-      // Glowing Eyes
+      // Glowing Eyes Aligned With Gaze Toward Phone Screen
       if (phoneOn) {
         const blink = (t % 4.5) > 4.3 ? 0.1 : 1;
         ctx.shadowColor = '#ffffff';
         ctx.shadowBlur = 10;
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
-        ctx.ellipse(headX + 10, headY - 10, 4.5, 5.5 * blink, -0.3, 0, Math.PI * 2);
-        ctx.ellipse(headX + 20, headY - 4, 4.5, 5.5 * blink, -0.3, 0, Math.PI * 2);
+        ctx.ellipse(headX + 8, headY - 14, 3.8, 4.8 * blink, -0.45, 0, Math.PI * 2);
+        ctx.ellipse(headX + 17, headY - 10, 3.8, 4.8 * blink, -0.45, 0, Math.PI * 2);
         ctx.fill();
         ctx.shadowBlur = 0;
       }
