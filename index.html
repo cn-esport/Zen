@@ -18,6 +18,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      touch-action: manipulation;
     }
     .top-bar {
       flex: 0 0 auto;
@@ -52,7 +53,6 @@
       border: 1px solid #1d2d4a;
       background: #04070f;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75);
-      transition: aspect-ratio 0.25s ease;
     }
     body.v #stage {
       width: auto;
@@ -82,15 +82,17 @@
       width: 100%;
       max-width: 720px;
       margin: 0 auto;
-      padding: 6px 14px 4px;
+      padding: 10px 16px 6px;
       background: #050811;
       z-index: 30;
+      touch-action: none;
     }
     #scrub {
       width: 100%;
-      height: 6px;
+      height: 24px;
       accent-color: #5ca8ff;
       cursor: pointer;
+      display: block;
     }
     .controls {
       flex: 0 0 auto;
@@ -100,7 +102,7 @@
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 6px;
-      padding: 6px 10px 14px;
+      padding: 4px 10px 14px;
       background: #050811;
       z-index: 30;
     }
@@ -109,7 +111,7 @@
       border: 1px solid #22324f;
       color: #9cb3d9;
       border-radius: 11px;
-      padding: 9px 2px;
+      padding: 10px 2px;
       font-size: 10px;
       font-weight: 600;
       display: flex;
@@ -119,10 +121,14 @@
       gap: 3px;
       cursor: pointer;
       user-select: none;
+      outline: none;
+      touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
-      transition: all 0.18s ease;
     }
-    .ctrl-btn span { font-size: 13px; line-height: 1; }
+    .ctrl-btn:active {
+      transform: scale(0.95);
+    }
+    .ctrl-btn span { font-size: 13px; line-height: 1; pointer-events: none; }
     .ctrl-btn.on {
       background: #182947;
       border-color: #5ca8ff;
@@ -153,7 +159,7 @@
   </div>
 
   <div id="scrub-wrap">
-    <input id="scrub" type="range" min="0" max="1000" value="0" />
+    <input id="scrub" type="range" min="0" max="1000" step="1" value="0" />
   </div>
 
   <div class="controls">
@@ -165,7 +171,7 @@
     <button id="fs" class="ctrl-btn" type="button"><span>⛶</span>Full</button>
   </div>
 
-  <script src="scene.js?v=12"></script>
-  <script src="engine.js?v=12"></script>
+  <script src="scene.js?v=14"></script>
+  <script src="engine.js?v=14"></script>
 </body>
 </html>
