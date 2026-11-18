@@ -1,16 +1,16 @@
 // ==========================================
-// ZEN CINEMA ENGINE V8 — DEEP CINEMA AUDIO + LAYERED SFX + CONTROLS
+// ZEN CINEMA ENGINE V9 — DUAL RATIO (16:9 / 9:16) + DEEP AUDIO + CONTROLS
 // ==========================================
 const $ = s => document.querySelector(s);
 const stage = $('#stage'), caps = $('#caps'), fade = $('#fade');
 const playBtn = $('#play'), soundBtn = $('#sound'), ccBtn = $('#cc');
+const ratioBtn = $('#ratio'), studioLabel = $('#studio-label');
 const scrub = $('#scrub'), timeEl = $('#time'), fsBtn = $('#fs'), replayBtn = $('#replay');
 
-let DUR = 50, playing = true, soundOn = false, ccOn = true;
+let DUR = 50, playing = true, soundOn = false, ccOn = true, isVertical = false;
 let currentTime = 0, lastFrame = performance.now();
 let actx = null, masterGain = null, compressor = null, tickTimer = null, heartbeatTimer = null, firedSfx = new Set();
 
-// Inject High-DPI Cinema Canvas inside #stage
 const canvas = document.createElement('canvas');
 canvas.id = 'cinema-canvas';
 canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;';
@@ -75,8 +75,21 @@ function updateCaptions(t) {
   }
 }
 
+function toggleRatio() {
+  isVertical = !isVertical;
+  document.body.classList.toggle('v', isVertical);
+  if (ratioBtn) {
+    ratioBtn.innerHTML = isVertical ? '<span>📱</span>9:16' : '<span>🖥</span>16:9';
+  }
+  if (studioLabel) {
+    studioLabel.textContent = isVertical ? 'ZEN // 9:16 SHORTS' : 'ZEN // 16:9 YOUTUBE';
+  }
+  setTimeout(resizeCanvas, 50);
+  setTimeout(resizeCanvas, 280);
+}
+
 // ==========================================
-// CINEMA-GRADE WEB AUDIO ENGINE (WARM DRONE + HEARTBEAT + REVERB SFX)
+// CINEMA-GRADE WEB AUDIO ENGINE
 // ==========================================
 function ensureAudio() {
   if (actx) return;
@@ -95,7 +108,6 @@ function ensureAudio() {
   masterGain.connect(compressor);
   compressor.connect(actx.destination);
 
-  // Warm Detuned Nocturne Synth Pad (D2 + A2 + E3 + F3)
   const padNotes = [
     { f: 73.42, type: 'sine',     vol: 0.26, cut: 180 },
     { f: 110.0, type: 'triangle', vol: 0.16, cut: 280 },
@@ -138,7 +150,6 @@ function triggerSFX(type) {
   const now = actx.currentTime;
 
   if (type === 'notification') {
-    // Glassy 3-note smartphone alert with subtle echo
     [1318.5, 1661.2, 1975.5].forEach((freq, idx) => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'sine';
@@ -151,7 +162,6 @@ function triggerSFX(type) {
       o.stop(now + idx * 0.085 + 0.58);
     });
   } else if (type === 'swipe' || type === 'whoosh') {
-    // Silky velvet air-swipe + subtle low thump
     const buf = actx.createBuffer(1, actx.sampleRate * 0.34, actx.sampleRate);
     const data = buf.getChannelData(0);
     for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
@@ -167,7 +177,6 @@ function triggerSFX(type) {
     src.connect(f); f.connect(g); g.connect(masterGain);
     src.start(now);
   } else if (type === 'chime') {
-    // Warm Harmonic Dopamine Shimmer (D5 + A5 + E6)
     [587.33, 880, 1318.5].forEach((freq, idx) => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'sine';
@@ -180,7 +189,6 @@ function triggerSFX(type) {
       o.stop(now + idx * 0.07 + 1.0);
     });
   } else if (type === 'boom') {
-    // Deep Cinematic Sub-Drop + Soft Air Tail
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'sine';
     o.frequency.setValueAtTime(125, now);
@@ -190,7 +198,6 @@ function triggerSFX(type) {
     o.connect(g); g.connect(masterGain);
     o.start(now); o.stop(now + 0.95);
   } else if (type === 'lock') {
-    // Crisp tactile phone lock click + peaceful silence drop
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'triangle';
     o.frequency.setValueAtTime(1150, now);
@@ -217,17 +224,12 @@ function enableSoundNow() {
   if (actx.state === 'suspended') actx.resume();
   soundOn = true;
   masterGain.gain.setTargetAtTime(1.0, actx.currentTime, 0.15);
-  if (soundBtn) {
-    soundBtn.classList.add('on');
-    soundBtn.innerHTML = '<span>🔊</span>Sound On';
-  }
+  if (soundBtn) soundBtn.classList.add('on');
   clearInterval(tickTimer);
   clearInterval(heartbeatTimer);
 
-  // Subtle clock tick (0s - 15s & 30s - 46.4s)
   tickTimer = setInterval(() => {
-    if (!playing || !soundOn || !actx || currentTime >= 46.4) return;
-    if (currentTime >= 15.0 && currentTime < 30.0) return; // Heartbeat takes over during dopamine scenes
+    if (!playing || !soundOn || !actx || currentTime >= (DUR - 3.6)) return;
     const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime;
     o.type = 'triangle';
     o.frequency.setValueAtTime(940, t);
@@ -239,9 +241,8 @@ function enableSoundNow() {
     o.start(t); o.stop(t + 0.05);
   }, 1000);
 
-  // Hypnotic slow heartbeat during Dopamine & Craving scenes (15s - 30s)
   heartbeatTimer = setInterval(() => {
-    if (currentTime >= 15.0 && currentTime < 30.0) playHeartbeat();
+    if (currentTime >= 14.3 && currentTime < 25.0) playHeartbeat();
   }, 1150);
 }
 
@@ -252,10 +253,7 @@ function toggleSound() {
   } else {
     soundOn = false;
     if (masterGain && actx) masterGain.gain.setTargetAtTime(0.0001, actx.currentTime, 0.15);
-    if (soundBtn) {
-      soundBtn.classList.remove('on');
-      soundBtn.innerHTML = '<span>🔇</span>Sound Off';
-    }
+    if (soundBtn) soundBtn.classList.remove('on');
     clearInterval(tickTimer);
     clearInterval(heartbeatTimer);
   }
@@ -269,10 +267,7 @@ if (stage) {
 
 function toggleCC() {
   ccOn = !ccOn;
-  if (ccBtn) {
-    ccBtn.classList.toggle('on', ccOn);
-    ccBtn.innerHTML = ccOn ? '<span>CC</span>Subtitles' : '<span>CC</span>Off';
-  }
+  if (ccBtn) ccBtn.classList.toggle('on', ccOn);
   updateCaptions(currentTime);
 }
 
@@ -320,6 +315,7 @@ if (playBtn) playBtn.onclick = togglePlay;
 if (replayBtn) replayBtn.onclick = replay;
 if (soundBtn) soundBtn.onclick = toggleSound;
 if (ccBtn) ccBtn.onclick = toggleCC;
+if (ratioBtn) ratioBtn.onclick = toggleRatio;
 if (scrub) {
   scrub.oninput = () => {
     playing = false;
