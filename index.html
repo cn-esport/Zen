@@ -8,45 +8,32 @@
 </head>
 <body class="v">
   <div id="app">
-    <!-- Top Header -->
     <header id="top-bar">
-      <span class="brand">LAST SOUL // STUDIO</span>
+      <span class="brand">LAST SOUL STUDIO</span>
       <span id="timer">00:00 / 00:15</span>
     </header>
 
-    <!-- Framed 9:16 Video Preview Box -->
     <main id="preview-area">
       <div id="stage">
         <div id="camera">
-          <!-- 4 Parallax Depth Layers from SKILL.md -->
           <svg id="L-bg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
           <svg id="L-mid" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
           <svg id="L-char" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
           <svg id="L-fg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
-
-          <!-- 46 Deterministic Dust Motes -->
           <div id="dust"></div>
         </div>
 
         <div id="vignette"></div>
-
-        <!-- Synced Captions -->
         <div id="caps"></div>
-
-        <!-- Fade In / Out -->
         <div id="fade"></div>
-
-        <!-- Exit Fullscreen Hint -->
         <div id="fs-hint">Tap anywhere to exit Full Screen</div>
       </div>
     </main>
 
-    <!-- Progress Bar -->
     <div id="progress-wrap">
       <div id="progress-bar"></div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
     <nav id="bottom-controls">
       <button class="nav-btn" id="muteBtn">
         <span class="icon">🔊</span>
@@ -70,6 +57,8 @@
     </nav>
   </div>
 
+  <!-- Loads your scene first, then runs the studio engine -->
   <script src="scene.js"></script>
+  <script src="engine.js"></script>
 </body>
 </html>
