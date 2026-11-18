@@ -1,5 +1,5 @@
 // ==========================================
-// SCENE: THE 2:00 AM PHONE SCROLL TRAP (V6 • 8-SCENE CINEMA CUT • 50s)
+// SCENE: THE 2:00 AM PHONE SCROLL TRAP (V7 • CHARACTER-DRIVEN 8 SCENES • 50s)
 // ==========================================
 const SCENE_DATA = {
   duration: 50,
@@ -7,12 +7,12 @@ const SCENE_DATA = {
     { at: 0.6,  type: "notification" },
     { at: 4.0,  type: "whoosh" },
     { at: 5.2,  type: "swipe" },
-    { at: 7.4,  type: "swipe" },
+    { at: 7.2,  type: "swipe" },
     { at: 9.0,  type: "boom" },
     { at: 15.0, type: "chime" },
-    { at: 19.5, type: "chime" },
+    { at: 19.0, type: "chime" },
     { at: 22.0, type: "whoosh" },
-    { at: 25.0, type: "chime" },
+    { at: 25.5, type: "chime" },
     { at: 30.0, type: "boom" },
     { at: 36.0, type: "whoosh" },
     { at: 42.0, type: "boom" },
@@ -94,7 +94,7 @@ const SCENE_DATA = {
       const {
         x = 390, y = 1520,
         screenOn = true, glowStrength = 1, lean = 0,
-        eyeOpen = 1, squint = 0, goldSpark = false
+        eyeOpen = 1, squint = 0, goldSpark = false, lookUp = 0
       } = opts;
 
       ctx.save();
@@ -162,7 +162,7 @@ const SCENE_DATA = {
 
       ctx.save();
       ctx.translate(headX, headY);
-      ctx.rotate(0.06 + lean * 0.12 + Math.sin(t * 0.9) * 0.02);
+      ctx.rotate(0.06 + lean * 0.12 - lookUp * 0.35 + Math.sin(t * 0.9) * 0.02);
 
       ctx.beginPath();
       ctx.arc(0, 0, 76, 0, Math.PI * 2);
@@ -214,7 +214,7 @@ const SCENE_DATA = {
     };
 
     // ==========================================
-    // 8-SCENE CINEMA TIMELINE (50 SECONDS)
+    // 8-SCENE CHARACTER-DRIVEN TIMELINE (50 SECONDS)
     // ==========================================
     if (t < 4.0) {
       // SCENE 1 (0:00 - 0:04): Midnight Hook
@@ -289,14 +289,13 @@ const SCENE_DATA = {
       ctx.restore();
 
     } else if (t < 15.0) {
-      // SCENE 3 (0:09 - 0:15): Time Slipping Away (Spinning Clock + Endless Feed Rings)
+      // SCENE 3 (0:09 - 0:15): Time Slipping Away (Glowing Midnight Clock + Loop Rings)
       const local = t - 9.0;
       const p = local / 6.0;
       drawNightBackdrop(1.06 - p * 0.06, 0.12);
 
       ctx.save();
       ctx.translate(540, 820);
-      // Concentric Slot/Loop Rings
       for (let r = 1; r <= 3; r++) {
         ctx.strokeStyle = `rgba(90, 175, 255, ${0.18 / r})`;
         ctx.lineWidth = 3;
@@ -305,7 +304,6 @@ const SCENE_DATA = {
         ctx.stroke();
       }
 
-      // Glowing Minimalist Clock Face
       ctx.fillStyle = '#060c1a';
       ctx.strokeStyle = 'rgba(130, 200, 255, 0.55)';
       ctx.lineWidth = 5;
@@ -314,10 +312,8 @@ const SCENE_DATA = {
       ctx.fill();
       ctx.stroke();
 
-      // Hour & Fast-Spinning Minute Hands
       ctx.strokeStyle = '#e6f4ff';
       ctx.lineCap = 'round';
-      // Hour hand (2:00 -> 2:35)
       const hrAngle = -Math.PI / 6 + p * 0.55;
       ctx.lineWidth = 8;
       ctx.beginPath();
@@ -325,7 +321,6 @@ const SCENE_DATA = {
       ctx.lineTo(Math.cos(hrAngle) * 110, Math.sin(hrAngle) * 110);
       ctx.stroke();
 
-      // Minute hand sweeping 35 minutes
       const minAngle = -Math.PI / 2 + p * Math.PI * 1.25;
       ctx.strokeStyle = '#ffd54f';
       ctx.lineWidth = 5;
@@ -349,37 +344,99 @@ const SCENE_DATA = {
       });
 
     } else if (t < 30.0) {
-      // SCENE 5 (0:22 - 0:30): The Unpredictable Next Reward (Floating Mystery Cards)
+      // SCENE 5 (0:22 - 0:30): Last Soul Silhouette Pulled Forward by a Glowing Golden Thread
       const local = t - 22.0;
-      drawNightBackdrop(1.04, 0.15);
+      const p = local / 8.0;
+      drawNightBackdrop(1 + p * 0.07, 0.14);
 
+      const walkX = 270 + p * 170;
+      const walkBob = Math.abs(Math.sin(local * 3.4)) * 14;
+      const beaconX = 830;
+      const beaconY = 820;
+
+      // Floating Glowing Orb Beacon Ahead (The "Next Video" Lure)
+      const orbPulse = 1 + Math.sin(local * 5) * 0.12;
+      const orbGlow = ctx.createRadialGradient(beaconX, beaconY, 8, beaconX, beaconY, 240 * orbPulse);
+      orbGlow.addColorStop(0, 'rgba(255, 224, 130, 0.85)');
+      orbGlow.addColorStop(0.35, 'rgba(110, 195, 255, 0.32)');
+      orbGlow.addColorStop(1, 'rgba(10, 25, 55, 0)');
+      ctx.fillStyle = orbGlow;
+      ctx.beginPath();
+      ctx.arc(beaconX, beaconY, 240 * orbPulse, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.shadowColor = '#ffd54f';
+      ctx.shadowBlur = 25;
+      ctx.fillStyle = '#fff5cc';
+      ctx.beginPath();
+      ctx.arc(beaconX, beaconY, 16, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Glowing Golden Thread Connecting Orb Directly to Character's Eyes
+      const headX = walkX + 24;
+      const headY = 835 - walkBob;
+      ctx.strokeStyle = 'rgba(255, 218, 115, 0.78)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(headX + 45, headY);
+      ctx.quadraticCurveTo((headX + beaconX) * 0.5, headY + 45 + Math.sin(local * 4) * 18, beaconX, beaconY);
+      ctx.stroke();
+
+      // Walking Full-Body Last Soul Silhouette Leaning Into the Pull
       ctx.save();
-      ctx.translate(540, 820);
-      for (let i = 0; i < 3; i++) {
-        const offset = (i - 1) * 240;
-        const bob = Math.sin(local * 2.5 + i * 1.4) * 18;
-        const active = Math.floor(local * 1.5) % 3 === i;
+      ctx.translate(walkX, 1260 - walkBob);
+      ctx.fillStyle = '#040508';
+      ctx.strokeStyle = 'rgba(255, 220, 130, 0.28)';
+      ctx.lineWidth = 2;
 
-        ctx.save();
-        ctx.translate(offset, bob);
-        ctx.scale(active ? 1.08 : 0.94, active ? 1.08 : 0.94);
+      // Striding Legs
+      const stride = Math.sin(local * 3.4) * 38;
+      ctx.beginPath();
+      ctx.moveTo(-18, -110);
+      ctx.lineTo(-28 - stride, 130);
+      ctx.lineTo(-4 - stride, 130);
+      ctx.lineTo(14, -110);
+      ctx.moveTo(-8, -110);
+      ctx.lineTo(18 + stride, 130);
+      ctx.lineTo(42 + stride, 130);
+      ctx.lineTo(22, -110);
+      ctx.fill();
 
-        ctx.fillStyle = active ? '#12284d' : '#081122';
-        ctx.strokeStyle = active ? '#ffd54f' : 'rgba(110, 185, 255, 0.35)';
-        ctx.lineWidth = active ? 4 : 2.5;
-        ctx.beginPath();
-        ctx.roundRect(-95, -145, 190, 290, 24);
-        ctx.fill();
-        ctx.stroke();
+      // Leaning Torso + Outreached Arm
+      ctx.beginPath();
+      ctx.moveTo(-42, -95);
+      ctx.bezierCurveTo(-48, -230, -15, -335, 32, -355);
+      ctx.bezierCurveTo(68, -365, 88, -325, 76, -260);
+      ctx.lineTo(145, -245);
+      ctx.lineTo(142, -225);
+      ctx.lineTo(62, -225);
+      ctx.lineTo(35, -95);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
 
-        ctx.fillStyle = active ? '#ffd54f' : 'rgba(160, 210, 255, 0.55)';
-        ctx.font = 'bold 84px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(active ? '★' : '?', 0, 6);
-        ctx.restore();
-      }
+      // Head & Hypnotized Glowing Eyes
+      ctx.beginPath();
+      ctx.arc(46, -420, 56, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.shadowColor = '#ffffff';
+      ctx.shadowBlur = 16;
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.ellipse(64, -418, 9, 11, 0, 0, Math.PI * 2);
+      ctx.ellipse(86, -414, 9, 11, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
       ctx.restore();
+
+      // Ground Shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.65)';
+      ctx.beginPath();
+      ctx.ellipse(walkX, 1395, 110, 16, 0, 0, Math.PI * 2);
+      ctx.fill();
 
     } else if (t < 36.0) {
       // SCENE 6 (0:30 - 0:36): Fake Noon Sun Flooding the Room
@@ -403,39 +460,46 @@ const SCENE_DATA = {
       });
 
     } else if (t < 42.0) {
-      // SCENE 7 (0:36 - 0:42): Melatonin Shutdown (Crescent Moon Dimming in Blue Waves)
+      // SCENE 7 (0:36 - 0:42): Character Looking Up as Crescent Moon Gets Eclipsed by Blue Screen Light
       const local = t - 36.0;
       const p = local / 6.0;
-      drawNightBackdrop(1 + p * 0.05, 0);
+      drawNightBackdrop(1 + p * 0.05, 0.15);
 
+      // Peaceful Crescent Moon High Above Character
+      const moonX = 680;
+      const moonY = 460;
       ctx.save();
-      ctx.translate(540, 740);
-      // Fading Crescent Moon
-      ctx.globalAlpha = Math.max(0.1, 0.95 - p * 0.85);
+      ctx.globalAlpha = Math.max(0.12, 0.95 - p * 0.82);
       ctx.shadowColor = '#dce7fa';
       ctx.shadowBlur = 35 * (1 - p * 0.8);
       ctx.fillStyle = '#eef5ff';
       ctx.beginPath();
-      ctx.arc(0, 0, 130, 0, Math.PI * 2);
+      ctx.arc(moonX, moonY, 95, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
 
       ctx.fillStyle = '#070f1f';
       ctx.beginPath();
-      ctx.arc(52, -32, 115, 0, Math.PI * 2);
+      ctx.arc(moonX + 38, moonY - 24, 84, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
 
-      // Blue Light Waves Rising From Bottom
-      for (let w = 0; w < 3; w++) {
-        const wy = 1450 - ((local * 140 + w * 220) % 750);
-        const wa = Math.max(0, 0.35 - (1450 - wy) / 2100);
-        ctx.strokeStyle = `rgba(100, 195, 255, ${wa})`;
-        ctx.lineWidth = 4;
-        ctx.beginPath();
-        ctx.arc(540, 1650, 1650 - wy, Math.PI * 1.15, Math.PI * 1.85);
-        ctx.stroke();
-      }
+      // Rising Blue Screen Light Aura Washing Over the Sky
+      const blueWash = ctx.createRadialGradient(640, 1300, 40, 640, 900, 920);
+      blueWash.addColorStop(0, `rgba(110, 195, 255, ${0.25 + p * 0.35})`);
+      blueWash.addColorStop(1, 'rgba(10, 25, 55, 0)');
+      ctx.fillStyle = blueWash;
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      // Character Tilting Head Upward Toward the Fading Moon
+      drawCharacter({
+        x: 360, y: 1520,
+        screenOn: true,
+        glowStrength: 1.1,
+        lean: -0.05,
+        lookUp: easeOut(Math.min(1, local / 1.4)),
+        eyeOpen: Math.max(0.45, 1 - p * 0.45)
+      });
 
     } else {
       // SCENE 8 (0:42 - 0:50): Hostage Behind Light Bars -> Lights Out & Sleep
