@@ -1,15 +1,16 @@
 // ==========================================
-// ZEN CINEMA ENGINE V5 — 60FPS HTML5 CANVAS + VOLUMETRIC LIGHTING + SFX
+// ZEN CINEMA ENGINE V6 — WORKING CONTROLS + CC TOGGLE + 60FPS CANVAS
 // ==========================================
 const $ = s => document.querySelector(s);
 const stage = $('#stage'), caps = $('#caps'), fade = $('#fade');
-const playBtn = $('#play'), soundBtn = $('#sound'), scrub = $('#scrub'), timeEl = $('#time'), fsBtn = $('#fs');
+const playBtn = $('#play'), soundBtn = $('#sound'), ccBtn = $('#cc');
+const scrub = $('#scrub'), timeEl = $('#time'), fsBtn = $('#fs'), replayBtn = $('#replay');
 
-let DUR = 50, playing = true, soundOn = false;
+let DUR = 50, playing = true, soundOn = false, ccOn = true;
 let currentTime = 0, lastFrame = performance.now();
 let actx = null, masterGain = null, tickTimer = null, firedSfx = new Set();
 
-// Create High-DPI Cinema Canvas inside #stage
+// Inject High-DPI Cinema Canvas inside #stage
 const canvas = document.createElement('canvas');
 canvas.id = 'cinema-canvas';
 canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;';
@@ -36,9 +37,13 @@ function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
 function fmt(s) { return `${pad(s / 60)}:${pad(s % 60)}`; }
 
 function setupCaptions() {
-  if (!caps || typeof SCENE_DATA === 'undefined') return;
-  DUR = SCENE_DATA.duration || 50;
+  if (typeof SCENE_DATA !== 'undefined' && SCENE_DATA.duration) {
+    DUR = SCENE_DATA.duration;
+  }
   document.documentElement.style.setProperty('--dur', DUR + 's');
+  if (timeEl) timeEl.textContent = `00:00 / ${fmt(DUR)}`;
+
+  if (!caps || typeof SCENE_DATA === 'undefined') return;
   caps.innerHTML = '';
   (SCENE_DATA.captions || []).forEach(c => {
     const d = document.createElement('div');
@@ -46,21 +51,25 @@ function setupCaptions() {
     d.dataset.start = c.start;
     d.dataset.end = c.start + c.length;
     d.textContent = c.text;
-    d.style.cssText = 'opacity:0;transform:translate(-50%,8px);transition:opacity .35s ease,transform .35s ease;';
+    d.style.cssText = 'opacity:0;transform:translate(-50%,8px);transition:opacity .32s ease,transform .32s ease;';
     caps.appendChild(d);
   });
 }
 
 function updateCaptions(t) {
-  if (!caps) return;
-  caps.querySelectorAll('.cap').forEach(el => {
-    const s = parseFloat(el.dataset.start), e = parseFloat(el.dataset.end);
-    const active = t >= s && t <= e;
-    el.style.opacity = active ? '1' : '0';
-    el.style.transform = active ? 'translate(-50%, 0px)' : 'translate(-50%, 8px)';
-  });
+  if (caps) {
+    caps.style.display = ccOn ? 'block' : 'none';
+    if (ccOn) {
+      caps.querySelectorAll('.cap').forEach(el => {
+        const s = parseFloat(el.dataset.start), e = parseFloat(el.dataset.end);
+        const active = t >= s && t <= e;
+        el.style.opacity = active ? '1' : '0';
+        el.style.transform = active ? 'translate(-50%, 0px)' : 'translate(-50%, 8px)';
+      });
+    }
+  }
   if (fade) {
-    if (t < 1.0) fade.style.opacity = String(1 - t);
+    if (t < 0.8) fade.style.opacity = String(1 - t / 0.8);
     else if (t > DUR - 0.8) fade.style.opacity = String((t - (DUR - 0.8)) / 0.8);
     else fade.style.opacity = '0';
   }
@@ -76,7 +85,6 @@ function ensureAudio() {
   masterGain.gain.value = 0.0001;
   masterGain.connect(actx.destination);
 
-  // Deep Dark Ambient Drone (A1 + E2)
   const o1 = actx.createOscillator(), o2 = actx.createOscillator(), lp = actx.createBiquadFilter(), g = actx.createGain();
   o1.type = 'sine'; o1.frequency.value = 55;
   o2.type = 'triangle'; o2.frequency.value = 82.41;
@@ -155,7 +163,15 @@ function toggleSound() {
   }
 }
 
-// Controls
+function toggleCC() {
+  ccOn = !ccOn;
+  if (ccBtn) {
+    ccBtn.classList.toggle('on', ccOn);
+    ccBtn.innerHTML = ccOn ? '<span>CC</span>Subtitles' : '<span>CC</span>Off';
+  }
+  updateCaptions(currentTime);
+}
+
 function seekTo(sec) {
   currentTime = Math.max(0, Math.min(DUR, sec));
   firedSfx.clear();
@@ -170,41 +186,50 @@ function seekTo(sec) {
 function togglePlay() {
   if (!playing && currentTime >= DUR - 0.05) seekTo(0);
   playing = !playing;
-  if (playBtn) playBtn.innerHTML = playing ? '<span>❚❚</span>Pause' : '<span>▶</span>Play';
+  if (playBtn) {
+    playBtn.classList.toggle('on', playing);
+    playBtn.innerHTML = playing ? '<span>❚❚</span>Pause' : '<span>▶</span>Play';
+  }
 }
 
 function replay() {
   seekTo(0);
   playing = true;
-  if (playBtn) playBtn.innerHTML = '<span>❚❚</span>Pause';
+  if (playBtn) {
+    playBtn.classList.add('on');
+    playBtn.innerHTML = '<span>❚❚</span>Pause';
+  }
 }
 
-if (fsBtn) fsBtn.onclick = () => {
-  if (!document.fullscreenElement) stage.requestFullscreen().catch(() => {});
-  else document.exitFullscreen();
-};
+if (fsBtn) {
+  fsBtn.onclick = () => {
+    if (!document.fullscreenElement) stage.requestFullscreen().catch(() => {});
+    else document.exitFullscreen();
+  };
+}
 document.addEventListener('fullscreenchange', () => {
   document.body.classList.toggle('is-fullscreen', !!document.fullscreenElement);
   setTimeout(resizeCanvas, 60);
 });
-function setRatio(v) {
-  document.body.classList.toggle('v', v === '9:16');
-  if ($('#r16')) $('#r16').classList.toggle('on', v === '16:9');
-  if ($('#r9')) $('#r9').classList.toggle('on', v === '9:16');
-  setTimeout(resizeCanvas, 60);
-  replay();
-}
-if ($('#r16')) $('#r16').onclick = () => setRatio('16:9');
-if ($('#r9')) $('#r9').onclick = () => setRatio('9:16');
+
 if (playBtn) playBtn.onclick = togglePlay;
-if ($('#replay')) $('#replay').onclick = replay;
+if (replayBtn) replayBtn.onclick = replay;
 if (soundBtn) soundBtn.onclick = toggleSound;
-if (scrub) scrub.oninput = () => { playing = false; if (playBtn) playBtn.innerHTML = '<span>▶</span>Play'; seekTo((scrub.value / 1000) * DUR); };
+if (ccBtn) ccBtn.onclick = toggleCC;
+if (scrub) {
+  scrub.oninput = () => {
+    playing = false;
+    if (playBtn) {
+      playBtn.classList.remove('on');
+      playBtn.innerHTML = '<span>▶</span>Play';
+    }
+    seekTo((scrub.value / 1000) * DUR);
+  };
+}
 
 setupCaptions();
-setRatio('9:16');
+lastFrame = performance.now();
 
-// Main 60FPS Render Loop
 requestAnimationFrame(function loop(now) {
   const dt = Math.min((now - lastFrame) / 1000, 0.1);
   lastFrame = now;
@@ -216,7 +241,10 @@ requestAnimationFrame(function loop(now) {
     if (timeEl) timeEl.textContent = `${fmt(currentTime)} / ${fmt(DUR)}`;
     if (currentTime >= DUR) {
       playing = false;
-      if (playBtn) playBtn.innerHTML = '<span>▶</span>Play';
+      if (playBtn) {
+        playBtn.classList.remove('on');
+        playBtn.innerHTML = '<span>▶</span>Play';
+      }
     }
   }
 
