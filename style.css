@@ -73,7 +73,7 @@ html, body {
   overflow: hidden;
 }
 
-/* FULL SCREEN MODE (Zero UI for clean recording) */
+/* FULL SCREEN MODE (Zero UI for clean screen recording) */
 body.is-fullscreen #app {
   max-width: 100%;
   padding: 0;
@@ -119,7 +119,7 @@ body.is-fullscreen {
 body.is-fullscreen #fs-hint { display: block; }
 body.is-fullscreen #fs-hint.show { opacity: 1; }
 
-/* ---- CAMERA & PARALLAX LAYERS (SKILL.md) ---- */
+/* ---- CAMERA & PARALLAX LAYERS ---- */
 #camera {
   position: absolute;
   inset: 0;
@@ -156,7 +156,7 @@ svg.layer {
   stroke-linejoin: round;
 }
 
-/* ---- LIFE: BREATHING + HEAD TILT ---- */
+/* ---- LIFE: BREATHING, WALKING & HEAD TILT ---- */
 .breathe {
   transform-box: fill-box;
   transform-origin: 50% 100%;
@@ -166,6 +166,17 @@ svg.layer {
 @keyframes breathe {
   0%, 100% { transform: scaleY(1); }
   50% { transform: scaleY(1.012); }
+}
+
+.walk {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: walkBob 0.75s ease-in-out infinite;
+}
+
+@keyframes walkBob {
+  0%, 100% { transform: translateY(0px) rotate(-0.8deg); }
+  50% { transform: translateY(-9px) rotate(0.8deg); }
 }
 
 .head {
@@ -224,7 +235,7 @@ svg.layer {
   25%, 75% { transform: scale(1.06, .38) rotate(calc(var(--sgn) * var(--rot, 0deg))); }
 }
 
-/* ---- WARM DUST MOTES ---- */
+/* ---- DUST MOTES ---- */
 #dust { position: absolute; inset: 0; pointer-events: none; }
 #dust i {
   position: absolute;
@@ -241,7 +252,7 @@ svg.layer {
   100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
 }
 
-/* ---- VIGNETTE ---- */
+/* ---- VIGNETTE & CAPTIONS ---- */
 #vignette {
   position: absolute;
   inset: 0;
@@ -249,7 +260,6 @@ svg.layer {
   background: radial-gradient(ellipse at 50% 55%, transparent 45%, rgba(0, 0, 0, .65) 100%);
 }
 
-/* ---- CAPTIONS ---- */
 #caps {
   position: absolute;
   left: 0;
@@ -281,7 +291,7 @@ svg.layer {
 @keyframes capIn  { from { opacity: 0; } to { opacity: 1; } }
 @keyframes capOut { from { opacity: 1; } to { opacity: 0; } }
 
-/* ---- FADE FROM BLACK + FADE TO BLACK ---- */
+/* ---- FADE IN & OUT ---- */
 #fade {
   position: absolute;
   inset: 0;
@@ -296,10 +306,9 @@ svg.layer {
 @keyframes fadeIn  { from { opacity: 1; } to { opacity: 0; } }
 @keyframes fadeOut { from { opacity: 0; } to { opacity: 1; } }
 
-/* Pause State */
 .paused, .paused * { animation-play-state: paused !important; }
 
-/* Progress Bar & Bottom Controls */
+/* ---- PROGRESS BAR & BOTTOM BUTTONS ---- */
 #progress-wrap {
   width: 100%;
   height: 4px;
