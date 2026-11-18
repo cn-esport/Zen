@@ -6,7 +6,7 @@
   <title>Last Soul Studio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="v">
   <div id="app">
     <!-- Top Header -->
     <header id="top-bar">
@@ -14,18 +14,29 @@
       <span id="timer">00:00 / 00:15</span>
     </header>
 
-    <!-- Framed Video Preview Box -->
+    <!-- Framed 9:16 Video Preview Box -->
     <main id="preview-area">
       <div id="stage">
         <div id="camera">
-          <svg id="scene-svg" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice"></svg>
+          <!-- 4 Parallax Depth Layers from SKILL.md -->
+          <svg id="L-bg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+          <svg id="L-mid" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+          <svg id="L-char" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+          <svg id="L-fg" class="layer" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+
+          <!-- 46 Deterministic Dust Motes -->
+          <div id="dust"></div>
         </div>
 
-        <div id="caption-box">
-          <div id="caption"></div>
-        </div>
+        <div id="vignette"></div>
 
-        <!-- Subtle Exit Fullscreen Hint (Fades out quickly) -->
+        <!-- Synced Captions -->
+        <div id="caps"></div>
+
+        <!-- Fade In / Out -->
+        <div id="fade"></div>
+
+        <!-- Exit Fullscreen Hint -->
         <div id="fs-hint">Tap anywhere to exit Full Screen</div>
       </div>
     </main>
@@ -35,7 +46,7 @@
       <div id="progress-bar"></div>
     </div>
 
-    <!-- Bottom Navigation Controls -->
+    <!-- Bottom Navigation Bar -->
     <nav id="bottom-controls">
       <button class="nav-btn" id="muteBtn">
         <span class="icon">🔊</span>
