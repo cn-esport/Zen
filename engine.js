@@ -1,5 +1,5 @@
 // ==========================================
-// ZEN CINEMA ENGINE V7 — PUNCHY AUDIO DESIGN + LOCKED BOTTOM CONTROLS
+// ZEN CINEMA ENGINE V8 — DEEP CINEMA AUDIO + LAYERED SFX + CONTROLS
 // ==========================================
 const $ = s => document.querySelector(s);
 const stage = $('#stage'), caps = $('#caps'), fade = $('#fade');
@@ -8,7 +8,7 @@ const scrub = $('#scrub'), timeEl = $('#time'), fsBtn = $('#fs'), replayBtn = $(
 
 let DUR = 50, playing = true, soundOn = false, ccOn = true;
 let currentTime = 0, lastFrame = performance.now();
-let actx = null, masterGain = null, compressor = null, tickTimer = null, firedSfx = new Set();
+let actx = null, masterGain = null, compressor = null, tickTimer = null, heartbeatTimer = null, firedSfx = new Set();
 
 // Inject High-DPI Cinema Canvas inside #stage
 const canvas = document.createElement('canvas');
@@ -76,41 +76,60 @@ function updateCaptions(t) {
 }
 
 // ==========================================
-// CINEMA-GRADE WEB AUDIO ENGINE (LOUD & CLEAR ON MOBILE SPEAKERS)
+// CINEMA-GRADE WEB AUDIO ENGINE (WARM DRONE + HEARTBEAT + REVERB SFX)
 // ==========================================
 function ensureAudio() {
   if (actx) return;
   const AudioCtx = window.AudioContext || window.webkitAudioContext;
   actx = new AudioCtx();
 
-  // Dynamics Compressor boosts phone speaker loudness cleanly without clipping
   compressor = actx.createDynamicsCompressor();
-  compressor.threshold.value = -16;
-  compressor.knee.value = 18;
-  compressor.ratio.value = 6;
-  compressor.attack.value = 0.005;
-  compressor.release.value = 0.2;
+  compressor.threshold.value = -14;
+  compressor.knee.value = 16;
+  compressor.ratio.value = 5;
+  compressor.attack.value = 0.004;
+  compressor.release.value = 0.22;
 
   masterGain = actx.createGain();
   masterGain.gain.value = 0.0001;
   masterGain.connect(compressor);
   compressor.connect(actx.destination);
 
-  // Rich 3-Layer Dark Cinema Ambient Pad (D2 + A2 + F3 minor mood)
-  const freqs = [73.42, 110.0, 174.61];
-  freqs.forEach((f, idx) => {
+  // Warm Detuned Nocturne Synth Pad (D2 + A2 + E3 + F3)
+  const padNotes = [
+    { f: 73.42, type: 'sine',     vol: 0.26, cut: 180 },
+    { f: 110.0, type: 'triangle', vol: 0.16, cut: 280 },
+    { f: 164.8, type: 'sine',     vol: 0.11, cut: 360 },
+    { f: 174.6, type: 'sine',     vol: 0.10, cut: 360 }
+  ];
+  padNotes.forEach(n => {
     const osc = actx.createOscillator();
     const lp = actx.createBiquadFilter();
     const g = actx.createGain();
-    osc.type = idx === 0 ? 'sawtooth' : 'triangle';
-    osc.frequency.value = f;
+    osc.type = n.type;
+    osc.frequency.value = n.f;
     lp.type = 'lowpass';
-    lp.frequency.value = idx === 0 ? 190 : 320;
-    g.gain.value = idx === 0 ? 0.22 : 0.14;
-    osc.connect(lp);
-    lp.connect(g);
-    g.connect(masterGain);
+    lp.frequency.value = n.cut;
+    g.gain.value = n.vol;
+    osc.connect(lp); lp.connect(g); g.connect(masterGain);
     osc.start();
+  });
+}
+
+function playHeartbeat() {
+  if (!actx || !soundOn || !playing) return;
+  const now = actx.currentTime;
+  [0, 0.22].forEach((offset, idx) => {
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(idx === 0 ? 78 : 64, now + offset);
+    o.frequency.exponentialRampToValueAtTime(28, now + offset + 0.16);
+    g.gain.setValueAtTime(0.001, now + offset);
+    g.gain.exponentialRampToValueAtTime(idx === 0 ? 0.34 : 0.24, now + offset + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0008, now + offset + 0.18);
+    o.connect(g); g.connect(masterGain);
+    o.start(now + offset);
+    o.stop(now + offset + 0.2);
   });
 }
 
@@ -119,67 +138,67 @@ function triggerSFX(type) {
   const now = actx.currentTime;
 
   if (type === 'notification') {
-    // Realistic 3-note bright phone notification chime
+    // Glassy 3-note smartphone alert with subtle echo
     [1318.5, 1661.2, 1975.5].forEach((freq, idx) => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'sine';
       o.frequency.setValueAtTime(freq, now + idx * 0.085);
       g.gain.setValueAtTime(0.001, now + idx * 0.085);
-      g.gain.exponentialRampToValueAtTime(0.38, now + idx * 0.085 + 0.015);
-      g.gain.exponentialRampToValueAtTime(0.0008, now + idx * 0.085 + 0.45);
+      g.gain.exponentialRampToValueAtTime(0.36, now + idx * 0.085 + 0.015);
+      g.gain.exponentialRampToValueAtTime(0.0008, now + idx * 0.085 + 0.55);
       o.connect(g); g.connect(masterGain);
       o.start(now + idx * 0.085);
-      o.stop(now + idx * 0.085 + 0.48);
+      o.stop(now + idx * 0.085 + 0.58);
     });
   } else if (type === 'swipe' || type === 'whoosh') {
-    // Punchy tactile finger-flick whoosh
-    const buf = actx.createBuffer(1, actx.sampleRate * 0.32, actx.sampleRate);
+    // Silky velvet air-swipe + subtle low thump
+    const buf = actx.createBuffer(1, actx.sampleRate * 0.34, actx.sampleRate);
     const data = buf.getChannelData(0);
     for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
     const src = actx.createBufferSource(), f = actx.createBiquadFilter(), g = actx.createGain();
     src.buffer = buf;
     f.type = 'bandpass';
-    f.Q.value = 1.6;
-    f.frequency.setValueAtTime(380, now);
-    f.frequency.exponentialRampToValueAtTime(1900, now + 0.22);
+    f.Q.value = 1.4;
+    f.frequency.setValueAtTime(320, now);
+    f.frequency.exponentialRampToValueAtTime(1750, now + 0.24);
     g.gain.setValueAtTime(0.001, now);
-    g.gain.exponentialRampToValueAtTime(0.45, now + 0.05);
-    g.gain.exponentialRampToValueAtTime(0.001, now + 0.30);
+    g.gain.exponentialRampToValueAtTime(0.42, now + 0.06);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
     src.connect(f); f.connect(g); g.connect(masterGain);
     src.start(now);
   } else if (type === 'chime') {
-    // Sparkling Dopamine Harmonic Bell (A5 + E6)
-    [880, 1318.5].forEach((freq, idx) => {
+    // Warm Harmonic Dopamine Shimmer (D5 + A5 + E6)
+    [587.33, 880, 1318.5].forEach((freq, idx) => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'sine';
-      o.frequency.setValueAtTime(freq, now + idx * 0.06);
-      g.gain.setValueAtTime(0.001, now + idx * 0.06);
-      g.gain.exponentialRampToValueAtTime(0.32, now + idx * 0.06 + 0.02);
-      g.gain.exponentialRampToValueAtTime(0.0008, now + idx * 0.06 + 0.75);
+      o.frequency.setValueAtTime(freq, now + idx * 0.07);
+      g.gain.setValueAtTime(0.001, now + idx * 0.07);
+      g.gain.exponentialRampToValueAtTime(0.26, now + idx * 0.07 + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.0008, now + idx * 0.07 + 0.95);
       o.connect(g); g.connect(masterGain);
-      o.start(now + idx * 0.06);
-      o.stop(now + idx * 0.06 + 0.8);
+      o.start(now + idx * 0.07);
+      o.stop(now + idx * 0.07 + 1.0);
     });
   } else if (type === 'boom') {
-    // Heavy Cinema Sub-Bass Impact + Filtered Thud
+    // Deep Cinematic Sub-Drop + Soft Air Tail
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'sine';
-    o.frequency.setValueAtTime(135, now);
-    o.frequency.exponentialRampToValueAtTime(36, now + 0.65);
-    g.gain.setValueAtTime(0.55, now);
-    g.gain.exponentialRampToValueAtTime(0.001, now + 0.72);
+    o.frequency.setValueAtTime(125, now);
+    o.frequency.exponentialRampToValueAtTime(32, now + 0.85);
+    g.gain.setValueAtTime(0.58, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.92);
     o.connect(g); g.connect(masterGain);
-    o.start(now); o.stop(now + 0.75);
+    o.start(now); o.stop(now + 0.95);
   } else if (type === 'lock') {
-    // Sharp tactile phone screen-off click
+    // Crisp tactile phone lock click + peaceful silence drop
     const o = actx.createOscillator(), g = actx.createGain();
-    o.type = 'square';
-    o.frequency.setValueAtTime(1200, now);
-    o.frequency.exponentialRampToValueAtTime(190, now + 0.045);
-    g.gain.setValueAtTime(0.42, now);
-    g.gain.exponentialRampToValueAtTime(0.001, now + 0.055);
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(1150, now);
+    o.frequency.exponentialRampToValueAtTime(160, now + 0.045);
+    g.gain.setValueAtTime(0.45, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
     o.connect(g); g.connect(masterGain);
-    o.start(now); o.stop(now + 0.065);
+    o.start(now); o.stop(now + 0.07);
   }
 }
 
@@ -197,42 +216,51 @@ function enableSoundNow() {
   ensureAudio();
   if (actx.state === 'suspended') actx.resume();
   soundOn = true;
-  masterGain.gain.setTargetAtTime(1.0, actx.currentTime, 0.12);
+  masterGain.gain.setTargetAtTime(1.0, actx.currentTime, 0.15);
   if (soundBtn) {
     soundBtn.classList.add('on');
     soundBtn.innerHTML = '<span>🔊</span>Sound On';
   }
   clearInterval(tickTimer);
+  clearInterval(heartbeatTimer);
+
+  // Subtle clock tick (0s - 15s & 30s - 46.4s)
   tickTimer = setInterval(() => {
     if (!playing || !soundOn || !actx || currentTime >= 46.4) return;
+    if (currentTime >= 15.0 && currentTime < 30.0) return; // Heartbeat takes over during dopamine scenes
     const o = actx.createOscillator(), g = actx.createGain(), t = actx.currentTime;
     o.type = 'triangle';
-    o.frequency.setValueAtTime(980, t);
-    o.frequency.exponentialRampToValueAtTime(280, t + 0.025);
+    o.frequency.setValueAtTime(940, t);
+    o.frequency.exponentialRampToValueAtTime(260, t + 0.025);
     g.gain.setValueAtTime(0.001, t);
-    g.gain.exponentialRampToValueAtTime(0.22, t + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.18, t + 0.004);
     g.gain.exponentialRampToValueAtTime(0.0008, t + 0.045);
     o.connect(g); g.connect(masterGain);
     o.start(t); o.stop(t + 0.05);
   }, 1000);
+
+  // Hypnotic slow heartbeat during Dopamine & Craving scenes (15s - 30s)
+  heartbeatTimer = setInterval(() => {
+    if (currentTime >= 15.0 && currentTime < 30.0) playHeartbeat();
+  }, 1150);
 }
 
 function toggleSound() {
   if (!soundOn) {
     enableSoundNow();
-    triggerSFX('chime'); // Immediate audible confirmation when tapped
+    triggerSFX('chime');
   } else {
     soundOn = false;
-    if (masterGain && actx) masterGain.gain.setTargetAtTime(0.0001, actx.currentTime, 0.12);
+    if (masterGain && actx) masterGain.gain.setTargetAtTime(0.0001, actx.currentTime, 0.15);
     if (soundBtn) {
       soundBtn.classList.remove('on');
       soundBtn.innerHTML = '<span>🔇</span>Sound Off';
     }
     clearInterval(tickTimer);
+    clearInterval(heartbeatTimer);
   }
 }
 
-// Auto-unlock audio on first tap on the stage if user hasn't tapped Sound yet
 if (stage) {
   stage.addEventListener('click', () => {
     if (!soundOn) enableSoundNow();
