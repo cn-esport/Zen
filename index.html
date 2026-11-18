@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Zen // 16:9 Cinema Studio</title>
+  <title>Zen // Cinema Studio</title>
   <link rel="stylesheet" href="studio.css" />
   <link rel="stylesheet" href="skill.css" />
   <style>
@@ -52,18 +52,30 @@
       border: 1px solid #1d2d4a;
       background: #04070f;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75);
+      transition: aspect-ratio 0.25s ease;
+    }
+    body.v #stage {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      aspect-ratio: 9 / 16;
     }
     #stage:fullscreen {
       max-width: none;
+      width: 100%;
+      height: 100%;
       border-radius: 0;
       border: none;
     }
-    /* Crisp Widescreen Subtitles */
     .cap {
-      font-size: clamp(12px, 2.1vw, 24px) !important;
+      font-size: clamp(13px, 2.2vw, 24px) !important;
       bottom: 8% !important;
       width: 84% !important;
       max-width: 84% !important;
+    }
+    body.v .cap {
+      font-size: clamp(14px, 3.8vw, 21px) !important;
+      bottom: 14% !important;
     }
     #scrub-wrap {
       flex: 0 0 auto;
@@ -86,9 +98,9 @@
       max-width: 720px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 7px;
-      padding: 6px 12px 14px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      padding: 6px 10px 14px;
       background: #050811;
       z-index: 30;
     }
@@ -98,7 +110,7 @@
       color: #9cb3d9;
       border-radius: 11px;
       padding: 9px 2px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       display: flex;
       flex-direction: column;
@@ -110,7 +122,7 @@
       -webkit-tap-highlight-color: transparent;
       transition: all 0.18s ease;
     }
-    .ctrl-btn span { font-size: 14px; line-height: 1; }
+    .ctrl-btn span { font-size: 13px; line-height: 1; }
     .ctrl-btn.on {
       background: #182947;
       border-color: #5ca8ff;
@@ -121,8 +133,8 @@
 </head>
 <body>
   <div class="top-bar">
-    <span>ZEN // 16:9 YOUTUBE STUDIO</span>
-    <span id="time">00:00 / 03:30</span>
+    <span id="studio-label">ZEN // 16:9 YOUTUBE</span>
+    <span id="time">00:00 / 00:50</span>
   </div>
 
   <div class="stage-wrap">
@@ -145,14 +157,15 @@
   </div>
 
   <div class="controls">
-    <button id="sound" class="ctrl-btn" type="button"><span>🔇</span>Sound Off</button>
+    <button id="sound" class="ctrl-btn" type="button"><span>🔇</span>Sound</button>
     <button id="play" class="ctrl-btn on" type="button"><span>❚❚</span>Pause</button>
     <button id="cc" class="ctrl-btn on" type="button"><span>CC</span>Subtitles</button>
+    <button id="ratio" class="ctrl-btn on" type="button"><span>🖥</span>16:9</button>
     <button id="replay" class="ctrl-btn" type="button"><span>↺</span>Replay</button>
     <button id="fs" class="ctrl-btn" type="button"><span>⛶</span>Full</button>
   </div>
 
-  <script src="scene.js?v=10"></script>
-  <script src="engine.js?v=10"></script>
+  <script src="scene.js?v=12"></script>
+  <script src="engine.js?v=12"></script>
 </body>
 </html>
