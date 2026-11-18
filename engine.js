@@ -1,5 +1,5 @@
 // ==========================================
-// CORE STUDIO ENGINE (V2: SFX TIMELINE + FLOATING CAPTIONS)
+// CORE STUDIO ENGINE (V2.1: SAFE-GUARDED + SFX TIMELINE)
 // ==========================================
 const $ = s => document.querySelector(s);
 const stage = $('#stage'), camera = $('#camera'), dust = $('#dust'), caps = $('#caps'), fade = $('#fade');
@@ -12,7 +12,6 @@ let actx = null, sndTimer = null, masterGain = null, sfxTimers = [];
 function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
 function fmt(s) { return `${pad(s / 60)}:${pad(s % 60)}`; }
 
-// 1. Load SCENE_DATA
 function loadScene() {
   if (typeof SCENE_DATA === 'undefined') return;
   DUR = SCENE_DATA.duration || 15;
@@ -21,32 +20,35 @@ function loadScene() {
 
   ['bg', 'mid', 'char', 'fg'].forEach(k => {
     const el = $('#L-' + k);
-    if (el && SCENE_DATA.layers[k]) el.innerHTML = SCENE_DATA.layers[k];
+    if (el && SCENE_DATA.layers && SCENE_DATA.layers[k]) {
+      el.innerHTML = SCENE_DATA.layers[k];
+    }
   });
 
-  // Captions (supports optional x, y for Last Soul floating dialogue above character)
-  caps.innerHTML = '';
-  (SCENE_DATA.captions || []).forEach(c => {
-    const d = document.createElement('div');
-    d.className = 'cap';
-    d.textContent = c.text;
-    d.style.setProperty('--s', c.start + 's');
-    d.style.setProperty('--l', c.length + 's');
-    if (c.x) d.style.setProperty('--cx', c.x);
-    if (c.y) d.style.setProperty('--cy', c.y);
-    caps.appendChild(d);
-  });
+  if (caps) {
+    caps.innerHTML = '';
+    (SCENE_DATA.captions || []).forEach(c => {
+      const d = document.createElement('div');
+      d.className = 'cap';
+      d.textContent = c.text;
+      d.style.setProperty('--s', c.start + 's');
+      d.style.setProperty('--l', c.length + 's');
+      if (c.x) d.style.setProperty('--cx', c.x);
+      if (c.y) d.style.setProperty('--cy', c.y);
+      caps.appendChild(d);
+    });
+  }
 
-  // Floating Dust Motes
-  dust.innerHTML = '';
-  for (let i = 0; i < 24; i++) {
-    const m = document.createElement('i'), sz = (1.5 + Math.random() * 2.5).toFixed(1);
-    m.style.cssText = `width:${sz}px;height:${sz}px;left:${(Math.random() * 100).toFixed(1)}%;top:${(Math.random() * 100).toFixed(1)}%;--dx:${(-30 + Math.random() * 60).toFixed(0)}px;--dy:${(-70 - Math.random() * 60).toFixed(0)}px;animation-duration:${(9 + Math.random() * 11).toFixed(1)}s;animation-delay:${(-Math.random() * 14).toFixed(1)}s`;
-    dust.appendChild(m);
+  if (dust) {
+    dust.innerHTML = '';
+    for (let i = 0; i < 24; i++) {
+      const m = document.createElement('i'), sz = (1.5 + Math.random() * 2.5).toFixed(1);
+      m.style.cssText = `width:${sz}px;height:${sz}px;left:${(Math.random() * 100).toFixed(1)}%;top:${(Math.random() * 100).toFixed(1)}%;--dx:${(-30 + Math.random() * 60).toFixed(0)}px;--dy:${(-70 - Math.random() * 60).toFixed(0)}px;animation-duration:${(9 + Math.random() * 11).toFixed(1)}s;animation-delay:${(-Math.random() * 14).toFixed(1)}s`;
+      dust.appendChild(m);
+    }
   }
 }
 
-// 2. Web Audio Synthesizer + Timeline SFX Library
 function ensureAudio() {
   if (actx) return;
   actx = new (window.AudioContext || window.webkitAudioContext)();
@@ -54,7 +56,6 @@ function ensureAudio() {
   masterGain.gain.value = 0.0001;
   masterGain.connect(actx.destination);
 
-  // Subtle Dark Ambient Pad
   const o1 = actx.createOscillator(), o2 = actx.createOscillator(), lp = actx.createBiquadFilter(), g = actx.createGain();
   o1.type = 'sine'; o1.frequency.value = 55;
   o2.type = 'triangle'; o2.frequency.value = 82.41;
@@ -68,7 +69,6 @@ function playOneShotSFX(type) {
   const now = actx.currentTime;
 
   if (type === 'notification') {
-    // Crisp 2-tone smartphone chime (E6 -> B6)
     [1318.5, 1975.5].forEach((freq, idx) => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'sine';
@@ -80,7 +80,6 @@ function playOneShotSFX(type) {
       o.start(now + idx * 0.09); o.stop(now + idx * 0.09 + 0.38);
     });
   } else if (type === 'whoosh' || type === 'swipe') {
-    // Soft filtered air swipe
     const buf = actx.createBuffer(1, actx.sampleRate * 0.35, actx.sampleRate);
     const data = buf.getChannelData(0);
     for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
@@ -94,7 +93,6 @@ function playOneShotSFX(type) {
     src.connect(f); f.connect(g); g.connect(masterGain);
     src.start(now);
   } else if (type === 'chime') {
-    // Ethereal dopamine/magic ping
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'sine'; o.frequency.setValueAtTime(1046.5, now);
     g.gain.setValueAtTime(0.001, now);
@@ -103,7 +101,6 @@ function playOneShotSFX(type) {
     o.connect(g); g.connect(masterGain);
     o.start(now); o.stop(now + 0.62);
   } else if (type === 'lock' || type === 'click') {
-    // Sharp phone screen lock click
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'triangle'; o.frequency.setValueAtTime(900, now);
     o.frequency.exponentialRampToValueAtTime(180, now + 0.05);
@@ -112,7 +109,6 @@ function playOneShotSFX(type) {
     o.connect(g); g.connect(masterGain);
     o.start(now); o.stop(now + 0.07);
   } else if (type === 'boom') {
-    // Cinematic low sub-drop on scene change
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'sine'; o.frequency.setValueAtTime(95, now);
     o.frequency.exponentialRampToValueAtTime(32, now + 0.7);
@@ -126,7 +122,7 @@ function playOneShotSFX(type) {
 function scheduleTimelineSFX(offsetSec = 0) {
   sfxTimers.forEach(clearTimeout);
   sfxTimers = [];
-  if (!SCENE_DATA || !SCENE_DATA.sfx) return;
+  if (typeof SCENE_DATA === 'undefined' || !SCENE_DATA.sfx) return;
   SCENE_DATA.sfx.forEach(item => {
     const delayMs = (item.at - offsetSec) * 1000;
     if (delayMs >= 0) {
@@ -153,7 +149,7 @@ function toggleSound() {
   if (actx.state === 'suspended') actx.resume();
   soundOn = !soundOn;
   masterGain.gain.setTargetAtTime(soundOn ? 0.85 : 0.0001, actx.currentTime, 0.25);
-  soundBtn.classList.toggle('on', soundOn);
+  if (soundBtn) soundBtn.classList.toggle('on', soundOn);
   if (soundOn) {
     startSoundLoop();
     const cur = playing ? Math.min((performance.now() - startT) / 1000, DUR) : pausedAt;
@@ -163,18 +159,17 @@ function toggleSound() {
   }
 }
 
-// 3. Playback & Timeline Scrubber
-function allAnims() { return stage.getAnimations({ subtree: true }); }
+function allAnims() { return stage ? stage.getAnimations({ subtree: true }) : []; }
 function setPlayState(run) {
   allAnims().forEach(a => run ? a.play() : a.pause());
-  playBtn.innerHTML = run ? '<span>❚❚</span>Pause' : '<span>▶</span>Play';
+  if (playBtn) playBtn.innerHTML = run ? '<span>❚❚</span>Pause' : '<span>▶</span>Play';
 }
 function seekTo(sec) {
   sec = Math.max(0, Math.min(DUR, sec));
   allAnims().forEach(a => { a.currentTime = sec * 1000; });
   pausedAt = sec; startT = performance.now() - sec * 1000;
-  scrub.value = (sec / DUR) * 1000;
-  timeEl.textContent = `${fmt(sec)} / ${fmt(DUR)}`;
+  if (scrub) scrub.value = (sec / DUR) * 1000;
+  if (timeEl) timeEl.textContent = `${fmt(sec)} / ${fmt(DUR)}`;
   if (soundOn && playing) scheduleTimelineSFX(sec);
 }
 function togglePlay() {
@@ -194,37 +189,40 @@ function replay() {
   if (soundOn) scheduleTimelineSFX(0);
 }
 
-// 4. Fullscreen & 9:16 Aspect Ratio
-fsBtn.onclick = () => {
-  if (!document.fullscreenElement) stage.requestFullscreen().catch(() => {});
-  else document.exitFullscreen();
-};
+if (fsBtn) {
+  fsBtn.onclick = () => {
+    if (!document.fullscreenElement) stage.requestFullscreen().catch(() => {});
+    else document.exitFullscreen();
+  };
+}
 document.addEventListener('fullscreenchange', () => document.body.classList.toggle('is-fullscreen', !!document.fullscreenElement));
+
 function setRatio(v) {
   document.body.classList.toggle('v', v === '9:16');
-  $('#r16').classList.toggle('on', v === '16:9');
-  $('#r9').classList.toggle('on', v === '9:16');
+  if ($('#r16')) $('#r16').classList.toggle('on', v === '16:9');
+  if ($('#r9')) $('#r9').classList.toggle('on', v === '9:16');
   replay();
 }
-$('#r16').onclick = () => setRatio('16:9');
-$('#r9').onclick = () => setRatio('9:16');
-playBtn.onclick = togglePlay;
-$('#replay').onclick = replay;
-soundBtn.onclick = toggleSound;
-scrub.oninput = () => {
-  if (playing) { playing = false; setPlayState(false); }
-  seekTo((scrub.value / 1000) * DUR);
-};
+if ($('#r16')) $('#r16').onclick = () => setRatio('16:9');
+if ($('#r9')) $('#r9').onclick = () => setRatio('9:16');
+if (playBtn) playBtn.onclick = togglePlay;
+if ($('#replay')) $('#replay').onclick = replay;
+if (soundBtn) soundBtn.onclick = toggleSound;
+if (scrub) {
+  scrub.oninput = () => {
+    if (playing) { playing = false; setPlayState(false); }
+    seekTo((scrub.value / 1000) * DUR);
+  };
+}
 
-// Init
 loadScene();
 setRatio('9:16');
 startT = performance.now();
 requestAnimationFrame(function tick(now) {
   if (playing) {
     const t = Math.min((now - startT) / 1000, DUR);
-    scrub.value = (t / DUR) * 1000;
-    timeEl.textContent = `${fmt(t)} / ${fmt(DUR)}`;
+    if (scrub) scrub.value = (t / DUR) * 1000;
+    if (timeEl) timeEl.textContent = `${fmt(t)} / ${fmt(DUR)}`;
     if (t >= DUR) { playing = false; pausedAt = DUR; setPlayState(false); }
   }
   requestAnimationFrame(tick);
