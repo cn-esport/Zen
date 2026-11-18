@@ -29,7 +29,6 @@ const SCENE_DATA = {
     { start: 46.6, length: 3.0, text: "Put it down... and go to sleep." }
   ],
   layers: {
-    // LAYER 1: Muted Gouache Backdrop, Detailed Bedroom Window Blinds, Shelf & Clock
     bg: `
       <defs>
         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
@@ -84,7 +83,6 @@ const SCENE_DATA = {
 
           .s1-ignite { opacity: 0; animation: cutIn 0.45s ease-out 0.6s forwards; }
 
-          /* Silky 60fps Inertia Scroll (4s - 15s) */
           .feed-track {
             will-change: transform;
             animation: silkyScroll 1.4s cubic-bezier(0.22, 1, 0.36, 1) 4.0s 8;
@@ -107,7 +105,6 @@ const SCENE_DATA = {
             55%      { transform: translate3d(-14px, -68px, 0) rotate(-10deg); }
           }
 
-          /* Shot 3: Dopamine Sparks Drifting From Screen to Eyes */
           .dopa-spark {
             will-change: transform, opacity;
             opacity: 0;
@@ -119,11 +116,9 @@ const SCENE_DATA = {
             100% { transform: translate3d(var(--dx, -180px), var(--dy, -220px), 0) scale(1.15); opacity: 0; }
           }
 
-          /* Shot 4: Moon Fade & Clock */
           .melatonin-fade { animation: fadeMoon 5.5s ease-out 34.0s forwards; }
           @keyframes fadeMoon { to { opacity: 0.08; transform: translateY(35px); } }
 
-          /* Shot 5: Cage Bars Snap Off at 46.4s & Eyes Close */
           .cage-bars { animation: cutOut 0.25s ease-in 46.4s forwards; }
           .sleep-eyes {
             transform-box: fill-box;
@@ -137,24 +132,18 @@ const SCENE_DATA = {
         </style>
       </defs>
 
-      <!-- Muted Gouache Bedroom Wall -->
       <rect width="1080" height="1920" fill="url(#sky)"/>
 
-      <!-- SHOT 1 & SHOT 3 DETAILED BEDROOM WALL (Window With Slatted Blinds + Bookshelf + Moonlight Shaft) -->
       <g class="cut-1 cam-push" style="--shot-dur:4.2s; --shot-start:0s;">
-        <!-- Window Frame -->
         <rect x="110" y="220" width="420" height="660" rx="12" fill="#182a47" opacity=".45" stroke="#080c14" stroke-width="14"/>
-        <!-- Venetian Blinds Slats -->
         <g stroke="#080c14" stroke-width="6" opacity=".65">
           <line x1="115" y1="260" x2="525" y2="260"/><line x1="115" y1="300" x2="525" y2="300"/>
           <line x1="115" y1="340" x2="525" y2="340"/><line x1="115" y1="380" x2="525" y2="380"/>
           <line x1="115" y1="420" x2="525" y2="420"/><line x1="115" y1="460" x2="525" y2="460"/>
           <line x1="115" y1="500" x2="525" y2="500"/><line x1="115" y1="540" x2="525" y2="540"/>
         </g>
-        <!-- Diagonal Moonlight Shaft -->
         <polygon points="120,230 520,230 980,1450 380,1450" fill="url(#moonShaft)"/>
 
-        <!-- Floating Wall Shelf With Books & Small Plant (Upper Right) -->
         <g transform="translate(650 430)" opacity=".75">
           <rect x="0" y="95" width="280" height="14" rx="4" fill="#070a12"/>
           <rect x="24" y="25" width="22" height="70" rx="3" fill="#0a0f1c"/>
@@ -165,17 +154,14 @@ const SCENE_DATA = {
         </g>
       </g>
 
-      <!-- SHOT 3 BACKGROUND: Moody Bedroom Window + Framed Poster -->
       <g class="cut-3 cam-push" style="--shot-dur:15s; --shot-start:15s;">
         <rect x="540" y="220" width="410" height="680" rx="14" fill="#14233d" opacity=".4" stroke="#060911" stroke-width="14"/>
         <line x1="745" y1="220" x2="745" y2="900" stroke="#060911" stroke-width="12" opacity=".5"/>
         <line x1="540" y1="560" x2="950" y2="560" stroke="#060911" stroke-width="12" opacity=".5"/>
-        <!-- Framed Wall Art on Left -->
         <rect x="170" y="340" width="190" height="250" rx="6" fill="#0b1322" stroke="#060911" stroke-width="10"/>
         <circle cx="265" cy="445" r="38" fill="#1a2e4f" opacity=".5"/>
       </g>
 
-      <!-- SHOT 4 BACKGROUND: Fading Crescent Moon & Night Sky -->
       <g class="cut-4 cam-pull" style="--shot-dur:12s; --shot-start:30s;">
         <g class="melatonin-fade">
           <circle cx="240" cy="340" r="56" fill="#dce7fa" opacity=".88"/>
@@ -185,21 +171,15 @@ const SCENE_DATA = {
         </g>
       </g>
 
-      <!-- SHOT 5 BACKGROUND: Pitch Darkness -->
       <g class="cut-5"><rect width="1080" height="1920" fill="#03050a"/></g>
     `,
 
-    // LAYER 2: Midground Furniture (Nightstand, Lamp, Mug) & Screen Light
     mid: `
-      <!-- SHOT 1: Nightstand With Lamp & Mug + Phone Beam -->
       <g class="cut-1 cam-push" style="--shot-dur:4.2s; --shot-start:0s;">
-        <!-- Nightstand Silhouette on Right -->
         <g transform="translate(760 1180)" opacity=".85">
           <rect x="0" y="90" width="210" height="320" rx="8" fill="#060911"/>
-          <!-- Unlit Bedside Lamp -->
           <path d="M55 45 L135 45 L150 0 L40 0 Z" fill="#090e1a"/>
           <rect x="90" y="45" width="10" height="45" fill="#060911"/>
-          <!-- Coffee Mug -->
           <rect x="155" y="58" width="26" height="32" rx="4" fill="#080d17"/>
         </g>
 
@@ -209,7 +189,6 @@ const SCENE_DATA = {
         </g>
       </g>
 
-      <!-- SHOT 2: Centered Smartphone With Silky-Smooth Seamless Loop Feed -->
       <g class="cut-2 cam-push" style="--shot-dur:11s; --shot-start:4s;">
         <circle cx="540" cy="840" r="470" fill="url(#phoneGlow)"/>
         <rect x="330" y="420" width="420" height="840" rx="48" fill="#060912" stroke="#66b8ff" stroke-width="5" filter="url(#neonGlow)"/>
@@ -237,7 +216,6 @@ const SCENE_DATA = {
         <rect x="495" y="434" width="90" height="8" rx="4" fill="#1c2d4a"/>
       </g>
 
-      <!-- SHOT 3: Dopamine Sparks Rising From Screen Into Eyes -->
       <g class="cut-3 cam-push" style="--shot-dur:15s; --shot-start:15s;">
         <circle cx="660" cy="1110" r="390" fill="url(#phoneGlow)"/>
         <g filter="url(#neonGlow)">
@@ -248,7 +226,6 @@ const SCENE_DATA = {
         </g>
       </g>
 
-      <!-- SHOT 4: Artificial Blue Noon Beams + Drifting Mist -->
       <g class="cut-4 cam-pull" style="--shot-dur:12s; --shot-start:30s;">
         <circle cx="660" cy="1120" r="440" fill="url(#phoneGlow)"/>
         <g stroke="#8ad0ff" stroke-width="3.5" opacity=".45" filter="url(#neonGlow)">
@@ -261,28 +238,20 @@ const SCENE_DATA = {
       </g>
     `,
 
-    // LAYER 3: True Last Soul Character Anatomy (Separated Limbs + Eyebrows + Expressive Eyes)
     char: `
-      <!-- SHOT 1 (0:00 - 0:04): Tired Character With Separated Limbs & Drooping Eyebrows -->
       <g class="cut-1 cam-push" style="--shot-dur:4.2s; --shot-start:0s;">
         <g transform="translate(360 1560)">
           <g class="breathe slump" style="--t:0.8s">
-            <!-- Back Arm (Subtle Depth Layer) -->
             <path class="sil" d="M55 -270 L125 -165 L275 -225 L285 -205 L115 -130 L35 -250 Z" opacity=".8"/>
-            <!-- Torso & Curved Shoulders -->
             <path class="sil" d="M-125 120 C-132 -85 -100 -285 -28 -340 C15 -365 62 -340 82 -280 L118 120 Z"/>
-            <!-- Foreground Arm & Forearm (Crisp .limb Stroke Separates It From Torso!) -->
             <path class="limb" d="M18 -275 C32 -220 62 -175 95 -148 L268 -218 L282 -192 L88 -108 C42 -135 5 -195 -12 -255 Z"/>
-            <!-- Smartphone -->
             <g transform="translate(274 -285) rotate(-15)">
               <rect x="0" y="0" width="18" height="114" rx="6" fill="#06080f" stroke="#66b8ff" stroke-width="2"/>
               <rect class="s1-ignite" x="-4" y="6" width="6" height="102" rx="3" fill="#e0f2ff" filter="url(#neonGlow)"/>
             </g>
-            <!-- Neck + Head + Expressive Eyebrows -->
             <rect class="sil" x="-20" y="-388" width="36" height="52" rx="12"/>
             <g class="head">
               <circle class="sil" cx="4" cy="-452" r="76"/>
-              <!-- Tired Tilted Eyebrows -->
               <path class="brow" d="M8 -470 Q22 -476 34 -466"/>
               <path class="brow" d="M44 -463 Q56 -469 66 -458"/>
               <g class="eyes widen" style="--t:0.6s">
@@ -294,12 +263,10 @@ const SCENE_DATA = {
         </g>
       </g>
 
-      <!-- SHOT 2 (0:04 - 0:15): Articulated Hand & Thumb With Crisp Limb Outline -->
       <g class="cut-2 cam-push" style="--shot-dur:11s; --shot-start:4s;">
         <path class="hand-swipe limb" d="M960 1560 L770 1230 C710 1135 620 1075 565 985 C535 935 570 890 615 915 C665 942 710 1005 745 1045 C775 1015 815 1025 845 1065 L1080 1360 Z"/>
       </g>
 
-      <!-- SHOT 3 (0:15 - 0:30): Hypnotized Character Leaning Into Dopamine Sparks -->
       <g class="cut-3 cam-push" style="--shot-dur:15s; --shot-start:15s;">
         <g transform="translate(360 1560)">
           <g class="breathe lean-in" style="--t:15.5s">
@@ -313,7 +280,6 @@ const SCENE_DATA = {
             <rect class="sil" x="-20" y="-388" width="36" height="52" rx="12"/>
             <g class="head">
               <circle class="sil" cx="4" cy="-452" r="76"/>
-              <!-- Raised Hooked Eyebrows -->
               <path class="brow" d="M8 -476 Q22 -484 34 -474"/>
               <path class="brow" d="M44 -470 Q56 -478 66 -468"/>
               <g class="eyes widen" style="--t:16s">
@@ -325,7 +291,6 @@ const SCENE_DATA = {
         </g>
       </g>
 
-      <!-- SHOT 4 (0:30 - 0:42): Squinting Against Harsh Blue Noon Light -->
       <g class="cut-4 cam-pull" style="--shot-dur:12s; --shot-start:30s;">
         <g transform="translate(360 1560)">
           <g class="breathe">
@@ -339,7 +304,6 @@ const SCENE_DATA = {
             <rect class="sil" x="-20" y="-388" width="36" height="52" rx="12"/>
             <g class="head">
               <circle class="sil" cx="4" cy="-452" r="76"/>
-              <!-- Furrowed Squinting Eyebrows -->
               <path class="brow" d="M10 -466 L34 -460"/>
               <path class="brow" d="M44 -458 L66 -462"/>
               <g class="eyes squint" style="--t:31s; --rot:9deg">
@@ -351,7 +315,6 @@ const SCENE_DATA = {
         </g>
       </g>
 
-      <!-- SHOT 5 (0:42 - 0:50): Trapped Behind Blue Feed Bars -> Screen Off & Peaceful Sleep -->
       <g class="cut-5 cam-push" style="--shot-dur:8s; --shot-start:42s;">
         <g transform="translate(540 870)">
           <g class="breathe">
@@ -379,7 +342,6 @@ const SCENE_DATA = {
       </g>
     `,
 
-    // LAYER 4: Out-of-Focus Foreground Curtains (3D Depth Framing) + Bottom Vignette
     fg: `
       <g class="cut-1 dof-soft" opacity=".88">
         <path d="M-40 0 L130 0 Q95 750 155 1920 L-40 1920 Z" fill="#04060c"/>
