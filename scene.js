@@ -1,6 +1,5 @@
 // ==========================================
-// SCENE: THE 2:00 AM SCROLL TRAP — 2.5D RIM-LIT DIORAMA STICK-FIGURE EDITION (50s)
-// Built for cn-esport/Zen (16:9 or 9:16 Auto-Fit Canvas)
+// SCENE: THE 2:00 AM SCROLL TRAP — DUAL-RATIO 2.5D DIORAMA (16:9 & 9:16 NATIVE FIT • 50s)
 // ==========================================
 const SCENE_DATA = {
   duration: 50,
@@ -23,7 +22,7 @@ const SCENE_DATA = {
     { start: 4.6,  length: 4.6, text: "You tell yourself, \"Just one more video.\" Thirty minutes later, you're still awake." },
     { start: 9.5,  length: 4.4, text: "That’s not weak willpower—your brain is caught in a slot-machine loop." },
     { start: 14.3, length: 5.2, text: "Every swipe gives you a tiny hit of dopamine—not because the video is good," },
-    { start: 19.8, length: 5.0, text: "but because your brain craves the unpredictability of what comes next." },
+    { start: 19.8, length: 5.0, text: "but because your brain craves the unpredictability of what might come next." },
     { start: 25.3, length: 4.4, text: "Meanwhile, that cold blue screen tricks your brain into thinking it’s noon," },
     { start: 30.0, length: 3.8, text: "shutting down melatonin—the exact hormone you need to fall asleep." },
     { start: 34.3, length: 7.4, text: "Hours slip away in the dark while the rest of the city sleeps." },
@@ -35,17 +34,31 @@ const SCENE_DATA = {
     ctx.save();
     ctx.clearRect(0, 0, W, H);
 
-    // Virtual 1920x1080 Widescreen Diorama Stage
-    const scale = Math.max(W / 1920, H / 1080);
-    const ox = (W - 1920 * scale) * 0.5;
-    const oy = (H - 1080 * scale) * 0.5;
+    // True Adaptive Framing: Fits entire bedroom width in 9:16 WITHOUT cropping!
+    const isPortrait = W < H;
+    const targetSpanW = isPortrait ? 1040 : 1920;
+    const scale = isPortrait ? (W / targetSpanW) : Math.max(W / 1920, H / 1080);
+    const ox = (W - 1920 * scale) * 0.5 + (isPortrait ? 45 * scale : 0);
+    const oy = (H - 1080 * scale) * 0.5 + (isPortrait ? 85 * scale : 0);
+
+    // Fill full vertical ceiling & floor background in 9:16 mode so there are never black bars
+    if (isPortrait) {
+      const bgFill = ctx.createLinearGradient(0, 0, 0, H);
+      bgFill.addColorStop(0, '#0a0c12');
+      bgFill.addColorStop(0.55, '#171920');
+      bgFill.addColorStop(0.75, '#1e1c22');
+      bgFill.addColorStop(1, '#090a0f');
+      ctx.fillStyle = bgFill;
+      ctx.fillRect(0, 0, W, H);
+    }
+
     ctx.translate(ox, oy);
     ctx.scale(scale, scale);
 
     const easeOut = x => 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3);
 
     // ==========================================
-    // HELPER 1: 2.5D PAINTED BEDROOM DIORAMA (WALL + WOOD FLOOR + WINDOW + LAMP + CLOCK + BED)
+    // HELPER 1: 2.5D PAINTED BEDROOM DIORAMA
     // ==========================================
     const drawDioramaRoom = (opts = {}) => {
       const {
@@ -58,50 +71,46 @@ const SCENE_DATA = {
       ctx.scale(zoom, zoom);
       ctx.translate(-960, -540);
 
-      // 1. Soft Painted Wall Gradient (Warm-Neutral Charcoal to Deep Shadow)
-      const wallGrad = ctx.createRadialGradient(780, 480, 80, 960, 540, 1280);
+      // Extended Wall (Covers tall 9:16 ceiling seamlessly)
+      const wallGrad = ctx.createRadialGradient(780, 480, 80, 960, 540, 1450);
       wallGrad.addColorStop(0, lampOn ? '#2a282c' : '#141926');
       wallGrad.addColorStop(0.55, '#171920');
       wallGrad.addColorStop(1, '#0a0c12');
       ctx.fillStyle = wallGrad;
-      ctx.fillRect(0, 0, 1920, 830);
+      ctx.fillRect(-600, -1200, 3120, 2030);
 
-      // Subtle Wall Baseboard Trim
+      // Wall Baseboard Trim
       ctx.fillStyle = '#0d0f16';
-      ctx.fillRect(0, 812, 1920, 18);
+      ctx.fillRect(-600, 812, 3120, 18);
 
-      // 2. Perspective Wood Floor Planks + Soft Lighting Falloff
-      const floorGrad = ctx.createLinearGradient(0, 830, 0, 1080);
+      // Extended Perspective Wood Floor
+      const floorGrad = ctx.createLinearGradient(0, 830, 0, 1500);
       floorGrad.addColorStop(0, '#1e1c22');
-      floorGrad.addColorStop(0.4, '#15141a');
+      floorGrad.addColorStop(0.3, '#15141a');
       floorGrad.addColorStop(1, '#090a0f');
       ctx.fillStyle = floorGrad;
-      ctx.fillRect(0, 830, 1920, 250);
+      ctx.fillRect(-600, 830, 3120, 900);
 
-      // Horizontal Plank Grooves
       ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)';
       ctx.lineWidth = 2;
-      [865, 905, 952, 1008].forEach(fy => {
+      [865, 905, 952, 1008, 1072, 1145, 1225].forEach(fy => {
         ctx.beginPath();
-        ctx.moveTo(0, fy);
-        ctx.lineTo(1920, fy);
+        ctx.moveTo(-600, fy);
+        ctx.lineTo(2520, fy);
         ctx.stroke();
       });
 
-      // 3. Detailed Night Window (Frame + Sill + City Skyline + Crescent Moon)
+      // Night Window (Positioned over bed so both 16:9 & 9:16 frame it cleanly)
       const wx = 860, wy = 145, ww = 390, wh = 430;
-      // Outer Window Recess Shadow
       ctx.fillStyle = '#090b10';
       ctx.fillRect(wx - 10, wy - 10, ww + 20, wh + 20);
 
-      // Night Sky Inside Window
       const winSky = ctx.createLinearGradient(wx, wy, wx, wy + wh);
       winSky.addColorStop(0, '#0c1224');
       winSky.addColorStop(1, '#1d2642');
       ctx.fillStyle = winSky;
       ctx.fillRect(wx, wy, ww, wh);
 
-      // Stars & Crescent Moon
       if (moonAlpha > 0) {
         ctx.save();
         ctx.globalAlpha = moonAlpha;
@@ -110,7 +119,6 @@ const SCENE_DATA = {
           ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.fill();
         });
 
-        // Crescent Moon
         ctx.shadowColor = '#dce8ff';
         ctx.shadowBlur = 16;
         ctx.fillStyle = '#f0f5ff';
@@ -126,33 +134,29 @@ const SCENE_DATA = {
         ctx.restore();
       }
 
-      // Distant City Skyline Silhouettes Inside Window
+      // City Skyline Inside Window
       ctx.fillStyle = '#0c0f1a';
       ctx.fillRect(wx + 25, wy + 340, 65, 90);
       ctx.fillRect(wx + 100, wy + 310, 80, 120);
       ctx.fillRect(wx + 190, wy + 350, 55, 80);
       ctx.fillRect(wx + 255, wy + 295, 95, 135);
-      // Warm Lit Apartment Windows
       ctx.fillStyle = '#ffd56b';
       ctx.fillRect(wx + 275, wy + 320, 8, 10);
       ctx.fillRect(wx + 120, wy + 345, 7, 9);
 
-      // Window Crossbars & Bottom Wooden Sill
       ctx.fillStyle = '#0d1018';
       ctx.fillRect(wx + ww / 2 - 5, wy, 10, wh);
       ctx.fillRect(wx, wy + wh / 2 - 5, ww, 10);
       ctx.fillStyle = '#25262e';
       ctx.fillRect(wx - 22, wy + wh + 6, ww + 44, 14);
 
-      // 4. Nightstand + Glowing Red Alarm Clock + Warm Table Lamp
+      // Nightstand + Red Alarm Clock + Warm Lamp
       const nx = 460, ny = 655, nw = 185, nh = 175;
-      // Floor Contact Shadow
       ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
       ctx.beginPath();
       ctx.ellipse(nx + nw / 2, 835, 115, 14, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      // Nightstand Body (2.5D Shaded)
       const nsGrad = ctx.createLinearGradient(nx, ny, nx + nw, ny + nh);
       nsGrad.addColorStop(0, '#2a2830');
       nsGrad.addColorStop(1, '#14151c');
@@ -160,14 +164,12 @@ const SCENE_DATA = {
       ctx.beginPath();
       ctx.roundRect(nx, ny, nw, nh, 6);
       ctx.fill();
-      // Drawer Seam & Handle
       ctx.strokeStyle = 'rgba(0,0,0,0.45)';
       ctx.lineWidth = 2;
       ctx.strokeRect(nx + 12, ny + 16, nw - 24, 62);
       ctx.fillStyle = '#565866';
       ctx.fillRect(nx + nw / 2 - 16, ny + 44, 32, 5);
 
-      // Glowing Red Digital Alarm Clock on Nightstand
       ctx.fillStyle = '#12080a';
       ctx.beginPath();
       ctx.roundRect(nx + 16, ny - 34, 68, 34, 5);
@@ -180,7 +182,6 @@ const SCENE_DATA = {
       ctx.fillText(clockText, nx + 50, ny - 11);
       ctx.shadowBlur = 0;
 
-      // Table Lamp Base & Warm Lampshade
       const lx = nx + 128, ly = ny - 115;
       ctx.fillStyle = '#3b3942';
       ctx.fillRect(lx - 4, ny - 45, 8, 45);
@@ -188,7 +189,6 @@ const SCENE_DATA = {
       ctx.ellipse(lx, ny - 3, 22, 5, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      // Lampshade Trapezoid
       ctx.fillStyle = lampOn ? '#ffdfa8' : '#262833';
       ctx.beginPath();
       ctx.moveTo(lx - 26, ly);
@@ -198,26 +198,22 @@ const SCENE_DATA = {
       ctx.closePath();
       ctx.fill();
 
-      // 5. Detailed 2.5D Bed Frame, Mattress, Pillow & Folded Blanket
+      // Bed Frame, Mattress, Pillow & Blanket
       const bx = 665, by = 710, bw = 690, bh = 120;
-      // Bed Floor Drop Shadow
       ctx.fillStyle = 'rgba(0, 0, 0, 0.72)';
       ctx.beginPath();
       ctx.ellipse(bx + bw / 2, 838, bw * 0.52, 16, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      // Headboard & Wooden Bed Legs
       ctx.fillStyle = '#191a22';
       ctx.beginPath();
       ctx.roundRect(bx - 12, by - 95, 22, 215, 6);
       ctx.roundRect(bx + bw - 14, by + 20, 18, 100, 4);
       ctx.fill();
 
-      // Bed Base Frame
       ctx.fillStyle = '#23242e';
       ctx.fillRect(bx, by + 48, bw, 44);
 
-      // Soft Shaded Mattress
       const matGrad = ctx.createLinearGradient(bx, by, bx, by + 52);
       matGrad.addColorStop(0, '#5a6070');
       matGrad.addColorStop(1, '#2c303b');
@@ -226,7 +222,6 @@ const SCENE_DATA = {
       ctx.roundRect(bx + 6, by + 6, bw - 12, 46, 12);
       ctx.fill();
 
-      // Fluffy Shaded Pillow on Left
       const pilGrad = ctx.createLinearGradient(bx + 18, by - 26, bx + 135, by + 18);
       pilGrad.addColorStop(0, '#8e96ab');
       pilGrad.addColorStop(1, '#3a3f4d');
@@ -235,7 +230,6 @@ const SCENE_DATA = {
       ctx.ellipse(bx + 78, by - 4, 62, 22, -0.14, 0, Math.PI * 2);
       ctx.fill();
 
-      // Folded Blue-Gray Blanket at Foot of Bed
       const blkGrad = ctx.createLinearGradient(bx + 490, by - 14, bx + 675, by + 52);
       blkGrad.addColorStop(0, '#4f627d');
       blkGrad.addColorStop(1, '#232d3d');
@@ -244,7 +238,7 @@ const SCENE_DATA = {
       ctx.roundRect(bx + 495, by - 12, 182, 64, 14);
       ctx.fill();
 
-      // 6. Volumetric Warm Lamp Cone (Screen Blend Mode for Real Light Falloff!)
+      // Volumetric Warm Lamp Light Cone
       if (lampOn) {
         ctx.save();
         ctx.globalCompositeOperation = 'screen';
@@ -263,17 +257,17 @@ const SCENE_DATA = {
         ctx.restore();
       }
 
-      // 7. Cold Blue Phone Screen Light on Character's Face
+      // Cold Blue Phone Screen Light Aura
       if (phoneGlow > 0) {
         ctx.save();
         ctx.globalCompositeOperation = 'screen';
-        const pGlow = ctx.createRadialGradient(845, 625, 8, 825, 640, 260 * phoneGlow);
+        const pGlow = ctx.createRadialGradient(840, 625, 8, 820, 640, 260 * phoneGlow);
         pGlow.addColorStop(0, 'rgba(130, 205, 255, 0.72)');
         pGlow.addColorStop(0.45, 'rgba(55, 145, 255, 0.22)');
         pGlow.addColorStop(1, 'rgba(20, 60, 140, 0)');
         ctx.fillStyle = pGlow;
         ctx.beginPath();
-        ctx.arc(825, 640, 260 * phoneGlow, 0, Math.PI * 2);
+        ctx.arc(820, 640, 260 * phoneGlow, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }
@@ -282,7 +276,7 @@ const SCENE_DATA = {
     };
 
     // ==========================================
-    // HELPER 2: RIM-LIT STICK-FIGURE CHARACTER LYING ON BED (EXACT REFERENCE STYLE!)
+    // HELPER 2: RIM-LIT STICK-FIGURE CHARACTER (NATURAL ELBOW-ON-BED POSTURE)
     // ==========================================
     const drawStickCharacterOnBed = (opts = {}) => {
       const {
@@ -298,12 +292,9 @@ const SCENE_DATA = {
       const breath = Math.sin(t * 1.8) * 2.5;
       const headX = 762, headY = 678;
 
-      // Helper to draw a stick limb with directional rim highlight on top edge
       const drawRimLimb = (pts, width = 18, rimColor = 'rgba(255, 215, 150, 0.78)') => {
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-
-        // 1. Rim Highlight Pass (shifted 3px upward toward the lamp light)
         if (rimWarmth > 0) {
           ctx.strokeStyle = rimColor;
           ctx.lineWidth = width;
@@ -312,8 +303,6 @@ const SCENE_DATA = {
           for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1] - 3);
           ctx.stroke();
         }
-
-        // 2. Core Dark Stick-Figure Limb Pass
         ctx.strokeStyle = '#090a0f';
         ctx.lineWidth = width;
         ctx.beginPath();
@@ -322,38 +311,41 @@ const SCENE_DATA = {
         ctx.stroke();
       };
 
-      // 1. Torso Lying Flat Along Mattress
+      // Torso
       drawRimLimb([[805, 696], [965, 698 + breath * 0.4]], 20);
 
-      // 2. Bent Leg With Raised Knee (Classic Reference Pose!)
+      // Bent Leg + Relaxed Leg
       drawRimLimb([[965, 698], [1035, 622 - breath], [1125, 696]], 18);
-      // Second Relaxed Leg Straight Along Bed
       drawRimLimb([[965, 702], [1155, 704]], 17, 'rgba(255, 215, 150, 0.45)');
 
-      // 3. Raised Bent Arm Holding Glowing Smartphone Above Chest
-      const handX = 855, handY = 635 - thumbSwipe * 6;
-      drawRimLimb([[825, 695], [842, 625], [handX, handY]], 15, phoneOn ? 'rgba(165, 220, 255, 0.85)' : 'rgba(255, 215, 150, 0.65)');
+      // Natural Arm: Elbow Resting on Mattress -> Forearm Angled Up Holding Phone
+      const handX = 842, handY = 632 - thumbSwipe * 5;
+      drawRimLimb(
+        [[818, 696], [866, 696], [handX, handY]],
+        14,
+        phoneOn ? 'rgba(165, 220, 255, 0.85)' : 'rgba(255, 215, 150, 0.65)'
+      );
 
-      // Smartphone in Hand
+      // Smartphone Held Naturally Facing the Eyes
       ctx.save();
-      ctx.translate(handX + 4, handY - 12);
-      ctx.rotate(-0.32);
+      ctx.translate(handX - 2, handY - 12);
+      ctx.rotate(-0.38);
       ctx.fillStyle = '#080b12';
       ctx.beginPath();
-      ctx.roundRect(-5, -24, 10, 48, 3);
+      ctx.roundRect(-5, -23, 10, 46, 3);
       ctx.fill();
       if (phoneOn) {
         ctx.shadowColor = '#80c8ff';
         ctx.shadowBlur = 18;
         ctx.fillStyle = '#e6f5ff';
         ctx.beginPath();
-        ctx.roundRect(-6, -20, 4, 40, 2);
+        ctx.roundRect(-6, -19, 4, 38, 2);
         ctx.fill();
         ctx.shadowBlur = 0;
       }
       ctx.restore();
 
-      // 4. Round Stick-Figure Head With Warm Lamp Rim + Cool Phone Rim
+      // Head With Warm & Cool Rim Highlights
       if (rimWarmth > 0) {
         ctx.fillStyle = 'rgba(255, 215, 150, 0.82)';
         ctx.beginPath();
@@ -371,7 +363,7 @@ const SCENE_DATA = {
       ctx.arc(headX, headY, 32, 0, Math.PI * 2);
       ctx.fill();
 
-      // Glowing Eyes Looking Up at Phone
+      // Glowing Eyes
       if (phoneOn) {
         const blink = (t % 4.5) > 4.3 ? 0.1 : 1;
         ctx.shadowColor = '#ffffff';
@@ -384,7 +376,7 @@ const SCENE_DATA = {
         ctx.shadowBlur = 0;
       }
 
-      // 5. Golden Dopamine Sparks Drifting From Phone Into Eyes
+      // Golden Dopamine Sparks
       if (goldSparks) {
         for (let i = 0; i < 8; i++) {
           const p = ((t * 0.7 + i * 0.125) % 1);
@@ -405,14 +397,12 @@ const SCENE_DATA = {
     // 6-SCENE TIMELINE (50 SECONDS)
     // ==========================================
     if (t < 9.5) {
-      // SCENE 1 (0:00 - 0:09.5): Iconic Bedroom Diorama Wide Shot (Lamp + Clock 02:00 + Stick Figure Scrolling)
       const p = t / 9.5;
       const swipe = Math.sin(Math.min(1, ((t % 2.2) / 0.5)) * Math.PI);
-      drawDioramaRoom({ zoom: 1 + p * 0.08, lampOn: true, phoneGlow: 1, clockText: "02:00", moonAlpha: 1 });
-      drawStickCharacterOnBed({ zoom: 1 + p * 0.08, phoneOn: true, thumbSwipe: swipe, rimWarmth: 1 });
+      drawDioramaRoom({ zoom: 1 + p * 0.06, lampOn: true, phoneGlow: 1, clockText: "02:00", moonAlpha: 1 });
+      drawStickCharacterOnBed({ zoom: 1 + p * 0.06, phoneOn: true, thumbSwipe: swipe, rimWarmth: 1 });
 
     } else if (t < 14.3) {
-      // SCENE 2 (0:09.5 - 0:14.3): Macro Close-Up on Glowing Phone Screen & Smooth Card Scroll
       const local = t - 9.5;
       ctx.fillStyle = '#070910';
       ctx.fillRect(0, 0, 1920, 1080);
@@ -451,40 +441,26 @@ const SCENE_DATA = {
       ctx.restore();
 
     } else if (t < 25.0) {
-      // SCENE 3 (0:14.3 - 0:25.0): Zoomed-In Bedside Shot — Golden Dopamine Sparks Drifting Into Eyes
-      const local = t - 14.3;
-      const p = local / 10.7;
-      drawDioramaRoom({ zoom: 1.48, panX: 160, panY: -120, lampOn: true, phoneGlow: 1.25, clockText: "02:34", moonAlpha: 1 });
-      drawStickCharacterOnBed({ zoom: 1.48, panX: 160, panY: -120, phoneOn: true, rimWarmth: 1, goldSparks: true });
+      drawDioramaRoom({ zoom: 1.38, panX: 140, panY: -100, lampOn: true, phoneGlow: 1.25, clockText: "02:34", moonAlpha: 1 });
+      drawStickCharacterOnBed({ zoom: 1.38, panX: 140, panY: -100, phoneOn: true, rimWarmth: 1, goldSparks: true });
 
     } else if (t < 34.0) {
-      // SCENE 4 (0:25.0 - 0:34.0): Cold Blue Screen Overpowers Lamp & Fades Moon Outside Window
       const local = t - 25.0;
       const p = local / 9.0;
-      drawDioramaRoom({ zoom: 1.15, panX: 40, panY: -30, lampOn: true, phoneGlow: 1.85, clockText: "02:48", moonAlpha: Math.max(0.1, 1 - p * 0.9) });
-      drawStickCharacterOnBed({ zoom: 1.15, panX: 40, panY: -30, phoneOn: true, rimWarmth: 0.6 });
+      drawDioramaRoom({ zoom: 1.12, panX: 35, panY: -25, lampOn: true, phoneGlow: 1.85, clockText: "02:48", moonAlpha: Math.max(0.1, 1 - p * 0.9) });
+      drawStickCharacterOnBed({ zoom: 1.12, panX: 35, panY: -25, phoneOn: true, rimWarmth: 0.6 });
 
     } else if (t < 42.0) {
-      // SCENE 5 (0:34.0 - 0:42.0): Wide Shot — Hours Later (03:15 AM) in Still Room
       const local = t - 34.0;
       const p = local / 8.0;
-      drawDioramaRoom({ zoom: 1.06 - p * 0.06, lampOn: true, phoneGlow: 1.2, clockText: "03:15", moonAlpha: 0.25 });
-      drawStickCharacterOnBed({ zoom: 1.06 - p * 0.06, phoneOn: true, rimWarmth: 1 });
+      drawDioramaRoom({ zoom: 1.05 - p * 0.05, lampOn: true, phoneGlow: 1.2, clockText: "03:15", moonAlpha: 0.25 });
+      drawStickCharacterOnBed({ zoom: 1.05 - p * 0.05, phoneOn: true, rimWarmth: 1 });
 
     } else {
-      // SCENE 6 (0:42.0 - 0:50.0): Lamp & Phone Click Off at 46.4s -> Peaceful Dark Room Sleep
-      const local = t - 42.0;
       const lightsOut = t >= 46.4;
-      drawDioramaRoom({ zoom: 1.04, lampOn: !lightsOut, phoneGlow: lightsOut ? 0 : 0.9, clockText: "03:20", moonAlpha: 1 });
-      drawStickCharacterOnBed({ zoom: 1.04, phoneOn: !lightsOut, rimWarmth: lightsOut ? 0 : 1 });
+      drawDioramaRoom({ zoom: 1.03, lampOn: !lightsOut, phoneGlow: lightsOut ? 0 : 0.9, clockText: "03:20", moonAlpha: 1 });
+      drawStickCharacterOnBed({ zoom: 1.03, phoneOn: !lightsOut, rimWarmth: lightsOut ? 0 : 1 });
     }
-
-    // Soft Cinema Edge Vignette
-    const vig = ctx.createRadialGradient(960, 540, 580, 960, 540, 1280);
-    vig.addColorStop(0, 'rgba(0,0,0,0)');
-    vig.addColorStop(1, 'rgba(3,4,8,0.72)');
-    ctx.fillStyle = vig;
-    ctx.fillRect(0, 0, 1920, 1080);
 
     ctx.restore();
   }
