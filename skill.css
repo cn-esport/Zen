@@ -1,28 +1,27 @@
 /* ==========================================
-   ACTIVE SKILL: LAST SOUL ANIMATOR (V2 - CINEMATIC)
-   Replace this entire file when switching animation styles!
+   ACTIVE SKILL: LAST SOUL ANIMATOR (V3 - SHORT FILM EDITION)
    ========================================== */
 :root {
   --dur: 15s;
   --ease: cubic-bezier(.45, .05, .25, 1);
-  --cap-size: clamp(22px, 3.6vh, 46px);
-  --cap-bottom: 9vh;
-  --cap-width: min(86vw, 1400px);
+  --cap-size: clamp(20px, 3.4vh, 42px);
+  --cap-bottom: 11vh;
+  --cap-width: min(86vw, 1300px);
 }
 
 body.v {
-  --cap-size: clamp(16px, 4.4vw, 24px);
+  --cap-size: clamp(16px, 4.3vw, 23px);
   --cap-bottom: 20vh;
   --cap-width: 84vw;
 }
 
 body.is-fullscreen {
-  --cap-size: 5.2vw;
+  --cap-size: 5vw;
   --cap-bottom: 22vh;
 }
 
 /* ==========================================
-   1. STAGE CAMERA & PER-SHOT CAMERA MOVES
+   1. STAGE CAMERA & CINEMATIC SHOT MOVES
    ========================================== */
 #camera {
   position: absolute;
@@ -33,56 +32,23 @@ body.is-fullscreen {
 
 @keyframes cam {
   from { transform: scale(1) translate(0, 0); }
-  to   { transform: scale(1.1) translate(-1%, -0.8%); }
+  to   { transform: scale(1.08) translate(-0.8%, -0.6%); }
 }
 
-/* Per-Shot Camera Utilities (apply inside any cut in scene.js) */
 .cam-push {
   transform-origin: 50% 50%;
   animation: camPush var(--shot-dur, 8s) cubic-bezier(.25, .1, .25, 1) var(--shot-start, 0s) both;
 }
-@keyframes camPush {
-  from { transform: scale(1); }
-  to   { transform: scale(1.15); }
-}
+@keyframes camPush { from { transform: scale(1); } to { transform: scale(1.13); } }
 
 .cam-pull {
   transform-origin: 50% 50%;
   animation: camPull var(--shot-dur, 8s) cubic-bezier(.25, .1, .25, 1) var(--shot-start, 0s) both;
 }
-@keyframes camPull {
-  from { transform: scale(1.16); }
-  to   { transform: scale(1); }
-}
-
-.cam-pan-r {
-  animation: camPanR var(--shot-dur, 8s) ease-in-out var(--shot-start, 0s) both;
-}
-@keyframes camPanR {
-  from { transform: scale(1.06) translateX(-2.5%); }
-  to   { transform: scale(1.06) translateX(2.5%); }
-}
-
-.cam-pan-l {
-  animation: camPanL var(--shot-dur, 8s) ease-in-out var(--shot-start, 0s) both;
-}
-@keyframes camPanL {
-  from { transform: scale(1.06) translateX(2.5%); }
-  to   { transform: scale(1.06) translateX(-2.5%); }
-}
-
-.cam-shake {
-  animation: camShake 0.45s ease-in-out var(--shot-start, 0s) 2;
-}
-@keyframes camShake {
-  0%, 100% { transform: translate(0, 0); }
-  25%      { transform: translate(-6px, 4px); }
-  50%      { transform: translate(6px, -4px); }
-  75%      { transform: translate(-4px, -3px); }
-}
+@keyframes camPull { from { transform: scale(1.14); } to { transform: scale(1); } }
 
 /* ==========================================
-   2. PARALLAX DEPTH LAYERS
+   2. PARALLAX DEPTH & RACK-FOCUS BLUR
    ========================================== */
 svg.layer {
   position: absolute;
@@ -96,116 +62,91 @@ svg.layer {
 #L-mid { animation: pan-mid var(--dur) linear both; }
 #L-fg  { animation: pan-fg  var(--dur) linear both; }
 
-@keyframes pan-bg  { to { transform: translateX(-.6%); } }
-@keyframes pan-mid { to { transform: translateX(-1.5%); } }
-@keyframes pan-fg  { to { transform: translateX(-3.2%); } }
+@keyframes pan-bg  { to { transform: translateX(-.5%); } }
+@keyframes pan-mid { to { transform: translateX(-1.3%); } }
+@keyframes pan-fg  { to { transform: translateX(-2.8%); } }
+
+/* Depth-of-field blur for foreground silhouettes & background props */
+.dof-soft { filter: blur(4px); }
+.dof-deep { filter: blur(9px); }
 
 /* ==========================================
-   3. SILHOUETTE RIM LIGHT & ATMOSPHERE
+   3. LAST SOUL CHARACTER ANATOMY & SEPARATED LIMBS
    ========================================== */
+/* Main body & head silhouette with crisp 1.8px rim separation */
 .sil {
-  fill: #050505;
-  stroke: url(#rim);
-  stroke-width: 3.5;
+  fill: #07080b;
+  stroke: rgba(185, 205, 230, 0.42);
+  stroke-width: 1.8;
   stroke-linejoin: round;
+  stroke-linecap: round;
 }
 
-.flicker {
-  animation: lightFlicker 3.2s infinite;
+/* Overlapping arms/hands get a slightly brighter edge so limbs never merge into a blob */
+.limb {
+  fill: #07080b;
+  stroke: rgba(205, 222, 245, 0.58);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
+
+/* Expressive Curved Eyebrows */
+.brow {
+  fill: none;
+  stroke: #d8e6f8;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  opacity: 0.88;
+}
+
+.flicker { animation: lightFlicker 3.6s infinite; }
 @keyframes lightFlicker {
   0%, 100% { opacity: 1; }
-  48%      { opacity: 0.96; }
-  50%      { opacity: 0.78; }
+  48%      { opacity: 0.95; }
+  50%      { opacity: 0.80; }
   52%      { opacity: 0.98; }
-  84%      { opacity: 0.86; }
-  86%      { opacity: 1; }
 }
 
-.drift-fog {
-  animation: fogDrift 16s ease-in-out infinite alternate;
-}
-@keyframes fogDrift {
-  from { transform: translateX(-4%); }
-  to   { transform: translateX(4%); }
-}
+.drift-fog { animation: fogDrift 16s ease-in-out infinite alternate; }
+@keyframes fogDrift { from { transform: translateX(-3%); } to { transform: translateX(3%); } }
 
 /* ==========================================
-   4. EXPRESSIVE CHARACTER ACTING
+   4. EXPRESSIVE ACTING & POSTURE
    ========================================== */
 .breathe {
   transform-box: fill-box;
   transform-origin: 50% 100%;
   animation: breathe 4.6s ease-in-out infinite;
 }
-@keyframes breathe {
-  0%, 100% { transform: scaleY(1); }
-  50%      { transform: scaleY(1.014); }
-}
-
-.walk {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: walkBob 0.75s ease-in-out infinite;
-}
-@keyframes walkBob {
-  0%, 100% { transform: translateY(0px) rotate(-0.8deg); }
-  50%      { transform: translateY(-9px) rotate(0.8deg); }
-}
+@keyframes breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.012); } }
 
 .head {
   transform-box: fill-box;
   transform-origin: 50% 100%;
   animation: tilt 7s ease-in-out infinite;
 }
-@keyframes tilt {
-  0%, 100% { transform: rotate(-1.4deg); }
-  50%      { transform: rotate(1.8deg); }
-}
+@keyframes tilt { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.6deg); } }
 
 .slump {
   transform-box: fill-box;
   transform-origin: 50% 100%;
   animation: postureSlump 3.5s ease-in-out var(--t, 0s) forwards;
 }
-@keyframes postureSlump {
-  to { transform: scaleY(0.95) rotate(3deg); }
-}
+@keyframes postureSlump { to { transform: scaleY(0.96) rotate(2.5deg); } }
 
 .lean-in {
   transform-box: fill-box;
   transform-origin: 50% 100%;
   animation: postureLean 2.2s ease-out var(--t, 0s) forwards;
 }
-@keyframes postureLean {
-  to { transform: rotate(4.5deg) translateX(10px); }
-}
-
-.nod {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: headNod 1.4s ease-in-out var(--t, 0s) 2;
-}
-@keyframes headNod {
-  0%, 100% { transform: rotate(0deg); }
-  50%      { transform: rotate(6deg) translateY(4px); }
-}
-
-.shiver {
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  animation: bodyShiver 0.18s linear var(--t, 0s) 12;
-}
-@keyframes bodyShiver {
-  0%, 100% { transform: translateX(0); }
-  50%      { transform: translateX(3px); }
-}
+@keyframes postureLean { to { transform: rotate(4deg) translateX(8px); } }
 
 /* ==========================================
    5. GLOWING EYES, BLINK & EMOTION BEATS
    ========================================== */
 .eyes { animation: glow 3.4s ease-in-out infinite; }
-@keyframes glow { 0%, 100% { opacity: .92; } 50% { opacity: 1; } }
+@keyframes glow { 0%, 100% { opacity: .94; } 50% { opacity: 1; } }
 
 .eye-wrap, .eye {
   transform-box: fill-box;
@@ -217,12 +158,7 @@ svg.layer {
 .eye {
   fill: #FFFFFF;
   filter: url(#eyeGlow);
-  animation: blink 5s infinite;
-}
-
-.eyes.b2 .eye {
-  animation-duration: 5.7s;
-  animation-delay: -1.3s;
+  animation: blink 4.8s infinite;
 }
 
 @keyframes blink {
@@ -230,20 +166,13 @@ svg.layer {
   94%           { transform: scaleY(.07); }
 }
 
-.eyes.widen .eye-wrap {
-  animation: widen 2.6s ease-in-out var(--t, 0s) both;
-}
-@keyframes widen {
-  0%, 100% { transform: scale(1); }
-  25%, 70% { transform: scale(1.35, 1.5); }
-}
+.eyes.widen .eye-wrap { animation: widen 2.6s ease-in-out var(--t, 0s) both; }
+@keyframes widen { 0%, 100% { transform: scale(1); } 25%, 70% { transform: scale(1.28, 1.4); } }
 
-.eyes.squint .eye-wrap {
-  animation: squint 3.2s ease-in-out var(--t, 0s) both;
-}
+.eyes.squint .eye-wrap { animation: squint 3.2s ease-in-out var(--t, 0s) both; }
 @keyframes squint {
   0%, 100% { transform: scale(1) rotate(0deg); }
-  25%, 75% { transform: scale(1.06, .38) rotate(calc(var(--sgn) * var(--rot, 0deg))); }
+  25%, 75% { transform: scale(1.05, .42) rotate(calc(var(--sgn) * var(--rot, 0deg))); }
 }
 
 /* ==========================================
@@ -253,54 +182,51 @@ svg.layer {
 #dust i {
   position: absolute;
   border-radius: 50%;
-  background: #ffe3b8;
-  box-shadow: 0 0 8px rgba(255, 200, 130, .65);
+  background: #dce8fa;
+  box-shadow: 0 0 8px rgba(170, 205, 255, .55);
   animation: dust linear infinite;
 }
-
 @keyframes dust {
   0%   { transform: translate(0, 0); opacity: 0; }
-  15%  { opacity: .75; }
-  85%  { opacity: .5; }
+  15%  { opacity: .65; }
+  85%  { opacity: .45; }
   100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
 }
 
 /* ==========================================
-   7. VIGNETTE, CAPTIONS & FADE CURTAIN
+   7. SOFT GOUACHE VIGNETTE, FLOATING DIALOGUE PILLS & FADE
    ========================================== */
 #vignette {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 55%, transparent 45%, rgba(0, 0, 0, .68) 100%);
+  background: radial-gradient(ellipse at 50% 50%, transparent 42%, rgba(2, 4, 8, .78) 100%);
 }
 
 #caps {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: var(--cap-bottom);
-  height: 0;
+  inset: 0;
   pointer-events: none;
   z-index: 20;
 }
 
 .cap {
   position: absolute;
-  left: 50%;
-  bottom: 0;
+  left: var(--cx, 50%);
+  bottom: var(--cy, var(--cap-bottom));
   transform: translateX(-50%);
   width: var(--cap-width);
+  max-width: 82%;
   text-align: center;
-  color: #fff;
-  font-weight: 600;
+  color: #f4f7fc;
+  font-weight: 500;
   font-size: var(--cap-size);
-  line-height: 1.3;
-  letter-spacing: .01em;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, .95), 0 0 2px rgba(0, 0, 0, .95);
+  line-height: 1.35;
+  letter-spacing: .015em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .95), 0 0 4px rgba(0, 0, 0, .9);
   opacity: 0;
-  animation: capIn .45s cubic-bezier(.2, .8, .2, 1) var(--s) both,
-             capOut .45s ease-in calc(var(--s) + var(--l) - .45s) forwards;
+  animation: capIn .42s cubic-bezier(.2, .8, .2, 1) var(--s) both,
+             capOut .42s ease-in calc(var(--s) + var(--l) - .42s) forwards;
 }
 
 @keyframes capIn {
@@ -319,7 +245,7 @@ svg.layer {
   pointer-events: none;
   opacity: 1;
   z-index: 25;
-  animation: fadeIn 1.6s ease-out both,
+  animation: fadeIn 1.4s ease-out both,
              fadeOut .8s ease-in calc(var(--dur) - .8s) forwards;
 }
 
