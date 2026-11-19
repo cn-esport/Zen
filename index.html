@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Zen // Cinema Studio</title>
+  <title>Zen // GSAP Cinema Studio</title>
   <link rel="stylesheet" href="studio.css" />
   <link rel="stylesheet" href="skill.css" />
   <style>
@@ -125,9 +125,7 @@
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
-    .ctrl-btn:active {
-      transform: scale(0.95);
-    }
+    .ctrl-btn:active { transform: scale(0.95); }
     .ctrl-btn span { font-size: 13px; line-height: 1; pointer-events: none; }
     .ctrl-btn.on {
       background: #182947;
@@ -139,8 +137,8 @@
 </head>
 <body>
   <div class="top-bar">
-    <span id="studio-label">ZEN // 16:9 YOUTUBE</span>
-    <span id="time">00:00 / 00:50</span>
+    <span id="studio-label">ZEN // GSAP 16:9</span>
+    <span id="time">00:00 / 00:45</span>
   </div>
 
   <div class="stage-wrap">
@@ -171,7 +169,9 @@
     <button id="fs" class="ctrl-btn" type="button"><span>⛶</span>Full</button>
   </div>
 
-  <script src="scene.js?v=14"></script>
-  <script src="engine.js?v=14"></script>
+  <!-- GSAP 3.12.5 Cinematic Core -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="scene.js?v=17"></script>
+  <script src="engine.js?v=17"></script>
 </body>
 </html>
