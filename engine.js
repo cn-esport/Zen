@@ -1,5 +1,5 @@
 // ==========================================
-// ZEN CINEMA ENGINE V11 — ZERO-BLANK GUARD + 14-SFX CINEMA SOUND LIBRARY
+// ZEN CINEMA ENGINE V12 — GSAP 3.12 MASTER TIMELINE + 14-SFX LIBRARY
 // ==========================================
 const $ = s => document.querySelector(s);
 const stage = $('#stage'), caps = $('#caps'), fade = $('#fade');
@@ -7,13 +7,14 @@ const playBtn = $('#play'), soundBtn = $('#sound'), ccBtn = $('#cc');
 const ratioBtn = $('#ratio'), studioLabel = $('#studio-label');
 const scrub = $('#scrub'), timeEl = $('#time'), fsBtn = $('#fs'), replayBtn = $('#replay');
 
-let DUR = 45, playing = true, soundOn = false, ccOn = true, isVertical = false;
+let DUR = 45, soundOn = false, ccOn = true, isVertical = false;
 let isDragging = false, wasPlayingBeforeDrag = false;
-let currentTime = 0, lastFrame = performance.now();
-let lastTickSec = -1, lastBeatIndex = -1;
-let actx = null, masterGain = null, compressor = null, firedSfx = new Set();
+let lastTickSec = -1, firedSfx = new Set();
+let actx = null, masterGain = null, compressor = null;
 
-// Kill any leftover CSS animations on #fade so it NEVER traps the screen in black
+// Global GSAP Camera Rig (any scene can tween window.CAM properties)
+window.CAM = { shake: 0, flash: 0, zoomMul: 1, offsetX: 0, offsetY: 0 };
+
 if (fade) {
   fade.style.animation = 'none';
   fade.style.opacity = '0';
@@ -35,7 +36,6 @@ const ctx = canvas.getContext('2d', { alpha: false });
 function resizeCanvas() {
   if (!stage) return;
   const r = stage.getBoundingClientRect();
-  // Guard: never let width/height drop to 0 during mobile layout transitions
   if (r.width < 10 || r.height < 10) return;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const nw = Math.floor(r.width * dpr);
@@ -51,30 +51,91 @@ resizeCanvas();
 function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
 function fmt(s) { return `${pad(s / 60)}:${pad(s % 60)}`; }
 
-function updatePlayButtonUI() {
-  if (!playBtn) return;
-  playBtn.classList.toggle('on', playing);
-  playBtn.innerHTML = playing ? '<span>❚❚</span>Pause' : '<span>▶</span>Play';
-}
+// ==========================================
+// MASTER GSAP TIMELINE SETUP
+// ==========================================
+const hasGSAP = typeof gsap !== 'undefined';
+const playhead = { t: 0 };
+let masterTL = null;
 
-function setupCaptions() {
+function buildMasterTimeline() {
   if (typeof SCENE_DATA !== 'undefined' && SCENE_DATA.duration) {
     DUR = SCENE_DATA.duration;
   }
   document.documentElement.style.setProperty('--dur', DUR + 's');
   if (timeEl) timeEl.textContent = `00:00 / ${fmt(DUR)}`;
 
-  if (!caps || typeof SCENE_DATA === 'undefined') return;
-  caps.innerHTML = '';
-  (SCENE_DATA.captions || []).forEach(c => {
-    const d = document.createElement('div');
-    d.className = 'cap';
-    d.dataset.start = c.start;
-    d.dataset.end = c.start + c.length;
-    d.textContent = c.text;
-    d.style.cssText = 'opacity:0;transform:translate(-50%,8px);transition:opacity .25s ease,transform .25s ease;';
-    caps.appendChild(d);
+  // Build Captions DOM
+  if (caps && typeof SCENE_DATA !== 'undefined') {
+    caps.innerHTML = '';
+    (SCENE_DATA.captions || []).forEach(c => {
+      const d = document.createElement('div');
+      d.className = 'cap';
+      d.dataset.start = c.start;
+      d.dataset.end = c.start + c.length;
+      d.textContent = c.text;
+      d.style.cssText = 'opacity:0;transform:translate(-50%,8px);transition:opacity .25s ease,transform .25s ease;';
+      caps.appendChild(d);
+    });
+  }
+
+  if (!hasGSAP) return;
+  if (masterTL) masterTL.kill();
+
+  masterTL = gsap.timeline({
+    paused: false,
+    onUpdate: () => {
+      const t = masterTL.time();
+      playhead.t = t;
+      processFrameAudio(t);
+      updateCaptions(t);
+      if (!isDragging && scrub) {
+        scrub.value = String(Math.round((t / DUR) * 1000));
+      }
+      if (timeEl) timeEl.textContent = `${fmt(t)} / ${fmt(DUR)}`;
+    },
+    onComplete: () => {
+      updatePlayButtonUI(false);
+      updateAmbientGain(false);
+    }
   });
+
+  // Base linear time driver across full duration
+  masterTL.to(playhead, { t: DUR, duration: DUR, ease: 'none' }, 0);
+
+  // Automatic GSAP Camera Impact Shakes & Flashes synced to 'boom' & 'spark' SFX
+  if (typeof SCENE_DATA !== 'undefined' && SCENE_DATA.sfx) {
+    SCENE_DATA.sfx.forEach(item => {
+      if (item.type === 'boom') {
+        masterTL.fromTo(window.CAM,
+          { shake: 9, flash: 0.14 },
+          { shake: 0, flash: 0, duration: 0.55, ease: 'power3.out' },
+          item.at
+        );
+      } else if (item.type === 'spark' || item.type === 'sun_swell') {
+        masterTL.fromTo(window.CAM,
+          { flash: 0.18 },
+          { flash: 0, duration: 0.7, ease: 'power2.out' },
+          item.at
+        );
+      }
+    });
+  }
+
+  // Allow individual scenes to register custom GSAP tweens via SCENE_DATA.setupGSAP(masterTL, CAM)
+  if (typeof SCENE_DATA !== 'undefined' && typeof SCENE_DATA.setupGSAP === 'function') {
+    SCENE_DATA.setupGSAP(masterTL, window.CAM);
+  }
+}
+
+function isPlaying() {
+  return masterTL ? !masterTL.paused() && masterTL.progress() < 1 : false;
+}
+
+function updatePlayButtonUI(running = isPlaying()) {
+  if (!playBtn) return;
+  playBtn.classList.toggle('on', running);
+  playBtn.innerHTML = running ? '<span>❚❚</span>Pause' : '<span>▶</span>Play';
 }
 
 function updateCaptions(t) {
@@ -103,7 +164,7 @@ function toggleRatio() {
     ratioBtn.innerHTML = isVertical ? '<span>📱</span>9:16' : '<span>🖥</span>16:9';
   }
   if (studioLabel) {
-    studioLabel.textContent = isVertical ? 'ZEN // 9:16 SHORTS' : 'ZEN // 16:9 YOUTUBE';
+    studioLabel.textContent = isVertical ? 'ZEN // GSAP 9:16' : 'ZEN // GSAP 16:9';
   }
   resizeCanvas();
   setTimeout(resizeCanvas, 80);
@@ -130,7 +191,6 @@ function ensureAudio() {
   masterGain.connect(compressor);
   compressor.connect(actx.destination);
 
-  // Warm Ambient Cinema Pad
   const padNotes = [
     { f: 73.42, type: 'sine',     vol: 0.22, cut: 180 },
     { f: 110.0, type: 'triangle', vol: 0.13, cut: 280 },
@@ -150,15 +210,15 @@ function ensureAudio() {
   });
 }
 
-function updateAmbientGain() {
+function updateAmbientGain(running = isPlaying()) {
   if (!actx || !masterGain) return;
-  const shouldPlayPad = soundOn && playing && !isDragging;
+  const shouldPlayPad = soundOn && running && !isDragging;
   masterGain.gain.cancelScheduledValues(actx.currentTime);
   masterGain.gain.setTargetAtTime(shouldPlayPad ? 1.0 : 0.0001, actx.currentTime, 0.08);
 }
 
 function playClockTick() {
-  if (!actx || !soundOn || !playing || isDragging) return;
+  if (!actx || !soundOn || !isPlaying() || isDragging) return;
   const t = actx.currentTime;
   const o = actx.createOscillator(), g = actx.createGain();
   o.type = 'triangle';
@@ -169,23 +229,6 @@ function playClockTick() {
   g.gain.exponentialRampToValueAtTime(0.0008, t + 0.042);
   o.connect(g); g.connect(masterGain);
   o.start(t); o.stop(t + 0.05);
-}
-
-function playHeartbeat() {
-  if (!actx || !soundOn || !playing || isDragging) return;
-  const now = actx.currentTime;
-  [0, 0.22].forEach((offset, idx) => {
-    const o = actx.createOscillator(), g = actx.createGain();
-    o.type = 'sine';
-    o.frequency.setValueAtTime(idx === 0 ? 78 : 64, now + offset);
-    o.frequency.exponentialRampToValueAtTime(28, now + offset + 0.16);
-    g.gain.setValueAtTime(0.001, now + offset);
-    g.gain.exponentialRampToValueAtTime(idx === 0 ? 0.32 : 0.22, now + offset + 0.02);
-    g.gain.exponentialRampToValueAtTime(0.0008, now + offset + 0.18);
-    o.connect(g); g.connect(masterGain);
-    o.start(now + offset);
-    o.stop(now + offset + 0.2);
-  });
 }
 
 function triggerSFX(type) {
@@ -204,7 +247,6 @@ function triggerSFX(type) {
       o.start(now + idx * 0.085); o.stop(now + idx * 0.085 + 0.54);
     });
   } else if (type === 'alarm') {
-    // 4-pulse digital bedside alarm beep
     [0, 0.14, 0.28, 0.42].forEach(off => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'square';
@@ -216,7 +258,6 @@ function triggerSFX(type) {
       o.start(now + off); o.stop(now + off + 0.1);
     });
   } else if (type === 'birds') {
-    // Morning songbird chirps
     [0, 0.22, 0.55].forEach((off, idx) => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'sine';
@@ -231,7 +272,6 @@ function triggerSFX(type) {
       o.start(now + off); o.stop(now + off + 0.16);
     });
   } else if (type === 'sun_swell') {
-    // Warm golden major chord swell (D4 + F#4 + A4 + D5)
     [293.66, 369.99, 440.0, 587.33].forEach(freq => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'triangle';
@@ -243,7 +283,6 @@ function triggerSFX(type) {
       o.start(now); o.stop(now + 1.65);
     });
   } else if (type === 'wind' || type === 'waves') {
-    // Soft atmospheric breeze or ocean wave wash
     const dur = type === 'waves' ? 1.8 : 1.3;
     const buf = actx.createBuffer(1, actx.sampleRate * dur, actx.sampleRate);
     const data = buf.getChannelData(0);
@@ -259,7 +298,6 @@ function triggerSFX(type) {
     src.connect(f); f.connect(g); g.connect(masterGain);
     src.start(now);
   } else if (type === 'footsteps') {
-    // 3 soft footsteps on wooden porch/floor
     [0, 0.32, 0.64].forEach(off => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'sine';
@@ -272,7 +310,6 @@ function triggerSFX(type) {
       o.start(now + off); o.stop(now + off + 0.1);
     });
   } else if (type === 'door_open') {
-    // Subtle wooden latch click + soft air release
     const o = actx.createOscillator(), g = actx.createGain();
     o.type = 'triangle';
     o.frequency.setValueAtTime(520, now);
@@ -282,7 +319,6 @@ function triggerSFX(type) {
     o.connect(g); g.connect(masterGain);
     o.start(now); o.stop(now + 0.15);
   } else if (type === 'spark') {
-    // Electric neural/chemical spark shimmer
     [1567.98, 2093.0, 2637.02, 3135.96].forEach((freq, idx) => {
       const o = actx.createOscillator(), g = actx.createGain();
       o.type = 'sine';
@@ -294,7 +330,17 @@ function triggerSFX(type) {
       o.start(now + idx * 0.045); o.stop(now + idx * 0.045 + 0.38);
     });
   } else if (type === 'heartbeat') {
-    playHeartbeat();
+    [0, 0.22].forEach((offset, idx) => {
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = 'sine';
+      o.frequency.setValueAtTime(idx === 0 ? 78 : 64, now + offset);
+      o.frequency.exponentialRampToValueAtTime(28, now + offset + 0.16);
+      g.gain.setValueAtTime(0.001, now + offset);
+      g.gain.exponentialRampToValueAtTime(idx === 0 ? 0.32 : 0.22, now + offset + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0008, now + offset + 0.18);
+      o.connect(g); g.connect(masterGain);
+      o.start(now + offset); o.stop(now + offset + 0.2);
+    });
   } else if (type === 'swipe' || type === 'whoosh') {
     const buf = actx.createBuffer(1, actx.sampleRate * 0.3, actx.sampleRate);
     const data = buf.getChannelData(0);
@@ -343,7 +389,7 @@ function triggerSFX(type) {
 }
 
 function processFrameAudio(t) {
-  if (!soundOn || !playing || isDragging) return;
+  if (!soundOn || !isPlaying() || isDragging) return;
 
   if (typeof SCENE_DATA !== 'undefined' && SCENE_DATA.sfx) {
     SCENE_DATA.sfx.forEach((item, i) => {
@@ -376,46 +422,54 @@ function toggleSound() {
 function toggleCC() {
   ccOn = !ccOn;
   if (ccBtn) ccBtn.classList.toggle('on', ccOn);
-  updateCaptions(currentTime);
+  updateCaptions(playhead.t);
 }
 
 function seekTo(sec) {
-  currentTime = Math.max(0, Math.min(DUR, sec));
-  lastTickSec = Math.floor(currentTime);
-  lastBeatIndex = Math.floor(currentTime / 1.15);
+  const clamped = Math.max(0, Math.min(DUR, sec));
+  lastTickSec = Math.floor(clamped);
   firedSfx.clear();
   if (typeof SCENE_DATA !== 'undefined' && SCENE_DATA.sfx) {
     SCENE_DATA.sfx.forEach((item, i) => {
-      if (item.at < currentTime) firedSfx.add(i);
+      if (item.at < clamped) firedSfx.add(i);
     });
   }
-  updateCaptions(currentTime);
-  if (timeEl) timeEl.textContent = `${fmt(currentTime)} / ${fmt(DUR)}`;
+  if (masterTL) masterTL.time(clamped, true);
+  playhead.t = clamped;
+  updateCaptions(clamped);
+  if (timeEl) timeEl.textContent = `${fmt(clamped)} / ${fmt(DUR)}`;
   if (!isDragging && scrub) {
-    scrub.value = String(Math.round((currentTime / DUR) * 1000));
+    scrub.value = String(Math.round((clamped / DUR) * 1000));
   }
 }
 
 function togglePlay() {
-  if (!playing && currentTime >= DUR - 0.05) {
-    replay();
-    return;
+  if (!masterTL) return;
+  if (masterTL.paused()) {
+    if (masterTL.progress() >= 0.999) {
+      replay();
+      return;
+    }
+    masterTL.play();
+    updatePlayButtonUI(true);
+    updateAmbientGain(true);
+  } else {
+    masterTL.pause();
+    updatePlayButtonUI(false);
+    updateAmbientGain(false);
   }
-  playing = !playing;
-  lastFrame = performance.now();
-  updatePlayButtonUI();
-  updateAmbientGain();
 }
 
 function replay() {
   isDragging = false;
   resizeCanvas();
+  window.CAM.shake = 0;
+  window.CAM.flash = 0;
   seekTo(0);
   if (scrub) scrub.value = '0';
-  playing = true;
-  lastFrame = performance.now();
-  updatePlayButtonUI();
-  updateAmbientGain();
+  if (masterTL) masterTL.play(0);
+  updatePlayButtonUI(true);
+  updateAmbientGain(true);
 }
 
 // Smooth Touch Drag Scrubber
@@ -423,18 +477,22 @@ if (scrub) {
   const startDrag = () => {
     if (!isDragging) {
       isDragging = true;
-      wasPlayingBeforeDrag = playing;
-      playing = false;
-      updateAmbientGain();
+      wasPlayingBeforeDrag = isPlaying();
+      if (masterTL) masterTL.pause();
+      updateAmbientGain(false);
     }
   };
   const endDrag = () => {
     if (isDragging) {
       isDragging = false;
-      playing = wasPlayingBeforeDrag && currentTime < DUR - 0.05;
-      lastFrame = performance.now();
-      updatePlayButtonUI();
-      updateAmbientGain();
+      if (masterTL && wasPlayingBeforeDrag && playhead.t < DUR - 0.05) {
+        masterTL.play();
+        updatePlayButtonUI(true);
+        updateAmbientGain(true);
+      } else {
+        updatePlayButtonUI(false);
+        updateAmbientGain(false);
+      }
     }
   };
 
@@ -465,35 +523,37 @@ document.addEventListener('fullscreenchange', () => {
   setTimeout(resizeCanvas, 60);
 });
 
-setupCaptions();
-lastFrame = performance.now();
+buildMasterTimeline();
 
-requestAnimationFrame(function loop(now) {
-  const dt = Math.min((now - lastFrame) / 1000, 0.1);
-  lastFrame = now;
-
-  if (playing && !isDragging) {
-    currentTime = Math.min(currentTime + dt, DUR);
-    processFrameAudio(currentTime);
-    if (scrub) scrub.value = String(Math.round((currentTime / DUR) * 1000));
-    if (timeEl) timeEl.textContent = `${fmt(currentTime)} / ${fmt(DUR)}`;
-    if (currentTime >= DUR) {
-      playing = false;
-      updatePlayButtonUI();
-      updateAmbientGain();
-    }
-  }
-
-  updateCaptions(currentTime);
-
-  // Guaranteed Canvas Render With Reset Transform & Error Guard (Never Blank!)
+// GSAP Ticker Driven 60FPS Render Loop With Automatic Camera Shake & Exposure Flash
+function renderCanvasFrame() {
   if (canvas.width > 0 && canvas.height > 0 && typeof SCENE_DATA !== 'undefined' && typeof SCENE_DATA.render === 'function') {
     try {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
-      SCENE_DATA.render(ctx, canvas.width, canvas.height, currentTime);
+      if (window.CAM.shake > 0.05) {
+        const sx = (Math.random() - 0.5) * window.CAM.shake;
+        const sy = (Math.random() - 0.5) * window.CAM.shake;
+        ctx.translate(sx, sy);
+      }
+      SCENE_DATA.render(ctx, canvas.width, canvas.height, playhead.t);
+
+      // Subtle GSAP Cinema Exposure Flash on Key Transitions
+      if (window.CAM.flash > 0.005) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.fillStyle = `rgba(235, 245, 255, ${window.CAM.flash})`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
     } catch (err) {
       console.error('Render frame error:', err);
     }
   }
-  requestAnimationFrame(loop);
-});
+}
+
+if (hasGSAP) {
+  gsap.ticker.add(renderCanvasFrame);
+} else {
+  requestAnimationFrame(function fallbackLoop() {
+    renderCanvasFrame();
+    requestAnimationFrame(fallbackLoop);
+  });
+}
