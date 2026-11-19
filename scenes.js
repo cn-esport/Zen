@@ -1,6 +1,209 @@
 /* ==========================================================================
-   LAST SOUL STUDIO — EPISODES & SCENES LIBRARY
+   LAST SOUL STUDIO — SIGNATURE CHARACTER RIG & EPISODES LIBRARY
+   Shared Protagonist Model (17-18yo Human Silhouette) + Nocturne Gouache Rig
    ========================================================================== */
+
+const SoulRig = {
+  // Draws the consistent 17-18yo protagonist in standing, walking, or reaching poses
+  drawHuman(ctx, opts) {
+    const {
+      x,
+      groundY,
+      scale = 1,
+      facing = 1, // 1 = right, -1 = left
+      walkPhase = 0, // 0 = standing still
+      isWalking = false,
+      rightArm = { upper: 0.12, fore: 0.25 },
+      leftArm = { upper: -0.1, fore: 0.2 },
+      rimColor = "rgba(251, 191, 36, 0.78)",
+      lookUp = 0,
+      breath = 0,
+      holdingBag = false
+    } = opts;
+
+    ctx.save();
+    ctx.translate(x, groundY);
+    ctx.scale(facing * scale, scale);
+
+    // Human proportions (Total height ~132px at scale 1.0)
+    const hipY = -68 + breath;
+    const shoulderY = -104 + breath;
+    const neckBaseY = -107 + breath;
+    const headCenterY = -121 + breath;
+    const thighLen = 32;
+    const shinLen = 33;
+    const upperArmLen = 24;
+    const foreArmLen = 23;
+
+    // Ground Contact Shadow
+    ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
+    ctx.beginPath();
+    ctx.ellipse(0, 2, 18 + (isWalking ? Math.abs(Math.sin(walkPhase)) * 6 : 0), 3.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Helper for tapered organic limb + shoe/hand
+    const drawLeg = (hipAngle, kneeBend, isFront) => {
+      const kx = Math.sin(hipAngle) * thighLen;
+      const ky = hipY + Math.cos(hipAngle) * thighLen;
+      const ankleAngle = hipAngle - kneeBend;
+      const ax = kx + Math.sin(ankleAngle) * shinLen;
+      const ay = ky + Math.cos(ankleAngle) * shinLen;
+
+      ctx.strokeStyle = isFront ? "#030407" : "#070910";
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      // Thigh
+      ctx.lineWidth = 10.5;
+      ctx.beginPath();
+      ctx.moveTo(0, hipY);
+      ctx.lineTo(kx, ky);
+      ctx.stroke();
+
+      // Shin
+      ctx.lineWidth = 8.2;
+      ctx.beginPath();
+      ctx.moveTo(kx, ky);
+      ctx.lineTo(ax, ay);
+      ctx.stroke();
+
+      // Shoe silhouette
+      ctx.fillStyle = isFront ? "#030407" : "#070910";
+      ctx.beginPath();
+      ctx.ellipse(ax + 4, ay + 1, 7.5, 3.2, ankleAngle * 0.25, 0, Math.PI * 2);
+      ctx.fill();
+    };
+
+    const drawArm = (upperAng, foreAng, isFront) => {
+      const sx = isFront ? 1 : -1;
+      const sy = shoulderY + 4;
+      const ex = sx + Math.sin(upperAng) * upperArmLen;
+      const ey = sy + Math.cos(upperAng) * upperArmLen;
+      const hx = ex + Math.sin(upperAng + foreAng) * foreArmLen;
+      const hy = ey + Math.cos(upperAng + foreAng) * foreArmLen;
+
+      ctx.strokeStyle = isFront ? "#030407" : "#070910";
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      // Upper sleeve
+      ctx.lineWidth = 8.5;
+      ctx.beginPath();
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(ex, ey);
+      ctx.stroke();
+
+      // Forearm
+      ctx.lineWidth = 6.8;
+      ctx.beginPath();
+      ctx.moveTo(ex, ey);
+      ctx.lineTo(hx, hy);
+      ctx.stroke();
+
+      // Hand silhouette
+      ctx.fillStyle = isFront ? "#030407" : "#070910";
+      ctx.beginPath();
+      ctx.ellipse(hx, hy, 4.2, 3.2, upperAng + foreAng, 0, Math.PI * 2);
+      ctx.fill();
+
+      return { hx, hy };
+    };
+
+    // 1. Back Arm & Back Leg
+    const stride = isWalking ? Math.sin(walkPhase) : 0;
+    const backHipAng = isWalking ? -stride * 0.46 : -0.06;
+    const backKnee = isWalking ? Math.max(0, stride) * 0.58 : 0.04;
+    const backArmUpper = isWalking ? stride * 0.44 : leftArm.upper;
+    const backArmFore = isWalking ? 0.32 : leftArm.fore;
+
+    drawArm(backArmUpper, backArmFore, false);
+    drawLeg(backHipAng, backKnee, false);
+
+    // 2. Sculpted Human Torso (Hoodie/Jacket Silhouette with curved back & chest)
+    ctx.fillStyle = "#030407";
+    ctx.beginPath();
+    ctx.moveTo(-7.5, hipY + 3);
+    ctx.quadraticCurveTo(-9.5, (hipY + shoulderY) * 0.5, -8.5, shoulderY + 3);
+    ctx.quadraticCurveTo(-5, shoulderY - 2, 0, neckBaseY);
+    ctx.quadraticCurveTo(6.5, shoulderY - 1, 8.5, shoulderY + 4);
+    ctx.quadraticCurveTo(9, (hipY + shoulderY) * 0.5, 6.5, hipY + 3);
+    ctx.closePath();
+    ctx.fill();
+
+    // Subtle Rim Highlight along Back/Shoulder
+    ctx.strokeStyle = rimColor;
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(-8.5, shoulderY + 3);
+    ctx.quadraticCurveTo(-5, shoulderY - 2, 0, neckBaseY);
+    ctx.stroke();
+
+    // 3. Visible Neck
+    ctx.fillStyle = "#030407";
+    ctx.fillRect(-3.2, headCenterY + 7, 6.4, 9);
+
+    // 4. Front Leg
+    const frontHipAng = isWalking ? stride * 0.46 : 0.07;
+    const frontKnee = isWalking ? Math.max(0, -stride) * 0.58 : 0.04;
+    drawLeg(frontHipAng, frontKnee, true);
+
+    // 5. Detailed Head Profile + Styled Hair Silhouette
+    ctx.save();
+    ctx.translate(1, headCenterY);
+    ctx.rotate(-lookUp);
+
+    // Cranium & Jawline
+    ctx.fillStyle = "#030407";
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 9.5, 11, -0.08, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Nose & Chin contour
+    ctx.beginPath();
+    ctx.moveTo(8, -2);
+    ctx.lineTo(10.8, 1.5);
+    ctx.lineTo(8.5, 4);
+    ctx.lineTo(7.5, 8.5);
+    ctx.lineTo(1, 10.5);
+    ctx.closePath();
+    ctx.fill();
+
+    // Layered Hair Silhouette (Natural 17-18yo textured hair)
+    ctx.beginPath();
+    ctx.moveTo(-9.5, 2);
+    ctx.quadraticCurveTo(-11.5, -7, -6, -12.2);
+    ctx.quadraticCurveTo(0, -14.5, 7.5, -11);
+    ctx.quadraticCurveTo(12, -8, 10.5, -3.5);
+    ctx.quadraticCurveTo(5, -6, -2, -5);
+    ctx.quadraticCurveTo(-7, -3, -7.5, 4);
+    ctx.closePath();
+    ctx.fill();
+
+    // Rim Light on Face/Hair Edge
+    ctx.strokeStyle = rimColor;
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.arc(0, 0, 10.2, -0.85, 0.65);
+    ctx.stroke();
+
+    ctx.restore();
+
+    // 6. Front Arm
+    const frontArmUpper = isWalking ? -stride * 0.44 : rightArm.upper;
+    const frontArmFore = isWalking ? 0.38 : rightArm.fore;
+    const hand = drawArm(frontArmUpper, frontArmFore, true);
+
+    if (holdingBag) {
+      ctx.fillStyle = "#d97706";
+      ctx.fillRect(hand.hx - 4, hand.hy + 2, 10, 13);
+      ctx.strokeStyle = "#fbbf24";
+      ctx.lineWidth = 1.2;
+      ctx.strokeRect(hand.hx - 4, hand.hy + 2, 10, 13);
+    }
+
+    ctx.restore();
+  }
+};
 
 window.LAST_SOUL_SCENES = [
   /* ------------------------------------------------------------------------
@@ -19,21 +222,21 @@ window.LAST_SOUL_SCENES = [
         label: "SCENE 01 · DEEP SLEEP",
         lens: "WIDE · 24MM",
         camera: { x: 0, y: 0, zoom: 1.0, tilt: 0 },
-        subtitle: "Scene 1: Deep sleep cycle—chest breathing, moonlight, and floating Zzz's."
+        subtitle: "Scene 1: Deep sleep cycle—chest breathing, moonlight beam, and floating Zzz's."
       },
       {
         start: 8.0,
         label: "SCENE 02 · WAKING UP",
         lens: "MEDIUM · DOLLY IN",
-        camera: { x: 0.06, y: 0.04, zoom: 1.38, tilt: -0.5 },
+        camera: { x: 0.06, y: 0.04, zoom: 1.35, tilt: -0.4 },
         subtitle: "Scene 2: Waking up—sitting upright and full overhead arm stretch."
       },
       {
         start: 16.0,
         label: "SCENE 03 · OUTDOOR WALK",
         lens: "TRACKING · 35MM",
-        camera: { x: 0.0, y: 0.03, zoom: 1.25, tilt: 0 },
-        subtitle: "Scene 3: Outdoor morning walk—scrolling street, trees, and knee-bend stride."
+        camera: { x: 0.0, y: 0.03, zoom: 1.22, tilt: 0 },
+        subtitle: "Scene 3: Outdoor morning walk—natural human scale, trees, and knee-bend stride."
       },
       {
         start: 24.0,
@@ -63,54 +266,54 @@ window.LAST_SOUL_SCENES = [
       { at: 28.0, type: "heartbeat" }
     ],
     render(ctx, w, h, t) {
-      // Helper: Articulated 2-Segment Limb
-      function drawLimb(x1, y1, angle1, len1, angle2, len2, thickness, color = "#030407") {
-        const jx = x1 + Math.sin(angle1) * len1;
-        const jy = y1 + Math.cos(angle1) * len1;
-        const ex = jx + Math.sin(angle1 + angle2) * len2;
-        const ey = jy + Math.cos(angle1 + angle2) * len2;
-
-        ctx.strokeStyle = color;
-        ctx.lineWidth = thickness;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(jx, jy);
-        ctx.lineTo(ex, ey);
-        ctx.stroke();
-        return { jx, jy, ex, ey };
-      }
-
       /* ====================================================================
-         PART A (0s - 16s): INDOOR BEDROOM (SLEEPING -> WAKING & STRETCHING)
+         PART A (0s - 16s): PAINTERLY NOCTURNE BEDROOM (SLEEPING -> WAKING)
          ==================================================================== */
       if (t < 16.0) {
-        const wakeProgress = Math.max(0, Math.min(1, (t - 7.5) / 2.2)); // 0 = sleeping, 1 = sitting up
+        const wakeProgress = Math.max(0, Math.min(1, (t - 7.5) / 2.2));
 
-        // Sky/Room transitions from deep night blue to soft dawn indigo as alarm rings
-        const bg = ctx.createLinearGradient(0, 0, 0, h);
-        bg.addColorStop(0, wakeProgress > 0.3 ? "#111a2e" : "#060913");
-        bg.addColorStop(0.65, wakeProgress > 0.3 ? "#1e293b" : "#0c1322");
-        bg.addColorStop(1, "#04060b");
-        ctx.fillStyle = bg;
+        // Rich Nocturne Gouache Wall Gradient
+        const wallGrad = ctx.createLinearGradient(0, 0, 0, h);
+        wallGrad.addColorStop(0, wakeProgress > 0.3 ? "#131e36" : "#070b15");
+        wallGrad.addColorStop(0.6, wakeProgress > 0.3 ? "#1e2d4a" : "#0e172a");
+        wallGrad.addColorStop(1, "#05070c");
+        ctx.fillStyle = wallGrad;
         ctx.fillRect(0, 0, w, h);
 
-        // Bedroom Window
-        const winX = w * 0.12;
-        const winY = h * 0.14;
-        const winW = w * 0.32;
-        const winH = h * 0.26;
-        ctx.fillStyle = wakeProgress > 0.3 ? "#334155" : "#152238";
+        // Subtle Wall Wainscoting / Baseboard Line for Depth
+        ctx.fillStyle = "rgba(0, 0, 0, 0.28)";
+        ctx.fillRect(0, h * 0.56, w, h * 0.44);
+
+        // Bedroom Window with Curtain Drapes
+        const winX = w * 0.11;
+        const winY = h * 0.13;
+        const winW = w * 0.33;
+        const winH = h * 0.27;
+
+        // Window Sky Pane
+        ctx.fillStyle = wakeProgress > 0.3 ? "#3b5278" : "#162440";
         ctx.fillRect(winX, winY, winW, winH);
 
-        // Morning Sun / Moon Orb in Window
-        ctx.fillStyle = wakeProgress > 0.3 ? "rgba(251, 191, 36, 0.75)" : "rgba(186, 230, 253, 0.55)";
+        // Crescent Moon / Morning Sun Orb
+        ctx.fillStyle = wakeProgress > 0.3 ? "rgba(253, 224, 71, 0.85)" : "rgba(186, 230, 253, 0.65)";
         ctx.beginPath();
-        ctx.arc(winX + winW * 0.65, winY + winH * (0.35 - wakeProgress * 0.1), 16, 0, Math.PI * 2);
+        ctx.arc(winX + winW * 0.68, winY + winH * (0.36 - wakeProgress * 0.1), 15, 0, Math.PI * 2);
         ctx.fill();
 
-        // Window Frame Bars
+        // Diagonal Volumetric Moonlight / Sunlight Beam across Bedroom
+        const beamGrad = ctx.createLinearGradient(winX, winY, winX + w * 0.55, h * 0.85);
+        beamGrad.addColorStop(0, wakeProgress > 0.3 ? "rgba(251, 191, 36, 0.22)" : "rgba(125, 179, 255, 0.16)");
+        beamGrad.addColorStop(1, "rgba(13, 21, 38, 0)");
+        ctx.fillStyle = beamGrad;
+        ctx.beginPath();
+        ctx.moveTo(winX, winY + winH);
+        ctx.lineTo(winX + winW, winY);
+        ctx.lineTo(w * 0.88, h * 0.85);
+        ctx.lineTo(w * 0.22, h * 0.85);
+        ctx.closePath();
+        ctx.fill();
+
+        // Window Mullions & Curtain Silhouettes
         ctx.strokeStyle = "#05070c";
         ctx.lineWidth = 4;
         ctx.strokeRect(winX, winY, winW, winH);
@@ -121,193 +324,253 @@ window.LAST_SOUL_SCENES = [
         ctx.lineTo(winX + winW, winY + winH / 2);
         ctx.stroke();
 
-        // Bedside Table & Alarm Clock
-        const bedY = h * 0.72;
-        ctx.fillStyle = "#080b12";
-        ctx.fillRect(w * 0.08, bedY + 10, w * 0.16, h * 0.25);
-
-        // Alarm Clock shaking at 6.8s - 9.0s
-        const alarmShake = t >= 6.8 && t <= 9.2 ? Math.sin(t * 55) * 3 : 0;
-        ctx.fillStyle = "#1e293b";
-        ctx.fillRect(w * 0.11 + alarmShake, bedY - 14, w * 0.1, 22);
-        ctx.fillStyle = t >= 6.8 ? "#fbbf24" : "#ef4444";
-        ctx.font = `700 ${Math.max(10, w * 0.025)}px monospace`;
-        ctx.textAlign = "center";
-        ctx.fillText("06:30", w * 0.16 + alarmShake, bedY + 1);
-
-        // Bed Frame & Mattress
-        ctx.fillStyle = "#06080f";
-        ctx.fillRect(w * 0.26, bedY, w * 0.68, h * 0.28);
-
-        // Pillow on Right
-        ctx.fillStyle = "#141c2b";
+        // Soft Hanging Curtains on Both Sides of Window
+        ctx.fillStyle = "#080c17";
         ctx.beginPath();
-        ctx.ellipse(w * 0.80, bedY - 2, w * 0.11, h * 0.028, -0.1, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Character Sleeping -> Sitting Up -> Stretching
-        const breath = Math.sin(t * 2.0) * 3;
-        const hipX = w * 0.66;
-        const hipY = bedY - 6;
-
-        // Torso angle: -1.42 rad (lying flat) -> 0.0 rad (sitting upright)
-        const torsoAngle = -1.42 * (1 - wakeProgress);
-        const torsoLen = h * 0.14;
-        const shoulderX = hipX + Math.sin(torsoAngle) * torsoLen;
-        const shoulderY = hipY - Math.cos(torsoAngle) * torsoLen + breath * (1 - wakeProgress);
-
-        // Draw Blanket over lower body (slides back slightly when waking)
-        ctx.fillStyle = "#0f172a";
-        ctx.beginPath();
-        ctx.moveTo(w * 0.34 + wakeProgress * 35, bedY + 4);
-        ctx.quadraticCurveTo(w * 0.55, bedY - 18 + breath, hipX + 12, bedY + 4);
-        ctx.lineTo(w * 0.34 + wakeProgress * 35, bedY + 35);
+        ctx.moveTo(winX - 10, winY - 6);
+        ctx.lineTo(winX + 16, winY - 6);
+        ctx.quadraticCurveTo(winX + 8, winY + winH * 0.5, winX + 18, winY + winH + 18);
+        ctx.lineTo(winX - 12, winY + winH + 18);
         ctx.closePath();
         ctx.fill();
 
-        // Torso Silhouette
-        ctx.strokeStyle = "#030407";
-        ctx.lineWidth = Math.max(16, w * 0.045);
-        ctx.lineCap = "round";
         ctx.beginPath();
-        ctx.moveTo(hipX, hipY);
-        ctx.lineTo(shoulderX, shoulderY);
-        ctx.stroke();
-
-        // Head Silhouette
-        const headR = Math.min(w, h) * 0.036;
-        const headX = shoulderX + Math.sin(torsoAngle) * (headR * 1.35);
-        const headY = shoulderY - Math.cos(torsoAngle) * (headR * 1.35);
-
-        ctx.fillStyle = "#030407";
-        ctx.beginPath();
-        ctx.arc(headX, headY, headR, 0, Math.PI * 2);
+        ctx.moveTo(winX + winW - 16, winY - 6);
+        ctx.lineTo(winX + winW + 10, winY - 6);
+        ctx.lineTo(winX + winW + 12, winY + winH + 18);
+        ctx.quadraticCurveTo(winX + winW - 8, winY + winH * 0.5, winX + winW - 18, winY + winH + 18);
+        ctx.closePath();
         ctx.fill();
 
-        // Rim Light on Head
-        ctx.strokeStyle = wakeProgress > 0.3 ? "rgba(251, 191, 36, 0.75)" : "rgba(147, 197, 253, 0.55)";
-        ctx.lineWidth = 2;
+        // Bedroom Floor
+        const floorY = h * 0.78;
+        ctx.fillStyle = "#04060b";
+        ctx.fillRect(0, floorY, w, h - floorY);
+
+        // Nightstand & Alarm Clock (Left of Bed)
+        const bedY = h * 0.69;
+        ctx.fillStyle = "#080b14";
+        ctx.fillRect(w * 0.08, bedY + 8, w * 0.15, floorY - (bedY + 8));
+
+        const alarmShake = t >= 6.8 && t <= 9.2 ? Math.sin(t * 55) * 2.5 : 0;
+        ctx.fillStyle = "#162033";
+        ctx.fillRect(w * 0.105 + alarmShake, bedY - 12, w * 0.1, 20);
+        ctx.fillStyle = t >= 6.8 ? "#fbbf24" : "#ef4444";
+        ctx.font = `700 ${Math.max(10, w * 0.024)}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillText("06:30", w * 0.155 + alarmShake, bedY + 2);
+
+        // Detailed Wooden Bed Frame (Headboard on Right, Footboard on Left)
+        ctx.fillStyle = "#060810";
+        ctx.fillRect(w * 0.26, bedY, w * 0.68, floorY - bedY); // Bed base
+        ctx.fillRect(w * 0.89, bedY - h * 0.13, w * 0.05, floorY - (bedY - h * 0.13)); // Headboard
+        ctx.fillRect(w * 0.25, bedY - h * 0.05, w * 0.035, floorY - (bedY - h * 0.05)); // Footboard
+
+        // Soft Pillow on Right
+        ctx.fillStyle = "#182236";
         ctx.beginPath();
-        ctx.arc(headX, headY, headR, Math.PI * 0.8, Math.PI * 1.6);
+        ctx.ellipse(w * 0.81, bedY - 3, w * 0.09, h * 0.025, -0.14, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Natural Human Character Sleeping -> Sitting Up -> Stretching
+        const breath = Math.sin(t * 2.1) * 2.5;
+        const hipX = w * 0.65;
+        const hipY = bedY - 4;
+
+        // Torso angle: -1.45 rad (lying flat on back) -> 0.05 rad (sitting upright)
+        const torsoAngle = -1.45 * (1 - wakeProgress) + 0.05 * wakeProgress;
+        const torsoLen = h * 0.115;
+        const shoulderX = hipX + Math.sin(torsoAngle) * torsoLen;
+        const shoulderY = hipY - Math.cos(torsoAngle) * torsoLen + breath * (1 - wakeProgress) * 0.5;
+
+        // Sculpted Blanket with Natural Knee Bump Silhouette
+        ctx.fillStyle = "#111b2e";
+        ctx.beginPath();
+        ctx.moveTo(w * 0.30 + wakeProgress * 28, bedY + 2);
+        // Knee contour bump under blanket
+        ctx.quadraticCurveTo(w * 0.45, bedY - 22, w * 0.54, bedY - 12 + breath * 0.4);
+        ctx.quadraticCurveTo(w * 0.61, bedY - 15 + breath, hipX + 6, bedY + 2);
+        ctx.lineTo(w * 0.30 + wakeProgress * 28, bedY + 24);
+        ctx.closePath();
+        ctx.fill();
+
+        // Rim highlight on top fold of blanket
+        ctx.strokeStyle = wakeProgress > 0.3 ? "rgba(251, 191, 36, 0.28)" : "rgba(147, 197, 253, 0.22)";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(w * 0.30 + wakeProgress * 28, bedY + 2);
+        ctx.quadraticCurveTo(w * 0.45, bedY - 22, w * 0.54, bedY - 12 + breath * 0.4);
+        ctx.quadraticCurveTo(w * 0.61, bedY - 15 + breath, hipX + 6, bedY + 2);
         ctx.stroke();
 
+        // Natural Curved Human Torso (Hoodie/T-shirt silhouette)
+        ctx.save();
+        ctx.translate(hipX, hipY);
+        ctx.rotate(torsoAngle);
+        ctx.fillStyle = "#030407";
+        ctx.beginPath();
+        ctx.moveTo(-7, 2);
+        ctx.quadraticCurveTo(-9, -torsoLen * 0.5, -7.5, -torsoLen);
+        ctx.quadraticCurveTo(0, -torsoLen - 4, 7.5, -torsoLen);
+        ctx.quadraticCurveTo(9, -torsoLen * 0.5, 6.5, 2);
+        ctx.closePath();
+        ctx.fill();
+
+        // Visible Neck
+        ctx.fillRect(-3, -torsoLen - 8, 6, 9);
+
+        // Head & Styled Hair Silhouette resting on Pillow / Sitting Up
+        ctx.translate(0, -torsoLen - 16);
+        ctx.fillStyle = "#030407";
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 9.5, 11, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Hair Tuft Silhouette
+        ctx.beginPath();
+        ctx.moveTo(-9, 3);
+        ctx.quadraticCurveTo(-11, -8, -4, -12.5);
+        ctx.quadraticCurveTo(3, -14, 9, -9);
+        ctx.quadraticCurveTo(11, -4, 8, 2);
+        ctx.closePath();
+        ctx.fill();
+
+        // Rim Light on Head & Hair
+        ctx.strokeStyle = wakeProgress > 0.3 ? "rgba(251, 191, 36, 0.8)" : "rgba(147, 197, 253, 0.65)";
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.arc(0, 0, 10.5, Math.PI * 0.85, Math.PI * 1.65);
+        ctx.stroke();
+        ctx.restore();
+
         // Floating "Zzz" Particles while sleeping (0s - 6.8s)
+        const headWorldX = shoulderX + Math.sin(torsoAngle) * 16;
+        const headWorldY = shoulderY - Math.cos(torsoAngle) * 16;
+
         if (t < 6.8) {
-          ctx.fillStyle = "rgba(186, 230, 253, 0.55)";
-          ctx.font = "600 14px sans-serif";
+          ctx.fillStyle = "rgba(186, 230, 253, 0.65)";
+          ctx.font = "600 13px sans-serif";
           for (let z = 0; z < 3; z++) {
-            const cycle = (t * 0.6 + z * 0.33) % 1;
-            const zx = headX - 18 - cycle * 26;
-            const zy = headY - 14 - cycle * 45;
+            const cycle = (t * 0.55 + z * 0.33) % 1;
+            const zx = headWorldX - 14 - cycle * 24;
+            const zy = headWorldY - 14 - cycle * 42;
             ctx.globalAlpha = 1 - cycle;
             ctx.fillText("z", zx, zy);
           }
           ctx.globalAlpha = 1;
         }
 
-        // Morning Stretch Arms (10.0s - 14.5s)
+        // Morning Stretch Arms when Sitting Up (9.5s - 14.5s)
         if (t >= 9.5) {
-          const stretchAmt = Math.sin(Math.min(1, (t - 9.5) / 2.2) * Math.PI);
-          const armLen = h * 0.065;
-          drawLimb(shoulderX, shoulderY + 4, -2.5 * stretchAmt - 0.3, armLen, -0.3, armLen * 0.9, 7);
-          drawLimb(shoulderX + 6, shoulderY + 4, -2.8 * stretchAmt - 0.1, armLen, 0.25, armLen * 0.9, 7);
+          const stretch = Math.sin(Math.min(1, (t - 9.5) / 2.2) * Math.PI);
+          ctx.strokeStyle = "#030407";
+          ctx.lineWidth = 7;
+          ctx.lineCap = "round";
+
+          // Left & Right arms raising overhead smoothly
+          [-1, 1].forEach((side) => {
+            const sx = shoulderX + side * 4;
+            const sy = shoulderY + 4;
+            const ex = sx - stretch * 14 + side * 4;
+            const ey = sy - stretch * 24;
+            const hx = ex + stretch * 6;
+            const hy = ey - stretch * 22;
+
+            ctx.beginPath();
+            ctx.moveTo(sx, sy);
+            ctx.lineTo(ex, ey);
+            ctx.lineTo(hx, hy);
+            ctx.stroke();
+          });
         }
       }
 
       /* ====================================================================
-         PART B (16s - 24s): OUTDOOR MORNING STREET WALK
+         PART B (16s - 24s): OUTDOOR MORNING STREET WALK (PROPER HUMAN SCALE)
          ==================================================================== */
       else if (t < 24.0) {
         const localT = t - 16.0;
 
-        // Warm Golden-Hour Morning Sky
+        // Golden-Hour Morning Sky
         const sky = ctx.createLinearGradient(0, 0, 0, h);
-        sky.addColorStop(0, "#172554");
-        sky.addColorStop(0.52, "#9a3412");
-        sky.addColorStop(0.76, "#f59e0b");
+        sky.addColorStop(0, "#152244");
+        sky.addColorStop(0.54, "#853114");
+        sky.addColorStop(0.75, "#e08e26");
         sky.addColorStop(1, "#090d16");
         ctx.fillStyle = sky;
         ctx.fillRect(0, 0, w, h);
 
-        // Rising Morning Sun
-        ctx.fillStyle = "rgba(254, 240, 138, 0.85)";
+        // Soft Morning Sun
+        ctx.fillStyle = "rgba(254, 240, 138, 0.82)";
         ctx.beginPath();
-        ctx.arc(w * 0.72, h * 0.54, w * 0.11, 0, Math.PI * 2);
+        ctx.arc(w * 0.74, h * 0.56, w * 0.095, 0, Math.PI * 2);
         ctx.fill();
 
-        // Parallax Distant Hills & Buildings
-        const scroll = localT * 65;
-        ctx.fillStyle = "#0f172a";
-        for (let b = -1; b < 6; b++) {
-          const bx = ((b * 130 - scroll * 0.45) % (w + 150));
-          const bh = 70 + ((b * 37) % 65);
-          ctx.fillRect(bx, h * 0.74 - bh, 95, bh);
-        }
-
-        // Parallax Roadside Trees & Utility Poles
-        for (let tr = 0; tr < 5; tr++) {
-          const tx = ((tr * 190 - scroll * 1.1) % (w + 200) + (w + 200)) % (w + 200) - 60;
-          // Utility Pole
-          ctx.fillStyle = "#05070c";
-          ctx.fillRect(tx, h * 0.34, 5, h * 0.42);
-          ctx.fillRect(tx - 14, h * 0.38, 33, 3);
-
-          // Tree Crown Silhouette
-          ctx.beginPath();
-          ctx.arc(tx + 55, h * 0.58, 32, 0, Math.PI * 2);
-          ctx.arc(tx + 78, h * 0.61, 25, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillRect(tx + 62, h * 0.60, 7, h * 0.16);
-        }
-
-        // Road & Sidewalk
         const groundY = h * 0.76;
-        ctx.fillStyle = "#05070c";
+        const scroll = localT * 58;
+
+        // Layer 1 (Far Background): Misty Distant Buildings (Soft Slate Tone so Character Pops!)
+        ctx.fillStyle = "#1c2538";
+        for (let b = -1; b < 7; b++) {
+          const bx = ((b * 120 - scroll * 0.35) % (w + 150) + (w + 150)) % (w + 150) - 80;
+          const bh = 95 + ((b * 43) % 75);
+          ctx.fillRect(bx, groundY - bh, 88, bh);
+
+          // Faint lit apartment windows
+          ctx.fillStyle = "rgba(253, 224, 71, 0.16)";
+          ctx.fillRect(bx + 16, groundY - bh + 18, 12, 16);
+          ctx.fillRect(bx + 52, groundY - bh + 38, 12, 16);
+          ctx.fillStyle = "#1c2538";
+        }
+
+        // Layer 2 (Midground): Tall Roadside Trees & Utility Poles (Properly Tall Above Human!)
+        for (let tr = 0; tr < 4; tr++) {
+          const tx = ((tr * 210 - scroll * 0.85) % (w + 220) + (w + 220)) % (w + 220) - 70;
+
+          // Tall Utility Pole
+          ctx.fillStyle = "#111726";
+          ctx.fillRect(tx, groundY - h * 0.44, 4, h * 0.44);
+          ctx.fillRect(tx - 12, groundY - h * 0.40, 28, 2.5);
+
+          // Tall Lush Tree (Trunk + Canopy high above human head)
+          ctx.fillStyle = "#101724";
+          ctx.fillRect(tx + 54, groundY - h * 0.24, 8, h * 0.24);
+          ctx.beginPath();
+          ctx.arc(tx + 58, groundY - h * 0.27, 36, 0, Math.PI * 2);
+          ctx.arc(tx + 36, groundY - h * 0.23, 25, 0, Math.PI * 2);
+          ctx.arc(tx + 80, groundY - h * 0.23, 25, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Sidewalk & Road
+        ctx.fillStyle = "#06080f";
         ctx.fillRect(0, groundY, w, h - groundY);
 
-        // Dashed Road Markings moving past
-        ctx.fillStyle = "rgba(251, 191, 36, 0.35)";
+        // Warm Curb Edge Highlight
+        ctx.fillStyle = "rgba(245, 158, 11, 0.35)";
+        ctx.fillRect(0, groundY, w, 2.5);
+
+        // Dashed Street Lines
+        ctx.fillStyle = "rgba(251, 191, 36, 0.28)";
         for (let m = 0; m < 8; m++) {
-          const mx = ((m * 90 - scroll * 1.6) % (w + 90) + (w + 90)) % (w + 90) - 40;
-          ctx.fillRect(mx, groundY + 24, 38, 4);
+          const mx = ((m * 85 - scroll * 1.45) % (w + 90) + (w + 90)) % (w + 90) - 40;
+          ctx.fillRect(mx, groundY + 26, 34, 3.5);
         }
 
-        // Full Walking Cycle Silhouette (Center Frame Tracking)
-        const charX = w * 0.44;
+        // Foreground Protagonist (Natural Human Height ~0.78 scale so trees & buildings tower above)
         const walkPhase = localT * Math.PI * 2.22;
-        const stride = Math.sin(walkPhase);
-        const bounce = Math.abs(Math.cos(walkPhase)) * 5;
-        const hipY = groundY - h * 0.15 + bounce;
-        const shoulderY = hipY - h * 0.11;
-        const headY = shoulderY - h * 0.045;
-        const legLen = h * 0.075;
-        const armLen = h * 0.056;
+        const bob = Math.abs(Math.cos(walkPhase)) * 3.2;
 
-        // Back Arm & Leg
-        drawLimb(charX, shoulderY + 4, -stride * 0.48, armLen, 0.25, armLen * 0.9, 6.5);
-        drawLimb(charX, hipY, -stride * 0.5, legLen, -Math.max(0, stride) * 0.55, legLen, 8);
-
-        // Torso
-        ctx.fillStyle = "#030407";
-        ctx.fillRect(charX - 10, shoulderY, 20, hipY - shoulderY + 3);
-
-        // Front Leg & Knee Bend
-        drawLimb(charX, hipY, stride * 0.5, legLen, -Math.max(0, -stride) * 0.55, legLen, 8.5);
-
-        // Head + Warm Sunlight Rim Edge
-        const headR = Math.min(w, h) * 0.032;
-        ctx.beginPath();
-        ctx.arc(charX + 2, headY, headR, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.strokeStyle = "rgba(253, 224, 71, 0.85)";
-        ctx.lineWidth = 2.2;
-        ctx.beginPath();
-        ctx.arc(charX + 2, headY, headR, -0.9, 0.9);
-        ctx.stroke();
-
-        // Front Arm Swing
-        drawLimb(charX + 2, shoulderY + 4, stride * 0.48, armLen, 0.35, armLen * 0.9, 7);
+        SoulRig.drawHuman(ctx, {
+          x: w * 0.44,
+          groundY: groundY,
+          scale: Math.min(w, h) / 460,
+          facing: 1,
+          isWalking: true,
+          walkPhase: walkPhase,
+          breath: bob,
+          rimColor: "rgba(253, 224, 71, 0.85)"
+        });
       }
 
       /* ====================================================================
@@ -316,10 +579,10 @@ window.LAST_SOUL_SCENES = [
       else {
         const localT = t - 24.0;
 
-        // Crisp Morning Daylight Sky
+        // Morning Daylight Sky
         const sky = ctx.createLinearGradient(0, 0, 0, h);
-        sky.addColorStop(0, "#1e3a5f");
-        sky.addColorStop(0.65, "#3b6998");
+        sky.addColorStop(0, "#1a3356");
+        sky.addColorStop(0.65, "#365f8a");
         sky.addColorStop(1, "#090d16");
         ctx.fillStyle = sky;
         ctx.fillRect(0, 0, w, h);
@@ -329,31 +592,31 @@ window.LAST_SOUL_SCENES = [
         ctx.fillRect(0, groundY, w, h - groundY);
 
         // Local Shop Building Structure (Right Side)
-        const shopX = w * 0.46;
-        const shopY = h * 0.32;
-        const shopW = w * 0.46;
+        const shopX = w * 0.45;
+        const shopY = h * 0.30;
+        const shopW = w * 0.48;
         const shopH = groundY - shopY;
 
-        ctx.fillStyle = "#0b101b";
+        ctx.fillStyle = "#0d1321";
         ctx.fillRect(shopX, shopY, shopW, shopH);
 
-        // Warm Glowing Shop Interior Window & Counter
+        // Warm Glowing Shop Counter Window
         const glow = ctx.createRadialGradient(
           shopX + shopW * 0.5, shopY + shopH * 0.45, 10,
           shopX + shopW * 0.5, shopY + shopH * 0.5, shopW * 0.85
         );
-        glow.addColorStop(0, "rgba(251, 191, 36, 0.85)");
+        glow.addColorStop(0, "rgba(251, 191, 36, 0.88)");
         glow.addColorStop(0.6, "rgba(245, 158, 11, 0.32)");
         glow.addColorStop(1, "rgba(11, 16, 27, 0)");
         ctx.fillStyle = glow;
-        ctx.fillRect(shopX + 10, shopY + 35, shopW - 20, shopH * 0.55);
+        ctx.fillRect(shopX + 10, shopY + 35, shopW - 20, shopH * 0.58);
 
-        // Shopkeeper Silhouette inside counter
-        ctx.fillStyle = "#090c14";
+        // Shopkeeper Silhouette behind Counter
+        ctx.fillStyle = "#0a0e18";
         ctx.beginPath();
-        ctx.arc(shopX + shopW * 0.65, shopY + shopH * 0.46, 13, 0, Math.PI * 2);
+        ctx.arc(shopX + shopW * 0.66, shopY + shopH * 0.48, 11, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillRect(shopX + shopW * 0.58, shopY + shopH * 0.51, 24, 35);
+        ctx.fillRect(shopX + shopW * 0.59, shopY + shopH * 0.53, 22, 34);
 
         // Striped Shop Awning
         const stripes = 6;
@@ -369,7 +632,7 @@ window.LAST_SOUL_SCENES = [
           ctx.fill();
         }
 
-        // Shop Signboard ("SOUL MART")
+        // Shop Signboard ("SOUL STORE")
         ctx.fillStyle = "#030407";
         ctx.fillRect(shopX + 12, shopY - 14, shopW - 24, 26);
         ctx.fillStyle = "#fbbf24";
@@ -377,53 +640,26 @@ window.LAST_SOUL_SCENES = [
         ctx.textAlign = "center";
         ctx.fillText("SOUL STORE", shopX + shopW / 2, shopY + 4);
 
-        // Character Arriving & Reaching Hand Toward Shop Counter
+        // Protagonist Walking Up & Reaching Hand to Counter
         const walkIn = Math.min(1, localT / 1.8);
-        const charX = w * (0.20 + walkIn * 0.18);
-        const bob = walkIn < 1 ? Math.abs(Math.sin(localT * 12)) * 4 : Math.sin(localT * 2.2) * 2;
-        const hipY = groundY - h * 0.15 + bob;
-        const shoulderY = hipY - h * 0.11;
-        const headY = shoulderY - h * 0.045;
-        const legLen = h * 0.075;
-        const armLen = h * 0.056;
-
-        // Standing Legs
-        const stepOffset = walkIn < 1 ? Math.sin(localT * 12) * 0.35 : 0.07;
-        drawLimb(charX, hipY, -stepOffset, legLen, 0.05, legLen, 8);
-        drawLimb(charX, hipY, stepOffset, legLen, 0.05, legLen, 8.5);
-
-        // Torso & Head
-        ctx.fillStyle = "#030407";
-        ctx.fillRect(charX - 10, shoulderY, 20, hipY - shoulderY + 3);
-        const headR = Math.min(w, h) * 0.032;
-        ctx.beginPath();
-        ctx.arc(charX + 2, headY, headR, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Warm Shop Lantern Rim Light on Face
-        ctx.strokeStyle = "rgba(251, 191, 36, 0.9)";
-        ctx.lineWidth = 2.2;
-        ctx.beginPath();
-        ctx.arc(charX + 2, headY, headR, -0.8, 0.8);
-        ctx.stroke();
-
-        // Hand Reaching Out to Counter after 2.2s
+        const charX = w * (0.18 + walkIn * 0.21);
         const reach = Math.max(0, Math.min(1, (localT - 2.0) / 1.0));
-        const handPos = drawLimb(
-          charX + 2,
-          shoulderY + 4,
-          0.15 + reach * 0.75,
-          armLen,
-          0.2 + reach * 0.45,
-          armLen * 0.95,
-          7
-        );
 
-        // Small Glowing Item/Bag Handed Over at 4.5s
-        if (localT >= 4.2) {
-          ctx.fillStyle = "#fbbf24";
-          ctx.fillRect(handPos.ex - 5, handPos.ey + 2, 12, 14);
-        }
+        SoulRig.drawHuman(ctx, {
+          x: charX,
+          groundY: groundY,
+          scale: Math.min(w, h) / 440,
+          facing: 1,
+          isWalking: walkIn < 1,
+          walkPhase: localT * 11,
+          breath: Math.sin(localT * 2.2) * 1.8,
+          rightArm: {
+            upper: 0.12 + reach * 0.78,
+            fore: 0.25 + reach * 0.45
+          },
+          rimColor: "rgba(251, 191, 36, 0.9)",
+          holdingBag: localT >= 4.4
+        });
       }
     }
   },
@@ -657,49 +893,26 @@ window.LAST_SOUL_SCENES = [
       ctx.fillStyle = lampGlow;
       ctx.fillRect(0, 0, w, h);
 
-      ctx.fillStyle = "#04060b";
+      ctx.fillStyle = "#111726";
       ctx.fillRect(lampX - 3, lampY, 6, h * 0.56);
 
       const groundY = h * 0.78;
       ctx.fillStyle = "#05070d";
       ctx.fillRect(0, groundY, w, h - groundY);
 
-      const charX = w * 0.25 + t * (w * 0.028);
-      const stride = Math.sin(t * 5.2);
-      const bob = Math.abs(Math.cos(t * 5.2)) * 4;
-      const hipY = groundY - h * 0.11 + bob;
+      const walkPhase = t * 5.2;
+      const bob = Math.abs(Math.cos(walkPhase)) * 3;
 
-      ctx.fillStyle = "rgba(251, 191, 36, 0.12)";
-      ctx.beginPath();
-      ctx.ellipse(charX, groundY + 8, 28, 5, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.strokeStyle = "#030407";
-      ctx.lineWidth = 7;
-      ctx.lineCap = "round";
-
-      ctx.beginPath();
-      ctx.moveTo(charX, hipY);
-      ctx.lineTo(charX + stride * 16, groundY);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(charX, hipY);
-      ctx.lineTo(charX - stride * 16, groundY);
-      ctx.stroke();
-
-      ctx.fillStyle = "#030407";
-      ctx.fillRect(charX - 9, hipY - h * 0.085, 18, h * 0.09);
-
-      ctx.beginPath();
-      ctx.arc(charX + 2, hipY - h * 0.11, 12, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.strokeStyle = "rgba(251, 191, 36, 0.55)";
-      ctx.lineWidth = 1.8;
-      ctx.beginPath();
-      ctx.arc(charX + 2, hipY - h * 0.11, 12, -0.6, 0.8);
-      ctx.stroke();
+      SoulRig.drawHuman(ctx, {
+        x: w * 0.25 + t * (w * 0.028),
+        groundY: groundY,
+        scale: Math.min(w, h) / 450,
+        facing: 1,
+        isWalking: true,
+        walkPhase: walkPhase,
+        breath: bob,
+        rimColor: "rgba(251, 191, 36, 0.75)"
+      });
 
       ctx.strokeStyle = "rgba(186, 230, 253, 0.22)";
       ctx.lineWidth = 1.2;
