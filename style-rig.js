@@ -1,13 +1,86 @@
 /* ==========================================================================
-   LAST SOUL STUDIO — OPTIMIZED CINEMATIC VISUAL & CHARACTER RIG (style-rig.js)
-   Features: Clean Smooth-Head Human Silhouette, Expressive Eyes/Eyebrows,
-   Balanced Volumetric Lighting, Soft Rim Shading & Full Multi-Character Rig.
+   LAST SOUL STUDIO — MASTER STUDIO RIG & PALETTE SYSTEM (style-rig.js)
+   Signature Aesthetic: Matte Smoked-Charcoal Environments, Deep Obsidian
+   Silhouettes, Warm Tungsten Volumetric Light Cones & Expressive Eyes.
    ========================================================================== */
 
 window.SoulRig = {
   /* ------------------------------------------------------------------------
+     MASTER STUDIO PALETTE SYSTEM (Consistent Film Look Across All Locations)
+     ------------------------------------------------------------------------ */
+  PALETTES: {
+    bedroom: {
+      wallTop: "#0b0d13",
+      wallMid: "#161922",
+      wallBot: "#090b10",
+      floorTop: "#181a22",
+      floorBot: "#07080c",
+      lightCore: "rgba(253, 224, 171, 0.42)",
+      lightEdge: "rgba(245, 158, 11, 0.14)",
+      rimColor: "rgba(253, 224, 171, 0.55)",
+      eyeColor: "#fef3c7",
+      particleColor: "rgba(253, 224, 171, 0.22)"
+    },
+    gym: {
+      wallTop: "#0d0f14",
+      wallMid: "#181b23",
+      wallBot: "#090b0f",
+      floorTop: "#14171f",
+      floorBot: "#06070a",
+      lightCore: "rgba(253, 230, 178, 0.34)",
+      lightEdge: "rgba(217, 175, 107, 0.10)",
+      rimColor: "rgba(253, 230, 178, 0.48)",
+      eyeColor: "#fef3c7",
+      particleColor: "rgba(253, 230, 178, 0.20)"
+    },
+    mall: {
+      wallTop: "#11131a",
+      wallMid: "#1e212b",
+      wallBot: "#0c0e14",
+      floorTop: "#1a1d26",
+      floorBot: "#08090d",
+      lightCore: "rgba(254, 243, 199, 0.38)",
+      lightEdge: "rgba(245, 158, 11, 0.12)",
+      rimColor: "rgba(254, 243, 199, 0.50)",
+      eyeColor: "#fef3c7",
+      particleColor: "rgba(254, 243, 199, 0.22)"
+    },
+    shop: {
+      wallTop: "#0e121c",
+      wallMid: "#181d29",
+      wallBot: "#080a10",
+      floorTop: "#141720",
+      floorBot: "#05070b",
+      lightCore: "rgba(253, 224, 171, 0.85)",
+      lightEdge: "rgba(245, 158, 11, 0.30)",
+      rimColor: "rgba(253, 224, 171, 0.50)",
+      eyeColor: "#fef3c7",
+      particleColor: "rgba(253, 224, 171, 0.22)"
+    },
+    streetDawn: {
+      wallTop: "#111829",
+      wallMid: "#4a2718",
+      wallBot: "#090b10",
+      floorTop: "#12141c",
+      floorBot: "#050609",
+      rimColor: "rgba(253, 224, 171, 0.48)",
+      eyeColor: "#fef3c7",
+      particleColor: "rgba(253, 224, 171, 0.22)"
+    },
+    streetNight: {
+      wallTop: "#080a10",
+      wallMid: "#121622",
+      wallBot: "#06080c",
+      floorTop: "#10121a",
+      floorBot: "#040508",
+      rimColor: "rgba(253, 224, 171, 0.42)",
+      eyeColor: "#fef3c7",
+      particleColor: "rgba(253, 224, 171, 0.18)"
+    }
+  },
+
+  /* ------------------------------------------------------------------------
      INTERNAL HELPER: EXPRESSIVE EYES & EYEBROWS
-     mood: "sleep" | "groggy" | "focused" | "alert" | "tired"
      ------------------------------------------------------------------------ */
   drawExpression(ctx, opts) {
     const {
@@ -65,9 +138,9 @@ window.SoulRig = {
   },
 
   /* ------------------------------------------------------------------------
-     INTERNAL HELPER: FLOATING ATMOSPHERIC PARTICLES
+     INTERNAL HELPER: ATMOSPHERIC DUST MOTES & PUNCHLINE TEXT
      ------------------------------------------------------------------------ */
-  drawParticles(ctx, w, h, t, count = 24, color = "rgba(254, 243, 199, 0.25)", speed = 12) {
+  drawParticles(ctx, w, h, t, count = 20, color = "rgba(253, 224, 171, 0.22)", speed = 10) {
     ctx.fillStyle = color;
     for (let i = 0; i < count; i++) {
       const px = ((i * 97 + Math.sin(t * 0.6 + i) * 18 + t * speed * 0.4) % w + w) % w;
@@ -79,9 +152,6 @@ window.SoulRig = {
     }
   },
 
-  /* ------------------------------------------------------------------------
-     INTERNAL HELPER: STARK DRAMATIC ON-SCREEN PUNCHLINE TEXT (e.g. "OK.")
-     ------------------------------------------------------------------------ */
   drawPunchline(ctx, w, h, text, color = "#ef4444", yRatio = 0.17) {
     if (!text) return;
     ctx.save();
@@ -107,7 +177,7 @@ window.SoulRig = {
       isWalking = false,
       rightArm = { upper: 0.12, fore: 0.25 },
       leftArm = { upper: -0.1, fore: 0.2 },
-      rimColor = "rgba(253, 224, 171, 0.35)",
+      rimColor = "rgba(253, 224, 171, 0.48)",
       mood = "focused",
       eyeColor = "#fef3c7",
       t = 0,
@@ -130,9 +200,8 @@ window.SoulRig = {
     const upperArmLen = 24;
     const foreArmLen = 23;
 
-    // Ground Contact Shadow
     if (showShadow) {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.58)";
       ctx.beginPath();
       ctx.ellipse(0, 2, 18 + (isWalking ? Math.abs(Math.sin(walkPhase)) * 6 : 0), 3.5, 0, 0, Math.PI * 2);
       ctx.fill();
@@ -145,7 +214,7 @@ window.SoulRig = {
       const ax = kx + Math.sin(ankleAngle) * shinLen;
       const ay = ky + Math.cos(ankleAngle) * shinLen;
 
-      ctx.strokeStyle = isFront ? "#04060a" : "#090c14";
+      ctx.strokeStyle = isFront ? "#05070c" : "#0b0e16";
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
@@ -161,8 +230,7 @@ window.SoulRig = {
       ctx.lineTo(ax, ay);
       ctx.stroke();
 
-      // Clean Shoe Silhouette
-      ctx.fillStyle = isFront ? "#04060a" : "#090c14";
+      ctx.fillStyle = isFront ? "#05070c" : "#0b0e16";
       ctx.beginPath();
       ctx.ellipse(ax + 4, ay + 1, 7.5, 3.2, ankleAngle * 0.25, 0, Math.PI * 2);
       ctx.fill();
@@ -176,7 +244,7 @@ window.SoulRig = {
       const hx = ex + Math.sin(upperAng + foreAng) * foreArmLen;
       const hy = ey + Math.cos(upperAng + foreAng) * foreArmLen;
 
-      ctx.strokeStyle = isFront ? "#04060a" : "#090c14";
+      ctx.strokeStyle = isFront ? "#05070c" : "#0b0e16";
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
@@ -192,7 +260,7 @@ window.SoulRig = {
       ctx.lineTo(hx, hy);
       ctx.stroke();
 
-      ctx.fillStyle = isFront ? "#04060a" : "#090c14";
+      ctx.fillStyle = isFront ? "#05070c" : "#0b0e16";
       ctx.beginPath();
       ctx.ellipse(hx, hy, 4.0, 3.0, upperAng + foreAng, 0, Math.PI * 2);
       ctx.fill();
@@ -210,7 +278,7 @@ window.SoulRig = {
     drawLeg(backHipAng, backKnee, false);
 
     // Sculpted Clean Human Torso
-    ctx.fillStyle = "#04060a";
+    ctx.fillStyle = "#05070c";
     ctx.beginPath();
     ctx.moveTo(-7.5, hipY + 3);
     ctx.quadraticCurveTo(-9.2, (hipY + shoulderY) * 0.5, -8.2, shoulderY + 3);
@@ -220,7 +288,7 @@ window.SoulRig = {
     ctx.closePath();
     ctx.fill();
 
-    // Subtle Soft Internal Rim Light on Back Shoulder (Clipped cleanly inside torso)
+    // Clipped Internal Rim Shading on Back Shoulder
     ctx.save();
     ctx.clip();
     ctx.strokeStyle = rimColor;
@@ -232,7 +300,7 @@ window.SoulRig = {
     ctx.restore();
 
     // Neck
-    ctx.fillStyle = "#04060a";
+    ctx.fillStyle = "#05070c";
     ctx.fillRect(-3.0, headCenterY + 7, 6.0, 9);
 
     // Front Leg
@@ -240,17 +308,16 @@ window.SoulRig = {
     const frontKnee = isWalking ? Math.max(0, -stride) * 0.58 : 0.04;
     drawLeg(frontHipAng, frontKnee, true);
 
-    // Clean Smooth Circle Head (No Hair) + Clipped Internal Rim Shading + Eyes
+    // Smooth Circle Head + Clipped Internal Rim Glow + Expressive Eyes
     ctx.save();
     ctx.translate(1, headCenterY);
     ctx.rotate(-lookUp);
 
-    ctx.fillStyle = "#04060a";
+    ctx.fillStyle = "#05070c";
     ctx.beginPath();
     ctx.arc(0, 0, 10.2, 0, Math.PI * 2);
     ctx.fill();
 
-    // Soft Internal Rim Glow (Clipped strictly inside head circle—no wire outline!)
     ctx.save();
     ctx.clip();
     const headRim = ctx.createRadialGradient(5, -3, 4, 0, 0, 12);
@@ -261,7 +328,6 @@ window.SoulRig = {
     ctx.fillRect(-12, -12, 24, 24);
     ctx.restore();
 
-    // Expressive Eye & Eyebrow
     this.drawExpression(ctx, {
       x: 4.2,
       y: -1.2,
@@ -282,7 +348,7 @@ window.SoulRig = {
     if (holdingBag) {
       ctx.fillStyle = "#d97706";
       ctx.fillRect(hand.hx - 4, hand.hy + 2, 10, 13);
-      ctx.strokeStyle = "#fbbf24";
+      ctx.strokeStyle = "#fde68a";
       ctx.lineWidth = 1.2;
       ctx.strokeRect(hand.hx - 4, hand.hy + 2, 10, 13);
     }
@@ -291,8 +357,7 @@ window.SoulRig = {
   },
 
   /* ------------------------------------------------------------------------
-     2. REFERENCE-GRADE BEDROOM SET (Symmetrical Lamp Cone, Smooth Head,
-        City Skyline Window, Raised-Knee Sleeping Pose & Waking/Phone Modes)
+     2. ENVIRONMENT SET: BEDROOM (Master Charcoal + Warm Bedside Lamp)
      ------------------------------------------------------------------------ */
   drawBedroomScene(ctx, w, h, t, opts = {}) {
     const {
@@ -306,28 +371,28 @@ window.SoulRig = {
       punchline = ""
     } = opts;
 
+    const pal = this.PALETTES.bedroom;
     const isDawn = mode === "wake" && wakeProgress > 0.35;
 
-    // 1. Nocturne Wall & Wooden Floor Depth
     const wallGrad = ctx.createLinearGradient(0, 0, 0, h);
-    wallGrad.addColorStop(0, isDawn ? "#141f38" : "#0b0d13");
-    wallGrad.addColorStop(0.68, isDawn ? "#1e2e4d" : "#161922");
-    wallGrad.addColorStop(1, "#090b10");
+    wallGrad.addColorStop(0, isDawn ? "#141926" : pal.wallTop);
+    wallGrad.addColorStop(0.68, isDawn ? "#1f2636" : pal.wallMid);
+    wallGrad.addColorStop(1, pal.wallBot);
     ctx.fillStyle = wallGrad;
     ctx.fillRect(0, 0, w, h);
 
     const floorY = h * 0.76;
     const floorGrad = ctx.createLinearGradient(0, floorY, 0, h);
-    floorGrad.addColorStop(0, "#181a22");
+    floorGrad.addColorStop(0, pal.floorTop);
     floorGrad.addColorStop(0.2, "#101218");
-    floorGrad.addColorStop(1, "#07080c");
+    floorGrad.addColorStop(1, pal.floorBot);
     ctx.fillStyle = floorGrad;
     ctx.fillRect(0, floorY, w, h - floorY);
 
     ctx.fillStyle = "rgba(255, 255, 255, 0.05)";
     ctx.fillRect(0, floorY, w, 2);
 
-    // 2. Centered Window with Crescent Moon, Stars & Distant Skyline
+    // Centered Window with Crescent Moon, Stars & Distant City Skyline
     const winW = w * 0.44;
     const winH = h * 0.31;
     const winX = w * 0.36;
@@ -335,8 +400,8 @@ window.SoulRig = {
 
     const winSky = ctx.createLinearGradient(0, winY, 0, winY + winH);
     if (isDawn) {
-      winSky.addColorStop(0, "#1e3a6e");
-      winSky.addColorStop(1, "#d97706");
+      winSky.addColorStop(0, "#1c273d");
+      winSky.addColorStop(1, "#b4692e");
     } else {
       winSky.addColorStop(0, "#090d1c");
       winSky.addColorStop(1, "#1e2246");
@@ -389,7 +454,7 @@ window.SoulRig = {
     ctx.fillStyle = "#1f232e";
     ctx.fillRect(winX - 8, winY + winH, winW + 16, 5);
 
-    // 3. Nightstand, Red Clock & Symmetrical Warm Bedside Lamp Light Cone
+    // Nightstand, Red Clock & Symmetrical Warm Bedside Lamp Light Cone
     const bedY = h * 0.68;
     const standX = w * 0.06;
     const standW = w * 0.18;
@@ -410,7 +475,6 @@ window.SoulRig = {
     const shadeTopY = bedY - 46;
     const shadeBotY = bedY - 24;
 
-    // Balanced Symmetrical Lamp Cone (Equal spread left and right!)
     const lampIntensity = mode === "phone" && phoneActive ? 0.25 : 0.85;
     const coneSpread = Math.min(w * 0.28, 115);
     const coneHeight = h * 0.22;
@@ -427,12 +491,10 @@ window.SoulRig = {
     ctx.closePath();
     ctx.fill();
 
-    // Lamp Stem & Base
     ctx.fillStyle = "#090b10";
     ctx.fillRect(lampX - 2, shadeBotY, 4, 22);
     ctx.fillRect(lampX - 9, bedY - 4, 18, 4);
 
-    // Lampshade
     ctx.fillStyle = mode === "phone" && phoneActive ? "#78350f" : "#fde68a";
     ctx.beginPath();
     ctx.moveTo(lampX - 10, shadeTopY);
@@ -442,7 +504,7 @@ window.SoulRig = {
     ctx.closePath();
     ctx.fill();
 
-    // 4. Bed Frame, Pillow & Folded Foot Blanket
+    // Bed Frame, Pillow & Folded Foot Blanket
     const bedX = w * 0.26;
     const bedW = w * 0.66;
     ctx.fillStyle = "#181c26";
@@ -458,12 +520,12 @@ window.SoulRig = {
     ctx.ellipse(bedX + 24, bedY - 3, 22, 8, 0.32, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.fillStyle = "#253047";
+    ctx.fillStyle = "#232836";
     ctx.beginPath();
     ctx.roundRect(bedX + bedW - 56, bedY - 8, 56, 22, 6);
     ctx.fill();
 
-    // 5. Character Pose on Bed (Smooth Circle Head, No Wire Halo!)
+    // Character Pose on Bed
     const breath = Math.sin(t * 2.1) * 2;
     const effectiveWake = mode === "phone" ? 0.85 : wakeProgress;
     const headBaseX = bedX + 34 + effectiveWake * 12;
@@ -493,7 +555,6 @@ window.SoulRig = {
       ctx.lineTo(footX, footY);
       ctx.stroke();
 
-      // Subtle Rim Light on Top of Raised Knee
       ctx.strokeStyle = "rgba(253, 224, 171, 0.45)";
       ctx.lineWidth = 1.3;
       ctx.beginPath();
@@ -502,7 +563,6 @@ window.SoulRig = {
       ctx.lineTo(footX - 4, footY - 4);
       ctx.stroke();
 
-      // Torso
       ctx.strokeStyle = "#05070c";
       ctx.lineWidth = 12;
       ctx.beginPath();
@@ -510,7 +570,6 @@ window.SoulRig = {
       ctx.lineTo(hipX, hipY);
       ctx.stroke();
 
-      // Bent Arm
       const elbowX = headBaseX + 28;
       const elbowY = bedY - 22 + breath * 0.4;
       ctx.lineWidth = 7.5;
@@ -520,7 +579,6 @@ window.SoulRig = {
       ctx.lineTo(headBaseX + 40, bedY - 5);
       ctx.stroke();
 
-      // Clean Smooth Circle Head (No Hair, Clipped Internal Rim Shading)
       ctx.save();
       ctx.translate(headBaseX, headBaseY);
       ctx.fillStyle = "#05070c";
@@ -532,7 +590,7 @@ window.SoulRig = {
       const sleepHeadRim = ctx.createRadialGradient(-5, -5, 3, 0, 0, 13);
       sleepHeadRim.addColorStop(0, "rgba(0, 0, 0, 0)");
       sleepHeadRim.addColorStop(0.75, "rgba(0, 0, 0, 0)");
-      sleepHeadRim.addColorStop(1, "rgba(253, 224, 171, 0.55)");
+      sleepHeadRim.addColorStop(1, pal.rimColor);
       ctx.fillStyle = sleepHeadRim;
       ctx.fillRect(-13, -13, 26, 26);
       ctx.restore();
@@ -544,7 +602,6 @@ window.SoulRig = {
         t
       });
     } else {
-      // Sitting Up in Bed
       const sitHipX = bedX + 46;
       const sitHipY = bedY - 3;
       const sitShoulderX = sitHipX - 4;
@@ -564,7 +621,6 @@ window.SoulRig = {
       ctx.lineTo(sitShoulderX, sitShoulderY);
       ctx.stroke();
 
-      // Clean Smooth Circle Head (No Hair, No Wire Outline!)
       const sitHeadX = sitShoulderX + 2;
       const sitHeadY = sitShoulderY - 15;
       const isPhoneGlow = mode === "phone" && phoneActive;
@@ -580,7 +636,7 @@ window.SoulRig = {
       const rimGrad = ctx.createRadialGradient(isPhoneGlow ? 6 : -6, -3, 3, 0, 0, 13);
       rimGrad.addColorStop(0, "rgba(0, 0, 0, 0)");
       rimGrad.addColorStop(0.75, "rgba(0, 0, 0, 0)");
-      rimGrad.addColorStop(1, isPhoneGlow ? "rgba(56, 189, 248, 0.65)" : "rgba(253, 224, 171, 0.55)");
+      rimGrad.addColorStop(1, isPhoneGlow ? "rgba(186, 230, 253, 0.55)" : pal.rimColor);
       ctx.fillStyle = rimGrad;
       ctx.fillRect(-13, -13, 26, 26);
       ctx.restore();
@@ -590,7 +646,7 @@ window.SoulRig = {
         y: sitHeadY - 1,
         mood: isPhoneGlow ? "tired" : "groggy",
         t,
-        eyeColor: isPhoneGlow ? "#7dd3fc" : "#fef3c7"
+        eyeColor: isPhoneGlow ? "#bae6fd" : pal.eyeColor
       });
 
       if (mode === "wake" && stretch > 0) {
@@ -615,13 +671,13 @@ window.SoulRig = {
 
         if (isPhoneGlow) {
           const flicker = 0.85 + Math.sin(t * 19) * 0.15;
-          const cone = ctx.createRadialGradient(phoneX, phoneY, 3, sitHeadX, sitHeadY, w * 0.28);
-          cone.addColorStop(0, `rgba(56, 189, 248, ${0.55 * flicker})`);
-          cone.addColorStop(0.5, `rgba(59, 130, 246, ${0.18 * flicker})`);
+          const cone = ctx.createRadialGradient(phoneX, phoneY, 3, sitHeadX, sitHeadY, w * 0.26);
+          cone.addColorStop(0, `rgba(186, 230, 253, ${0.42 * flicker})`);
+          cone.addColorStop(0.5, `rgba(147, 197, 253, ${0.14 * flicker})`);
           cone.addColorStop(1, "rgba(0, 0, 0, 0)");
           ctx.fillStyle = cone;
           ctx.beginPath();
-          ctx.arc(phoneX, phoneY, w * 0.3, 0, Math.PI * 2);
+          ctx.arc(phoneX, phoneY, w * 0.28, 0, Math.PI * 2);
           ctx.fill();
         }
 
@@ -635,7 +691,7 @@ window.SoulRig = {
         ctx.save();
         ctx.translate(phoneX, phoneY);
         ctx.rotate(isPhoneGlow ? -0.35 : Math.PI / 2);
-        ctx.fillStyle = isPhoneGlow ? "#38bdf8" : "#1e293b";
+        ctx.fillStyle = isPhoneGlow ? "#bae6fd" : "#1e293b";
         ctx.fillRect(-3, -11, 6, 22);
         ctx.restore();
       }
@@ -652,14 +708,14 @@ window.SoulRig = {
       ctx.globalAlpha = 1;
     }
 
-    this.drawParticles(ctx, w, h, t, 18, "rgba(253, 224, 171, 0.22)", 8);
+    this.drawParticles(ctx, w, h, t, 18, pal.particleColor, 8);
     if (punchline) {
       this.drawPunchline(ctx, w, h, punchline);
     }
   },
 
   /* ------------------------------------------------------------------------
-     3. ENVIRONMENT SET: OUTDOOR STREET WALK
+     3. ENVIRONMENT SET: OUTDOOR STREET WALK (Master Charcoal & Warm Horizon)
      ------------------------------------------------------------------------ */
   drawOutdoorWalk(ctx, w, h, t, opts = {}) {
     const {
@@ -670,31 +726,26 @@ window.SoulRig = {
     } = opts;
 
     const isNight = timeOfDay === "nightRain";
+    const pal = isNight ? this.PALETTES.streetNight : this.PALETTES.streetDawn;
+
     const sky = ctx.createLinearGradient(0, 0, 0, h);
-    if (isNight) {
-      sky.addColorStop(0, "#060913");
-      sky.addColorStop(0.65, "#11192c");
-      sky.addColorStop(1, "#090c14");
-    } else {
-      sky.addColorStop(0, "#152244");
-      sky.addColorStop(0.54, "#853114");
-      sky.addColorStop(0.75, "#e08e26");
-      sky.addColorStop(1, "#090d16");
-    }
+    sky.addColorStop(0, pal.wallTop);
+    sky.addColorStop(0.58, pal.wallMid);
+    sky.addColorStop(1, pal.wallBot);
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, w, h);
 
     if (!isNight) {
-      ctx.fillStyle = "rgba(254, 240, 138, 0.82)";
+      ctx.fillStyle = "rgba(253, 230, 178, 0.78)";
       ctx.beginPath();
-      ctx.arc(w * 0.74, h * 0.56, w * 0.095, 0, Math.PI * 2);
+      ctx.arc(w * 0.74, h * 0.56, w * 0.09, 0, Math.PI * 2);
       ctx.fill();
     } else {
       const lampX = w * 0.72;
       const lampY = h * 0.24;
       const glow = ctx.createRadialGradient(lampX, lampY, 5, lampX, lampY, w * 0.45);
-      glow.addColorStop(0, "rgba(251, 191, 36, 0.48)");
-      glow.addColorStop(0.4, "rgba(245, 158, 11, 0.14)");
+      glow.addColorStop(0, "rgba(253, 224, 171, 0.42)");
+      glow.addColorStop(0.45, "rgba(245, 158, 11, 0.12)");
       glow.addColorStop(1, "rgba(0, 0, 0, 0)");
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, w, h);
@@ -703,19 +754,19 @@ window.SoulRig = {
     const groundY = h * 0.76;
     const scroll = t * scrollSpeed;
 
-    ctx.fillStyle = isNight ? "#0d1322" : "#1c2538";
+    ctx.fillStyle = isNight ? "#0f121a" : "#1c1f29";
     for (let b = -1; b < 7; b++) {
       const bx = ((b * 120 - scroll * 0.35) % (w + 150) + (w + 150)) % (w + 150) - 80;
       const bh = 95 + ((b * 43) % 75);
       ctx.fillRect(bx, groundY - bh, 88, bh);
 
-      ctx.fillStyle = "rgba(253, 224, 71, 0.16)";
+      ctx.fillStyle = "rgba(253, 224, 171, 0.16)";
       ctx.fillRect(bx + 16, groundY - bh + 20, 10, 14);
       ctx.fillRect(bx + 52, groundY - bh + 42, 10, 14);
-      ctx.fillStyle = isNight ? "#0d1322" : "#1c2538";
+      ctx.fillStyle = isNight ? "#0f121a" : "#1c1f29";
     }
 
-    ctx.strokeStyle = "rgba(15, 23, 42, 0.55)";
+    ctx.strokeStyle = "rgba(15, 18, 26, 0.55)";
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.moveTo(0, groundY - h * 0.39);
@@ -724,11 +775,11 @@ window.SoulRig = {
 
     for (let tr = 0; tr < 4; tr++) {
       const tx = ((tr * 210 - scroll * 0.85) % (w + 220) + (w + 220)) % (w + 220) - 70;
-      ctx.fillStyle = isNight ? "#090d18" : "#111726";
+      ctx.fillStyle = "#0a0c12";
       ctx.fillRect(tx, groundY - h * 0.44, 4, h * 0.44);
       ctx.fillRect(tx - 12, groundY - h * 0.40, 28, 2.5);
 
-      ctx.fillStyle = isNight ? "#080c16" : "#101724";
+      ctx.fillStyle = "#090b10";
       ctx.fillRect(tx + 54, groundY - h * 0.24, 8, h * 0.24);
       ctx.beginPath();
       ctx.arc(tx + 58, groundY - h * 0.27, 36, 0, Math.PI * 2);
@@ -737,12 +788,12 @@ window.SoulRig = {
       ctx.fill();
     }
 
-    ctx.fillStyle = "#06080f";
+    ctx.fillStyle = pal.floorBot;
     ctx.fillRect(0, groundY, w, h - groundY);
-    ctx.fillStyle = "rgba(245, 158, 11, 0.38)";
-    ctx.fillRect(0, groundY, w, 2.5);
+    ctx.fillStyle = "rgba(253, 224, 171, 0.25)";
+    ctx.fillRect(0, groundY, w, 2);
 
-    ctx.fillStyle = "rgba(251, 191, 36, 0.28)";
+    ctx.fillStyle = "rgba(253, 224, 171, 0.18)";
     for (let m = 0; m < 8; m++) {
       const mx = ((m * 85 - scroll * 1.45) % (w + 90) + (w + 90)) % (w + 90) - 40;
       ctx.fillRect(mx, groundY + 26, 34, 3.5);
@@ -761,11 +812,12 @@ window.SoulRig = {
       breath: bob,
       mood,
       t,
-      rimColor: isNight ? "rgba(251, 191, 36, 0.42)" : "rgba(253, 224, 71, 0.48)"
+      rimColor: pal.rimColor,
+      eyeColor: pal.eyeColor
     });
 
     if (isNight) {
-      ctx.strokeStyle = "rgba(186, 230, 253, 0.24)";
+      ctx.strokeStyle = "rgba(226, 232, 240, 0.20)";
       ctx.lineWidth = 1.2;
       for (let i = 0; i < 65; i++) {
         const rx = ((i * 73 + t * 180) % (w + 60)) - 30;
@@ -776,31 +828,32 @@ window.SoulRig = {
         ctx.stroke();
       }
     } else {
-      this.drawParticles(ctx, w, h, t, 20, "rgba(254, 240, 138, 0.24)", 14);
+      this.drawParticles(ctx, w, h, t, 20, pal.particleColor, 14);
     }
 
     if (punchline) {
-      this.drawPunchline(ctx, w, h, punchline, "#fbbf24");
+      this.drawPunchline(ctx, w, h, punchline, "#fde68a");
     }
   },
 
   /* ------------------------------------------------------------------------
-     4. ENVIRONMENT SET: NEIGHBORHOOD LOCAL SHOP (Full Human Shopkeeper Rig!)
+     4. ENVIRONMENT SET: NEIGHBORHOOD LOCAL SHOP (Master Charcoal + Warm Glow)
      ------------------------------------------------------------------------ */
   drawShopScene(ctx, w, h, localT, opts = {}) {
     const { shopName = "SOUL STORE", punchline = "" } = opts;
+    const pal = this.PALETTES.shop;
 
     const sky = ctx.createLinearGradient(0, 0, 0, h);
-    sky.addColorStop(0, "#1a3356");
-    sky.addColorStop(0.65, "#365f8a");
-    sky.addColorStop(1, "#090d16");
+    sky.addColorStop(0, pal.wallTop);
+    sky.addColorStop(0.65, pal.wallMid);
+    sky.addColorStop(1, pal.wallBot);
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, w, h);
 
     const groundY = h * 0.78;
-    ctx.fillStyle = "#05070d";
+    ctx.fillStyle = pal.floorBot;
     ctx.fillRect(0, groundY, w, h - groundY);
-    ctx.fillStyle = "rgba(251, 191, 36, 0.28)";
+    ctx.fillStyle = "rgba(253, 224, 171, 0.22)";
     ctx.fillRect(0, groundY, w, 2);
 
     const shopX = w * 0.45;
@@ -808,10 +861,9 @@ window.SoulRig = {
     const shopW = w * 0.48;
     const shopH = groundY - shopY;
 
-    ctx.fillStyle = "#0d1321";
+    ctx.fillStyle = "#10131c";
     ctx.fillRect(shopX, shopY, shopW, shopH);
 
-    // Warm Glowing Shop Interior Window
     const winLeft = shopX + 12;
     const winTop = shopY + 42;
     const winWidth = shopW - 24;
@@ -821,18 +873,16 @@ window.SoulRig = {
       winLeft + winWidth * 0.5, winTop + winHeight * 0.5, 10,
       winLeft + winWidth * 0.5, winTop + winHeight * 0.5, shopW * 0.85
     );
-    glow.addColorStop(0, "rgba(251, 191, 36, 0.92)");
-    glow.addColorStop(0.6, "rgba(245, 158, 11, 0.38)");
-    glow.addColorStop(1, "rgba(11, 16, 27, 0.15)");
+    glow.addColorStop(0, pal.lightCore);
+    glow.addColorStop(0.6, pal.lightEdge);
+    glow.addColorStop(1, "rgba(11, 13, 19, 0.15)");
     ctx.fillStyle = glow;
     ctx.fillRect(winLeft, winTop, winWidth, winHeight);
 
-    // Product Shelves inside Shop
-    ctx.fillStyle = "rgba(10, 14, 24, 0.45)";
+    ctx.fillStyle = "rgba(10, 12, 18, 0.45)";
     ctx.fillRect(winLeft + 6, winTop + 26, winWidth - 12, 3.5);
     ctx.fillRect(winLeft + 6, winTop + 56, winWidth - 12, 3.5);
 
-    // Full Human Shopkeeper Character inside Shop (Facing Left toward Customer!)
     const charScale = Math.min(w, h) / 440;
     const reach = Math.max(0, Math.min(1, (localT - 2.0) / 1.0));
 
@@ -845,7 +895,7 @@ window.SoulRig = {
       x: winLeft + winWidth * 0.64,
       groundY: winTop + winHeight + 48 * charScale,
       scale: charScale,
-      facing: -1, // Facing left toward customer
+      facing: -1,
       isWalking: false,
       breath: Math.sin(localT * 2.0 + 1) * 1.5,
       mood: "focused",
@@ -854,20 +904,19 @@ window.SoulRig = {
         upper: 0.15 + reach * 0.65,
         fore: 0.25 + reach * 0.4
       },
-      rimColor: "rgba(253, 224, 171, 0.45)",
+      rimColor: pal.rimColor,
+      eyeColor: pal.eyeColor,
       showShadow: false
     });
     ctx.restore();
 
-    // Shop Counter Ledge at Bottom of Window
-    ctx.fillStyle = "#090d18";
+    ctx.fillStyle = "#090b10";
     ctx.fillRect(winLeft - 4, winTop + winHeight - 6, winWidth + 8, 8);
 
-    // Striped Shop Awning
     const stripes = 6;
     const stripeW = (shopW + 16) / stripes;
     for (let s = 0; s < stripes; s++) {
-      ctx.fillStyle = s % 2 === 0 ? "#d97706" : "#f8fafc";
+      ctx.fillStyle = s % 2 === 0 ? "#b45309" : "#e2e8f0";
       ctx.beginPath();
       ctx.moveTo(shopX - 8 + s * stripeW, shopY + 26);
       ctx.lineTo(shopX - 8 + (s + 1) * stripeW, shopY + 26);
@@ -877,15 +926,13 @@ window.SoulRig = {
       ctx.fill();
     }
 
-    // Signboard
-    ctx.fillStyle = "#030407";
+    ctx.fillStyle = "#05070c";
     ctx.fillRect(shopX + 12, shopY - 14, shopW - 24, 26);
-    ctx.fillStyle = "#fbbf24";
+    ctx.fillStyle = "#fde68a";
     ctx.font = `700 ${Math.max(10, w * 0.028)}px sans-serif`;
     ctx.textAlign = "center";
     ctx.fillText(shopName, shopX + shopW / 2, shopY + 4);
 
-    // Customer Protagonist Walking Up & Receiving Item
     const walkIn = Math.min(1, localT / 1.8);
     const charX = w * (0.18 + walkIn * 0.21);
 
@@ -903,13 +950,275 @@ window.SoulRig = {
         upper: 0.12 + reach * 0.78,
         fore: 0.25 + reach * 0.45
       },
-      rimColor: "rgba(251, 191, 36, 0.45)",
+      rimColor: pal.rimColor,
+      eyeColor: pal.eyeColor,
       holdingBag: localT >= 4.4
     });
 
-    this.drawParticles(ctx, w, h, localT, 16, "rgba(251, 191, 36, 0.25)", 10);
+    this.drawParticles(ctx, w, h, localT, 16, pal.particleColor, 10);
     if (punchline) {
-      this.drawPunchline(ctx, w, h, punchline, "#fbbf24");
+      this.drawPunchline(ctx, w, h, punchline, "#fde68a");
+    }
+  },
+
+  /* ------------------------------------------------------------------------
+     5. ENVIRONMENT SET: GYM & HYDRATION (Master Smoked Charcoal + Warm Overhead
+        Tungsten Cones + Dumbbell Lift & Drinking Water Animation)
+     ------------------------------------------------------------------------ */
+  drawGymScene(ctx, w, h, localT, opts = {}) {
+    const {
+      isDrinking = false,
+      drinkProgress = 0,
+      curlWave = 0,
+      punchline = ""
+    } = opts;
+
+    const pal = this.PALETTES.gym;
+
+    // 1. Matte Smoked-Charcoal Industrial Gym Walls (Matching Bedroom Mood!)
+    const wallGrad = ctx.createLinearGradient(0, 0, 0, h);
+    wallGrad.addColorStop(0, pal.wallTop);
+    wallGrad.addColorStop(0.68, pal.wallMid);
+    wallGrad.addColorStop(1, pal.wallBot);
+    ctx.fillStyle = wallGrad;
+    ctx.fillRect(0, 0, w, h);
+
+    // Textured Gym Floor & Baseboard
+    const floorY = h * 0.76;
+    const floorGrad = ctx.createLinearGradient(0, floorY, 0, h);
+    floorGrad.addColorStop(0, pal.floorTop);
+    floorGrad.addColorStop(0.25, "#0d0f14");
+    floorGrad.addColorStop(1, pal.floorBot);
+    ctx.fillStyle = floorGrad;
+    ctx.fillRect(0, floorY, w, h - floorY);
+
+    ctx.fillStyle = "rgba(255, 255, 255, 0.05)";
+    ctx.fillRect(0, floorY, w, 2);
+
+    // 2. Large Industrial Gym Window with Evening City Skyline
+    const winW = w * 0.56;
+    const winH = h * 0.30;
+    const winX = w * 0.22;
+    const winY = h * 0.20;
+
+    const winSky = ctx.createLinearGradient(0, winY, 0, winY + winH);
+    winSky.addColorStop(0, "#0b0f1c");
+    winSky.addColorStop(1, "#1e2238");
+    ctx.fillStyle = winSky;
+    ctx.fillRect(winX, winY, winW, winH);
+
+    // Subtle City Skyline Silhouettes outside Window
+    ctx.fillStyle = "#080a10";
+    [
+      [0.02, 0.35, 0.16],
+      [0.20, 0.52, 0.18],
+      [0.42, 0.28, 0.20],
+      [0.64, 0.58, 0.18],
+      [0.84, 0.36, 0.14]
+    ].forEach(([bx, bh, bw]) => {
+      ctx.fillRect(winX + winW * bx, winY + winH * (1 - bh), winW * bw, winH * bh);
+    });
+    ctx.fillStyle = "rgba(253, 224, 171, 0.65)";
+    ctx.fillRect(winX + winW * 0.26, winY + winH * 0.62, 3, 4);
+    ctx.fillRect(winX + winW * 0.71, winY + winH * 0.54, 3, 4);
+
+    // Window Mullions & Ledge
+    ctx.strokeStyle = "#080a0f";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(winX, winY, winW, winH);
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(winX + winW * 0.33, winY);
+    ctx.lineTo(winX + winW * 0.33, winY + winH);
+    ctx.moveTo(winX + winW * 0.66, winY);
+    ctx.lineTo(winX + winW * 0.66, winY + winH);
+    ctx.stroke();
+
+    ctx.fillStyle = "#1f232e";
+    ctx.fillRect(winX - 6, winY + winH, winW + 12, 4);
+
+    // 3. Overhead Hanging Tungsten Pendant Lamp & Symmetrical Warm Light Cone
+    const lampX = w * 0.5;
+    const lampY = h * 0.12;
+    ctx.fillStyle = "#080a0f";
+    ctx.fillRect(lampX - 1.5, 0, 3, lampY);
+
+    const coneSpread = Math.min(w * 0.36, 150);
+    const coneHeight = floorY - lampY + 20;
+    const gymCone = ctx.createRadialGradient(lampX, lampY + 12, 6, lampX, lampY + coneHeight * 0.5, coneSpread * 1.15);
+    gymCone.addColorStop(0, pal.lightCore);
+    gymCone.addColorStop(0.55, pal.lightEdge);
+    gymCone.addColorStop(1, "rgba(0, 0, 0, 0)");
+    ctx.fillStyle = gymCone;
+    ctx.beginPath();
+    ctx.moveTo(lampX - 16, lampY + 8);
+    ctx.lineTo(lampX + 16, lampY + 8);
+    ctx.lineTo(lampX + coneSpread, lampY + coneHeight);
+    ctx.lineTo(lampX - coneSpread, lampY + coneHeight);
+    ctx.closePath();
+    ctx.fill();
+
+    // Pendant Shade
+    ctx.fillStyle = "#0b0d13";
+    ctx.beginPath();
+    ctx.moveTo(lampX - 12, lampY);
+    ctx.lineTo(lampX + 12, lampY);
+    ctx.lineTo(lampX + 18, lampY + 9);
+    ctx.lineTo(lampX - 18, lampY + 9);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = "#fde68a";
+    ctx.fillRect(lampX - 10, lampY + 8, 20, 2);
+
+    // 4. Matte Dumbbell Rack (Left) & Water Dispenser Stand (Right)
+    ctx.fillStyle = "#0d1017";
+    ctx.fillRect(w * 0.10, floorY - 46, 38, 46);
+    ctx.fillStyle = "#1f2430";
+    ctx.fillRect(w * 0.08, floorY - 48, 42, 4);
+    ctx.fillRect(w * 0.08, floorY - 26, 42, 4);
+
+    // Water Dispenser Silhouette (Right)
+    ctx.fillStyle = "#0d1017";
+    ctx.fillRect(w * 0.78, floorY - 52, 26, 52);
+    ctx.fillStyle = "#232a3b";
+    ctx.beginPath();
+    ctx.roundRect(w * 0.80, floorY - 76, 18, 24, 4);
+    ctx.fill();
+
+    // 5. Character Lifting Dumbbell -> Drinking Water
+    const charX = w * 0.48;
+    const charScale = Math.min(w, h) / 420;
+    const rightArmPose = isDrinking
+      ? { upper: 0.55 * drinkProgress, fore: 1.85 * drinkProgress }
+      : { upper: 0.15, fore: 0.35 + curlWave * 1.45 };
+
+    this.drawHuman(ctx, {
+      x: charX,
+      groundY: floorY,
+      scale: charScale,
+      facing: 1,
+      isWalking: false,
+      breath: Math.sin(localT * 3.0) * 2.0,
+      mood: isDrinking ? "alert" : "focused",
+      eyeColor: pal.eyeColor,
+      t: localT,
+      lookUp: drinkProgress * 0.32,
+      rightArm: rightArmPose,
+      leftArm: { upper: -0.12, fore: 0.25 },
+      rimColor: pal.rimColor
+    });
+
+    // Dumbbell OR Water Bottle in Hand
+    const shoulderX = charX + 1 * charScale;
+    const shoulderY = floorY + (-100 + Math.sin(localT * 3.0) * 2.0) * charScale;
+    const elbowX = shoulderX + Math.sin(rightArmPose.upper) * (24 * charScale);
+    const elbowY = shoulderY + Math.cos(rightArmPose.upper) * (24 * charScale);
+    const handX = elbowX + Math.sin(rightArmPose.upper + rightArmPose.fore) * (23 * charScale);
+    const handY = elbowY + Math.cos(rightArmPose.upper + rightArmPose.fore) * (23 * charScale);
+
+    ctx.save();
+    ctx.translate(handX, handY);
+    if (!isDrinking) {
+      ctx.fillStyle = "#05070c";
+      ctx.fillRect(-11, -3, 22, 6);
+      ctx.fillRect(-13, -8, 5, 16);
+      ctx.fillRect(8, -8, 5, 16);
+      ctx.fillStyle = "rgba(253, 230, 178, 0.45)";
+      ctx.fillRect(-12, -7, 1.5, 14);
+      ctx.fillRect(10.5, -7, 1.5, 14);
+    } else {
+      ctx.rotate(-0.45 * drinkProgress);
+      ctx.fillStyle = "#334155";
+      ctx.fillRect(-3.5, -13, 7, 16);
+      ctx.fillStyle = "#fde68a";
+      ctx.fillRect(-3.5, -9, 7, 3);
+      ctx.fillStyle = "#0f172a";
+      ctx.fillRect(-2, -16, 4, 3);
+    }
+    ctx.restore();
+
+    this.drawParticles(ctx, w, h, localT, 18, pal.particleColor, 10);
+    if (punchline) {
+      this.drawPunchline(ctx, w, h, punchline, "#ef4444", 0.15);
+    }
+  },
+
+  /* ------------------------------------------------------------------------
+     6. ENVIRONMENT SET: SHOPPING MALL ATRIUM (Master Charcoal + Warm Skylight)
+     ------------------------------------------------------------------------ */
+  drawMallScene(ctx, w, h, t, opts = {}) {
+    const {
+      isWalking = true,
+      mood = "focused",
+      punchline = ""
+    } = opts;
+
+    const pal = this.PALETTES.mall;
+    const wallGrad = ctx.createLinearGradient(0, 0, 0, h);
+    wallGrad.addColorStop(0, pal.wallTop);
+    wallGrad.addColorStop(0.68, pal.wallMid);
+    wallGrad.addColorStop(1, pal.wallBot);
+    ctx.fillStyle = wallGrad;
+    ctx.fillRect(0, 0, w, h);
+
+    const floorY = h * 0.76;
+    ctx.fillStyle = pal.floorTop;
+    ctx.fillRect(0, floorY, w, h - floorY);
+    ctx.fillStyle = "rgba(253, 224, 171, 0.14)";
+    ctx.fillRect(0, floorY, w, 2);
+
+    // Upper Mezzanine Balcony & Glass Railing
+    const balcY = h * 0.42;
+    ctx.fillStyle = "#0d0f15";
+    ctx.fillRect(0, balcY, w, 12);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.06)";
+    ctx.fillRect(0, balcY - 22, w, 22);
+    ctx.strokeStyle = "rgba(253, 224, 171, 0.22)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, balcY - 22);
+    ctx.lineTo(w, balcY - 22);
+    ctx.stroke();
+
+    // Storefront Display Windows along Ground Level
+    const scroll = isWalking ? t * 48 : 0;
+    for (let s = -1; s < 4; s++) {
+      const sx = ((s * 220 - scroll) % (w + 240) + (w + 240)) % (w + 240) - 90;
+      const sy = h * 0.48;
+      const sw = 150;
+      const sh = floorY - sy;
+
+      ctx.fillStyle = "#0b0d13";
+      ctx.fillRect(sx, sy, sw, sh);
+
+      const storeGlow = ctx.createRadialGradient(sx + sw * 0.5, sy + sh * 0.4, 8, sx + sw * 0.5, sy + sh * 0.5, sw * 0.7);
+      storeGlow.addColorStop(0, pal.lightCore);
+      storeGlow.addColorStop(0.6, pal.lightEdge);
+      storeGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = storeGlow;
+      ctx.fillRect(sx + 6, sy + 18, sw - 12, sh - 18);
+    }
+
+    const walkPhase = t * Math.PI * 2.1;
+    const bob = isWalking ? Math.abs(Math.cos(walkPhase)) * 3 : Math.sin(t * 2.0) * 1.5;
+
+    this.drawHuman(ctx, {
+      x: w * 0.46,
+      groundY: floorY,
+      scale: Math.min(w, h) / 440,
+      facing: 1,
+      isWalking,
+      walkPhase,
+      breath: bob,
+      mood,
+      t,
+      rimColor: pal.rimColor,
+      eyeColor: pal.eyeColor
+    });
+
+    this.drawParticles(ctx, w, h, t, 18, pal.particleColor, 10);
+    if (punchline) {
+      this.drawPunchline(ctx, w, h, punchline, "#ef4444");
     }
   }
 };
