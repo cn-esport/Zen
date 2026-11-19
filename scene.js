@@ -1,25 +1,26 @@
 // ==========================================
-// SCENE: THE MORNING SUNLIGHT SWITCH (CIRCADIAN CLOCK) — RICH SFX EDITION (45s)
+// SCENE: THE MORNING SUNLIGHT SWITCH — REIMAGINED ATMOSPHERIC EDITION (45s)
+// Dual-Ratio 16:9 & 9:16 Native Fit • GSAP 3.12 Camera Rig + 14-SFX Synced
 // ==========================================
 const SCENE_DATA = {
   duration: 45,
   sfx: [
-    { at: 0.2,  type: "door_open" },   // Front porch door opens
-    { at: 0.6,  type: "footsteps" },   // Stepping outside onto wooden porch
-    { at: 2.2,  type: "sun_swell" },   // Warm golden sunlight chord swell
-    { at: 3.2,  type: "birds" },       // Morning birds chirping outdoors
-    { at: 7.4,  type: "boom" },        // Chemical explosion impact
-    { at: 8.2,  type: "spark" },       // Neural spark behind eyes
-    { at: 13.0, type: "whoosh" },      // Zooming into brain circadian clock
-    { at: 15.5, type: "spark" },       // Retina light signal firing
-    { at: 18.8, type: "chime" },       // Cortisol & dopamine surge
-    { at: 24.4, type: "wind" },        // Cloudy morning outdoor breeze
-    { at: 26.5, type: "birds" },       // Birds still singing on cloudy morning
-    { at: 32.0, type: "boom" },        // 16-hour biological timer starts
-    { at: 35.5, type: "heartbeat" },   // Internal body clock pulse
-    { at: 39.2, type: "footsteps" },   // 10-minute morning walk
-    { at: 40.5, type: "sun_swell" },   // Final warm sunrise triumph
-    { at: 42.0, type: "birds" }
+    { at: 0.3,  type: "wind" },        // Morning park breeze
+    { at: 1.5,  type: "footsteps" },   // Walking onto stone overlook
+    { at: 2.8,  type: "sun_swell" },   // Golden sunrise chord swell
+    { at: 3.6,  type: "birds" },       // Morning birds in pine trees
+    { at: 7.4,  type: "boom" },        // Macro eye chemical explosion
+    { at: 8.3,  type: "spark" },       // Retina light burst
+    { at: 13.0, type: "whoosh" },      // Dive into neural constellation
+    { at: 16.0, type: "spark" },       // Melatonin shutdown pulse
+    { at: 19.5, type: "chime" },       // Cortisol & dopamine ignition
+    { at: 24.4, type: "whoosh" },      // Split-screen indoor vs cloudy sky wipe
+    { at: 27.0, type: "birds" },       // Outdoor ambience
+    { at: 32.0, type: "boom" },        // 16-hour solar sundial timer locks in
+    { at: 35.5, type: "heartbeat" },   // Circadian rhythm pulse
+    { at: 39.2, type: "footsteps" },   // Morning lakeside walk
+    { at: 40.4, type: "sun_swell" },   // Final warm sunrise triumph
+    { at: 42.2, type: "birds" }
   ],
   captions: [
     { start: 0.2,  length: 7.0, text: "You step outside first thing in the morning, feel that warm sunlight hit your face—and within minutes, your groggy brain suddenly switches on." },
@@ -30,6 +31,12 @@ const SCENE_DATA = {
     { start: 39.2, length: 5.4, text: "Step outside for ten minutes every morning... and your body will fix its own sleep schedule automatically." }
   ],
 
+  setupGSAP(tl, CAM) {
+    // Smooth cinematic zoom pulse when sunlight hits at 2.8s & 32.0s
+    tl.fromTo(CAM, { zoomMul: 1 }, { zoomMul: 1.04, duration: 4.2, ease: 'power2.out' }, 2.8);
+    tl.to(CAM, { zoomMul: 1, duration: 0.4 }, 7.3);
+  },
+
   render(ctx, W, H, t) {
     ctx.save();
     ctx.fillStyle = '#050811';
@@ -37,16 +44,19 @@ const SCENE_DATA = {
 
     const isPortrait = W < H;
     const targetSpanW = isPortrait ? 1040 : 1920;
-    const scale = isPortrait ? (W / targetSpanW) : Math.max(W / 1920, H / 1080);
-    const ox = (W - 1920 * scale) * 0.5 + (isPortrait ? 45 * scale : 0);
-    const oy = (H - 1080 * scale) * 0.5 + (isPortrait ? 85 * scale : 0);
+    const baseScale = isPortrait ? (W / targetSpanW) : Math.max(W / 1920, H / 1080);
+    const zoomMul = (window.CAM && window.CAM.zoomMul) ? window.CAM.zoomMul : 1;
+    const scale = baseScale * zoomMul;
+
+    const ox = (W - 1920 * scale) * 0.5;
+    const oy = (H - 1080 * scale) * 0.5 + (isPortrait ? 55 * scale : 0);
 
     if (isPortrait) {
       const bgFill = ctx.createLinearGradient(0, 0, 0, H);
-      bgFill.addColorStop(0, '#18243d');
-      bgFill.addColorStop(0.55, '#42475e');
-      bgFill.addColorStop(0.75, '#1b1d26');
-      bgFill.addColorStop(1, '#0b0c12');
+      bgFill.addColorStop(0, '#121d33');
+      bgFill.addColorStop(0.55, '#3b435c');
+      bgFill.addColorStop(0.78, '#131620');
+      bgFill.addColorStop(1, '#07090f');
       ctx.fillStyle = bgFill;
       ctx.fillRect(0, 0, W, H);
     }
@@ -56,199 +66,89 @@ const SCENE_DATA = {
 
     const easeOut = x => 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3);
 
-    const drawOutdoorDiorama = (opts = {}) => {
-      const {
-        zoom = 1, panX = 0, panY = 0,
-        sunHeight = 1, sunIntensity = 1, cloudy = false, duskTimer = 0
-      } = opts;
-
-      ctx.save();
-      ctx.translate(960 + panX, 540 + panY);
-      ctx.scale(zoom, zoom);
-      ctx.translate(-960, -540);
-
-      const sky = ctx.createLinearGradient(0, -600, 0, 830);
-      if (duskTimer > 0) {
-        sky.addColorStop(0, '#0a1124');
-        sky.addColorStop(0.6, '#1c294a');
-        sky.addColorStop(1, '#4a3d52');
-      } else if (cloudy) {
-        sky.addColorStop(0, '#2c384d');
-        sky.addColorStop(0.6, '#566782');
-        sky.addColorStop(1, '#8fa3bf');
-      } else {
-        sky.addColorStop(0, '#182848');
-        sky.addColorStop(0.45, '#4b5678');
-        sky.addColorStop(0.8, '#c97b57');
-        sky.addColorStop(1, '#ffd085');
-      }
-      ctx.fillStyle = sky;
-      ctx.fillRect(-600, -1200, 3120, 2030);
-
-      const sunX = 1280, sunY = 460 - sunHeight * 140;
-      const sunGlow = ctx.createRadialGradient(sunX, sunY, 18, sunX, sunY, 680 * sunIntensity);
-      if (cloudy) {
-        sunGlow.addColorStop(0, 'rgba(225, 240, 255, 0.72)');
-        sunGlow.addColorStop(0.45, 'rgba(165, 195, 230, 0.25)');
-        sunGlow.addColorStop(1, 'rgba(120, 150, 190, 0)');
-      } else {
-        sunGlow.addColorStop(0, 'rgba(255, 246, 205, 0.95)');
-        sunGlow.addColorStop(0.28, 'rgba(255, 200, 110, 0.45)');
-        sunGlow.addColorStop(0.65, 'rgba(255, 155, 75, 0.14)');
-        sunGlow.addColorStop(1, 'rgba(255, 140, 60, 0)');
-      }
-      ctx.fillStyle = sunGlow;
-      ctx.beginPath();
-      ctx.arc(sunX, sunY, 680 * sunIntensity, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = cloudy ? 'rgba(235, 245, 255, 0.75)' : '#fff8dc';
-      ctx.beginPath();
-      ctx.arc(sunX, sunY, 54, 0, Math.PI * 2);
-      ctx.fill();
-
-      const drawCloud = (cx, cy, cw, alpha) => {
-        ctx.fillStyle = `rgba(215, 228, 245, ${alpha})`;
+    // Helper: Draw Layered Pine Tree Silhouette
+    const drawPineTree = (tx, ty, th, tw) => {
+      ctx.fillStyle = '#0b0e17';
+      ctx.fillRect(tx - tw * 0.06, ty - th * 0.2, tw * 0.12, th * 0.2);
+      for (let tier = 0; tier < 4; tier++) {
+        const yBot = ty - th * (0.16 + tier * 0.19);
+        const yTop = yBot - th * 0.34;
+        const halfW = tw * (0.52 - tier * 0.1);
         ctx.beginPath();
-        ctx.ellipse(cx, cy, cw, cw * 0.28, 0, 0, Math.PI * 2);
-        ctx.ellipse(cx - cw * 0.45, cy + 8, cw * 0.55, cw * 0.22, 0, 0, Math.PI * 2);
-        ctx.ellipse(cx + cw * 0.45, cy + 6, cw * 0.6, cw * 0.24, 0, 0, Math.PI * 2);
+        ctx.moveTo(tx, yTop);
+        ctx.lineTo(tx + halfW, yBot);
+        ctx.lineTo(tx - halfW, yBot);
+        ctx.closePath();
         ctx.fill();
-      };
-      drawCloud(720 + Math.sin(t * 0.25) * 25, 240, 160, cloudy ? 0.55 : 0.18);
-      drawCloud(1140 - Math.cos(t * 0.2) * 30, 290, 190, cloudy ? 0.65 : 0.22);
-      if (cloudy) drawCloud(940 + Math.sin(t * 0.3) * 20, 200, 220, 0.6);
-
-      ctx.fillStyle = cloudy ? '#232c3d' : '#262436';
-      ctx.beginPath();
-      ctx.moveTo(-600, 830);
-      ctx.lineTo(-600, 680);
-      ctx.quadraticCurveTo(250, 620, 620, 675);
-      ctx.lineTo(740, 675);
-      ctx.lineTo(740, 560); ctx.lineTo(820, 560); ctx.lineTo(820, 675);
-      ctx.lineTo(860, 675);
-      ctx.lineTo(860, 520); ctx.lineTo(950, 520); ctx.lineTo(950, 675);
-      ctx.lineTo(1010, 675);
-      ctx.lineTo(1010, 590); ctx.lineTo(1090, 590); ctx.lineTo(1090, 675);
-      ctx.quadraticCurveTo(1550, 615, 2520, 680);
-      ctx.lineTo(2520, 830);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.fillStyle = '#141620';
-      ctx.fillRect(-600, -1200, 1140, 2030);
-      ctx.fillStyle = '#24222c';
-      ctx.fillRect(435, 340, 95, 490);
-      ctx.fillStyle = '#0e1018';
-      ctx.beginPath();
-      ctx.moveTo(410, 310);
-      ctx.lineTo(680, 355);
-      ctx.lineTo(680, 382);
-      ctx.lineTo(410, 345);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillRect(635, 370, 16, 460);
-
-      const groundGrad = ctx.createLinearGradient(0, 830, 0, 1500);
-      groundGrad.addColorStop(0, '#22202a');
-      groundGrad.addColorStop(0.4, '#15141c');
-      groundGrad.addColorStop(1, '#090a0f');
-      ctx.fillStyle = groundGrad;
-      ctx.fillRect(-600, 830, 3120, 900);
-
-      ctx.strokeStyle = 'rgba(0, 0, 0, 0.45)';
-      ctx.lineWidth = 2;
-      [865, 905, 952, 1008, 1072, 1145].forEach(fy => {
-        ctx.beginPath();
-        ctx.moveTo(-600, fy);
-        ctx.lineTo(2520, fy);
-        ctx.stroke();
-      });
-
-      ctx.save();
-      ctx.globalCompositeOperation = 'screen';
-      const beam = ctx.createLinearGradient(sunX, sunY, 680, 840);
-      beam.addColorStop(0, cloudy ? 'rgba(215, 235, 255, 0.25)' : 'rgba(255, 224, 150, 0.36)');
-      beam.addColorStop(1, 'rgba(255, 210, 130, 0)');
-      ctx.fillStyle = beam;
-      ctx.beginPath();
-      ctx.moveTo(sunX - 80, sunY);
-      ctx.lineTo(sunX + 80, sunY);
-      ctx.lineTo(1180, 845);
-      ctx.lineTo(540, 845);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-
-      ctx.restore();
+      }
     };
 
-    const drawStickCharacterOutdoor = (opts = {}) => {
+    // Helper: Rim-Lit Full-Body Silhouette Character
+    const drawParkCharacter = (cx, groundY, opts = {}) => {
       const {
-        zoom = 1, panX = 0, panY = 0,
-        charX = 760, walkCycle = 0,
-        eyeState = 'waking',
-        rimColor = 'rgba(255, 225, 165, 0.88)',
-        dopamineSparks = false
+        slump = 0, walkCycle = 0, eyeState = 'energized',
+        rimColor = 'rgba(255, 224, 155, 0.9)', sparks = false
       } = opts;
-
-      ctx.save();
-      ctx.translate(960 + panX, 540 + panY);
-      ctx.scale(zoom, zoom);
-      ctx.translate(-960, -540);
 
       const breath = Math.sin(t * 1.8) * 2.5;
       const bob = Math.abs(Math.sin(walkCycle)) * 5;
       const stride = Math.sin(walkCycle) * 24;
 
+      // Ground Contact Shadow
       ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
       ctx.beginPath();
-      ctx.ellipse(charX - 18, 834, 72, 11, 0, 0, Math.PI * 2);
+      ctx.ellipse(cx - 12, groundY + 4, 68, 10, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      const drawRimLimb = (pts, width = 18) => {
+      const drawLimb = (pts, w = 17) => {
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.strokeStyle = rimColor;
-        ctx.lineWidth = width;
+        ctx.lineWidth = w;
         ctx.beginPath();
         ctx.moveTo(pts[0][0] + 3, pts[0][1] - 2);
         for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0] + 3, pts[i][1] - 2);
         ctx.stroke();
 
-        ctx.strokeStyle = '#090a0f';
-        ctx.lineWidth = width;
+        ctx.strokeStyle = '#080a10';
+        ctx.lineWidth = w;
         ctx.beginPath();
         ctx.moveTo(pts[0][0], pts[0][1]);
         for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
         ctx.stroke();
       };
 
-      const hipY = 672 - bob;
-      const shoulderY = 532 - bob + breath * 0.4;
-      const headX = charX + 4;
-      const headY = 482 - bob + breath * 0.4;
+      const hipY = groundY - 155 - bob;
+      const shoulderX = cx + 4 + slump * 16;
+      const shoulderY = hipY - 138 + slump * 14 + breath * 0.4;
+      const headX = shoulderX + 4 + slump * 10;
+      const headY = shoulderY - 50 + slump * 8;
 
-      drawRimLimb([[charX, hipY], [charX - stride, 828]], 17);
-      drawRimLimb([[charX, hipY], [charX + stride, 828]], 17);
-      drawRimLimb([[charX, hipY], [charX + 2, shoulderY]], 20);
-      drawRimLimb([[charX + 2, shoulderY + 14], [charX - 16 - stride * 0.5, hipY - 12]], 14);
-      drawRimLimb([[charX + 2, shoulderY + 14], [charX + 20 + stride * 0.5, hipY - 12]], 14);
+      // Legs
+      drawLimb([[cx, hipY], [cx - stride, groundY]], 17);
+      drawLimb([[cx, hipY], [cx + stride, groundY]], 17);
+      // Spine
+      drawLimb([[cx, hipY], [shoulderX, shoulderY]], 20);
+      // Arms
+      drawLimb([[shoulderX, shoulderY + 14], [cx - 16 - stride * 0.5, hipY - 10]], 14);
+      drawLimb([[shoulderX, shoulderY + 14], [cx + 22 + stride * 0.5, hipY - 10]], 14);
 
+      // Head + Sun Rim
       ctx.fillStyle = rimColor;
       ctx.beginPath();
       ctx.arc(headX + 3, headY - 2, 33, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.fillStyle = '#090a0f';
+      ctx.fillStyle = '#080a10';
       ctx.beginPath();
       ctx.arc(headX, headY, 32, 0, Math.PI * 2);
       ctx.fill();
 
-      const blink = (t % 4.4) > 4.25 ? 0.1 : 1;
-      const eyeH = eyeState === 'groggy' ? 2.4 : eyeState === 'waking' ? 4.8 * blink : 6.2 * blink;
+      // Eyes
+      const blink = (t % 4.3) > 4.15 ? 0.1 : 1;
+      const eyeH = eyeState === 'groggy' ? 2.2 : 6.0 * blink;
       ctx.shadowColor = '#fff7d6';
-      ctx.shadowBlur = eyeState === 'energized' ? 16 : 10;
+      ctx.shadowBlur = eyeState === 'energized' ? 16 : 8;
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
       ctx.ellipse(headX + 11, headY - 6, 4.4, eyeH, -0.15, 0, Math.PI * 2);
@@ -256,160 +156,313 @@ const SCENE_DATA = {
       ctx.fill();
       ctx.shadowBlur = 0;
 
-      if (dopamineSparks) {
+      if (sparks) {
         for (let i = 0; i < 12; i++) {
           const p = ((t * 0.65 + i * 0.083) % 1);
-          const sx = headX + Math.sin(i * 2.1 + t * 2) * 65;
-          const sy = (headY + 120) - p * 230;
-          const alpha = Math.sin(p * Math.PI) * 0.9;
-          ctx.fillStyle = i % 2 === 0 ? `rgba(255, 224, 130, ${alpha})` : `rgba(145, 220, 255, ${alpha})`;
+          const sx = headX + Math.sin(i * 2.3 + t * 2) * 70;
+          const sy = (headY + 110) - p * 220;
+          const a = Math.sin(p * Math.PI) * 0.9;
+          ctx.fillStyle = i % 2 === 0 ? `rgba(255, 224, 130, ${a})` : `rgba(140, 215, 255, ${a})`;
           ctx.beginPath();
           ctx.arc(sx, sy, 3.2, 0, Math.PI * 2);
           ctx.fill();
         }
       }
-
-      ctx.restore();
     };
 
+    // ==========================================
+    // 5-SCENE REIMAGINED TIMELINE (45 SECONDS)
+    // ==========================================
     if (t < 7.4) {
+      // SCENE 1 (0:00 - 0:07.4): Misty Pine Park Overlook & Golden Sunrise Awakening
       const p = t / 7.4;
-      const walkProg = easeOut(Math.min(1, t / 2.6));
-      const cx = 560 + walkProg * 210;
-      const awake = t >= 2.2;
-      drawOutdoorDiorama({ zoom: 1 + p * 0.06, sunHeight: 0.85, sunIntensity: awake ? 1.15 : 0.75 });
-      drawStickCharacterOutdoor({
-        zoom: 1 + p * 0.06,
-        charX: cx,
-        walkCycle: t < 2.6 ? t * 4.5 : 0,
-        eyeState: awake ? 'energized' : 'groggy',
-        dopamineSparks: awake
-      });
+      const awake = t >= 2.8;
+      const sunRise = easeOut(Math.min(1, t / 4.5));
 
-    } else if (t < 13.0) {
-      drawOutdoorDiorama({ zoom: 1.45, panX: 180, panY: 60, sunHeight: 0.9, sunIntensity: 1.35 });
-      drawStickCharacterOutdoor({
-        zoom: 1.45, panX: 180, panY: 60,
-        charX: 770,
-        eyeState: 'energized',
-        dopamineSparks: true
-      });
+      const sky = ctx.createLinearGradient(0, -600, 0, 840);
+      sky.addColorStop(0, '#101b33');
+      sky.addColorStop(0.5, '#3b4a6b');
+      sky.addColorStop(0.82, '#c77a52');
+      sky.addColorStop(1, '#ffd485');
+      ctx.fillStyle = sky;
+      ctx.fillRect(-600, -1200, 3120, 2040);
 
-    } else if (t < 24.4) {
-      const local = t - 13.0;
-      ctx.fillStyle = '#080c18';
-      ctx.fillRect(0, 0, 1920, 1080);
-
-      const beam = ctx.createLinearGradient(260, 540, 1180, 540);
-      beam.addColorStop(0, 'rgba(255, 224, 140, 0.65)');
-      beam.addColorStop(0.5, 'rgba(255, 195, 100, 0.25)');
-      beam.addColorStop(1, 'rgba(255, 195, 100, 0)');
-      ctx.fillStyle = beam;
+      // Low Horizon Sun & Volumetric Mist Glow
+      const sunX = 1220, sunY = 560 - sunRise * 130;
+      const sGlow = ctx.createRadialGradient(sunX, sunY, 20, sunX, sunY, 720);
+      sGlow.addColorStop(0, 'rgba(255, 245, 200, 0.95)');
+      sGlow.addColorStop(0.3, 'rgba(255, 195, 105, 0.45)');
+      sGlow.addColorStop(1, 'rgba(255, 150, 70, 0)');
+      ctx.fillStyle = sGlow;
       ctx.beginPath();
-      ctx.moveTo(260, 440);
-      ctx.lineTo(1040, 515);
-      ctx.lineTo(1040, 565);
-      ctx.lineTo(260, 640);
+      ctx.arc(sunX, sunY, 720, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#fff9e0';
+      ctx.beginPath();
+      ctx.arc(sunX, sunY, 56, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Distant Mountain Ridge
+      ctx.fillStyle = '#1b2438';
+      ctx.beginPath();
+      ctx.moveTo(-600, 840);
+      ctx.lineTo(-600, 660);
+      ctx.lineTo(350, 580);
+      ctx.lineTo(780, 650);
+      ctx.lineTo(1260, 560);
+      ctx.lineTo(1750, 640);
+      ctx.lineTo(2520, 590);
+      ctx.lineTo(2520, 840);
       ctx.closePath();
       ctx.fill();
 
-      const pulse = 1 + Math.sin(local * 4.5) * 0.08;
-      const coreGlow = ctx.createRadialGradient(1040, 540, 20, 1040, 540, 340 * pulse);
-      coreGlow.addColorStop(0, 'rgba(255, 224, 130, 0.85)');
-      coreGlow.addColorStop(0.45, 'rgba(255, 165, 70, 0.28)');
-      coreGlow.addColorStop(1, 'rgba(15, 25, 50, 0)');
-      ctx.fillStyle = coreGlow;
+      // Pine Tree Silhouettes Framing Left & Right
+      drawPineTree(520, 840, 420, 170);
+      drawPineTree(620, 840, 310, 130);
+      drawPineTree(1420, 840, 450, 180);
+      drawPineTree(1330, 840, 330, 140);
+
+      // Soft Drifting Valley Mist
+      const mist = ctx.createLinearGradient(0, 680, 0, 840);
+      mist.addColorStop(0, 'rgba(255, 225, 175, 0)');
+      mist.addColorStop(1, 'rgba(255, 225, 175, 0.25)');
+      ctx.fillStyle = mist;
+      ctx.fillRect(-600, 680, 3120, 160);
+
+      // Stone Overlook Ground
+      ctx.fillStyle = '#0d1018';
+      ctx.fillRect(-600, 835, 3120, 900);
+
+      // Character Walks to Edge & Straightens Posture as Sun Hits Face
+      const walkProg = easeOut(Math.min(1, t / 2.2));
+      const slumpVal = awake ? Math.max(0, 1 - (t - 2.8) / 1.2) : 1;
+      drawParkCharacter(660 + walkProg * 140, 835, {
+        slump: slumpVal,
+        walkCycle: t < 2.2 ? t * 4.5 : 0,
+        eyeState: awake ? 'energized' : 'groggy',
+        sparks: awake
+      });
+
+    } else if (t < 13.0) {
+      // SCENE 2 (0:07.4 - 0:13.0): Macro Close-Up — Pupil Contracting Under Morning Sunlight
+      const local = t - 7.4;
+      const p = easeOut(Math.min(1, local / 1.8));
+      ctx.fillStyle = '#070a12';
+      ctx.fillRect(-600, -1200, 3120, 3200);
+
+      // Warm Golden Light Entering Eye From Right
+      const beam = ctx.createRadialGradient(1320, 540, 30, 960, 540, 850);
+      beam.addColorStop(0, 'rgba(255, 235, 175, 0.75)');
+      beam.addColorStop(0.45, 'rgba(255, 185, 95, 0.22)');
+      beam.addColorStop(1, 'rgba(7, 10, 18, 0)');
+      ctx.fillStyle = beam;
+      ctx.fillRect(-600, -1200, 3120, 3200);
+
+      // Stylized Almond Eye Silhouette
+      ctx.save();
+      ctx.translate(960, 540);
+      ctx.strokeStyle = 'rgba(255, 225, 165, 0.85)';
+      ctx.lineWidth = 6;
+      ctx.fillStyle = '#0c111d';
       ctx.beginPath();
-      ctx.arc(1040, 540, 340 * pulse, 0, Math.PI * 2);
+      ctx.moveTo(-260, 0);
+      ctx.quadraticCurveTo(0, -175, 260, 0);
+      ctx.quadraticCurveTo(0, 175, -260, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Glowing Golden Iris
+      ctx.shadowColor = '#ffd56b';
+      ctx.shadowBlur = 35;
+      ctx.fillStyle = '#ffdfa0';
+      ctx.beginPath();
+      ctx.arc(0, 0, 92, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Pupil Constricting Sharply in Response to Sunlight
+      const pupilR = 54 - p * 26;
+      ctx.fillStyle = '#06080e';
+      ctx.beginPath();
+      ctx.arc(0, 0, pupilR, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.strokeStyle = 'rgba(255, 224, 145, 0.55)';
-      ctx.lineWidth = 3.5;
-      [110, 175, 240].forEach((r, idx) => {
+      // Crisp Sun Reflection Catchlight
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(34, -28, 14, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+    } else if (t < 24.4) {
+      // SCENE 3 (0:13.0 - 0:24.4): Neural Pathway — Melatonin Blue Dissolving Into Golden Cortisol/Dopamine
+      const local = t - 13.0;
+      const p = local / 11.4;
+      ctx.fillStyle = '#060913';
+      ctx.fillRect(-600, -1200, 3120, 3200);
+
+      // Signal Wave Traveling Left -> Right Into Brain Core
+      const sigX = 360 + Math.min(1, local / 2.5) * 600;
+      ctx.strokeStyle = 'rgba(255, 220, 130, 0.65)';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(320, 540);
+      for (let x = 320; x <= sigX; x += 20) {
+        ctx.lineTo(x, 540 + Math.sin(x * 0.03 - local * 10) * 18);
+      }
+      ctx.stroke();
+
+      // Central Brain Clock Core
+      const pulse = 1 + Math.sin(local * 4.5) * 0.08;
+      const core = ctx.createRadialGradient(960, 540, 20, 960, 540, 360 * pulse);
+      core.addColorStop(0, 'rgba(255, 224, 130, 0.88)');
+      core.addColorStop(0.45, 'rgba(255, 165, 70, 0.28)');
+      core.addColorStop(1, 'rgba(10, 18, 36, 0)');
+      ctx.fillStyle = core;
+      ctx.beginPath();
+      ctx.arc(960, 540, 360 * pulse, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Fading Blue Melatonin Rings + Rising Golden Cortisol/Dopamine Stars
+      ctx.strokeStyle = `rgba(100, 175, 255, ${Math.max(0.08, 0.65 - p * 0.6)})`;
+      ctx.lineWidth = 3;
+      [130, 200, 270].forEach(r => {
         ctx.beginPath();
-        ctx.arc(1040, 540, r + Math.sin(local * 3 + idx) * 6, 0, Math.PI * 2);
+        ctx.arc(960, 540, r + p * 35, 0, Math.PI * 2);
         ctx.stroke();
       });
 
-      for (let i = 0; i < 20; i++) {
-        const sp = ((local * 0.5 + i * 0.05) % 1);
-        const angle = (i / 20) * Math.PI * 2 + local * 0.4;
-        const dist = 70 + sp * 260;
-        const sx = 1040 + Math.cos(angle) * dist;
-        const sy = 540 + Math.sin(angle) * dist;
-        ctx.fillStyle = `rgba(255, 230, 150, ${(1 - sp) * 0.9})`;
+      for (let i = 0; i < 22; i++) {
+        const sp = ((local * 0.55 + i * 0.045) % 1);
+        const angle = (i / 22) * Math.PI * 2 + local * 0.45;
+        const dist = 60 + sp * 290;
+        ctx.fillStyle = `rgba(255, 232, 155, ${(1 - sp) * 0.92})`;
         ctx.beginPath();
-        ctx.arc(sx, sy, 4.5, 0, Math.PI * 2);
+        ctx.arc(960 + Math.cos(angle) * dist, 540 + Math.sin(angle) * dist, 4.5, 0, Math.PI * 2);
         ctx.fill();
       }
 
     } else if (t < 32.0) {
+      // SCENE 4 (0:24.4 - 0:32.0): Split-Screen Comparison — Weak Indoor Bulb (Left) vs Bright Cloudy Sky (Right)
       const local = t - 24.4;
-      const p = local / 7.6;
-      drawOutdoorDiorama({
-        zoom: 1.04 + p * 0.05,
-        sunHeight: 1.0, sunIntensity: 1.15, cloudy: true
-      });
-      drawStickCharacterOutdoor({
-        zoom: 1.04 + p * 0.05,
-        charX: 770,
-        eyeState: 'energized',
-        rimColor: 'rgba(215, 235, 255, 0.85)',
-        dopamineSparks: true
-      });
 
-    } else if (t < 39.2) {
-      const local = t - 32.0;
-      const p = local / 7.2;
-      drawOutdoorDiorama({
-        zoom: 1.06, sunHeight: 1 - p * 0.65, sunIntensity: 1 - p * 0.45, duskTimer: p
-      });
-      drawStickCharacterOutdoor({
-        zoom: 1.06,
-        charX: 770,
-        eyeState: p > 0.7 ? 'waking' : 'energized',
-        rimColor: `rgba(255, ${Math.round(220 - p * 50)}, ${Math.round(160 + p * 60)}, 0.8)`
-      });
-
+      // LEFT HALF: Dim Indoor Room With Single Hanging Bulb
       ctx.save();
-      ctx.translate(1220, 320);
-      ctx.strokeStyle = 'rgba(255, 224, 145, 0.55)';
-      ctx.lineWidth = 4;
       ctx.beginPath();
-      ctx.arc(0, 0, 115, 0, Math.PI * 2);
-      ctx.stroke();
+      ctx.rect(-600, -1200, 1560, 3200);
+      ctx.clip();
 
-      const startA = -Math.PI * 0.5;
-      const sweepA = startA + p * Math.PI * 1.45;
-      ctx.strokeStyle = '#ffd56b';
-      ctx.lineWidth = 7;
-      ctx.beginPath();
-      ctx.arc(0, 0, 115, startA, sweepA);
-      ctx.stroke();
+      ctx.fillStyle = '#0d0f16';
+      ctx.fillRect(-600, -1200, 1560, 3200);
+      const bulbGlow = ctx.createRadialGradient(720, 360, 10, 720, 420, 260);
+      bulbGlow.addColorStop(0, 'rgba(255, 205, 120, 0.38)');
+      bulbGlow.addColorStop(1, 'rgba(13, 15, 22, 0)');
+      ctx.fillStyle = bulbGlow;
+      ctx.fillRect(400, 100, 600, 750);
 
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(Math.cos(sweepA) * 88, Math.sin(sweepA) * 88);
-      ctx.stroke();
+      // Hanging Bulb Cord
+      ctx.strokeStyle = '#4a4d5c';
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(720, 0); ctx.lineTo(720, 340); ctx.stroke();
+      ctx.fillStyle = '#ffe2a8';
+      ctx.beginPath(); ctx.arc(720, 352, 14, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = '#080a0f';
+      ctx.fillRect(-600, 835, 1560, 900);
+      drawParkCharacter(720, 835, { slump: 0.85, eyeState: 'groggy', rimColor: 'rgba(255, 205, 130, 0.35)' });
       ctx.restore();
 
+      // RIGHT HALF: Bright Overcast Outdoor Sky (10x Stronger Light!)
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(960, -1200, 1560, 3200);
+      ctx.clip();
+
+      const cloudSky = ctx.createLinearGradient(960, 0, 960, 840);
+      cloudSky.addColorStop(0, '#3a4c6b');
+      cloudSky.addColorStop(0.55, '#6e86ad');
+      cloudSky.addColorStop(1, '#b5cae6');
+      ctx.fillStyle = cloudSky;
+      ctx.fillRect(960, -1200, 1560, 2040);
+
+      // Soft Bright Overcast Clouds
+      ctx.fillStyle = 'rgba(235, 244, 255, 0.65)';
+      ctx.beginPath();
+      ctx.ellipse(1180 + Math.sin(local) * 15, 270, 170, 46, 0, 0, Math.PI * 2);
+      ctx.ellipse(1260, 250, 140, 38, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#121724';
+      ctx.fillRect(960, 835, 1560, 900);
+      drawParkCharacter(1190, 835, { slump: 0, eyeState: 'energized', rimColor: 'rgba(230, 244, 255, 0.95)', sparks: true });
+      ctx.restore();
+
+      // Crisp Center Divider Line
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(960, -1200);
+      ctx.lineTo(960, 2000);
+      ctx.stroke();
+
     } else {
-      const local = t - 39.2;
-      const p = local / 5.8;
-      drawOutdoorDiorama({
-        zoom: 1.02 + p * 0.06, sunHeight: 1.05, sunIntensity: 1.3
-      });
-      drawStickCharacterOutdoor({
-        zoom: 1.02 + p * 0.06,
-        charX: 770 + p * 120,
-        walkCycle: local * 3.6,
+      // SCENE 5 (0:32.0 - 0:45.0): The 16-Hour Solar Sundial Arc & Lakeside Walk
+      const local = t - 32.0;
+      const p = local / 13.0;
+
+      const sky = ctx.createLinearGradient(0, -600, 0, 840);
+      sky.addColorStop(0, '#0f1b33');
+      sky.addColorStop(0.55, '#3b4d70');
+      sky.addColorStop(1, '#e89b68');
+      ctx.fillStyle = sky;
+      ctx.fillRect(-600, -1200, 3120, 2040);
+
+      // Giant 16-Hour Solar Arc Across Sky (Morning -> Nightfall Timer)
+      const arcCx = 960, arcCy = 780, arcR = 480;
+      ctx.strokeStyle = 'rgba(255, 224, 150, 0.25)';
+      ctx.lineWidth = 4;
+      ctx.setLineDash([12, 12]);
+      ctx.beginPath();
+      ctx.arc(arcCx, arcCy, arcR, Math.PI * 1.12, Math.PI * 1.88);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Progress Arc & Traveling Sun -> Moon Marker
+      const startA = Math.PI * 1.12;
+      const endA = Math.PI * 1.88;
+      const curA = startA + Math.min(1, p * 1.15) * (endA - startA);
+
+      ctx.strokeStyle = '#ffd56b';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.arc(arcCx, arcCy, arcR, startA, curA);
+      ctx.stroke();
+
+      const orbX = arcCx + Math.cos(curA) * arcR;
+      const orbY = arcCy + Math.sin(curA) * arcR;
+      ctx.shadowColor = '#ffd56b';
+      ctx.shadowBlur = 28;
+      ctx.fillStyle = '#fff5cc';
+      ctx.beginPath();
+      ctx.arc(orbX, orbY, 22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Ground & Walking Silhouette
+      ctx.fillStyle = '#0c0f17';
+      ctx.fillRect(-600, 835, 3120, 900);
+
+      drawParkCharacter(760 + p * 260, 835, {
+        slump: 0,
+        walkCycle: local * 3.8,
         eyeState: 'energized',
-        dopamineSparks: true
+        sparks: true
       });
     }
 
+    // Cinema Edge Vignette
     const vig = ctx.createRadialGradient(960, 540, 560, 960, 540, 1280);
     vig.addColorStop(0, 'rgba(0,0,0,0)');
     vig.addColorStop(1, 'rgba(3,4,8,0.62)');
