@@ -1,6 +1,6 @@
 /* ==========================================================================
    LAST SOUL STUDIO — EPISODES & SCRIPT DIRECTION (scenes.js)
-   All character shapes, rooms, and lighting are locked in `style-rig.js`.
+   All character shapes, eyes, rooms, and lighting live in `style-rig.js`.
    ========================================================================== */
 
 window.LAST_SOUL_SCENES = [
@@ -18,21 +18,21 @@ window.LAST_SOUL_SCENES = [
         label: "SCENE 01 · DEEP SLEEP",
         lens: "WIDE · 24MM",
         camera: { x: 0, y: 0, zoom: 1.0, tilt: 0 },
-        subtitle: "Scene 1: Deep sleep cycle—chest breathing, moonlight beam, and floating Zzz's."
+        subtitle: "Scene 1: Deep sleep—warm lamp rim-lighting, city skyline window, and closed eyes."
       },
       {
         start: 8.0,
         label: "SCENE 02 · WAKING UP",
         lens: "MEDIUM · DOLLY IN",
-        camera: { x: 0.06, y: 0.04, zoom: 1.35, tilt: -0.4 },
-        subtitle: "Scene 2: Waking up—sitting upright and full overhead arm stretch."
+        camera: { x: -0.05, y: 0.04, zoom: 1.32, tilt: -0.4 },
+        subtitle: "Scene 2: Waking up—groggy eyes opening and full overhead morning stretch."
       },
       {
         start: 16.0,
         label: "SCENE 03 · OUTDOOR WALK",
         lens: "TRACKING · 35MM",
         camera: { x: 0.0, y: 0.03, zoom: 1.22, tilt: 0 },
-        subtitle: "Scene 3: Outdoor morning walk—natural human scale, trees, and knee-bend stride."
+        subtitle: "Scene 3: Outdoor morning walk—focused expression, skyline depth, and natural stride."
       },
       {
         start: 24.0,
@@ -74,7 +74,10 @@ window.LAST_SOUL_SCENES = [
           showZzz: t < 6.8
         });
       } else if (t < 24.0) {
-        SoulRig.drawOutdoorWalk(ctx, w, h, t - 16.0, { timeOfDay: "morning" });
+        SoulRig.drawOutdoorWalk(ctx, w, h, t - 16.0, {
+          timeOfDay: "morning",
+          mood: "focused"
+        });
       } else {
         SoulRig.drawShopScene(ctx, w, h, t - 24.0, { shopName: "SOUL STORE" });
       }
@@ -101,14 +104,14 @@ window.LAST_SOUL_SCENES = [
         start: 4.5,
         label: "SHOT 02 · DOPAMINE PULL",
         lens: "MEDIUM · DOLLY IN",
-        camera: { x: 0.06, y: 0.04, zoom: 1.32, tilt: -0.8 },
+        camera: { x: -0.06, y: 0.04, zoom: 1.32, tilt: -0.8 },
         subtitle: "Every swipe feeds a tiny hit of fake urgency to an exhausted brain."
       },
       {
         start: 9.5,
         label: "SHOT 03 · FACE GLOW",
         lens: "CLOSE-UP · 50MM",
-        camera: { x: 0.11, y: 0.06, zoom: 1.78, tilt: 0.6 },
+        camera: { x: -0.1, y: 0.05, zoom: 1.72, tilt: 0.6 },
         subtitle: "Blue light tricks your biology into thinking it's noon—shutting off melatonin."
       },
       {
@@ -133,7 +136,8 @@ window.LAST_SOUL_SCENES = [
       SoulRig.drawBedroomScene(ctx, w, h, t, {
         mode: "phone",
         phoneActive: t < 14.5,
-        clockText: t > 13.5 ? "02:47" : "02:00"
+        clockText: t > 13.5 ? "02:47" : "02:00",
+        punchline: t >= 14.5 ? "OK." : ""
       });
     }
   },
@@ -183,7 +187,11 @@ window.LAST_SOUL_SCENES = [
       { at: 13.0, type: "footstep" }
     ],
     render(ctx, w, h, t) {
-      SoulRig.drawOutdoorWalk(ctx, w, h, t, { timeOfDay: "nightRain", scrollSpeed: 42 });
+      SoulRig.drawOutdoorWalk(ctx, w, h, t, {
+        timeOfDay: "nightRain",
+        scrollSpeed: 42,
+        mood: "focused"
+      });
     }
   }
 ];
