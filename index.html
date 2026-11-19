@@ -28,7 +28,6 @@
     <!-- Main Stage Viewport -->
     <main class="stage-wrapper">
       <div id="stageFrame" class="stage-frame ratio-9-16">
-        <!-- 60fps 2D Canvas -->
         <canvas id="studioCanvas"></canvas>
 
         <!-- Atmospheric Film Grain & Letterbox -->
@@ -42,7 +41,7 @@
           <div class="sz-bottom">CAPTION &amp; TITLE SAFE AREA</div>
         </div>
 
-        <!-- Live Director Camera HUD (Hidden during Record Mode) -->
+        <!-- Live Director Camera HUD -->
         <div id="cameraHud" class="camera-hud ui-chrome">
           <span class="rec-indicator">● LIVE RIG</span>
           <span id="hudLens">WIDE · 24MM</span>
@@ -62,14 +61,13 @@
           <p class="countdown-hint">START PHONE SCREEN RECORDER NOW</p>
         </div>
 
-        <!-- Tap to Exit Clean Record Mode (Invisible Corner Trigger) -->
+        <!-- Tap to Exit Clean Record Mode -->
         <button id="exitRecordBtn" class="exit-record-btn hidden" title="Exit Clean Record Mode">✕</button>
       </div>
     </main>
 
     <!-- Bottom Director Transport & Timeline -->
     <footer class="studio-footer ui-chrome">
-      <!-- Timeline Scrubber + Chapter Beat Markers -->
       <div class="timeline-row">
         <span id="timeCurrent" class="timecode">00:00.0</span>
         <div id="timelineTrack" class="timeline-track">
@@ -79,7 +77,6 @@
         <span id="timeTotal" class="timecode">00:00.0</span>
       </div>
 
-      <!-- Control Bar -->
       <div class="transport-row">
         <div class="transport-left">
           <button id="btnRestart" class="icon-btn" title="Restart Scene">↺</button>
@@ -97,6 +94,7 @@
     </footer>
   </div>
 
+  <script src="style-rig.js"></script>
   <script src="scenes.js"></script>
   <script src="engine.js"></script>
 </body>
