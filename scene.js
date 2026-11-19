@@ -1,397 +1,716 @@
-// ==========================================
-// SCENE: THE DARK ORIGIN OF NYC FIRE ESCAPES (1860) — ARCHITECTURAL CUTAWAY STYLE (50s)
-// Built for cn-esport/Zen (16:9 & 9:16 Native Fit • GSAP 3.12 + 14-SFX Synced)
-// ==========================================
-const SCENE_DATA = {
-  duration: 50,
-  sfx: [
-    { at: 0.4,  type: "wind" },         // Freezing 1860 New York midnight wind
-    { at: 3.2,  type: "door_open" },    // Tenement window/door rattle
-    { at: 7.5,  type: "boom" },         // The fatal flaw: a single wooden staircase
-    { at: 12.0, type: "spark" },        // Oil lamp tips over on ground floor
-    { at: 15.5, type: "boom" },         // Fire erupts up the wooden stairwell
-    { at: 19.0, type: "heartbeat" },    // Trapped on the fifth floor
-    { at: 23.5, type: "whoosh" },       // Transition to the 1860 Fire Escape Law
-    { at: 26.5, type: "lock" },         // Iron bolts & balcony brackets forged
-    { at: 30.0, type: "chime" },        // Zig-zag iron ladders bolted to brick
-    { at: 35.5, type: "footsteps" },    // Descending the exterior iron steps
-    { at: 41.0, type: "sun_swell" },    // City skyline transformed forever
-    { at: 44.5, type: "wind" }
-  ],
-  captions: [
-    { start: 0.3,  length: 6.8, text: "Walk down any street in New York City, and you’ll see black iron fire escapes zigzagging down brick buildings." },
-    { start: 7.4,  length: 7.8, text: "They weren’t added for style. In the 1850s, crowded five-story tenements were built with one fatal flaw: a single wooden staircase." },
-    { start: 15.5, length: 7.8, text: "If a single oil lamp tipped over on the ground floor, that wooden stairwell turned into a chimney—trapping families on the roof." },
-    { start: 23.6, length: 7.8, text: "After a string of devastating midnight fires in 1860, New York passed a radical new law requiring exterior iron balconies." },
-    { start: 31.6, length: 8.2, text: "Bolted straight into outer brick walls, those iron ladders gave trapped residents a second way out through their own windows." },
-    { start: 40.0, length: 9.2, text: "What started as a desperate survival law became the permanent, iconic skeleton of New York’s skyline." }
-  ],
+/* ==========================================================================
+   LAST SOUL STUDIO — EPISODES & SCENES LIBRARY
+   ========================================================================== */
 
-  setupGSAP(tl, CAM) {
-    tl.fromTo(CAM, { zoomMul: 1 }, { zoomMul: 1.05, duration: 6.5, ease: 'power2.out' }, 15.5);
-    tl.to(CAM, { zoomMul: 1, duration: 0.6, ease: 'power2.inOut' }, 23.4);
+window.LAST_SOUL_SCENES = [
+  /* ------------------------------------------------------------------------
+     EPISODE 00: FULL INDOOR-TO-OUTDOOR SHOWCASE (32 Seconds)
+     Scene 1: Sleeping in Room -> Scene 2: Waking & Stretching ->
+     Scene 3: Walking Outdoors -> Scene 4: Arriving at Local Shop
+     ------------------------------------------------------------------------ */
+  {
+    id: "studio-showcase-00",
+    title: "00 · Full Indoor, Outdoor & Shop Test",
+    duration: 32.0,
+    ambience: "night",
+    beats: [
+      {
+        start: 0.0,
+        label: "SCENE 01 · DEEP SLEEP",
+        lens: "WIDE · 24MM",
+        camera: { x: 0, y: 0, zoom: 1.0, tilt: 0 },
+        subtitle: "Scene 1: Deep sleep cycle—chest breathing, moonlight, and floating Zzz's."
+      },
+      {
+        start: 8.0,
+        label: "SCENE 02 · WAKING UP",
+        lens: "MEDIUM · DOLLY IN",
+        camera: { x: 0.06, y: 0.04, zoom: 1.38, tilt: -0.5 },
+        subtitle: "Scene 2: Waking up—sitting upright and full overhead arm stretch."
+      },
+      {
+        start: 16.0,
+        label: "SCENE 03 · OUTDOOR WALK",
+        lens: "TRACKING · 35MM",
+        camera: { x: 0.0, y: 0.03, zoom: 1.25, tilt: 0 },
+        subtitle: "Scene 3: Outdoor morning walk—scrolling street, trees, and knee-bend stride."
+      },
+      {
+        start: 24.0,
+        label: "SCENE 04 · LOCAL SHOP",
+        lens: "WIDE · ESTABLISHING",
+        camera: { x: 0.05, y: 0.01, zoom: 1.12, tilt: 0 },
+        subtitle: "Scene 4: Arriving at the local shop—warm lantern glow and counter reach."
+      }
+    ],
+    sounds: [
+      { at: 1.0, type: "tick" },
+      { at: 2.5, type: "tick" },
+      { at: 4.0, type: "tick" },
+      { at: 5.5, type: "tick" },
+      { at: 6.8, type: "chime" },
+      { at: 8.3, type: "buzz" },
+      { at: 14.5, type: "footstep" },
+      { at: 16.6, type: "footstep" },
+      { at: 17.5, type: "footstep" },
+      { at: 18.4, type: "footstep" },
+      { at: 19.3, type: "footstep" },
+      { at: 20.2, type: "footstep" },
+      { at: 21.1, type: "footstep" },
+      { at: 22.0, type: "footstep" },
+      { at: 22.9, type: "footstep" },
+      { at: 24.4, type: "chime" },
+      { at: 28.0, type: "heartbeat" }
+    ],
+    render(ctx, w, h, t) {
+      // Helper: Articulated 2-Segment Limb
+      function drawLimb(x1, y1, angle1, len1, angle2, len2, thickness, color = "#030407") {
+        const jx = x1 + Math.sin(angle1) * len1;
+        const jy = y1 + Math.cos(angle1) * len1;
+        const ex = jx + Math.sin(angle1 + angle2) * len2;
+        const ey = jy + Math.cos(angle1 + angle2) * len2;
+
+        ctx.strokeStyle = color;
+        ctx.lineWidth = thickness;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(jx, jy);
+        ctx.lineTo(ex, ey);
+        ctx.stroke();
+        return { jx, jy, ex, ey };
+      }
+
+      /* ====================================================================
+         PART A (0s - 16s): INDOOR BEDROOM (SLEEPING -> WAKING & STRETCHING)
+         ==================================================================== */
+      if (t < 16.0) {
+        const wakeProgress = Math.max(0, Math.min(1, (t - 7.5) / 2.2)); // 0 = sleeping, 1 = sitting up
+
+        // Sky/Room transitions from deep night blue to soft dawn indigo as alarm rings
+        const bg = ctx.createLinearGradient(0, 0, 0, h);
+        bg.addColorStop(0, wakeProgress > 0.3 ? "#111a2e" : "#060913");
+        bg.addColorStop(0.65, wakeProgress > 0.3 ? "#1e293b" : "#0c1322");
+        bg.addColorStop(1, "#04060b");
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, w, h);
+
+        // Bedroom Window
+        const winX = w * 0.12;
+        const winY = h * 0.14;
+        const winW = w * 0.32;
+        const winH = h * 0.26;
+        ctx.fillStyle = wakeProgress > 0.3 ? "#334155" : "#152238";
+        ctx.fillRect(winX, winY, winW, winH);
+
+        // Morning Sun / Moon Orb in Window
+        ctx.fillStyle = wakeProgress > 0.3 ? "rgba(251, 191, 36, 0.75)" : "rgba(186, 230, 253, 0.55)";
+        ctx.beginPath();
+        ctx.arc(winX + winW * 0.65, winY + winH * (0.35 - wakeProgress * 0.1), 16, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Window Frame Bars
+        ctx.strokeStyle = "#05070c";
+        ctx.lineWidth = 4;
+        ctx.strokeRect(winX, winY, winW, winH);
+        ctx.beginPath();
+        ctx.moveTo(winX + winW / 2, winY);
+        ctx.lineTo(winX + winW / 2, winY + winH);
+        ctx.moveTo(winX, winY + winH / 2);
+        ctx.lineTo(winX + winW, winY + winH / 2);
+        ctx.stroke();
+
+        // Bedside Table & Alarm Clock
+        const bedY = h * 0.72;
+        ctx.fillStyle = "#080b12";
+        ctx.fillRect(w * 0.08, bedY + 10, w * 0.16, h * 0.25);
+
+        // Alarm Clock shaking at 6.8s - 9.0s
+        const alarmShake = t >= 6.8 && t <= 9.2 ? Math.sin(t * 55) * 3 : 0;
+        ctx.fillStyle = "#1e293b";
+        ctx.fillRect(w * 0.11 + alarmShake, bedY - 14, w * 0.1, 22);
+        ctx.fillStyle = t >= 6.8 ? "#fbbf24" : "#ef4444";
+        ctx.font = `700 ${Math.max(10, w * 0.025)}px monospace`;
+        ctx.textAlign = "center";
+        ctx.fillText("06:30", w * 0.16 + alarmShake, bedY + 1);
+
+        // Bed Frame & Mattress
+        ctx.fillStyle = "#06080f";
+        ctx.fillRect(w * 0.26, bedY, w * 0.68, h * 0.28);
+
+        // Pillow on Right
+        ctx.fillStyle = "#141c2b";
+        ctx.beginPath();
+        ctx.ellipse(w * 0.80, bedY - 2, w * 0.11, h * 0.028, -0.1, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Character Sleeping -> Sitting Up -> Stretching
+        const breath = Math.sin(t * 2.0) * 3;
+        const hipX = w * 0.66;
+        const hipY = bedY - 6;
+
+        // Torso angle: -1.42 rad (lying flat) -> 0.0 rad (sitting upright)
+        const torsoAngle = -1.42 * (1 - wakeProgress);
+        const torsoLen = h * 0.14;
+        const shoulderX = hipX + Math.sin(torsoAngle) * torsoLen;
+        const shoulderY = hipY - Math.cos(torsoAngle) * torsoLen + breath * (1 - wakeProgress);
+
+        // Draw Blanket over lower body (slides back slightly when waking)
+        ctx.fillStyle = "#0f172a";
+        ctx.beginPath();
+        ctx.moveTo(w * 0.34 + wakeProgress * 35, bedY + 4);
+        ctx.quadraticCurveTo(w * 0.55, bedY - 18 + breath, hipX + 12, bedY + 4);
+        ctx.lineTo(w * 0.34 + wakeProgress * 35, bedY + 35);
+        ctx.closePath();
+        ctx.fill();
+
+        // Torso Silhouette
+        ctx.strokeStyle = "#030407";
+        ctx.lineWidth = Math.max(16, w * 0.045);
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(hipX, hipY);
+        ctx.lineTo(shoulderX, shoulderY);
+        ctx.stroke();
+
+        // Head Silhouette
+        const headR = Math.min(w, h) * 0.036;
+        const headX = shoulderX + Math.sin(torsoAngle) * (headR * 1.35);
+        const headY = shoulderY - Math.cos(torsoAngle) * (headR * 1.35);
+
+        ctx.fillStyle = "#030407";
+        ctx.beginPath();
+        ctx.arc(headX, headY, headR, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Rim Light on Head
+        ctx.strokeStyle = wakeProgress > 0.3 ? "rgba(251, 191, 36, 0.75)" : "rgba(147, 197, 253, 0.55)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(headX, headY, headR, Math.PI * 0.8, Math.PI * 1.6);
+        ctx.stroke();
+
+        // Floating "Zzz" Particles while sleeping (0s - 6.8s)
+        if (t < 6.8) {
+          ctx.fillStyle = "rgba(186, 230, 253, 0.55)";
+          ctx.font = "600 14px sans-serif";
+          for (let z = 0; z < 3; z++) {
+            const cycle = (t * 0.6 + z * 0.33) % 1;
+            const zx = headX - 18 - cycle * 26;
+            const zy = headY - 14 - cycle * 45;
+            ctx.globalAlpha = 1 - cycle;
+            ctx.fillText("z", zx, zy);
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        // Morning Stretch Arms (10.0s - 14.5s)
+        if (t >= 9.5) {
+          const stretchAmt = Math.sin(Math.min(1, (t - 9.5) / 2.2) * Math.PI);
+          const armLen = h * 0.065;
+          drawLimb(shoulderX, shoulderY + 4, -2.5 * stretchAmt - 0.3, armLen, -0.3, armLen * 0.9, 7);
+          drawLimb(shoulderX + 6, shoulderY + 4, -2.8 * stretchAmt - 0.1, armLen, 0.25, armLen * 0.9, 7);
+        }
+      }
+
+      /* ====================================================================
+         PART B (16s - 24s): OUTDOOR MORNING STREET WALK
+         ==================================================================== */
+      else if (t < 24.0) {
+        const localT = t - 16.0;
+
+        // Warm Golden-Hour Morning Sky
+        const sky = ctx.createLinearGradient(0, 0, 0, h);
+        sky.addColorStop(0, "#172554");
+        sky.addColorStop(0.52, "#9a3412");
+        sky.addColorStop(0.76, "#f59e0b");
+        sky.addColorStop(1, "#090d16");
+        ctx.fillStyle = sky;
+        ctx.fillRect(0, 0, w, h);
+
+        // Rising Morning Sun
+        ctx.fillStyle = "rgba(254, 240, 138, 0.85)";
+        ctx.beginPath();
+        ctx.arc(w * 0.72, h * 0.54, w * 0.11, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Parallax Distant Hills & Buildings
+        const scroll = localT * 65;
+        ctx.fillStyle = "#0f172a";
+        for (let b = -1; b < 6; b++) {
+          const bx = ((b * 130 - scroll * 0.45) % (w + 150));
+          const bh = 70 + ((b * 37) % 65);
+          ctx.fillRect(bx, h * 0.74 - bh, 95, bh);
+        }
+
+        // Parallax Roadside Trees & Utility Poles
+        for (let tr = 0; tr < 5; tr++) {
+          const tx = ((tr * 190 - scroll * 1.1) % (w + 200) + (w + 200)) % (w + 200) - 60;
+          // Utility Pole
+          ctx.fillStyle = "#05070c";
+          ctx.fillRect(tx, h * 0.34, 5, h * 0.42);
+          ctx.fillRect(tx - 14, h * 0.38, 33, 3);
+
+          // Tree Crown Silhouette
+          ctx.beginPath();
+          ctx.arc(tx + 55, h * 0.58, 32, 0, Math.PI * 2);
+          ctx.arc(tx + 78, h * 0.61, 25, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillRect(tx + 62, h * 0.60, 7, h * 0.16);
+        }
+
+        // Road & Sidewalk
+        const groundY = h * 0.76;
+        ctx.fillStyle = "#05070c";
+        ctx.fillRect(0, groundY, w, h - groundY);
+
+        // Dashed Road Markings moving past
+        ctx.fillStyle = "rgba(251, 191, 36, 0.35)";
+        for (let m = 0; m < 8; m++) {
+          const mx = ((m * 90 - scroll * 1.6) % (w + 90) + (w + 90)) % (w + 90) - 40;
+          ctx.fillRect(mx, groundY + 24, 38, 4);
+        }
+
+        // Full Walking Cycle Silhouette (Center Frame Tracking)
+        const charX = w * 0.44;
+        const walkPhase = localT * Math.PI * 2.22;
+        const stride = Math.sin(walkPhase);
+        const bounce = Math.abs(Math.cos(walkPhase)) * 5;
+        const hipY = groundY - h * 0.15 + bounce;
+        const shoulderY = hipY - h * 0.11;
+        const headY = shoulderY - h * 0.045;
+        const legLen = h * 0.075;
+        const armLen = h * 0.056;
+
+        // Back Arm & Leg
+        drawLimb(charX, shoulderY + 4, -stride * 0.48, armLen, 0.25, armLen * 0.9, 6.5);
+        drawLimb(charX, hipY, -stride * 0.5, legLen, -Math.max(0, stride) * 0.55, legLen, 8);
+
+        // Torso
+        ctx.fillStyle = "#030407";
+        ctx.fillRect(charX - 10, shoulderY, 20, hipY - shoulderY + 3);
+
+        // Front Leg & Knee Bend
+        drawLimb(charX, hipY, stride * 0.5, legLen, -Math.max(0, -stride) * 0.55, legLen, 8.5);
+
+        // Head + Warm Sunlight Rim Edge
+        const headR = Math.min(w, h) * 0.032;
+        ctx.beginPath();
+        ctx.arc(charX + 2, headY, headR, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = "rgba(253, 224, 71, 0.85)";
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        ctx.arc(charX + 2, headY, headR, -0.9, 0.9);
+        ctx.stroke();
+
+        // Front Arm Swing
+        drawLimb(charX + 2, shoulderY + 4, stride * 0.48, armLen, 0.35, armLen * 0.9, 7);
+      }
+
+      /* ====================================================================
+         PART C (24s - 32s): ARRIVING AT NEIGHBORHOOD LOCAL SHOP
+         ==================================================================== */
+      else {
+        const localT = t - 24.0;
+
+        // Crisp Morning Daylight Sky
+        const sky = ctx.createLinearGradient(0, 0, 0, h);
+        sky.addColorStop(0, "#1e3a5f");
+        sky.addColorStop(0.65, "#3b6998");
+        sky.addColorStop(1, "#090d16");
+        ctx.fillStyle = sky;
+        ctx.fillRect(0, 0, w, h);
+
+        const groundY = h * 0.78;
+        ctx.fillStyle = "#05070d";
+        ctx.fillRect(0, groundY, w, h - groundY);
+
+        // Local Shop Building Structure (Right Side)
+        const shopX = w * 0.46;
+        const shopY = h * 0.32;
+        const shopW = w * 0.46;
+        const shopH = groundY - shopY;
+
+        ctx.fillStyle = "#0b101b";
+        ctx.fillRect(shopX, shopY, shopW, shopH);
+
+        // Warm Glowing Shop Interior Window & Counter
+        const glow = ctx.createRadialGradient(
+          shopX + shopW * 0.5, shopY + shopH * 0.45, 10,
+          shopX + shopW * 0.5, shopY + shopH * 0.5, shopW * 0.85
+        );
+        glow.addColorStop(0, "rgba(251, 191, 36, 0.85)");
+        glow.addColorStop(0.6, "rgba(245, 158, 11, 0.32)");
+        glow.addColorStop(1, "rgba(11, 16, 27, 0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(shopX + 10, shopY + 35, shopW - 20, shopH * 0.55);
+
+        // Shopkeeper Silhouette inside counter
+        ctx.fillStyle = "#090c14";
+        ctx.beginPath();
+        ctx.arc(shopX + shopW * 0.65, shopY + shopH * 0.46, 13, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillRect(shopX + shopW * 0.58, shopY + shopH * 0.51, 24, 35);
+
+        // Striped Shop Awning
+        const stripes = 6;
+        const stripeW = (shopW + 16) / stripes;
+        for (let s = 0; s < stripes; s++) {
+          ctx.fillStyle = s % 2 === 0 ? "#d97706" : "#f8fafc";
+          ctx.beginPath();
+          ctx.moveTo(shopX - 8 + s * stripeW, shopY + 26);
+          ctx.lineTo(shopX - 8 + (s + 1) * stripeW, shopY + 26);
+          ctx.lineTo(shopX - 12 + (s + 1) * stripeW, shopY + 52);
+          ctx.lineTo(shopX - 12 + s * stripeW, shopY + 52);
+          ctx.closePath();
+          ctx.fill();
+        }
+
+        // Shop Signboard ("SOUL MART")
+        ctx.fillStyle = "#030407";
+        ctx.fillRect(shopX + 12, shopY - 14, shopW - 24, 26);
+        ctx.fillStyle = "#fbbf24";
+        ctx.font = `700 ${Math.max(10, w * 0.028)}px sans-serif`;
+        ctx.textAlign = "center";
+        ctx.fillText("SOUL STORE", shopX + shopW / 2, shopY + 4);
+
+        // Character Arriving & Reaching Hand Toward Shop Counter
+        const walkIn = Math.min(1, localT / 1.8);
+        const charX = w * (0.20 + walkIn * 0.18);
+        const bob = walkIn < 1 ? Math.abs(Math.sin(localT * 12)) * 4 : Math.sin(localT * 2.2) * 2;
+        const hipY = groundY - h * 0.15 + bob;
+        const shoulderY = hipY - h * 0.11;
+        const headY = shoulderY - h * 0.045;
+        const legLen = h * 0.075;
+        const armLen = h * 0.056;
+
+        // Standing Legs
+        const stepOffset = walkIn < 1 ? Math.sin(localT * 12) * 0.35 : 0.07;
+        drawLimb(charX, hipY, -stepOffset, legLen, 0.05, legLen, 8);
+        drawLimb(charX, hipY, stepOffset, legLen, 0.05, legLen, 8.5);
+
+        // Torso & Head
+        ctx.fillStyle = "#030407";
+        ctx.fillRect(charX - 10, shoulderY, 20, hipY - shoulderY + 3);
+        const headR = Math.min(w, h) * 0.032;
+        ctx.beginPath();
+        ctx.arc(charX + 2, headY, headR, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Warm Shop Lantern Rim Light on Face
+        ctx.strokeStyle = "rgba(251, 191, 36, 0.9)";
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        ctx.arc(charX + 2, headY, headR, -0.8, 0.8);
+        ctx.stroke();
+
+        // Hand Reaching Out to Counter after 2.2s
+        const reach = Math.max(0, Math.min(1, (localT - 2.0) / 1.0));
+        const handPos = drawLimb(
+          charX + 2,
+          shoulderY + 4,
+          0.15 + reach * 0.75,
+          armLen,
+          0.2 + reach * 0.45,
+          armLen * 0.95,
+          7
+        );
+
+        // Small Glowing Item/Bag Handed Over at 4.5s
+        if (localT >= 4.2) {
+          ctx.fillStyle = "#fbbf24";
+          ctx.fillRect(handPos.ex - 5, handPos.ey + 2, 12, 14);
+        }
+      }
+    }
   },
 
-  render(ctx, W, H, t) {
-    ctx.save();
-    ctx.fillStyle = '#050811';
-    ctx.fillRect(0, 0, W, H);
-
-    // True Dual-Aspect Native Fit (16:9 Landscape & 9:16 Vertical)
-    const isPortrait = W < H;
-    const targetSpanW = isPortrait ? 1040 : 1920;
-    const baseScale = isPortrait ? (W / targetSpanW) : Math.max(W / 1920, H / 1080);
-    const zoomMul = (window.CAM && window.CAM.zoomMul) ? window.CAM.zoomMul : 1;
-    const scale = baseScale * zoomMul;
-
-    const ox = (W - 1920 * scale) * 0.5;
-    const oy = (H - 1080 * scale) * 0.5 + (isPortrait ? 40 * scale : 0);
-
-    if (isPortrait) {
-      const bgFill = ctx.createLinearGradient(0, 0, 0, H);
-      bgFill.addColorStop(0, '#070d1c');
-      bgFill.addColorStop(0.6, '#13203b');
-      bgFill.addColorStop(1, '#06080f');
-      ctx.fillStyle = bgFill;
-      ctx.fillRect(0, 0, W, H);
-    }
-
-    ctx.translate(ox, oy);
-    ctx.scale(scale, scale);
-
-    const easeOut = x => 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3);
-
-    // Helper: Nocturne Gouache Midnight City Backdrop
-    const drawNocturneCity = () => {
-      const sky = ctx.createLinearGradient(0, -600, 0, 960);
-      sky.addColorStop(0, '#060b18');
-      sky.addColorStop(0.55, '#0f1c36');
-      sky.addColorStop(1, '#1b2b4a');
-      ctx.fillStyle = sky;
-      ctx.fillRect(-600, -1200, 3120, 2200);
-
-      // Crescent Moon & Cold Mist Halo
-      const mGlow = ctx.createRadialGradient(1360, 220, 15, 1360, 220, 320);
-      mGlow.addColorStop(0, 'rgba(205, 225, 255, 0.35)');
-      mGlow.addColorStop(1, 'rgba(15, 28, 54, 0)');
-      ctx.fillStyle = mGlow;
-      ctx.beginPath();
-      ctx.arc(1360, 220, 320, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = '#dce8ff';
-      ctx.beginPath();
-      ctx.arc(1360, 220, 42, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#0c162b';
-      ctx.beginPath();
-      ctx.arc(1376, 210, 36, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Distant Rowhouse Silhouettes
-      ctx.fillStyle = '#09101f';
-      [
-        [-200, 420, 240, 540], [60, 360, 220, 600],
-        [1520, 380, 230, 580], [1770, 440, 260, 520]
-      ].forEach(([bx, by, bw, bh]) => {
-        ctx.fillRect(bx, by, bw, bh);
-      });
-
-      // Cobblestone Street Ground
-      ctx.fillStyle = '#070a12';
-      ctx.fillRect(-600, 920, 3120, 800);
-    };
-
-    // Helper: Draw Zig-Zag Wrought-Iron Fire Escape Overlay
-    const drawFireEscape = (bx, by, bw, floors, progress = 1, highlight = false) => {
-      ctx.save();
-      ctx.strokeStyle = highlight ? '#8bb8ff' : '#0b0e17';
-      ctx.fillStyle = highlight ? '#8bb8ff' : '#0b0e17';
-      ctx.lineWidth = highlight ? 5 : 6;
-      ctx.lineCap = 'round';
-
-      const floorH = 145;
-      const maxFloors = Math.ceil(floors * progress);
-
-      for (let f = 0; f < maxFloors; f++) {
-        const alpha = Math.min(1, (floors * progress) - f);
-        ctx.globalAlpha = alpha;
-        const fy = by + f * floorH;
-        const balX = bx + bw * 0.22;
-        const balW = bw * 0.56;
-
-        // Horizontal Iron Balcony Platform + Railing
-        ctx.fillRect(balX, fy, balW, 8);
-        ctx.strokeRect(balX + 4, fy - 36, balW - 8, 36);
-        for (let rx = balX + 18; rx < balX + balW - 10; rx += 22) {
-          ctx.beginPath();
-          ctx.moveTo(rx, fy - 36);
-          ctx.lineTo(rx, fy);
-          ctx.stroke();
-        }
-
-        // Diagonal Zig-Zag Iron Ladder to Next Floor
-        if (f < floors - 1) {
-          const leftToRight = f % 2 === 0;
-          const x1 = leftToRight ? balX + 35 : balX + balW - 35;
-          const x2 = leftToRight ? balX + balW - 35 : balX + 35;
-          ctx.lineWidth = 4.5;
-          ctx.beginPath();
-          ctx.moveTo(x1, fy);
-          ctx.lineTo(x2, fy + floorH);
-          ctx.moveTo(x1 + 18, fy);
-          ctx.lineTo(x2 + 18, fy + floorH);
-          ctx.stroke();
-        }
+  /* ------------------------------------------------------------------------
+     EPISODE 01: THE 2:00 AM SCROLL TRAP (18 Seconds · Nocturne Bedroom Scene)
+     ------------------------------------------------------------------------ */
+  {
+    id: "scroll-trap-01",
+    title: "01 · The 2:00 AM Scroll Trap",
+    duration: 18.0,
+    ambience: "night",
+    beats: [
+      {
+        start: 0.0,
+        label: "SHOT 01 · ESTABLISHING",
+        lens: "WIDE · 24MM",
+        camera: { x: 0, y: 0, zoom: 1.0, tilt: 0 },
+        subtitle: "2:00 AM. You told yourself, 'Just five more minutes.'"
+      },
+      {
+        start: 4.5,
+        label: "SHOT 02 · DOPAMINE PULL",
+        lens: "MEDIUM · DOLLY IN",
+        camera: { x: 0.06, y: 0.04, zoom: 1.32, tilt: -0.8 },
+        subtitle: "Every swipe feeds a tiny hit of fake urgency to an exhausted brain."
+      },
+      {
+        start: 9.5,
+        label: "SHOT 03 · FACE GLOW",
+        lens: "CLOSE-UP · 50MM",
+        camera: { x: 0.11, y: 0.06, zoom: 1.78, tilt: 0.6 },
+        subtitle: "Blue light tricks your biology into thinking it's noon—shutting off melatonin."
+      },
+      {
+        start: 14.0,
+        label: "SHOT 04 · THE CHOICE",
+        lens: "WIDE · PULL BACK",
+        camera: { x: 0, y: 0, zoom: 1.05, tilt: 0 },
+        subtitle: "Put the screen down. Reclaim tomorrow before it starts."
       }
-      ctx.restore();
-    };
+    ],
+    sounds: [
+      { at: 0.5, type: "tick" },
+      { at: 1.5, type: "tick" },
+      { at: 2.5, type: "tick" },
+      { at: 4.6, type: "buzz" },
+      { at: 7.2, type: "chime" },
+      { at: 9.8, type: "heartbeat" },
+      { at: 12.2, type: "heartbeat" },
+      { at: 14.5, type: "tick" }
+    ],
+    render(ctx, w, h, t) {
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, "#070b14");
+      bgGrad.addColorStop(0.55, "#0d1526");
+      bgGrad.addColorStop(1, "#05070c");
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
 
-    // Helper: Geometric Paper-Cut Silhouette Figure
-    const drawPaperFigure = (fx, fy, scaleFig = 1, panic = false) => {
-      ctx.save();
-      ctx.translate(fx, fy);
-      ctx.scale(scaleFig, scaleFig);
+      const winW = w * 0.34;
+      const winH = h * 0.28;
+      const winX = w * 0.12;
+      const winY = h * 0.14;
 
-      const jitter = panic ? Math.sin(t * 24) * 2.5 : 0;
-      ctx.fillStyle = '#07090f';
-      ctx.strokeStyle = 'rgba(255, 220, 160, 0.45)';
-      ctx.lineWidth = 2;
+      const moonGlow = ctx.createRadialGradient(
+        winX + winW * 0.5, winY + winH * 0.4, 8,
+        winX + winW * 0.5, winY + winH * 0.5, winW * 1.4
+      );
+      moonGlow.addColorStop(0, "rgba(125, 179, 255, 0.28)");
+      moonGlow.addColorStop(1, "rgba(13, 21, 38, 0)");
+      ctx.fillStyle = moonGlow;
+      ctx.fillRect(0, 0, w, h);
 
-      // Tapered Coat / Torso Silhouette
+      ctx.fillStyle = "#14223b";
+      ctx.fillRect(winX, winY, winW, winH);
+      ctx.strokeStyle = "#060911";
+      ctx.lineWidth = 4;
+      ctx.strokeRect(winX, winY, winW, winH);
       ctx.beginPath();
-      ctx.moveTo(-14, 0);
-      ctx.lineTo(-10 + jitter, -48);
-      ctx.lineTo(10 + jitter, -48);
-      ctx.lineTo(14, 0);
-      ctx.closePath();
-      ctx.fill();
+      ctx.moveTo(winX + winW / 2, winY);
+      ctx.lineTo(winX + winW / 2, winY + winH);
+      ctx.moveTo(winX, winY + winH / 2);
+      ctx.lineTo(winX + winW, winY + winH / 2);
       ctx.stroke();
 
-      // Head
+      ctx.fillStyle = "#090d16";
+      ctx.fillRect(w * 0.62, h * 0.18, w * 0.24, h * 0.055);
+      ctx.fillStyle = Math.sin(t * 4) > 0 ? "#ef4444" : "#991b1b";
+      ctx.font = `700 ${Math.max(12, w * 0.036)}px monospace`;
+      ctx.textAlign = "center";
+      ctx.fillText(t > 13.5 ? "02:47" : "02:00", w * 0.74, h * 0.217);
+
+      const bedY = h * 0.72;
+      ctx.fillStyle = "#06080f";
+      ctx.fillRect(w * 0.18, bedY, w * 0.76, h * 0.28);
+
+      ctx.fillStyle = "#111827";
       ctx.beginPath();
-      ctx.arc(jitter, -62, 12, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
-
-      // Glowing Eyes
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.arc(jitter + 4, -63, 2.2, 0, Math.PI * 2);
+      ctx.ellipse(w * 0.74, bedY + 6, w * 0.14, h * 0.032, -0.15, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.restore();
-    };
+      const breath = Math.sin(t * 2.1) * 3;
+      const putsPhoneDown = t >= 14.5;
+      const phoneFlicker = putsPhoneDown ? 0 : 0.85 + Math.sin(t * 19) * 0.15;
 
-    // ==========================================
-    // 5-SCENE ARCHITECTURAL CUTAWAY TIMELINE (50 SECONDS)
-    // ==========================================
-    if (t < 7.4) {
-      // SCENE 1 (0:00 - 0:07.4): Iconic 5-Story Brick Tenement With Zig-Zag Iron Fire Escape
-      const p = t / 7.4;
-      drawNocturneCity();
+      const torsoX = w * 0.63;
+      const torsoY = bedY - h * 0.12 + breath;
 
-      const bx = 660, by = 170, bw = 600, bh = 750;
-      // Brick Building Facade
-      const brickGrad = ctx.createLinearGradient(bx, by, bx + bw, by);
-      brickGrad.addColorStop(0, '#2a1c24');
-      brickGrad.addColorStop(0.5, '#3b242c');
-      brickGrad.addColorStop(1, '#1f141a');
-      ctx.fillStyle = brickGrad;
-      ctx.fillRect(bx, by, bw, bh);
-
-      // Ornate Roof Cornice
-      ctx.fillStyle = '#140d12';
-      ctx.fillRect(bx - 18, by - 22, bw + 36, 26);
-
-      // Warm Amber Apartment Windows Across 4 Floors
-      for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < 3; col++) {
-          const wx = bx + 75 + col * 175;
-          const wy = by + 65 + row * 165;
-          const lit = (row + col) % 2 === 0;
-          ctx.fillStyle = lit ? '#ffbe66' : '#121624';
-          ctx.fillRect(wx, wy, 82, 112);
-          ctx.strokeStyle = '#140d12';
-          ctx.lineWidth = 4;
-          ctx.strokeRect(wx, wy, 82, 112);
-        }
-      }
-
-      // Iconic Black Iron Fire Escape Zigzagging Down Front
-      drawFireEscape(bx, by + 175, bw, 4, 1, false);
-
-    } else if (t < 15.5) {
-      // SCENE 2 (0:07.4 - 0:15.5): Architectural X-Ray Cutaway — Single Wooden Stairwell & Oil Lamp Spark
-      const local = t - 7.4;
-      const lampTip = local >= 4.4;
-      drawNocturneCity();
-
-      const bx = 640, by = 160, bw = 640, bh = 760;
-      // Cutaway Interior Cross-Section
-      ctx.fillStyle = '#16131c';
-      ctx.strokeStyle = '#5c4b56';
-      ctx.lineWidth = 6;
-      ctx.fillRect(bx, by, bw, bh);
-      ctx.strokeRect(bx, by, bw, bh);
-
-      // 4 Interior Floors & Single Center Wooden Staircase
-      for (let f = 0; f < 4; f++) {
-        const fy = by + 185 + f * 185;
-        ctx.fillStyle = '#2d242b';
-        ctx.fillRect(bx, fy, bw, 12);
-
-        // Diagonal Wooden Stairs Connecting Each Floor
-        ctx.strokeStyle = '#c48b5a';
-        ctx.lineWidth = 8;
+      if (!putsPhoneDown) {
+        const phoneX = torsoX - w * 0.14;
+        const phoneY = torsoY - h * 0.02 + Math.sin(t * 5) * 2;
+        const lightCone = ctx.createRadialGradient(
+          phoneX, phoneY, 4,
+          phoneX + w * 0.08, phoneY - h * 0.04, w * 0.28
+        );
+        lightCone.addColorStop(0, `rgba(56, 189, 248, ${0.55 * phoneFlicker})`);
+        lightCone.addColorStop(0.5, `rgba(59, 130, 246, ${0.18 * phoneFlicker})`);
+        lightCone.addColorStop(1, "rgba(59, 130, 246, 0)");
+        ctx.fillStyle = lightCone;
         ctx.beginPath();
-        if (f % 2 === 0) {
-          ctx.moveTo(bx + 220, fy);
-          ctx.lineTo(bx + 420, fy - 173);
-        } else {
-          ctx.moveTo(bx + 420, fy);
-          ctx.lineTo(bx + 220, fy - 173);
-        }
-        ctx.stroke();
-      }
-
-      // Family Silhouettes on Top Floor
-      drawPaperFigure(bx + 150, by + 185, 0.95, false);
-      drawPaperFigure(bx + 490, by + 185, 0.95, false);
-
-      // Ground Floor Oil Lamp Tipping Over at 12.0s (local 4.6s)
-      const lx = bx + 260, ly = by + 720;
-      const fireGrow = lampTip ? easeOut(Math.min(1, (local - 4.4) / 2.5)) : 0.12;
-      const fGlow = ctx.createRadialGradient(lx, ly, 8, lx, ly - 40, 260 * fireGrow);
-      fGlow.addColorStop(0, 'rgba(255, 210, 90, 0.95)');
-      fGlow.addColorStop(0.45, 'rgba(255, 95, 35, 0.55)');
-      fGlow.addColorStop(1, 'rgba(255, 50, 20, 0)');
-      ctx.fillStyle = fGlow;
-      ctx.beginPath();
-      ctx.arc(lx, ly - 30, 260 * fireGrow, 0, Math.PI * 2);
-      ctx.fill();
-
-    } else if (t < 23.6) {
-      // SCENE 3 (0:15.5 - 0:23.6): Stairwell Turns Into a Chimney — Family Trapped on Top Floor
-      const local = t - 15.5;
-      const p = local / 8.1;
-      drawNocturneCity();
-
-      const bx = 640, by = 160, bw = 640, bh = 760;
-      ctx.fillStyle = '#1a1116';
-      ctx.strokeStyle = '#7a4942';
-      ctx.lineWidth = 6;
-      ctx.fillRect(bx, by, bw, bh);
-      ctx.strokeRect(bx, by, bw, bh);
-
-      // Blazing Fire & Smoke Rising Up the Center Stairwell
-      const flameH = 260 + p * 480;
-      const inferno = ctx.createLinearGradient(bx + 320, by + bh, bx + 320, by + bh - flameH);
-      inferno.addColorStop(0, 'rgba(255, 220, 100, 0.95)');
-      inferno.addColorStop(0.5, 'rgba(255, 85, 30, 0.78)');
-      inferno.addColorStop(1, 'rgba(60, 25, 30, 0)');
-      ctx.fillStyle = inferno;
-      ctx.fillRect(bx + 180, by + bh - flameH, 280, flameH);
-
-      // Rising Glowing Embers
-      for (let i = 0; i < 24; i++) {
-        const ex = bx + 200 + ((i * 53 + Math.sin(t * 4 + i) * 30) % 240);
-        const ey = by + bh - ((t * 190 + i * 71) % 720);
-        ctx.fillStyle = 'rgba(255, 205, 95, 0.85)';
-        ctx.beginPath();
-        ctx.arc(ex, ey, 3.2, 0, Math.PI * 2);
+        ctx.arc(phoneX, phoneY, w * 0.32, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // Floors + Trapped Silhouettes at Top Window
-      for (let f = 0; f < 4; f++) {
-        ctx.fillStyle = '#2b1c20';
-        ctx.fillRect(bx, by + 185 + f * 185, bw, 12);
+      ctx.fillStyle = "#030407";
+      ctx.beginPath();
+      ctx.moveTo(torsoX - w * 0.05, bedY + 12);
+      ctx.quadraticCurveTo(torsoX - w * 0.07, torsoY - h * 0.03, torsoX + w * 0.02, torsoY - h * 0.06);
+      ctx.quadraticCurveTo(torsoX + w * 0.12, torsoY - h * 0.04, torsoX + w * 0.15, bedY + 12);
+      ctx.closePath();
+      ctx.fill();
+
+      const headX = torsoX + w * 0.01;
+      const headY = torsoY - h * 0.105;
+      const headR = Math.min(w, h) * 0.048;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(headX, headY, headR, 0, Math.PI * 2);
+      ctx.fillStyle = "#030407";
+      ctx.fill();
+
+      if (!putsPhoneDown) {
+        ctx.strokeStyle = `rgba(125, 211, 252, ${0.75 * phoneFlicker})`;
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        ctx.arc(headX, headY, headR, Math.PI * 0.75, Math.PI * 1.45);
+        ctx.stroke();
       }
-      drawPaperFigure(bx + 120, by + 185, 1.0, true);
-      drawPaperFigure(bx + 520, by + 185, 1.0, true);
+      ctx.restore();
 
-    } else if (t < 40.0) {
-      // SCENE 4 (0:23.6 - 0:40.0): The 1860 Law — Wrought-Iron Balconies Bolted Onto Brick Exterior & Safe Escape
-      const local = t - 23.6;
-      const buildProg = easeOut(Math.min(1, local / 4.2));
-      drawNocturneCity();
+      const phoneX = putsPhoneDown ? torsoX - w * 0.16 : torsoX - w * 0.13;
+      const phoneY = putsPhoneDown ? bedY - 4 : torsoY - h * 0.02 + Math.sin(t * 6) * 2;
 
-      const bx = 660, by = 170, bw = 600, bh = 750;
-      const brickGrad = ctx.createLinearGradient(bx, by, bx + bw, by);
-      brickGrad.addColorStop(0, '#2d1e28');
-      brickGrad.addColorStop(0.5, '#422933');
-      brickGrad.addColorStop(1, '#21151c');
-      ctx.fillStyle = brickGrad;
-      ctx.fillRect(bx, by, bw, bh);
+      ctx.strokeStyle = "#030407";
+      ctx.lineWidth = Math.max(7, w * 0.022);
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(torsoX + w * 0.02, torsoY - h * 0.02);
+      ctx.quadraticCurveTo(torsoX - w * 0.06, torsoY + h * 0.04, phoneX, phoneY);
+      ctx.stroke();
 
-      // Warm Windows
-      for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < 3; col++) {
-          const wx = bx + 75 + col * 175;
-          const wy = by + 65 + row * 165;
-          ctx.fillStyle = '#ffbe66';
-          ctx.fillRect(wx, wy, 82, 112);
-          ctx.strokeStyle = '#140d12';
-          ctx.lineWidth = 4;
-          ctx.strokeRect(wx, wy, 82, 112);
-        }
-      }
-
-      // Highlighted Steel-Blue Iron Fire Escape Assembling Floor-by-Floor
-      drawFireEscape(bx, by + 175, bw, 4, buildProg, true);
-
-      // Silhouette Safely Climbing Down Exterior Iron Balcony
-      if (local > 4.5) {
-        const climb = Math.min(1, (local - 4.5) / 9.0);
-        const figY = (by + 175) + climb * 435;
-        const figX = bx + bw * 0.5 + Math.sin(climb * Math.PI * 3) * 95;
-        drawPaperFigure(figX, figY, 0.9, false);
-      }
-
-    } else {
-      // SCENE 5 (0:40.0 - 0:50.0): Wide Dawn Skyline — Iconic Fire Escapes Across New York City
-      const local = t - 40.0;
-      const p = local / 10.0;
-
-      const dawnSky = ctx.createLinearGradient(0, -600, 0, 960);
-      dawnSky.addColorStop(0, '#0d1933');
-      dawnSky.addColorStop(0.55, '#3b4a70');
-      dawnSky.addColorStop(1, '#e8986b');
-      ctx.fillStyle = dawnSky;
-      ctx.fillRect(-600, -1200, 3120, 2200);
-
-      // Row of 3 Classic NYC Brick Tenements With Iconic Iron Fire Escapes
-      [
-        [240, 260, 440, 660],
-        [730, 170, 460, 750],
-        [1240, 230, 440, 690]
-      ].forEach(([bx, by, bw, bh], idx) => {
-        ctx.fillStyle = idx === 1 ? '#38222b' : '#261820';
-        ctx.fillRect(bx, by, bw, bh);
-        ctx.fillStyle = '#120b10';
-        ctx.fillRect(bx - 12, by - 16, bw + 24, 18);
-
-        for (let r = 0; r < 4; r++) {
-          for (let c = 0; c < 2; c++) {
-            ctx.fillStyle = (r + c + idx) % 2 === 0 ? '#ffc470' : '#181e30';
-            ctx.fillRect(bx + 70 + c * 210, by + 55 + r * 150, 75, 100);
-          }
-        }
-        drawFireEscape(bx, by + 155, bw, 4, 1, false);
-      });
-
-      ctx.fillStyle = '#080b12';
-      ctx.fillRect(-600, 920, 3120, 800);
+      ctx.save();
+      ctx.translate(phoneX, phoneY);
+      ctx.rotate(putsPhoneDown ? Math.PI / 2 : -0.35);
+      ctx.fillStyle = putsPhoneDown ? "#1e293b" : "#38bdf8";
+      ctx.fillRect(-3, -12, 6, 24);
+      ctx.restore();
     }
+  },
 
-    // Nocturne Gouache Edge Vignette
-    const vig = ctx.createRadialGradient(960, 540, 560, 960, 540, 1280);
-    vig.addColorStop(0, 'rgba(0,0,0,0)');
-    vig.addColorStop(1, 'rgba(3,4,8,0.68)');
-    ctx.fillStyle = vig;
-    ctx.fillRect(0, 0, 1920, 1080);
+  /* ------------------------------------------------------------------------
+     EPISODE 02: WALKING THROUGH RAIN IN SILENCE (16 Seconds · Noir Street Walk)
+     ------------------------------------------------------------------------ */
+  {
+    id: "rain-walk-02",
+    title: "02 · Walking Through Rain in Silence",
+    duration: 16.0,
+    ambience: "rain",
+    beats: [
+      {
+        start: 0.0,
+        label: "SHOT 01 · SOLITUDE",
+        lens: "WIDE · 24MM",
+        camera: { x: 0, y: 0, zoom: 1.0, tilt: 0 },
+        subtitle: "Sometimes the loudest breakthroughs happen when nobody is watching."
+      },
+      {
+        start: 5.5,
+        label: "SHOT 02 · TRACKING",
+        lens: "MEDIUM · TRACKING",
+        camera: { x: 0.04, y: 0.05, zoom: 1.35, tilt: 0 },
+        subtitle: "Every quiet step forward builds what noise and distraction never could."
+      },
+      {
+        start: 11.0,
+        label: "SHOT 03 · HORIZON",
+        lens: "LOW ANGLE · 35MM",
+        camera: { x: 0.08, y: 0.02, zoom: 1.5, tilt: -1.0 },
+        subtitle: "Keep walking. Your future self is already waiting."
+      }
+    ],
+    sounds: [
+      { at: 1.0, type: "footstep" },
+      { at: 2.2, type: "footstep" },
+      { at: 3.4, type: "footstep" },
+      { at: 4.6, type: "footstep" },
+      { at: 5.8, type: "footstep" },
+      { at: 7.0, type: "footstep" },
+      { at: 8.2, type: "footstep" },
+      { at: 9.4, type: "footstep" },
+      { at: 10.6, type: "footstep" },
+      { at: 11.8, type: "footstep" },
+      { at: 13.0, type: "footstep" }
+    ],
+    render(ctx, w, h, t) {
+      const sky = ctx.createLinearGradient(0, 0, 0, h);
+      sky.addColorStop(0, "#060913");
+      sky.addColorStop(0.65, "#11192c");
+      sky.addColorStop(1, "#090c14");
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, w, h);
 
-    ctx.restore();
+      const lampX = w * 0.72;
+      const lampY = h * 0.24;
+      const lampGlow = ctx.createRadialGradient(lampX, lampY, 5, lampX, lampY, w * 0.45);
+      lampGlow.addColorStop(0, "rgba(251, 191, 36, 0.45)");
+      lampGlow.addColorStop(0.4, "rgba(245, 158, 11, 0.12)");
+      lampGlow.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = lampGlow;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.fillStyle = "#04060b";
+      ctx.fillRect(lampX - 3, lampY, 6, h * 0.56);
+
+      const groundY = h * 0.78;
+      ctx.fillStyle = "#05070d";
+      ctx.fillRect(0, groundY, w, h - groundY);
+
+      const charX = w * 0.25 + t * (w * 0.028);
+      const stride = Math.sin(t * 5.2);
+      const bob = Math.abs(Math.cos(t * 5.2)) * 4;
+      const hipY = groundY - h * 0.11 + bob;
+
+      ctx.fillStyle = "rgba(251, 191, 36, 0.12)";
+      ctx.beginPath();
+      ctx.ellipse(charX, groundY + 8, 28, 5, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = "#030407";
+      ctx.lineWidth = 7;
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(charX, hipY);
+      ctx.lineTo(charX + stride * 16, groundY);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(charX, hipY);
+      ctx.lineTo(charX - stride * 16, groundY);
+      ctx.stroke();
+
+      ctx.fillStyle = "#030407";
+      ctx.fillRect(charX - 9, hipY - h * 0.085, 18, h * 0.09);
+
+      ctx.beginPath();
+      ctx.arc(charX + 2, hipY - h * 0.11, 12, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(251, 191, 36, 0.55)";
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.arc(charX + 2, hipY - h * 0.11, 12, -0.6, 0.8);
+      ctx.stroke();
+
+      ctx.strokeStyle = "rgba(186, 230, 253, 0.22)";
+      ctx.lineWidth = 1.2;
+      for (let i = 0; i < 65; i++) {
+        const rx = ((i * 73 + t * 180) % (w + 60)) - 30;
+        const ry = ((i * 137 + t * 620) % h);
+        ctx.beginPath();
+        ctx.moveTo(rx, ry);
+        ctx.lineTo(rx - 5, ry + 16);
+        ctx.stroke();
+      }
+    }
   }
-};
+];
