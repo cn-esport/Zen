@@ -3,175 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Zen // GSAP Cinema Studio</title>
-  <link rel="stylesheet" href="studio.css" />
-  <link rel="stylesheet" href="skill.css" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      height: 100dvh;
-      max-height: 100dvh;
-      overflow: hidden;
-      background: #050811;
-      color: #e6f0ff;
-      font-family: system-ui, -apple-system, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      touch-action: manipulation;
-    }
-    .top-bar {
-      flex: 0 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 16px;
-      font-family: monospace;
-      font-size: 13px;
-      letter-spacing: 1px;
-      color: #9cb3d9;
-      background: #050811;
-      z-index: 30;
-    }
-    .stage-wrap {
-      flex: 1 1 auto;
-      min-height: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 10px;
-      width: 100%;
-    }
-    #stage {
-      position: relative;
-      width: 100%;
-      max-width: 960px;
-      aspect-ratio: 16 / 9;
-      max-height: 100%;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1px solid #1d2d4a;
-      background: #04070f;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75);
-    }
-    body.v #stage {
-      width: auto;
-      height: 100%;
-      max-width: 100%;
-      aspect-ratio: 9 / 16;
-    }
-    #stage:fullscreen {
-      max-width: none;
-      width: 100%;
-      height: 100%;
-      border-radius: 0;
-      border: none;
-    }
-    .cap {
-      font-size: clamp(13px, 2.2vw, 24px) !important;
-      bottom: 8% !important;
-      width: 84% !important;
-      max-width: 84% !important;
-    }
-    body.v .cap {
-      font-size: clamp(14px, 3.8vw, 21px) !important;
-      bottom: 14% !important;
-    }
-    #scrub-wrap {
-      flex: 0 0 auto;
-      width: 100%;
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 10px 16px 6px;
-      background: #050811;
-      z-index: 30;
-      touch-action: none;
-    }
-    #scrub {
-      width: 100%;
-      height: 24px;
-      accent-color: #5ca8ff;
-      cursor: pointer;
-      display: block;
-    }
-    .controls {
-      flex: 0 0 auto;
-      width: 100%;
-      max-width: 720px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 6px;
-      padding: 4px 10px 14px;
-      background: #050811;
-      z-index: 30;
-    }
-    .ctrl-btn {
-      background: #0f1624;
-      border: 1px solid #22324f;
-      color: #9cb3d9;
-      border-radius: 11px;
-      padding: 10px 2px;
-      font-size: 10px;
-      font-weight: 600;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-      cursor: pointer;
-      user-select: none;
-      outline: none;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .ctrl-btn:active { transform: scale(0.95); }
-    .ctrl-btn span { font-size: 13px; line-height: 1; pointer-events: none; }
-    .ctrl-btn.on {
-      background: #182947;
-      border-color: #5ca8ff;
-      color: #ffffff;
-      box-shadow: 0 0 12px rgba(92, 168, 255, 0.22);
-    }
-  </style>
+  <title>Last Soul Studio</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="top-bar">
-    <span id="studio-label">ZEN // GSAP 16:9</span>
-    <span id="time">00:00 / 00:45</span>
-  </div>
-
-  <div class="stage-wrap">
-    <div id="stage">
-      <div id="camera">
-        <svg id="L-bg" class="layer" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"></svg>
-        <svg id="L-mid" class="layer" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"></svg>
-        <svg id="L-char" class="layer" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"></svg>
-        <svg id="L-fg" class="layer" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"></svg>
+  <div id="app" class="studio-shell">
+    <!-- Top Studio Header -->
+    <header class="studio-header ui-chrome">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <h1>LAST SOUL <span class="brand-sub">STUDIO</span></h1>
       </div>
-      <div id="dust"></div>
-      <div id="vignette"></div>
-      <div id="caps"></div>
-      <div id="fade"></div>
-    </div>
+
+      <div class="header-controls">
+        <select id="sceneSelect" class="glass-select" aria-label="Select Episode"></select>
+
+        <div class="segmented-control" role="group" aria-label="Aspect Ratio">
+          <button id="ratio916" class="seg-btn active" data-ratio="9:16">9:16</button>
+          <button id="ratio169" class="seg-btn" data-ratio="16:9">16:9</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Stage Viewport -->
+    <main class="stage-wrapper">
+      <div id="stageFrame" class="stage-frame ratio-9-16">
+        <!-- 60fps 2D Canvas -->
+        <canvas id="studioCanvas"></canvas>
+
+        <!-- Atmospheric Film Grain & Letterbox -->
+        <div class="film-grain"></div>
+        <div id="letterboxTop" class="letterbox top"></div>
+        <div id="letterboxBottom" class="letterbox bottom"></div>
+
+        <!-- Optional Shorts/Reels Safe Zone Overlay -->
+        <div id="safeZoneOverlay" class="safe-zone hidden">
+          <div class="sz-right">UI ICONS</div>
+          <div class="sz-bottom">CAPTION &amp; TITLE SAFE AREA</div>
+        </div>
+
+        <!-- Live Director Camera HUD (Hidden during Record Mode) -->
+        <div id="cameraHud" class="camera-hud ui-chrome">
+          <span class="rec-indicator">● LIVE RIG</span>
+          <span id="hudLens">WIDE · 24MM</span>
+          <span id="hudSceneBeat">BEAT 01</span>
+        </div>
+
+        <!-- Cinematic Subtitles -->
+        <div id="subtitleBox" class="subtitle-box">
+          <p id="subtitleText"></p>
+        </div>
+
+        <!-- 3-2-1 Record Countdown Overlay -->
+        <div id="countdownOverlay" class="countdown-overlay hidden">
+          <div class="countdown-ring">
+            <span id="countdownNumber">3</span>
+          </div>
+          <p class="countdown-hint">START PHONE SCREEN RECORDER NOW</p>
+        </div>
+
+        <!-- Tap to Exit Clean Record Mode (Invisible Corner Trigger) -->
+        <button id="exitRecordBtn" class="exit-record-btn hidden" title="Exit Clean Record Mode">✕</button>
+      </div>
+    </main>
+
+    <!-- Bottom Director Transport & Timeline -->
+    <footer class="studio-footer ui-chrome">
+      <!-- Timeline Scrubber + Chapter Beat Markers -->
+      <div class="timeline-row">
+        <span id="timeCurrent" class="timecode">00:00.0</span>
+        <div id="timelineTrack" class="timeline-track">
+          <div id="timelineProgress" class="timeline-progress"></div>
+          <div id="beatMarkers" class="beat-markers"></div>
+        </div>
+        <span id="timeTotal" class="timecode">00:00.0</span>
+      </div>
+
+      <!-- Control Bar -->
+      <div class="transport-row">
+        <div class="transport-left">
+          <button id="btnRestart" class="icon-btn" title="Restart Scene">↺</button>
+          <button id="btnPlayPause" class="primary-btn" title="Play / Pause">▶ PLAY</button>
+        </div>
+
+        <div class="transport-right">
+          <button id="btnSubtitles" class="toggle-btn active" title="Toggle Subtitles">CC</button>
+          <button id="btnSound" class="toggle-btn active" title="Toggle Synthesized Foley Audio">SFX</button>
+          <button id="btnLetterbox" class="toggle-btn active" title="Cinema Bars">2.39:1</button>
+          <button id="btnSafeZone" class="toggle-btn" title="Reels/Shorts Safe Zone">SAFE</button>
+          <button id="btnRecord" class="record-btn" title="Clean Screen Record Mode">● REC MODE</button>
+        </div>
+      </div>
+    </footer>
   </div>
 
-  <div id="scrub-wrap">
-    <input id="scrub" type="range" min="0" max="1000" step="1" value="0" />
-  </div>
-
-  <div class="controls">
-    <button id="sound" class="ctrl-btn" type="button"><span>🔇</span>Sound</button>
-    <button id="play" class="ctrl-btn on" type="button"><span>❚❚</span>Pause</button>
-    <button id="cc" class="ctrl-btn on" type="button"><span>CC</span>Subtitles</button>
-    <button id="ratio" class="ctrl-btn on" type="button"><span>🖥</span>16:9</button>
-    <button id="replay" class="ctrl-btn" type="button"><span>↺</span>Replay</button>
-    <button id="fs" class="ctrl-btn" type="button"><span>⛶</span>Full</button>
-  </div>
-
-  <!-- GSAP 3.12.5 Cinematic Core -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="scene.js?v=17"></script>
-  <script src="engine.js?v=17"></script>
+  <script src="scenes.js"></script>
+  <script src="engine.js"></script>
 </body>
 </html>
