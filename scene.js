@@ -1,18 +1,25 @@
 // ==========================================
-// SCENE: THE MORNING SUNLIGHT SWITCH (CIRCADIAN CLOCK) — DUAL-RATIO 2.5D DIORAMA (45s)
-// Built for cn-esport/Zen (16:9 & 9:16 Native Fit • Frame-Synced SFX & Captions)
+// SCENE: THE MORNING SUNLIGHT SWITCH (CIRCADIAN CLOCK) — RICH SFX EDITION (45s)
 // ==========================================
 const SCENE_DATA = {
   duration: 45,
   sfx: [
-    { at: 0.4,  type: "whoosh" },       // Stepping outside the front door
-    { at: 2.2,  type: "chime" },        // Warm sunlight hitting face / brain switching on
-    { at: 7.4,  type: "boom" },         // Chemical explosion behind eyes
-    { at: 13.0, type: "whoosh" },       // Zooming into retina / neural signal
-    { at: 18.2, type: "chime" },        // Cortisol & dopamine surge spark
-    { at: 24.4, type: "whoosh" },       // Transition to cloudy sky vs indoor bulb comparison
-    { at: 32.0, type: "boom" },         // 16-hour biological timer starts ticking
-    { at: 39.2, type: "chime" }         // Final 10-minute morning walk call-to-action
+    { at: 0.2,  type: "door_open" },   // Front porch door opens
+    { at: 0.6,  type: "footsteps" },   // Stepping outside onto wooden porch
+    { at: 2.2,  type: "sun_swell" },   // Warm golden sunlight chord swell
+    { at: 3.2,  type: "birds" },       // Morning birds chirping outdoors
+    { at: 7.4,  type: "boom" },        // Chemical explosion impact
+    { at: 8.2,  type: "spark" },       // Neural spark behind eyes
+    { at: 13.0, type: "whoosh" },      // Zooming into brain circadian clock
+    { at: 15.5, type: "spark" },       // Retina light signal firing
+    { at: 18.8, type: "chime" },       // Cortisol & dopamine surge
+    { at: 24.4, type: "wind" },        // Cloudy morning outdoor breeze
+    { at: 26.5, type: "birds" },       // Birds still singing on cloudy morning
+    { at: 32.0, type: "boom" },        // 16-hour biological timer starts
+    { at: 35.5, type: "heartbeat" },   // Internal body clock pulse
+    { at: 39.2, type: "footsteps" },   // 10-minute morning walk
+    { at: 40.5, type: "sun_swell" },   // Final warm sunrise triumph
+    { at: 42.0, type: "birds" }
   ],
   captions: [
     { start: 0.2,  length: 7.0, text: "You step outside first thing in the morning, feel that warm sunlight hit your face—and within minutes, your groggy brain suddenly switches on." },
@@ -25,9 +32,9 @@ const SCENE_DATA = {
 
   render(ctx, W, H, t) {
     ctx.save();
-    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#050811';
+    ctx.fillRect(0, 0, W, H);
 
-    // True Adaptive Framing: Fits full scene in both 16:9 and 9:16 without cropping
     const isPortrait = W < H;
     const targetSpanW = isPortrait ? 1040 : 1920;
     const scale = isPortrait ? (W / targetSpanW) : Math.max(W / 1920, H / 1080);
@@ -49,9 +56,6 @@ const SCENE_DATA = {
 
     const easeOut = x => 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3);
 
-    // ==========================================
-    // HELPER 1: 2.5D OUTDOOR MORNING PORCH & GOLDEN HORIZON DIORAMA
-    // ==========================================
     const drawOutdoorDiorama = (opts = {}) => {
       const {
         zoom = 1, panX = 0, panY = 0,
@@ -63,7 +67,6 @@ const SCENE_DATA = {
       ctx.scale(zoom, zoom);
       ctx.translate(-960, -540);
 
-      // 1. Morning Sky Gradient (Warm Amber-Gold Sunrise vs Overcast Silver-Blue)
       const sky = ctx.createLinearGradient(0, -600, 0, 830);
       if (duskTimer > 0) {
         sky.addColorStop(0, '#0a1124');
@@ -82,7 +85,6 @@ const SCENE_DATA = {
       ctx.fillStyle = sky;
       ctx.fillRect(-600, -1200, 3120, 2030);
 
-      // 2. Glowing Low Morning Sun & Volumetric Sunbeams
       const sunX = 1280, sunY = 460 - sunHeight * 140;
       const sunGlow = ctx.createRadialGradient(sunX, sunY, 18, sunX, sunY, 680 * sunIntensity);
       if (cloudy) {
@@ -100,13 +102,11 @@ const SCENE_DATA = {
       ctx.arc(sunX, sunY, 680 * sunIntensity, 0, Math.PI * 2);
       ctx.fill();
 
-      // Sun Disc
       ctx.fillStyle = cloudy ? 'rgba(235, 245, 255, 0.75)' : '#fff8dc';
       ctx.beginPath();
       ctx.arc(sunX, sunY, 54, 0, Math.PI * 2);
       ctx.fill();
 
-      // Soft Drifting Clouds (More prominent in Scene 4)
       const drawCloud = (cx, cy, cw, alpha) => {
         ctx.fillStyle = `rgba(215, 228, 245, ${alpha})`;
         ctx.beginPath();
@@ -119,7 +119,6 @@ const SCENE_DATA = {
       drawCloud(1140 - Math.cos(t * 0.2) * 30, 290, 190, cloudy ? 0.65 : 0.22);
       if (cloudy) drawCloud(940 + Math.sin(t * 0.3) * 20, 200, 220, 0.6);
 
-      // 3. Distant City & Tree-Line Horizon Silhouette
       ctx.fillStyle = cloudy ? '#232c3d' : '#262436';
       ctx.beginPath();
       ctx.moveTo(-600, 830);
@@ -136,13 +135,10 @@ const SCENE_DATA = {
       ctx.closePath();
       ctx.fill();
 
-      // 4. House Porch Wall & Open Door Frame on Left
       ctx.fillStyle = '#141620';
       ctx.fillRect(-600, -1200, 1140, 2030);
-      // Warm Interior Doorway Glow
       ctx.fillStyle = '#24222c';
       ctx.fillRect(435, 340, 95, 490);
-      // Porch Roof Overhang
       ctx.fillStyle = '#0e1018';
       ctx.beginPath();
       ctx.moveTo(410, 310);
@@ -151,10 +147,8 @@ const SCENE_DATA = {
       ctx.lineTo(410, 345);
       ctx.closePath();
       ctx.fill();
-      // Porch Support Pillar
       ctx.fillRect(635, 370, 16, 460);
 
-      // 5. Perspective Wooden Deck / Sidewalk Ground
       const groundGrad = ctx.createLinearGradient(0, 830, 0, 1500);
       groundGrad.addColorStop(0, '#22202a');
       groundGrad.addColorStop(0.4, '#15141c');
@@ -171,7 +165,6 @@ const SCENE_DATA = {
         ctx.stroke();
       });
 
-      // 6. Volumetric Diagonal Sunbeams Washing Over Porch & Character
       ctx.save();
       ctx.globalCompositeOperation = 'screen';
       const beam = ctx.createLinearGradient(sunX, sunY, 680, 840);
@@ -190,14 +183,11 @@ const SCENE_DATA = {
       ctx.restore();
     };
 
-    // ==========================================
-    // HELPER 2: RIM-LIT STICK-FIGURE CHARACTER STANDING IN MORNING SUNLIGHT
-    // ==========================================
     const drawStickCharacterOutdoor = (opts = {}) => {
       const {
         zoom = 1, panX = 0, panY = 0,
         charX = 760, walkCycle = 0,
-        eyeState = 'waking', // 'groggy' | 'waking' | 'energized'
+        eyeState = 'waking',
         rimColor = 'rgba(255, 225, 165, 0.88)',
         dopamineSparks = false
       } = opts;
@@ -211,7 +201,6 @@ const SCENE_DATA = {
       const bob = Math.abs(Math.sin(walkCycle)) * 5;
       const stride = Math.sin(walkCycle) * 24;
 
-      // Ground Contact Shadow
       ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
       ctx.beginPath();
       ctx.ellipse(charX - 18, 834, 72, 11, 0, 0, Math.PI * 2);
@@ -220,7 +209,6 @@ const SCENE_DATA = {
       const drawRimLimb = (pts, width = 18) => {
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        // Rim highlight shifted +3px toward the sun on the right
         ctx.strokeStyle = rimColor;
         ctx.lineWidth = width;
         ctx.beginPath();
@@ -241,18 +229,12 @@ const SCENE_DATA = {
       const headX = charX + 4;
       const headY = 482 - bob + breath * 0.4;
 
-      // Legs (Walking or Standing Tall Facing Sunrise)
       drawRimLimb([[charX, hipY], [charX - stride, 828]], 17);
       drawRimLimb([[charX, hipY], [charX + stride, 828]], 17);
-
-      // Upright Torso
       drawRimLimb([[charX, hipY], [charX + 2, shoulderY]], 20);
-
-      // Relaxed Arms
       drawRimLimb([[charX + 2, shoulderY + 14], [charX - 16 - stride * 0.5, hipY - 12]], 14);
       drawRimLimb([[charX + 2, shoulderY + 14], [charX + 20 + stride * 0.5, hipY - 12]], 14);
 
-      // Head With Bright Golden Sun Rim Light on Right Side
       ctx.fillStyle = rimColor;
       ctx.beginPath();
       ctx.arc(headX + 3, headY - 2, 33, 0, Math.PI * 2);
@@ -263,7 +245,6 @@ const SCENE_DATA = {
       ctx.arc(headX, headY, 32, 0, Math.PI * 2);
       ctx.fill();
 
-      // Expressive Glowing Eyes Looking Toward Morning Sun
       const blink = (t % 4.4) > 4.25 ? 0.1 : 1;
       const eyeH = eyeState === 'groggy' ? 2.4 : eyeState === 'waking' ? 4.8 * blink : 6.2 * blink;
       ctx.shadowColor = '#fff7d6';
@@ -275,7 +256,6 @@ const SCENE_DATA = {
       ctx.fill();
       ctx.shadowBlur = 0;
 
-      // Golden Cortisol & Dopamine Sparks Rising Around Character
       if (dopamineSparks) {
         for (let i = 0; i < 12; i++) {
           const p = ((t * 0.65 + i * 0.083) % 1);
@@ -292,11 +272,7 @@ const SCENE_DATA = {
       ctx.restore();
     };
 
-    // ==========================================
-    // 6-SCENE TIMELINE (45 SECONDS)
-    // ==========================================
     if (t < 7.4) {
-      // SCENE 1 (0:00 - 0:07.4): Stepping Out Onto Porch -> Warm Sunlight Hits Face & Eyes Switch On
       const p = t / 7.4;
       const walkProg = easeOut(Math.min(1, t / 2.6));
       const cx = 560 + walkProg * 210;
@@ -311,9 +287,6 @@ const SCENE_DATA = {
       });
 
     } else if (t < 13.0) {
-      // SCENE 2 (0:07.4 - 0:13.0): Close-Up Portrait — Sunlight Triggering Chemical Spark Behind Eyes
-      const local = t - 7.4;
-      const p = local / 5.6;
       drawOutdoorDiorama({ zoom: 1.45, panX: 180, panY: 60, sunHeight: 0.9, sunIntensity: 1.35 });
       drawStickCharacterOutdoor({
         zoom: 1.45, panX: 180, panY: 60,
@@ -323,13 +296,10 @@ const SCENE_DATA = {
       });
 
     } else if (t < 24.4) {
-      // SCENE 3 (0:13.0 - 0:24.4): Inside the Brain — Sunlight Signal Shutting Down Melatonin & Releasing Cortisol/Dopamine
       const local = t - 13.0;
-      const p = local / 11.4;
       ctx.fillStyle = '#080c18';
       ctx.fillRect(0, 0, 1920, 1080);
 
-      // Golden Light Beam Entering Left Eye Retina -> Firing Neural Signal to Brain Core
       const beam = ctx.createLinearGradient(260, 540, 1180, 540);
       beam.addColorStop(0, 'rgba(255, 224, 140, 0.65)');
       beam.addColorStop(0.5, 'rgba(255, 195, 100, 0.25)');
@@ -343,7 +313,6 @@ const SCENE_DATA = {
       ctx.closePath();
       ctx.fill();
 
-      // Pulsing Brain Clock Core (Melatonin Blue Fading -> Warm Golden Cortisol/Dopamine Surge)
       const pulse = 1 + Math.sin(local * 4.5) * 0.08;
       const coreGlow = ctx.createRadialGradient(1040, 540, 20, 1040, 540, 340 * pulse);
       coreGlow.addColorStop(0, 'rgba(255, 224, 130, 0.85)');
@@ -354,7 +323,6 @@ const SCENE_DATA = {
       ctx.arc(1040, 540, 340 * pulse, 0, Math.PI * 2);
       ctx.fill();
 
-      // Concentric Circadian Clock Rings
       ctx.strokeStyle = 'rgba(255, 224, 145, 0.55)';
       ctx.lineWidth = 3.5;
       [110, 175, 240].forEach((r, idx) => {
@@ -363,7 +331,6 @@ const SCENE_DATA = {
         ctx.stroke();
       });
 
-      // Rising Golden Dopamine & Cortisol Sparks
       for (let i = 0; i < 20; i++) {
         const sp = ((local * 0.5 + i * 0.05) % 1);
         const angle = (i / 20) * Math.PI * 2 + local * 0.4;
@@ -377,7 +344,6 @@ const SCENE_DATA = {
       }
 
     } else if (t < 32.0) {
-      // SCENE 4 (0:24.4 - 0:32.0): Cloudy Morning Sky Still 10x Brighter Than Indoor Bulbs
       const local = t - 24.4;
       const p = local / 7.6;
       drawOutdoorDiorama({
@@ -393,7 +359,6 @@ const SCENE_DATA = {
       });
 
     } else if (t < 39.2) {
-      // SCENE 5 (0:32.0 - 0:39.2): The 16-Hour Invisible Timer Setting Tonight's Sleep Hour
       const local = t - 32.0;
       const p = local / 7.2;
       drawOutdoorDiorama({
@@ -406,7 +371,6 @@ const SCENE_DATA = {
         rimColor: `rgba(255, ${Math.round(220 - p * 50)}, ${Math.round(160 + p * 60)}, 0.8)`
       });
 
-      // Translucent 16-Hour Biological Clock Dial Glowing in the Sky
       ctx.save();
       ctx.translate(1220, 320);
       ctx.strokeStyle = 'rgba(255, 224, 145, 0.55)';
@@ -415,7 +379,6 @@ const SCENE_DATA = {
       ctx.arc(0, 0, 115, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Sweeping 16-Hour Arc (07:00 AM -> 11:00 PM)
       const startA = -Math.PI * 0.5;
       const sweepA = startA + p * Math.PI * 1.45;
       ctx.strokeStyle = '#ffd56b';
@@ -433,7 +396,6 @@ const SCENE_DATA = {
       ctx.restore();
 
     } else {
-      // SCENE 6 (0:39.2 - 0:45.0): Golden 10-Minute Morning Walk Into Sunrise
       const local = t - 39.2;
       const p = local / 5.8;
       drawOutdoorDiorama({
@@ -448,7 +410,6 @@ const SCENE_DATA = {
       });
     }
 
-    // Soft Cinema Edge Vignette
     const vig = ctx.createRadialGradient(960, 540, 560, 960, 540, 1280);
     vig.addColorStop(0, 'rgba(0,0,0,0)');
     vig.addColorStop(1, 'rgba(3,4,8,0.62)');
