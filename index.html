@@ -28,7 +28,11 @@
     <!-- Main Stage Viewport -->
     <main class="stage-wrapper">
       <div id="stageFrame" class="stage-frame ratio-9-16">
+        <!-- Canvas Renderer (for procedural episodes) -->
         <canvas id="studioCanvas"></canvas>
+
+        <!-- High-Detail 4-Layer SVG Renderer (for Last Soul Animator SVG scenes) -->
+        <div id="svgStage" class="svg-stage hidden"></div>
 
         <!-- Atmospheric Film Grain & Letterbox -->
         <div class="film-grain"></div>
