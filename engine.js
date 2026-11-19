@@ -1,18 +1,29 @@
 /* ==========================================================================
-   LAST SOUL STUDIO — 60FPS CINEMATIC DIRECTOR & SYNTHESIZED FOLEY ENGINE
+   LAST SOUL STUDIO — HYBRID CANVAS + 4-LAYER SVG RENDER & AUDIO ENGINE
    ========================================================================== */
 
 (() => {
+  const scenes = window.LAST_SOUL_SCENES || [];
+  if (!scenes.length) return;
+
+  // DOM References
+  const stageFrame = document.getElementById("stageFrame");
   const canvas = document.getElementById("studioCanvas");
+  const svgStage = document.getElementById("svgStage");
   const ctx = canvas.getContext("2d");
 
-  // UI Elements
-  const stageFrame = document.getElementById("stageFrame");
   const sceneSelect = document.getElementById("sceneSelect");
   const ratio916Btn = document.getElementById("ratio916");
   const ratio169Btn = document.getElementById("ratio169");
-  const btnPlayPause = document.getElementById("btnPlayPause");
+
+  const timeCurrentEl = document.getElementById("timeCurrent");
+  const timeTotalEl = document.getElementById("timeTotal");
+  const timelineTrack = document.getElementById("timelineTrack");
+  const timelineProgress = document.getElementById("timelineProgress");
+  const beatMarkers = document.getElementById("beatMarkers");
+
   const btnRestart = document.getElementById("btnRestart");
+  const btnPlayPause = document.getElementById("btnPlayPause");
   const btnSubtitles = document.getElementById("btnSubtitles");
   const btnSound = document.getElementById("btnSound");
   const btnLetterbox = document.getElementById("btnLetterbox");
@@ -20,184 +31,102 @@
   const btnRecord = document.getElementById("btnRecord");
   const exitRecordBtn = document.getElementById("exitRecordBtn");
 
-  const timelineTrack = document.getElementById("timelineTrack");
-  const timelineProgress = document.getElementById("timelineProgress");
-  const beatMarkers = document.getElementById("beatMarkers");
-  const timeCurrent = document.getElementById("timeCurrent");
-  const timeTotal = document.getElementById("timeTotal");
-
+  const letterboxTop = document.getElementById("letterboxTop");
+  const letterboxBottom = document.getElementById("letterboxBottom");
+  const safeZoneOverlay = document.getElementById("safeZoneOverlay");
   const hudLens = document.getElementById("hudLens");
   const hudSceneBeat = document.getElementById("hudSceneBeat");
   const subtitleBox = document.getElementById("subtitleBox");
   const subtitleText = document.getElementById("subtitleText");
-  const safeZoneOverlay = document.getElementById("safeZoneOverlay");
-  const letterboxTop = document.getElementById("letterboxTop");
-  const letterboxBottom = document.getElementById("letterboxBottom");
   const countdownOverlay = document.getElementById("countdownOverlay");
   const countdownNumber = document.getElementById("countdownNumber");
 
   // Studio State
-  let currentSceneIndex = 0;
+  let currentSceneIdx = 0;
+  let aspectRatio = "9:16";
   let isPlaying = false;
-  let currentTime = 0;
-  let lastFrameTimestamp = null;
+  let elapsed = 0;
+  let lastFrameTime = null;
+  let subtitlesEnabled = true;
   let soundEnabled = true;
-  let wakeLock = null;
-  let triggeredSoundIds = new Set();
+  let letterboxEnabled = true;
+  let safeZoneEnabled = false;
+  let triggeredSounds = new Set();
 
-  // Camera Rig State (Smoothed interpolation)
-  const cam = {
-    x: 0,
-    y: 0,
-    zoom: 1,
-    tilt: 0
-  };
+  // Camera Smoothing State (Canvas mode)
+  const cam = { x: 0, y: 0, zoom: 1, tilt: 0 };
 
-  /* ------------------------------------------------------------------------
-     1. WEB AUDIO SYNTHESIZED FOLEY & AMBIENCE ENGINE (Zero External Audio Files)
-     ------------------------------------------------------------------------ */
-  class FoleySynth {
-    constructor() {
-      this.ctx = null;
-      this.ambientNode = null;
-      this.ambientGain = null;
+  // Web Audio API Synthesized Foley Engine
+  let audioCtx = null;
+  function ensureAudio() {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) audioCtx = new AudioContext();
     }
-
-    unlock() {
-      if (!this.ctx) {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        this.ctx = new AudioCtx();
-      }
-      if (this.ctx.state === "suspended") {
-        this.ctx.resume();
-      }
-    }
-
-    startAmbience(type = "night") {
-      if (!soundEnabled) return;
-      this.unlock();
-      this.stopAmbience();
-
-      const bufferSize = this.ctx.sampleRate * 2;
-      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
-
-      const noise = this.ctx.createBufferSource();
-      noise.buffer = buffer;
-      noise.loop = true;
-
-      const filter = this.ctx.createBiquadFilter();
-      filter.type = "lowpass";
-      filter.frequency.value = type === "rain" ? 950 : 180;
-
-      const gain = this.ctx.createGain();
-      gain.gain.value = type === "rain" ? 0.055 : 0.028;
-
-      noise.connect(filter);
-      filter.connect(gain);
-      gain.connect(this.ctx.destination);
-      noise.start();
-
-      this.ambientNode = noise;
-      this.ambientGain = gain;
-    }
-
-    stopAmbience() {
-      if (this.ambientNode) {
-        try { this.ambientNode.stop(); } catch (_) {}
-        this.ambientNode.disconnect();
-        this.ambientNode = null;
-      }
-    }
-
-    trigger(type) {
-      if (!soundEnabled) return;
-      this.unlock();
-      const now = this.ctx.currentTime;
-
-      if (type === "tick") {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "triangle";
-        osc.frequency.setValueAtTime(1150, now);
-        osc.frequency.exponentialRampToValueAtTime(280, now + 0.035);
-        gain.gain.setValueAtTime(0.09, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.045);
-      }
-
-      if (type === "footstep") {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(125, now);
-        osc.frequency.exponentialRampToValueAtTime(42, now + 0.14);
-        gain.gain.setValueAtTime(0.24, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.16);
-      }
-
-      if (type === "heartbeat") {
-        [0, 0.18].forEach((offset, idx) => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = "sine";
-          osc.frequency.setValueAtTime(idx === 0 ? 78 : 64, now + offset);
-          osc.frequency.exponentialRampToValueAtTime(30, now + offset + 0.14);
-          gain.gain.setValueAtTime(idx === 0 ? 0.32 : 0.22, now + offset);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.15);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start(now + offset);
-          osc.stop(now + offset + 0.16);
-        });
-      }
-
-      if (type === "buzz") {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "sawtooth";
-        osc.frequency.setValueAtTime(145, now);
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.3);
-      }
-
-      if (type === "chime") {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(880, now);
-        osc.frequency.exponentialRampToValueAtTime(1320, now + 0.12);
-        gain.gain.setValueAtTime(0.11, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.46);
-      }
+    if (audioCtx && audioCtx.state === "suspended") {
+      audioCtx.resume();
     }
   }
 
-  const foley = new FoleySynth();
+  function playFoley(type) {
+    if (!soundEnabled) return;
+    ensureAudio();
+    if (!audioCtx) return;
 
-  /* ------------------------------------------------------------------------
-     2. SCENE MANAGEMENT & CANVAS RESIZING
-     ------------------------------------------------------------------------ */
-  function getActiveScene() {
-    return window.LAST_SOUL_SCENES[currentSceneIndex];
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    if (type === "tick") {
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(920, now);
+      osc.frequency.exponentialRampToValueAtTime(180, now + 0.045);
+      gain.gain.setValueAtTime(0.14, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+      osc.start(now);
+      osc.stop(now + 0.055);
+    } else if (type === "buzz") {
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(115, now);
+      osc.frequency.linearRampToValueAtTime(98, now + 0.22);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } else if (type === "chime") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(587.33, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.35);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+      osc.start(now);
+      osc.stop(now + 0.45);
+    } else if (type === "heartbeat") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(68, now);
+      osc.frequency.exponentialRampToValueAtTime(36, now + 0.28);
+      gain.gain.setValueAtTime(0.28, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+      osc.start(now);
+      osc.stop(now + 0.32);
+    } else if (type === "footstep") {
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(135, now);
+      osc.frequency.exponentialRampToValueAtTime(42, now + 0.11);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+      osc.start(now);
+      osc.stop(now + 0.13);
+    }
+  }
+
+  function formatTime(sec) {
+    const mins = Math.floor(sec / 60);
+    const secs = Math.floor(sec % 60);
+    const tenths = Math.floor((sec % 1) * 10);
+    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}.${tenths}`;
   }
 
   function resizeCanvas() {
@@ -210,191 +139,200 @@
 
   function populateScenes() {
     sceneSelect.innerHTML = "";
-    window.LAST_SOUL_SCENES.forEach((scene, idx) => {
+    scenes.forEach((sc, idx) => {
       const opt = document.createElement("option");
       opt.value = idx;
-      opt.textContent = `${String(idx + 1).padStart(2, "0")} · ${scene.title}`;
+      opt.textContent = sc.title;
       sceneSelect.appendChild(opt);
     });
-    loadScene(0);
   }
 
-  function loadScene(index) {
-    currentSceneIndex = index;
-    currentTime = 0;
-    triggeredSoundIds.clear();
-    isPlaying = false;
-    foley.stopAmbience();
-    btnPlayPause.textContent = "▶ PLAY";
-
-    const scene = getActiveScene();
-    timeTotal.textContent = formatTime(scene.duration);
-
-    // Build Beat Markers on Timeline
+  function buildBeatMarkers(scene) {
     beatMarkers.innerHTML = "";
-    scene.beats.forEach((beat) => {
+    scene.beats.forEach((b) => {
       const dot = document.createElement("span");
       dot.className = "beat-dot";
-      dot.style.left = `${(beat.start / scene.duration) * 100}%`;
-      dot.title = beat.label || beat.lens;
+      dot.style.left = `${(b.start / scene.duration) * 100}%`;
       beatMarkers.appendChild(dot);
     });
+  }
 
-    // Snap camera to initial beat
-    const firstBeat = scene.beats[0];
-    if (firstBeat && firstBeat.camera) {
-      cam.x = firstBeat.camera.x || 0;
-      cam.y = firstBeat.camera.y || 0;
-      cam.zoom = firstBeat.camera.zoom || 1;
-      cam.tilt = firstBeat.camera.tilt || 0;
+  // Mount & Synchronize SVG Scene Animations
+  function mountSvgScene(scene) {
+    if (!svgStage || typeof scene.renderSvg !== "function") return;
+    svgStage.style.setProperty("--dur", `${scene.duration}s`);
+    svgStage.innerHTML = scene.renderSvg(aspectRatio);
+    syncSvgTimeline();
+  }
+
+  function syncSvgTimeline() {
+    if (!svgStage || svgStage.classList.contains("hidden")) return;
+    svgStage.classList.toggle("paused", !isPlaying);
+    const anims = svgStage.getAnimations ? svgStage.getAnimations({ subtree: true }) : [];
+    anims.forEach((anim) => {
+      try {
+        anim.currentTime = elapsed * 1000;
+        if (isPlaying) anim.play();
+        else anim.pause();
+      } catch (_) {}
+    });
+  }
+
+  function loadScene(idx) {
+    currentSceneIdx = idx;
+    const scene = scenes[currentSceneIdx];
+    elapsed = 0;
+    triggeredSounds.clear();
+    cam.x = 0;
+    cam.y = 0;
+    cam.zoom = 1;
+    cam.tilt = 0;
+    timeTotalEl.textContent = formatTime(scene.duration);
+    buildBeatMarkers(scene);
+
+    const isSvg = scene.type === "svg";
+    canvas.classList.toggle("hidden", isSvg);
+    if (svgStage) {
+      svgStage.classList.toggle("hidden", !isSvg);
+      if (isSvg) mountSvgScene(scene);
     }
 
-    updateUIState();
     renderFrame(0);
   }
 
-  function formatTime(sec) {
-    const mins = Math.floor(sec / 60);
-    const rem = sec % 60;
-    return `${String(mins).padStart(2, "0")}:${rem.toFixed(1).padStart(4, "0")}`;
+  function setAspectRatio(ratio) {
+    aspectRatio = ratio;
+    stageFrame.classList.remove("ratio-9-16", "ratio-16-9");
+    stageFrame.classList.add(ratio === "9:16" ? "ratio-9-16" : "ratio-16-9");
+    ratio916Btn.classList.toggle("active", ratio === "9:16");
+    ratio169Btn.classList.toggle("active", ratio === "16:9");
+
+    const scene = scenes[currentSceneIdx];
+    if (scene && scene.type === "svg") {
+      mountSvgScene(scene);
+    }
+    setTimeout(() => {
+      resizeCanvas();
+      renderFrame(elapsed);
+    }, 30);
   }
 
-  /* ------------------------------------------------------------------------
-     3. DIRECTOR CAMERA RIG & RENDER PIPELINE
-     ------------------------------------------------------------------------ */
-  function getCurrentBeat(scene, t) {
+  function getActiveBeat(scene, t) {
     let active = scene.beats[0];
     for (let i = 0; i < scene.beats.length; i++) {
-      if (t >= scene.beats[i].start) {
-        active = scene.beats[i];
-      } else {
-        break;
-      }
+      if (t >= scene.beats[i].start) active = scene.beats[i];
     }
     return active;
   }
 
-  function updateUIState() {
-    const scene = getActiveScene();
-    const beat = getCurrentBeat(scene, currentTime);
-
-    timeCurrent.textContent = formatTime(currentTime);
-    const pct = Math.min(100, (currentTime / scene.duration) * 100);
-    timelineProgress.style.width = `${pct}%`;
-
-    hudLens.textContent = beat.lens || "WIDE · 24MM";
-    hudSceneBeat.textContent = beat.label || "BEAT";
-    subtitleText.textContent = beat.subtitle || "";
-  }
-
-  function renderFrame(dt) {
-    const scene = getActiveScene();
+  function renderFrame(t) {
+    const scene = scenes[currentSceneIdx];
     const rect = stageFrame.getBoundingClientRect();
     const w = rect.width;
     const h = rect.height;
 
-    const beat = getCurrentBeat(scene, currentTime);
-    const targetCam = beat.camera || { x: 0, y: 0, zoom: 1, tilt: 0 };
+    const beat = getActiveBeat(scene, t);
+    hudLens.textContent = beat.lens || "WIDE · 24MM";
+    hudSceneBeat.textContent = beat.label || "BEAT 01";
 
-    // Smooth cinematic damping + organic handheld micro-breathing
-    const lerpSpeed = Math.min(1, dt * 2.8 || 0.08);
-    cam.x += (targetCam.x - cam.x) * lerpSpeed;
-    cam.y += (targetCam.y - cam.y) * lerpSpeed;
-    cam.zoom += (targetCam.zoom - cam.zoom) * lerpSpeed;
-    cam.tilt += ((targetCam.tilt || 0) - cam.tilt) * lerpSpeed;
-
-    const breatheX = Math.sin(currentTime * 1.1) * 2.2;
-    const breatheY = Math.cos(currentTime * 0.85) * 2.5;
-
-    ctx.save();
-    ctx.clearRect(0, 0, w, h);
-
-    // Apply Director Camera Transform
-    ctx.translate(w / 2 + breatheX, h / 2 + breatheY);
-    ctx.rotate((cam.tilt * Math.PI) / 180);
-    ctx.scale(cam.zoom, cam.zoom);
-    ctx.translate(-w / 2 - cam.x * w, -h / 2 - cam.y * h);
-
-    // Delegate Scene Artwork & Character Animation
-    scene.render(ctx, w, h, currentTime, beat);
-
-    ctx.restore();
-  }
-
-  function processSounds(scene, t) {
-    if (!scene.sounds) return;
-    scene.sounds.forEach((snd, idx) => {
-      const key = `${currentSceneIndex}-${idx}`;
-      if (t >= snd.at && !triggeredSoundIds.has(key)) {
-        triggeredSoundIds.add(key);
-        foley.trigger(snd.type);
-      }
-    });
-  }
-
-  function loop(timestamp) {
-    if (!lastFrameTimestamp) lastFrameTimestamp = timestamp;
-    const dt = Math.min(0.05, (timestamp - lastFrameTimestamp) / 1000);
-    lastFrameTimestamp = timestamp;
-
-    const scene = getActiveScene();
-
-    if (isPlaying) {
-      currentTime += dt;
-      processSounds(scene, currentTime);
-
-      if (currentTime >= scene.duration) {
-        currentTime = scene.duration;
-        isPlaying = false;
-        foley.stopAmbience();
-        btnPlayPause.textContent = "▶ PLAY";
-
-        // Hold final dramatic frame 1.5s before exiting Record Mode
-        if (document.body.classList.contains("recording-mode")) {
-          setTimeout(() => exitRecordMode(), 1500);
-        }
-      }
-      updateUIState();
+    if (subtitlesEnabled && beat.subtitle) {
+      subtitleBox.classList.remove("hidden");
+      subtitleText.textContent = beat.subtitle;
+    } else {
+      subtitleBox.classList.add("hidden");
     }
 
-    renderFrame(dt);
+    if (scene.type === "svg") {
+      syncSvgTimeline();
+    } else {
+      const target = beat.camera || { x: 0, y: 0, zoom: 1, tilt: 0 };
+      cam.x += (target.x - cam.x) * 0.06;
+      cam.y += (target.y - cam.y) * 0.06;
+      cam.zoom += (target.zoom - cam.zoom) * 0.05;
+      cam.tilt += ((target.tilt || 0) - cam.tilt) * 0.05;
+
+      ctx.save();
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.translate(w / 2, h / 2);
+      ctx.scale(cam.zoom, cam.zoom);
+      ctx.rotate((cam.tilt * Math.PI) / 180);
+      ctx.translate(-w / 2 - cam.x * w, -h / 2 - cam.y * h);
+
+      scene.render(ctx, w, h, t);
+      ctx.restore();
+    }
+
+    // Update Timeline UI
+    timeCurrentEl.textContent = formatTime(t);
+    const pct = Math.min(100, (t / scene.duration) * 100);
+    timelineProgress.style.width = `${pct}%`;
+  }
+
+  function loop(now) {
+    if (lastFrameTime === null) lastFrameTime = now;
+    const dt = Math.min((now - lastFrameTime) / 1000, 0.1);
+    lastFrameTime = now;
+
+    if (isPlaying) {
+      const scene = scenes[currentSceneIdx];
+      elapsed += dt;
+
+      if (scene.sounds) {
+        scene.sounds.forEach((snd, idx) => {
+          if (elapsed >= snd.at && !triggeredSounds.has(idx)) {
+            triggeredSounds.add(idx);
+            playFoley(snd.type);
+          }
+        });
+      }
+
+      if (elapsed >= scene.duration) {
+        elapsed = scene.duration;
+        isPlaying = false;
+        btnPlayPause.textContent = "▶ PLAY";
+      }
+      renderFrame(elapsed);
+    }
+
     requestAnimationFrame(loop);
   }
 
-  /* ------------------------------------------------------------------------
-     4. SCREEN WAKE-LOCK & CLEAN RECORD MODE
-     ------------------------------------------------------------------------ */
-  async function requestWakeLock() {
-    try {
-      if ("wakeLock" in navigator) {
-        wakeLock = await navigator.wakeLock.request("screen");
-      }
-    } catch (_) {}
-  }
-
-  function releaseWakeLock() {
-    if (wakeLock) {
-      wakeLock.release().catch(() => {});
-      wakeLock = null;
+  function togglePlay() {
+    ensureAudio();
+    const scene = scenes[currentSceneIdx];
+    if (elapsed >= scene.duration) {
+      elapsed = 0;
+      triggeredSounds.clear();
+      if (scene.type === "svg") mountSvgScene(scene);
     }
+    isPlaying = !isPlaying;
+    btnPlayPause.textContent = isPlaying ? "❚❚ PAUSE" : "▶ PLAY";
+    if (scene.type === "svg") syncSvgTimeline();
   }
 
-  function enterRecordMode() {
-    foley.unlock();
-    isPlaying = false;
-    currentTime = 0;
-    triggeredSoundIds.clear();
-    updateUIState();
+  function restartScene() {
+    ensureAudio();
+    elapsed = 0;
+    triggeredSounds.clear();
+    isPlaying = true;
+    btnPlayPause.textContent = "❚❚ PAUSE";
+    const scene = scenes[currentSceneIdx];
+    if (scene.type === "svg") mountSvgScene(scene);
     renderFrame(0);
+  }
 
+  function startCleanRecordMode() {
+    ensureAudio();
     document.body.classList.add("recording-mode");
     exitRecordBtn.classList.remove("hidden");
-    safeZoneOverlay.classList.add("hidden");
-    btnSafeZone.classList.remove("active");
-    resizeCanvas();
-    requestWakeLock();
+    isPlaying = false;
+    elapsed = 0;
+    triggeredSounds.clear();
+    const scene = scenes[currentSceneIdx];
+    if (scene.type === "svg") mountSvgScene(scene);
+    renderFrame(0);
 
-    // 3-2-1 Countdown before playback starts
     let count = 3;
     countdownNumber.textContent = count;
     countdownOverlay.classList.remove("hidden");
@@ -403,119 +341,80 @@
       count -= 1;
       if (count > 0) {
         countdownNumber.textContent = count;
+        playFoley("tick");
       } else {
         clearInterval(timer);
         countdownOverlay.classList.add("hidden");
-        startPlayback();
+        isPlaying = true;
+        btnPlayPause.textContent = "❚❚ PAUSE";
+        if (scene.type === "svg") syncSvgTimeline();
       }
-    }, 1000);
+    }, 850);
   }
 
-  function exitRecordMode() {
+  function exitCleanRecordMode() {
     document.body.classList.remove("recording-mode");
     exitRecordBtn.classList.add("hidden");
     countdownOverlay.classList.add("hidden");
-    releaseWakeLock();
-    resizeCanvas();
   }
 
-  function startPlayback() {
-    const scene = getActiveScene();
-    if (currentTime >= scene.duration) {
-      currentTime = 0;
-      triggeredSoundIds.clear();
-    }
-    foley.unlock();
-    foley.startAmbience(scene.ambience || "night");
-    isPlaying = true;
-    btnPlayPause.textContent = "❚❚ PAUSE";
-  }
-
-  function pausePlayback() {
-    isPlaying = false;
-    foley.stopAmbience();
-    btnPlayPause.textContent = "▶ PLAY";
-  }
-
-  /* ------------------------------------------------------------------------
-     5. EVENT LISTENERS
-     ------------------------------------------------------------------------ */
-  btnPlayPause.addEventListener("click", () => {
-    if (isPlaying) pausePlayback();
-    else startPlayback();
-  });
-
-  btnRestart.addEventListener("click", () => {
-    currentTime = 0;
-    triggeredSoundIds.clear();
-    updateUIState();
-    renderFrame(0);
-    if (isPlaying) {
-      foley.startAmbience(getActiveScene().ambience || "night");
-    }
-  });
-
+  // Event Listeners
   sceneSelect.addEventListener("change", (e) => {
+    isPlaying = false;
+    btnPlayPause.textContent = "▶ PLAY";
     loadScene(Number(e.target.value));
   });
 
-  ratio916Btn.addEventListener("click", () => {
-    ratio916Btn.classList.add("active");
-    ratio169Btn.classList.remove("active");
-    stageFrame.classList.replace("ratio-16-9", "ratio-9-16");
-    setTimeout(resizeCanvas, 310);
-  });
-
-  ratio169Btn.addEventListener("click", () => {
-    ratio169Btn.classList.add("active");
-    ratio916Btn.classList.remove("active");
-    stageFrame.classList.replace("ratio-9-16", "ratio-16-9");
-    setTimeout(resizeCanvas, 310);
-  });
+  ratio916Btn.addEventListener("click", () => setAspectRatio("9:16"));
+  ratio169Btn.addEventListener("click", () => setAspectRatio("16:9"));
+  btnPlayPause.addEventListener("click", togglePlay);
+  btnRestart.addEventListener("click", restartScene);
 
   btnSubtitles.addEventListener("click", () => {
-    btnSubtitles.classList.toggle("active");
-    subtitleBox.classList.toggle("hidden");
+    subtitlesEnabled = !subtitlesEnabled;
+    btnSubtitles.classList.toggle("active", subtitlesEnabled);
+    renderFrame(elapsed);
   });
 
   btnSound.addEventListener("click", () => {
     soundEnabled = !soundEnabled;
     btnSound.classList.toggle("active", soundEnabled);
-    if (!soundEnabled) foley.stopAmbience();
-    else if (isPlaying) foley.startAmbience(getActiveScene().ambience || "night");
+    if (soundEnabled) ensureAudio();
   });
 
   btnLetterbox.addEventListener("click", () => {
-    btnLetterbox.classList.toggle("active");
-    letterboxTop.classList.toggle("hidden-bar");
-    letterboxBottom.classList.toggle("hidden-bar");
+    letterboxEnabled = !letterboxEnabled;
+    btnLetterbox.classList.toggle("active", letterboxEnabled);
+    letterboxTop.classList.toggle("hidden", !letterboxEnabled);
+    letterboxBottom.classList.toggle("hidden", !letterboxEnabled);
   });
 
   btnSafeZone.addEventListener("click", () => {
-    btnSafeZone.classList.toggle("active");
-    safeZoneOverlay.classList.toggle("hidden");
+    safeZoneEnabled = !safeZoneEnabled;
+    btnSafeZone.classList.toggle("active", safeZoneEnabled);
+    safeZoneOverlay.classList.toggle("hidden", !safeZoneEnabled);
   });
 
-  btnRecord.addEventListener("click", enterRecordMode);
-  exitRecordBtn.addEventListener("click", () => {
-    pausePlayback();
-    exitRecordMode();
-  });
+  btnRecord.addEventListener("click", startCleanRecordMode);
+  exitRecordBtn.addEventListener("click", exitCleanRecordMode);
 
   timelineTrack.addEventListener("click", (e) => {
     const rect = timelineTrack.getBoundingClientRect();
     const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    const scene = getActiveScene();
-    currentTime = ratio * scene.duration;
-    triggeredSoundIds.clear();
-    updateUIState();
-    renderFrame(0);
+    const scene = scenes[currentSceneIdx];
+    elapsed = ratio * scene.duration;
+    triggeredSounds.clear();
+    renderFrame(elapsed);
   });
 
-  window.addEventListener("resize", resizeCanvas);
+  window.addEventListener("resize", () => {
+    resizeCanvas();
+    renderFrame(elapsed);
+  });
 
   // Boot Studio
   populateScenes();
   resizeCanvas();
+  loadScene(0);
   requestAnimationFrame(loop);
 })();
