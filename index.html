@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 1: 2:00 AM Bedroom</title>
+  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (Fixed Rig)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,7 +20,6 @@
       overflow: hidden;
     }
 
-    /* Native 9:16 Stage - 60fps Hardware Accelerated */
     .stage-wrapper {
       position: relative;
       width: 100vw;
@@ -29,7 +28,6 @@
       background: #0d0d12;
       overflow: hidden;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
-      transform: translateZ(0);
     }
 
     svg.scene-svg {
@@ -39,12 +37,6 @@
       shape-rendering: geometricPrecision;
     }
 
-    .gpu-layer {
-      will-change: transform, opacity;
-      transform: translateZ(0);
-    }
-
-    /* Cinematic Vignette & Letterbox */
     .vignette {
       position: absolute;
       inset: 0;
@@ -109,183 +101,155 @@
 
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <!-- Moody Wall Gradient -->
         <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#12131a"/>
           <stop offset="65%" stop-color="#1b1c24"/>
           <stop offset="100%" stop-color="#14141b"/>
         </linearGradient>
 
-        <!-- Night Sky Inside Window -->
         <linearGradient id="windowSky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#0b0f1f"/>
           <stop offset="60%" stop-color="#182242"/>
           <stop offset="100%" stop-color="#222d52"/>
         </linearGradient>
 
-        <!-- Wooden Floor Gradient -->
         <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#18171e"/>
           <stop offset="40%" stop-color="#222029"/>
           <stop offset="100%" stop-color="#111016"/>
         </linearGradient>
 
-        <!-- Volumetric Warm Lamp Light Cone -->
         <linearGradient id="lampConeGrad" x1="0" y1="0" x2="0.6" y2="1">
           <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.34"/>
           <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.11"/>
           <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </linearGradient>
 
-        <!-- Warm Lamp Bulb Glow -->
         <radialGradient id="lampHalo" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#fde68a" stop-opacity="0.55"/>
           <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.16"/>
           <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Cool Blue Phone Screen Glow -->
         <radialGradient id="phoneGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.6"/>
-          <stop offset="50%" stop-color="#0284c7" stop-opacity="0.18"/>
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.65"/>
+          <stop offset="50%" stop-color="#0284c7" stop-opacity="0.2"/>
           <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Red Digital Clock Glow -->
         <radialGradient id="redClockGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#ef4444" stop-opacity="0.45"/>
+          <stop offset="0%" stop-color="#ef4444" stop-opacity="0.5"/>
           <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
         </radialGradient>
       </defs>
 
       <!-- Camera Push-In Group -->
-      <g id="s1Camera" class="gpu-layer">
-        <!-- Bedroom Wall & Floor -->
+      <g id="s1Camera">
+        <!-- Bedroom Wall & Wooden Floor -->
         <rect width="540" height="715" fill="url(#wallGrad)"/>
         <rect x="0" y="715" width="540" height="245" fill="url(#floorGrad)"/>
-        <!-- Floor Wood Plank Lines -->
         <line x1="0" y1="748" x2="540" y2="748" stroke="#131218" stroke-width="2"/>
         <line x1="0" y1="792" x2="540" y2="792" stroke="#131218" stroke-width="2"/>
         <line x1="0" y1="845" x2="540" y2="845" stroke="#131218" stroke-width="2"/>
         <line x1="0" y1="905" x2="540" y2="905" stroke="#131218" stroke-width="2"/>
 
-        <!-- =====================================================
-             LARGE BEDROOM WINDOW (Moon + Distant City Skyline)
-             ===================================================== -->
+        <!-- LARGE BEDROOM WINDOW -->
         <g transform="translate(175, 165)">
-          <!-- Outer Window Frame & Sill -->
           <rect x="-8" y="-8" width="236" height="296" rx="4" fill="#0c0d12"/>
           <rect x="0" y="0" width="220" height="280" fill="url(#windowSky)"/>
-
-          <!-- Distant City Buildings Silhouette -->
           <g fill="#0e1324">
             <rect x="0" y="215" width="42" height="65"/>
             <rect x="38" y="195" width="48" height="85"/>
             <rect x="82" y="225" width="38" height="55"/>
             <rect x="118" y="182" width="54" height="98"/>
             <rect x="168" y="208" width="52" height="72"/>
-            <!-- Tiny Distant Lit Window -->
             <rect x="136" y="198" width="5" height="6" fill="#fde68a" opacity="0.7"/>
             <rect x="54" y="212" width="4" height="5" fill="#fde68a" opacity="0.4"/>
           </g>
-
-          <!-- Crescent Moon & Stars -->
           <circle cx="168" cy="68" r="18" fill="#f3f4f6" opacity="0.9"/>
           <circle cx="175" cy="63" r="15" fill="#11172e"/>
           <circle cx="55" cy="48" r="1.8" fill="#fff" opacity="0.6"/>
           <circle cx="115" cy="35" r="1.5" fill="#fff" opacity="0.5"/>
           <circle cx="145" cy="112" r="1.5" fill="#fff" opacity="0.5"/>
-
-          <!-- Window Panes (Crossbars) -->
           <rect x="107" y="0" width="6" height="280" fill="#0d0e14"/>
           <rect x="0" y="148" width="220" height="6" fill="#0d0e14"/>
-          <!-- Bottom Window Sill -->
           <rect x="-14" y="280" width="248" height="10" rx="2" fill="#232530"/>
         </g>
 
-        <!-- =====================================================
-             BEDSIDE NIGHTSTAND, WARM LAMP & DIGITAL CLOCK
-             ===================================================== -->
+        <!-- BEDSIDE NIGHTSTAND, LAMP & DIGITAL CLOCK -->
         <g transform="translate(36, 515)">
-          <!-- Ambient Lamp Halo -->
-          <circle cx="48" cy="35" r="130" fill="url(#lampHalo)"/>
+          <!-- Lamp Halo & Light Cone -->
+          <circle cx="42" cy="35" r="130" fill="url(#lampHalo)"/>
+          <polygon points="22,48 62,48 310,200 15,200" fill="url(#lampConeGrad)"/>
 
-          <!-- Volumetric Light Cone Spreading Across Bed -->
-          <polygon points="28,48 68,48 310,200 15,200" fill="url(#lampConeGrad)"/>
+          <!-- Nightstand Cabinet (Top surface at y = 102) -->
+          <rect x="8" y="105" width="96" height="95" rx="3" fill="#181820"/>
+          <rect x="4" y="102" width="104" height="8" rx="2" fill="#272733"/>
+          <rect x="16" y="118" width="80" height="32" rx="2" fill="#121218"/>
+          <circle cx="56" cy="134" r="3" fill="#3f3f52"/>
 
-          <!-- Nightstand Cabinet -->
-          <rect x="8" y="105" width="92" height="95" rx="3" fill="#181820"/>
-          <rect x="4" y="102" width="100" height="8" rx="2" fill="#272733"/>
-          <rect x="16" y="118" width="76" height="32" rx="2" fill="#121218"/>
-          <circle cx="54" cy="134" r="3" fill="#3f3f52"/>
+          <!-- Table Lamp (Left side of nightstand, x = 22..62, base on y = 102) -->
+          <rect x="28" y="96" width="28" height="6" rx="2" fill="#2e2e3d"/>
+          <rect x="39" y="52" width="6" height="44" fill="#2e2e3d"/>
+          <polygon points="24,14 60,14 72,52 12,52" fill="#fde68a"/>
+          <polygon points="24,14 60,14 72,52 12,52" fill="#f59e0b" opacity="0.25"/>
 
-          <!-- Table Lamp -->
-          <rect x="34" y="96" width="28" height="6" rx="2" fill="#2e2e3d"/>
-          <rect x="45" y="52" width="6" height="44" fill="#2e2e3d"/>
-          <!-- Lamp Shade -->
-          <polygon points="30,14 66,14 78,52 18,52" fill="#fde68a"/>
-          <polygon points="30,14 66,14 78,52 18,52" fill="#f59e0b" opacity="0.25"/>
-
-          <!-- Glowing Red Digital Clock on Nightstand (01:59 -> 02:00) -->
-          <g id="s1Clock" class="gpu-layer" transform="translate(52, 74)">
-            <circle cx="26" cy="14" r="36" fill="url(#redClockGlow)"/>
-            <rect x="0" y="0" width="52" height="28" rx="4" fill="#09080c" stroke="#3f1d22" stroke-width="1.5"/>
-            <text id="s1ClockText" x="26" y="19" text-anchor="middle" fill="#f87171" font-family="monospace" font-size="14" font-weight="bold" letter-spacing="0.5">01:59</text>
+          <!-- Red Digital Clock Sitting Firmly on Nightstand Tabletop (x = 58, bottom at y = 102) -->
+          <g id="s1Clock">
+            <circle cx="82" cy="90" r="32" fill="url(#redClockGlow)"/>
+            <rect x="58" y="78" width="48" height="24" rx="4" fill="#09080c" stroke="#3f1d22" stroke-width="1.5"/>
+            <text id="s1ClockText" x="82" y="94" text-anchor="middle" fill="#f87171" font-family="monospace" font-size="13" font-weight="bold">01:59</text>
           </g>
         </g>
 
-        <!-- =====================================================
-             BED & SLEEK SILHOUETTE CHARACTER SCROLLING PHONE
-             ===================================================== -->
+        <!-- BED & SLEEK SILHOUETTE CHARACTER -->
         <g transform="translate(142, 565)">
-          <!-- Floor Contact Shadow under Bed -->
+          <!-- Floor Shadow -->
           <ellipse cx="175" cy="152" rx="185" ry="12" fill="#07070a" opacity="0.85"/>
 
-          <!-- Bed Frame & Headboard -->
+          <!-- Bed Frame & Mattress -->
           <rect x="0" y="45" width="14" height="105" rx="3" fill="#16161f"/>
           <rect x="336" y="75" width="14" height="75" rx="3" fill="#16161f"/>
           <rect x="10" y="112" width="330" height="22" rx="3" fill="#1d1d29"/>
-
-          <!-- Mattress & Blanket -->
           <rect x="14" y="92" width="322" height="24" rx="8" fill="#2a2b38"/>
-          <!-- Angled Pillow -->
           <rect x="18" y="68" width="56" height="26" rx="11" fill="#343646" transform="rotate(-18 46 81)"/>
 
-          <!-- Cool Blue Phone Glow Around Face & Hands -->
-          <circle cx="115" cy="35" r="115" fill="url(#phoneGlow)" id="s1PhonePool" class="gpu-layer"/>
+          <!-- Cool Blue Phone Glow Centered Directly Around Face & Phone (108, 42) -->
+          <circle cx="108" cy="42" r="105" fill="url(#phoneGlow)" id="s1PhonePool"/>
 
-          <!-- Sleek 17-18yo Silhouette Character Lying/Reclining on Bed -->
-          <g id="s1Char" class="gpu-layer">
-            <!-- Rim Light Layer (Subtle 2px warm/cool edge highlight) -->
+          <!-- Character Body & Attached Arm -->
+          <g id="s1Char">
+            <!-- Rim Light -->
             <g fill="none" stroke="#f4c28a" stroke-width="2" opacity="0.45">
               <circle cx="62" cy="66" r="19"/>
               <path d="M 78 76 L 145 86"/>
               <path d="M 145 86 L 195 52 L 245 88"/>
             </g>
 
-            <!-- Head (Reclining on Pillow) -->
+            <!-- Head -->
             <circle cx="63" cy="67" r="19" fill="#090a0f"/>
 
-            <!-- Sleek Torso -->
+            <!-- Torso -->
             <path d="M 76 74 L 152 84 L 150 96 L 74 88 Z" fill="#090a0f"/>
 
-            <!-- Bent Knee Silhouette (Like reference mood) -->
+            <!-- Legs -->
             <path d="M 148 84 L 196 48 L 248 88 L 236 96 L 195 64 L 152 95 Z" fill="#090a0f"/>
-            <!-- Second Leg Resting Flat -->
             <path d="M 150 88 L 265 90 L 265 99 L 150 96 Z" fill="#090a0f"/>
 
-            <!-- Blanket Cover Over Lower Legs -->
+            <!-- Blanket -->
             <path d="M 215 84 Q 275 80 336 88 L 336 114 L 215 114 Z" fill="#252736"/>
             <path d="M 215 84 Q 275 80 336 88" fill="none" stroke="#3c3f54" stroke-width="2"/>
 
-            <!-- Arm Holding Smartphone Up -->
-            <g id="s1Arm" class="gpu-layer" transform="translate(88, 78)">
-              <!-- Upper Arm & Forearm -->
-              <path d="M 0 4 L 28 -18 L 22 -44" fill="none" stroke="#090a0f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-              <!-- Glowing Smartphone -->
-              <g transform="translate(16, -62) rotate(18)">
-                <rect x="-2" y="-2" width="11" height="26" rx="3" fill="#38bdf8" opacity="0.4"/>
-                <rect x="0" y="0" width="7" height="22" rx="2" fill="#e0f2fe"/>
+            <!-- Attached Arm & Phone (Shoulder anchored at exact coordinate 92, 82) -->
+            <g id="s1Arm">
+              <!-- Rim highlight on arm -->
+              <path d="M 92 81 L 116 64 L 111 38" fill="none" stroke="#7dd3fc" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+              <!-- Main silhouette arm -->
+              <path d="M 92 82 L 116 65 L 111 39" fill="none" stroke="#090a0f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Glowing Smartphone held in hand at (108, 22) -->
+              <g transform="translate(105, 19) rotate(16)">
+                <rect x="-2" y="-2" width="11" height="25" rx="3" fill="#38bdf8" opacity="0.45"/>
+                <rect x="0" y="0" width="7" height="21" rx="2" fill="#e0f2fe"/>
               </g>
             </g>
           </g>
@@ -344,30 +308,49 @@
 
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
       gsap.set('#s1Clock', { scale: 1 });
-      gsap.set('#s1Arm', { rotation: 0 });
+      gsap.set('#s1Arm', { rotation: 0, svgOrigin: '92 82' });
       document.getElementById('s1ClockText').textContent = '01:59';
 
       sceneTl = gsap.timeline();
 
-      // 0.0s: Phone vibration + subtle thumb/hand scroll movement
+      // 0.0s: Phone vibration + subtle arm/hand scroll pivoted strictly at shoulder (92, 82)
       sceneTl.call(() => playVibrate(), null, 0);
-      sceneTl.to('#s1Arm', { rotation: -4, duration: 0.45, yoyo: true, repeat: 14, ease: 'sine.inOut' }, 0);
-      sceneTl.to('#s1PhonePool', { scale: 1.14, opacity: 0.9, transformOrigin: 'center', duration: 1.3, yoyo: true, repeat: 4, ease: 'sine.inOut' }, 0);
+      sceneTl.to('#s1Arm', {
+        rotation: -5,
+        svgOrigin: '92 82',
+        duration: 0.45,
+        yoyo: true,
+        repeat: 14,
+        ease: 'sine.inOut'
+      }, 0);
 
-      // 2.2s: Red Clock hits 02:00 + Deep Bass Drop + Camera Push-In
+      sceneTl.to('#s1PhonePool', {
+        scale: 1.14,
+        svgOrigin: '108 42',
+        duration: 1.3,
+        yoyo: true,
+        repeat: 4,
+        ease: 'sine.inOut'
+      }, 0);
+
+      // 2.2s: Red Clock hits 02:00 (pivoted at clock center 82, 90)
       sceneTl.call(() => {
         document.getElementById('s1ClockText').textContent = '02:00';
         playBassDrop();
       }, null, 2.2);
 
-      sceneTl.to('#s1Clock', { scale: 1.18, duration: 0.25, yoyo: true, repeat: 1, transformOrigin: 'center' }, 2.2);
+      sceneTl.to('#s1Clock', {
+        scale: 1.16,
+        svgOrigin: '82 90',
+        duration: 0.25,
+        yoyo: true,
+        repeat: 1
+      }, 2.2);
 
-      // Slow, moody cinematic camera zoom toward bed & clock (2.3s - 7.5s)
+      // Smooth cinematic camera push-in (2.3s - 7.5s)
       sceneTl.to('#s1Camera', {
         scale: 1.24,
-        x: 18,
-        y: -35,
-        transformOrigin: 'center',
+        svgOrigin: '240 560',
         duration: 5.2,
         ease: 'power2.inOut'
       }, 2.3);
