@@ -1,105 +1,655 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Last Soul Studio</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zenspiris — The 2:00 AM Phone Scroll Trap</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    :root {
+      --head: #0d0b12;
+      --face: #f2ede2;
+      --rim: #f4c28a;
+      --outfit-top: #2c4c7c;
+      --outfit-bottom: #1e2433;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #050507;
+      color: #f2ede2;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Stage Container - Default 9:16 for Shorts/Reels */
+    .stage-wrapper {
+      position: relative;
+      width: 100vw;
+      max-width: 420px;
+      aspect-ratio: 9 / 16;
+      background: #0d0b12;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+      transition: all 0.4s ease;
+    }
+
+    .stage-wrapper.landscape {
+      max-width: 880px;
+      aspect-ratio: 16 / 9;
+    }
+
+    .stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .scene.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    svg.scene-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Cinematic Overlays from Skill Guide */
+    .vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at center, transparent 42%, rgba(5, 4, 10, 0.85) 100%);
+      z-index: 10;
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.045;
+      z-index: 11;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .letterbox {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 6%;
+      background: #000;
+      z-index: 12;
+      pointer-events: none;
+    }
+    .letterbox.top { top: 0; }
+    .letterbox.bottom { bottom: 0; }
+
+    /* Location/Time Pill */
+    .location-pill {
+      position: absolute;
+      top: 8.5%;
+      left: 6%;
+      background: rgba(13, 11, 18, 0.72);
+      border: 1px solid rgba(242, 237, 226, 0.15);
+      color: #f2ede2;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      z-index: 13;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Playback Controls */
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      z-index: 20;
+    }
+
+    button {
+      background: #181622;
+      color: #f2ede2;
+      border: 1px solid rgba(242, 237, 226, 0.2);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    button:hover { background: #262336; }
+    button:active { transform: scale(0.96); }
+    button.primary { background: #2c5282; border-color: #4a80c4; }
+
+    .fade-overlay {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 15;
+    }
+  </style>
 </head>
 <body>
-  <div id="app" class="studio-shell">
-    <!-- Top Studio Header -->
-    <header class="studio-header ui-chrome">
-      <div class="brand">
-        <span class="brand-dot"></span>
-        <h1>LAST SOUL <span class="brand-sub">STUDIO</span></h1>
+
+  <div class="stage-wrapper" id="stageWrapper">
+    <div class="stage" id="stage">
+
+      <!-- =========================================================
+           SCENE 1 (0:00 - 0:07): The 2:00 AM Bedroom Hook
+           ========================================================= -->
+      <div class="scene active" id="scene1">
+        <div class="location-pill">2:00 AM · Modern Bedroom</div>
+        <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="bgNightRoom" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0b0e1a"/>
+              <stop offset="60%" stop-color="#141a2e"/>
+              <stop offset="100%" stop-color="#090b12"/>
+            </linearGradient>
+            <radialGradient id="phoneGlow" cx="50%" cy="55%" r="45%">
+              <stop offset="0%" stop-color="#56b4ff" stop-opacity="0.55"/>
+              <stop offset="55%" stop-color="#2b6cb0" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#0d0b12" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="blurSoft"><feGaussianBlur stdDeviation="5"/></filter>
+            <filter id="neonBlue" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Background Wall & Blurred Window -->
+          <rect width="540" height="960" fill="url(#bgNightRoom)"/>
+          <g filter="url(#blurSoft)" opacity="0.45">
+            <rect x="60" y="180" width="150" height="220" rx="8" fill="#1d2b4a"/>
+            <line x1="135" y1="180" x2="135" y2="400" stroke="#0b0e1a" stroke-width="6"/>
+            <line x1="60" y1="290" x2="210" y2="290" stroke="#0b0e1a" stroke-width="6"/>
+            <circle cx="110" cy="230" r="18" fill="#a3c6ff" opacity="0.5"/>
+          </g>
+
+          <!-- Glowing 2:00 AM Wall Clock Prop -->
+          <g transform="translate(340, 230)" filter="url(#neonBlue)">
+            <rect x="0" y="0" width="135" height="58" rx="10" fill="#090c14" stroke="#3b82f6" stroke-width="2"/>
+            <text x="67.5" y="38" text-anchor="middle" fill="#7dd3fc" font-family="monospace" font-size="26" font-weight="bold">02:00</text>
+          </g>
+
+          <!-- Bed Silhouette -->
+          <rect x="40" y="650" width="460" height="180" rx="14" fill="#111524"/>
+          <rect x="30" y="570" width="35" height="260" rx="8" fill="#161b2e"/>
+          <rect x="75" y="615" width="110" height="40" rx="18" fill="#1e2640"/>
+
+          <!-- Ambient Phone Screen Light Pool -->
+          <circle cx="290" cy="540" r="240" fill="url(#phoneGlow)" id="s1PhonePool"/>
+
+          <!-- Character Rig Sitting on Bed -->
+          <g id="s1Char" transform="translate(235, 515)">
+            <!-- Rim Light Offset -->
+            <circle cx="3" cy="-55" r="46" fill="#7dd3fc" opacity="0.45"/>
+            <!-- Torso -->
+            <rect x="-28" y="-8" width="56" height="92" rx="22" fill="#2c4c7c"/>
+            <!-- Legs bent on bed -->
+            <rect x="10" y="68" width="75" height="22" rx="11" fill="#1c253b"/>
+            <rect x="72" y="68" width="22" height="75" rx="11" fill="#1c253b"/>
+            <!-- Head -->
+            <circle cx="0" cy="-55" r="46" fill="#0d0b12"/>
+            <!-- Face (Tired/Focused) -->
+            <g id="s1Face">
+              <circle cx="14" cy="-60" r="4.5" fill="#f2ede2"/>
+              <circle cx="30" cy="-60" r="4.5" fill="#f2ede2"/>
+              <rect x="8" y="-71" width="13" height="4" rx="2" fill="#f2ede2" transform="rotate(-8 14 -71)"/>
+              <rect x="24" y="-71" width="13" height="4" rx="2" fill="#f2ede2" transform="rotate(8 30 -71)"/>
+              <line x1="16" y1="-42" x2="28" y2="-42" stroke="#f2ede2" stroke-width="3.5" stroke-linecap="round"/>
+            </g>
+            <!-- Arm Holding Glowing Phone -->
+            <g id="s1Arm">
+              <rect x="8" y="10" width="52" height="16" rx="8" fill="#0d0b12" transform="rotate(-12 8 10)"/>
+              <rect x="56" y="-22" width="10" height="36" rx="4" fill="#7dd3fc" filter="url(#neonBlue)" transform="rotate(15 56 -22)"/>
+            </g>
+          </g>
+        </svg>
       </div>
 
-      <div class="header-controls">
-        <select id="sceneSelect" class="glass-select" aria-label="Select Episode"></select>
+      <!-- =========================================================
+           SCENE 2 (0:07 - 0:16): 18th Century Village Time Shift
+           ========================================================= -->
+      <div class="scene" id="scene2">
+        <div class="location-pill">1720s · Before Electric Lights</div>
+        <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="bg18thSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#090d1c"/>
+              <stop offset="55%" stop-color="#18223d"/>
+              <stop offset="100%" stop-color="#222b45"/>
+            </linearGradient>
+            <filter id="blurMed"><feGaussianBlur stdDeviation="4"/></filter>
+          </defs>
 
-        <div class="segmented-control" role="group" aria-label="Aspect Ratio">
-          <button id="ratio916" class="seg-btn active" data-ratio="9:16">9:16</button>
-          <button id="ratio169" class="seg-btn" data-ratio="16:9">16:9</button>
-        </div>
-      </div>
-    </header>
+          <rect width="540" height="960" fill="url(#bg18thSky)"/>
 
-    <!-- Main Stage Viewport -->
-    <main class="stage-wrapper">
-      <div id="stageFrame" class="stage-frame ratio-9-16">
-        <!-- Canvas Renderer (for procedural episodes) -->
-        <canvas id="studioCanvas"></canvas>
+          <!-- Stars & Moon -->
+          <circle cx="410" cy="210" r="34" fill="#f4e8c1" opacity="0.85"/>
+          <circle cx="396" cy="200" r="30" fill="#0d1326"/>
+          <g fill="#f2ede2" opacity="0.6">
+            <circle cx="100" cy="180" r="2.5"/><circle cx="180" cy="140" r="2"/>
+            <circle cx="270" cy="220" r="3"/><circle cx="90" cy="310" r="2"/>
+            <circle cx="320" cy="130" r="2"/><circle cx="470" cy="300" r="2.5"/>
+          </g>
 
-        <!-- High-Detail 4-Layer SVG Renderer (for Last Soul Animator SVG scenes) -->
-        <div id="svgStage" class="svg-stage hidden"></div>
+          <!-- Rolling Hills & Cottages (Blurred Midground) -->
+          <g filter="url(#blurMed)">
+            <path d="M0 620 Q 160 540 340 610 T 540 590 L 540 960 L 0 960 Z" fill="#111626"/>
+            <!-- Cottage 1 -->
+            <rect x="85" y="545" width="110" height="75" fill="#0d101c"/>
+            <polygon points="75,545 140,495 205,545" fill="#090b14"/>
+            <rect x="125" y="575" width="22" height="24" rx="3" fill="#f4a261" opacity="0.7"/>
+            <!-- Cottage 2 -->
+            <rect x="330" y="560" width="95" height="65" fill="#0d101c"/>
+            <polygon points="320,560 377,518 435,560" fill="#090b14"/>
+          </g>
 
-        <!-- Atmospheric Film Grain & Letterbox -->
-        <div class="film-grain"></div>
-        <div id="letterboxTop" class="letterbox top"></div>
-        <div id="letterboxBottom" class="letterbox bottom"></div>
+          <!-- Foreground Ground -->
+          <path d="M0 710 Q 270 680 540 720 L 540 960 L 0 960 Z" fill="#090b12"/>
 
-        <!-- Optional Shorts/Reels Safe Zone Overlay -->
-        <div id="safeZoneOverlay" class="safe-zone hidden">
-          <div class="sz-right">UI ICONS</div>
-          <div class="sz-bottom">CAPTION &amp; TITLE SAFE AREA</div>
-        </div>
-
-        <!-- Live Director Camera HUD -->
-        <div id="cameraHud" class="camera-hud ui-chrome">
-          <span class="rec-indicator">● LIVE RIG</span>
-          <span id="hudLens">WIDE · 24MM</span>
-          <span id="hudSceneBeat">BEAT 01</span>
-        </div>
-
-        <!-- Cinematic Subtitles -->
-        <div id="subtitleBox" class="subtitle-box">
-          <p id="subtitleText"></p>
-        </div>
-
-        <!-- 3-2-1 Record Countdown Overlay -->
-        <div id="countdownOverlay" class="countdown-overlay hidden">
-          <div class="countdown-ring">
-            <span id="countdownNumber">3</span>
-          </div>
-          <p class="countdown-hint">START PHONE SCREEN RECORDER NOW</p>
-        </div>
-
-        <!-- Tap to Exit Clean Record Mode -->
-        <button id="exitRecordBtn" class="exit-record-btn hidden" title="Exit Clean Record Mode">✕</button>
-      </div>
-    </main>
-
-    <!-- Bottom Director Transport & Timeline -->
-    <footer class="studio-footer ui-chrome">
-      <div class="timeline-row">
-        <span id="timeCurrent" class="timecode">00:00.0</span>
-        <div id="timelineTrack" class="timeline-track">
-          <div id="timelineProgress" class="timeline-progress"></div>
-          <div id="beatMarkers" class="beat-markers"></div>
-        </div>
-        <span id="timeTotal" class="timecode">00:00.0</span>
+          <!-- Antique Clock Hands Spinning Backward Prop -->
+          <g id="rewindClock" transform="translate(270, 380)" opacity="0.85">
+            <circle cx="0" cy="0" r="78" fill="none" stroke="#f4c28a" stroke-width="3" stroke-dasharray="6 6"/>
+            <circle cx="0" cy="0" r="66" fill="rgba(13,11,18,0.6)" stroke="#f4c28a" stroke-width="2"/>
+            <line id="clockHour" x1="0" y1="0" x2="0" y2="-36" stroke="#f2ede2" stroke-width="4" stroke-linecap="round"/>
+            <line id="clockMin" x1="0" y1="0" x2="44" y2="0" stroke="#f4c28a" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="0" cy="0" r="5" fill="#f4c28a"/>
+          </g>
+        </svg>
       </div>
 
-      <div class="transport-row">
-        <div class="transport-left">
-          <button id="btnRestart" class="icon-btn" title="Restart Scene">↺</button>
-          <button id="btnPlayPause" class="primary-btn" title="Play / Pause">▶ PLAY</button>
-        </div>
+      <!-- =========================================================
+           SCENE 3 (0:16 - 0:28): First Sleep & Second Sleep by Candlelight
+           ========================================================= -->
+      <div class="scene" id="scene3">
+        <div class="location-pill">Midnight Pause · Candlelight Era</div>
+        <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="candleWarmth" cx="50%" cy="56%" r="52%">
+              <stop offset="0%" stop-color="#f6ad55" stop-opacity="0.65"/>
+              <stop offset="45%" stop-color="#9c4221" stop-opacity="0.32"/>
+              <stop offset="100%" stop-color="#120b09" stop-opacity="1"/>
+            </radialGradient>
+            <filter id="blurCandle"><feGaussianBlur stdDeviation="8"/></filter>
+          </defs>
 
-        <div class="transport-right">
-          <button id="btnSubtitles" class="toggle-btn active" title="Toggle Subtitles">CC</button>
-          <button id="btnSound" class="toggle-btn active" title="Toggle Synthesized Foley Audio">SFX</button>
-          <button id="btnLetterbox" class="toggle-btn active" title="Cinema Bars">2.39:1</button>
-          <button id="btnSafeZone" class="toggle-btn" title="Reels/Shorts Safe Zone">SAFE</button>
-          <button id="btnRecord" class="record-btn" title="Clean Screen Record Mode">● REC MODE</button>
-        </div>
+          <rect width="540" height="960" fill="#120b09"/>
+          <rect width="540" height="960" fill="url(#candleWarmth)" id="candlePulseBg"/>
+
+          <!-- Blurred Wooden Room Interior -->
+          <g filter="url(#blurCandle)" opacity="0.5">
+            <rect x="40" y="160" width="180" height="260" rx="6" fill="#2d1a12"/>
+            <rect x="330" y="210" width="150" height="190" rx="6" fill="#26150e"/>
+          </g>
+
+          <!-- Wooden Table -->
+          <rect x="70" y="640" width="400" height="22" rx="6" fill="#2b1810"/>
+          <rect x="110" y="662" width="24" height="220" fill="#1f110b"/>
+          <rect x="406" y="662" width="24" height="220" fill="#1f110b"/>
+
+          <!-- Flickering Candle Prop on Table -->
+          <g transform="translate(270, 585)">
+            <rect x="-12" y="15" width="24" height="40" rx="4" fill="#f2ede2"/>
+            <rect x="-20" y="50" width="40" height="8" rx="4" fill="#b7791f"/>
+            <ellipse id="candleFlame" cx="0" cy="0" rx="8" ry="15" fill="#fbd38d"/>
+            <ellipse cx="0" cy="3" rx="4" ry="8" fill="#ffffff"/>
+          </g>
+
+          <!-- Character 1 (Left, reading/talking peacefully) -->
+          <g id="s3CharL" transform="translate(165, 520)">
+            <circle cx="3" cy="-50" r="44" fill="#f4c28a" opacity="0.6"/>
+            <rect x="-26" y="-5" width="52" height="125" rx="20" fill="#744210"/>
+            <circle cx="0" cy="-50" r="44" fill="#0d0b12"/>
+            <!-- Calm Happy Face -->
+            <circle cx="14" cy="-54" r="4" fill="#f2ede2"/>
+            <circle cx="28" cy="-54" r="4" fill="#f2ede2"/>
+            <path d="M 15 -38 Q 22 -32 29 -38" fill="none" stroke="#f2ede2" stroke-width="3" stroke-linecap="round"/>
+          </g>
+
+          <!-- Character 2 (Right, Secondary Character with Bun) -->
+          <g id="s3CharR" transform="translate(375, 525)">
+            <circle cx="-3" cy="-48" r="42" fill="#f4c28a" opacity="0.6"/>
+            <circle cx="22" cy="-78" r="16" fill="#0d0b12"/>
+            <rect x="-25" y="-4" width="50" height="120" rx="20" fill="#9b2c2c"/>
+            <circle cx="0" cy="-48" r="42" fill="#0d0b12"/>
+            <!-- Calm Happy Face -->
+            <circle cx="-26" cy="-52" r="4" fill="#f2ede2"/>
+            <circle cx="-12" cy="-52" r="4" fill="#f2ede2"/>
+            <path d="M -26 -36 Q -19 -30 -12 -36" fill="none" stroke="#f2ede2" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </svg>
       </div>
-    </footer>
+
+      <!-- =========================================================
+           SCENE 4 (0:28 - 0:38): Close-up Glowing Brain Wiring
+           ========================================================= -->
+      <div class="scene" id="scene4">
+        <div class="location-pill">Biological Rhythm · Natural Pause</div>
+        <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="bgBrainMood" cx="50%" cy="45%" r="55%">
+              <stop offset="0%" stop-color="#281d45"/>
+              <stop offset="100%" stop-color="#090710"/>
+            </radialGradient>
+            <filter id="blurHeavy"><feGaussianBlur stdDeviation="16"/></filter>
+            <filter id="brainGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="8" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <rect width="540" height="960" fill="url(#bgBrainMood)"/>
+
+          <!-- Heavily Blurred Bokeh Background Blobs -->
+          <g filter="url(#blurHeavy)" opacity="0.55">
+            <circle cx="140" cy="280" r="90" fill="#553c9a"/>
+            <circle cx="420" cy="620" r="110" fill="#2b6cb0"/>
+            <circle cx="270" cy="450" r="130" fill="#805ad5"/>
+          </g>
+
+          <!-- Close-Up Head & Shoulders Silhouette -->
+          <g transform="translate(270, 520)">
+            <!-- Rim Light -->
+            <circle cx="0" cy="-72" r="128" fill="#f4c28a" opacity="0.4"/>
+            <!-- Shoulders -->
+            <path d="M -170 280 C -170 110, 170 110, 170 280 Z" fill="#1e2433"/>
+            <!-- Head -->
+            <circle cx="0" cy="-70" r="126" fill="#0d0b12"/>
+
+            <!-- Glowing Neural Brain Graphic Inside Head -->
+            <g id="glowingBrain" transform="translate(0, -85)" filter="url(#brainGlow)">
+              <path d="M -58 10 C -72 -25, -35 -62, 0 -55 C 35 -62, 72 -25, 58 10 C 65 38, 30 52, 0 42 C -30 52, -65 38, -58 10 Z"
+                    fill="rgba(125, 211, 252, 0.2)" stroke="#7dd3fc" stroke-width="3.5"/>
+              <!-- Neural Synapses & Pause Gap -->
+              <circle cx="-28" cy="-15" r="5" fill="#fbd38d"/>
+              <circle cx="28" cy="-15" r="5" fill="#fbd38d"/>
+              <circle cx="0" cy="15" r="6" fill="#7dd3fc"/>
+              <line x1="-28" y1="-15" x2="-8" y2="-15" stroke="#fbd38d" stroke-width="2.5"/>
+              <line x1="8" y1="-15" x2="28" y2="-15" stroke="#fbd38d" stroke-width="2.5"/>
+              <line x1="-28" y1="-15" x2="0" y2="15" stroke="#7dd3fc" stroke-width="2"/>
+              <line x1="28" y1="-15" x2="0" y2="15" stroke="#7dd3fc" stroke-width="2"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- =========================================================
+           SCENE 5 (0:38 - 0:48): Modern Dopamine Trap & Fade Out
+           ========================================================= -->
+      <div class="scene" id="scene5">
+        <div class="location-pill">Modern Trap · Dopamine Loop</div>
+        <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="trapGlow" cx="55%" cy="55%" r="50%">
+              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.65"/>
+              <stop offset="60%" stop-color="#1e3a8a" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#050508" stop-opacity="1"/>
+            </radialGradient>
+            <filter id="sparkGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <rect width="540" height="960" fill="#050508"/>
+          <rect width="540" height="960" fill="url(#trapGlow)"/>
+
+          <!-- Bed -->
+          <rect x="40" y="650" width="460" height="180" rx="14" fill="#0d101c"/>
+
+          <!-- Character Trapped in Screen Glow -->
+          <g id="s5Char" transform="translate(235, 515)">
+            <circle cx="4" cy="-55" r="46" fill="#38bdf8" opacity="0.6"/>
+            <rect x="-28" y="-8" width="56" height="92" rx="22" fill="#2c4c7c"/>
+            <rect x="10" y="68" width="75" height="22" rx="11" fill="#1c253b"/>
+            <rect x="72" y="68" width="22" height="75" rx="11" fill="#1c253b"/>
+            <circle cx="0" cy="-55" r="46" fill="#0d0b12"/>
+            <!-- Wide / Surprised / Hooked Eyes -->
+            <circle cx="14" cy="-60" r="6" fill="none" stroke="#f2ede2" stroke-width="2.5"/>
+            <circle cx="30" cy="-60" r="6" fill="none" stroke="#f2ede2" stroke-width="2.5"/>
+            <ellipse cx="22" cy="-41" rx="4" ry="5" fill="#f2ede2"/>
+            <!-- Arm + Phone -->
+            <rect x="8" y="10" width="52" height="16" rx="8" fill="#0d0b12" transform="rotate(-12 8 10)"/>
+            <rect x="56" y="-22" width="11" height="38" rx="4" fill="#38bdf8" filter="url(#sparkGlow)" transform="rotate(15 56 -22)"/>
+          </g>
+
+          <!-- Floating Dopamine Sparks Streaming from Phone to Eyes -->
+          <g id="dopamineSparks" filter="url(#sparkGlow)">
+            <circle class="spark" cx="290" cy="495" r="4" fill="#7dd3fc"/>
+            <circle class="spark" cx="292" cy="502" r="3" fill="#f4c28a"/>
+            <circle class="spark" cx="288" cy="490" r="4.5" fill="#38bdf8"/>
+            <circle class="spark" cx="295" cy="498" r="3.5" fill="#fbd38d"/>
+            <circle class="spark" cx="286" cy="505" r="3" fill="#7dd3fc"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Shared Cinematic Layers -->
+      <div class="fade-overlay" id="fadeOverlay"></div>
+      <div class="letterbox top"></div>
+      <div class="letterbox bottom"></div>
+      <div class="vignette"></div>
+      <div class="grain"></div>
+    </div>
   </div>
 
-  <script src="style-rig.js"></script>
-  <script src="scenes.js"></script>
-  <script src="engine.js"></script>
+  <div class="controls">
+    <button class="primary" id="playBtn">▶ Play / Replay (48s)</button>
+    <button id="ratioBtn">Aspect: 9:16 (Shorts)</button>
+    <button id="soundBtn">🔊 Sound: ON</button>
+  </div>
+
+  <script>
+    // =========================================================
+    // Web Audio API Synthesizer for Ambient & SFX
+    // =========================================================
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone(freq, type, duration, vol = 0.15, slideTo = null) {
+      if (!soundEnabled) return;
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      if (slideTo) {
+        osc.frequency.exponentialRampToValueAtTime(slideTo, audioCtx.currentTime + duration);
+      }
+      gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    function playVibrate() {
+      playTone(95, 'sawtooth', 0.18, 0.08, 85);
+      setTimeout(() => playTone(95, 'sawtooth', 0.18, 0.08, 85), 240);
+    }
+
+    function playBassDrop() {
+      playTone(110, 'sine', 1.4, 0.28, 36);
+    }
+
+    function playRewind() {
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => playTone(600 - i * 45, 'triangle', 0.08, 0.08), i * 110);
+      }
+    }
+
+    function playHeartbeat() {
+      playTone(65, 'sine', 0.25, 0.22, 42);
+      setTimeout(() => playTone(58, 'sine', 0.35, 0.18, 38), 280);
+    }
+
+    function playPing(pitch = 880) {
+      playTone(pitch, 'sine', 0.35, 0.1, pitch * 1.25);
+    }
+
+    // =========================================================
+    // Scene Switcher & GSAP Master Timeline (48s Total)
+    // =========================================================
+    const scenes = ['scene1', 'scene2', 'scene3', 'scene4', 'scene5'];
+    function showScene(id) {
+      scenes.forEach(s => {
+        const el = document.getElementById(s);
+        if (s === id) {
+          el.classList.add('active');
+          gsap.set(el, { opacity: 1 });
+        } else {
+          el.classList.remove('active');
+          gsap.set(el, { opacity: 0 });
+        }
+      });
+    }
+
+    let masterTl = null;
+
+    function buildTimeline() {
+      if (masterTl) masterTl.kill();
+
+      // Reset states
+      showScene('scene1');
+      gsap.set('#fadeOverlay', { opacity: 0 });
+      gsap.set('.spark', { x: 0, y: 0, opacity: 0 });
+
+      masterTl = gsap.timeline({ paused: true });
+
+      // --- SCENE 1 (0s - 7s): Hook ---
+      masterTl.call(() => {
+        showScene('scene1');
+        playVibrate();
+      }, null, 0);
+      masterTl.call(() => playBassDrop(), null, 2.2);
+      masterTl.to('#s1PhonePool', { scale: 1.08, transformOrigin: 'center', duration: 2, yoyo: true, repeat: 2, ease: 'sine.inOut' }, 0);
+      masterTl.to('#s1Char', { y: 518, duration: 1.8, yoyo: true, repeat: 2, ease: 'sine.inOut' }, 0);
+
+      // Transition 1 -> 2 (6.3s - 7.0s)
+      masterTl.to('#fadeOverlay', { opacity: 1, duration: 0.5 }, 6.3);
+      masterTl.call(() => {
+        showScene('scene2');
+        playRewind();
+      }, null, 6.8);
+      masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.5 }, 6.9);
+
+      // --- SCENE 2 (7s - 16s): 18th Century Time Shift ---
+      masterTl.to('#clockMin', { rotation: -720, svgOrigin: '0 0', duration: 4.5, ease: 'power2.inOut' }, 7.0);
+      masterTl.to('#clockHour', { rotation: -180, svgOrigin: '0 0', duration: 4.5, ease: 'power2.inOut' }, 7.0);
+
+      // Transition 2 -> 3 (15.3s - 16.0s)
+      masterTl.to('#fadeOverlay', { opacity: 1, duration: 0.5 }, 15.3);
+      masterTl.call(() => {
+        showScene('scene3');
+        playPing(520);
+      }, null, 15.8);
+      masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.5 }, 15.9);
+
+      // --- SCENE 3 (16s - 28s): Candlelight First & Second Sleep ---
+      masterTl.to('#candleFlame', { scaleY: 1.25, scaleX: 0.9, transformOrigin: 'bottom center', duration: 0.4, yoyo: true, repeat: 26, ease: 'sine.inOut' }, 16.0);
+      masterTl.to('#candlePulseBg', { opacity: 0.78, duration: 1.2, yoyo: true, repeat: 8, ease: 'sine.inOut' }, 16.0);
+      masterTl.to('#s3CharL', { rotation: 2, transformOrigin: 'bottom center', duration: 2, yoyo: true, repeat: 4, ease: 'sine.inOut' }, 16.5);
+      masterTl.to('#s3CharR', { rotation: -2, transformOrigin: 'bottom center', duration: 2.2, yoyo: true, repeat: 4, ease: 'sine.inOut' }, 17.0);
+
+      // Transition 3 -> 4 (27.3s - 28.0s)
+      masterTl.to('#fadeOverlay', { opacity: 1, duration: 0.5 }, 27.3);
+      masterTl.call(() => {
+        showScene('scene4');
+        playHeartbeat();
+      }, null, 27.8);
+      masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.5 }, 27.9);
+
+      // --- SCENE 4 (28s - 38s): Glowing Brain Close-up ---
+      masterTl.to('#glowingBrain', { scale: 1.12, transformOrigin: 'center', duration: 0.85, yoyo: true, repeat: 9, ease: 'sine.inOut' }, 28.0);
+      masterTl.call(() => playHeartbeat(), null, 31.5);
+      masterTl.call(() => playHeartbeat(), null, 35.0);
+
+      // Transition 4 -> 5 (37.3s - 38.0s)
+      masterTl.to('#fadeOverlay', { opacity: 1, duration: 0.5 }, 37.3);
+      masterTl.call(() => {
+        showScene('scene5');
+        playPing(880);
+      }, null, 37.8);
+      masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.5 }, 37.9);
+
+      // --- SCENE 5 (38s - 48s): Modern Dopamine Trap & Fade to Black ---
+      masterTl.to('.spark', {
+        x: -36,
+        y: -42,
+        opacity: 1,
+        duration: 1.1,
+        stagger: 0.25,
+        repeat: 6,
+        ease: 'power1.out'
+      }, 38.2);
+      masterTl.call(() => playPing(1046), null, 40.5);
+      masterTl.call(() => playPing(1174), null, 43.0);
+
+      // Final Fade to Black for Seamless Loop
+      masterTl.to('#fadeOverlay', { opacity: 1, duration: 1.2, ease: 'power2.in' }, 46.8);
+    }
+
+    // Controls
+    const playBtn = document.getElementById('playBtn');
+    const ratioBtn = document.getElementById('ratioBtn');
+    const soundBtn = document.getElementById('soundBtn');
+    const stageWrapper = document.getElementById('stageWrapper');
+
+    playBtn.addEventListener('click', () => {
+      initAudio();
+      buildTimeline();
+      masterTl.play(0);
+    });
+
+    ratioBtn.addEventListener('click', () => {
+      stageWrapper.classList.toggle('landscape');
+      const isLand = stageWrapper.classList.contains('landscape');
+      ratioBtn.textContent = isLand ? 'Aspect: 16:9 (YouTube)' : 'Aspect: 9:16 (Shorts)';
+    });
+
+    soundBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundBtn.textContent = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+    });
+
+    // Initialize on load
+    buildTimeline();
+  </script>
 </body>
 </html>
