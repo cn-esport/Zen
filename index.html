@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — The 2:00 AM Phone Scroll Trap (Fixed Alignment)</title>
+  <title>Zenspiris — Scene 1: The 2:00 AM Hook</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
@@ -28,41 +28,16 @@
       overflow: hidden;
     }
 
+    /* Native 9:16 Stage (Zero alignment cutoffs, 60fps smooth) */
     .stage-wrapper {
       position: relative;
       width: 100vw;
       max-width: 410px;
       aspect-ratio: 9 / 16;
-      background: #0d0b12;
+      background: #090c17;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
       transform: translateZ(0);
-    }
-
-    .stage-wrapper.landscape {
-      max-width: 880px;
-      aspect-ratio: 16 / 9;
-    }
-
-    .stage {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .scene {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-      opacity: 0;
-      will-change: opacity, transform;
-    }
-
-    .scene.active {
-      display: block;
-      opacity: 1;
     }
 
     svg.scene-svg {
@@ -77,11 +52,12 @@
       transform: translateZ(0);
     }
 
+    /* Cinematic Vignette & Letterbox */
     .vignette {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at center, transparent 42%, rgba(4, 3, 8, 0.88) 100%);
+      background: radial-gradient(circle at center, transparent 44%, rgba(4, 3, 8, 0.88) 100%);
       z-index: 10;
     }
 
@@ -97,9 +73,10 @@
     .letterbox.top { top: 0; }
     .letterbox.bottom { bottom: 0; }
 
+    /* Location Pill */
     .location-pill {
       position: absolute;
-      top: 8%;
+      top: 7.5%;
       left: 6%;
       background: rgba(13, 11, 18, 0.82);
       border: 1px solid rgba(242, 237, 226, 0.18);
@@ -114,8 +91,8 @@
 
     .controls {
       display: flex;
-      gap: 8px;
-      margin-top: 12px;
+      gap: 10px;
+      margin-top: 14px;
       z-index: 20;
     }
 
@@ -123,393 +100,132 @@
       background: #181622;
       color: #f2ede2;
       border: 1px solid rgba(242, 237, 226, 0.22);
-      padding: 8px 14px;
+      padding: 9px 18px;
       border-radius: 999px;
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
     }
 
     button:active { transform: scale(0.95); }
     button.primary { background: #2b6cb0; border-color: #63b3ed; }
-
-    .fade-overlay {
-      position: absolute;
-      inset: 0;
-      background: #000;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 15;
-      will-change: opacity;
-    }
   </style>
 </head>
 <body>
 
-  <div class="stage-wrapper" id="stageWrapper">
-    <div class="stage" id="stage">
+  <div class="stage-wrapper">
+    <div class="location-pill">2:00 AM · Modern Bedroom</div>
 
-      <!-- =========================================================
-           SCENE 1 (0:00 - 0:07): The 2:00 AM Bedroom Hook (Centered Safe Zone)
-           ========================================================= -->
-      <div class="scene active" id="scene1">
-        <div class="location-pill">2:00 AM · Modern Bedroom</div>
-        <svg class="scene-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <linearGradient id="bgNightRoom" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#090c17"/>
-              <stop offset="55%" stop-color="#151d36"/>
-              <stop offset="100%" stop-color="#080a10"/>
-            </linearGradient>
-            <radialGradient id="phoneGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#63b3ed" stop-opacity="0.65"/>
-              <stop offset="50%" stop-color="#2b6cb0" stop-opacity="0.2"/>
-              <stop offset="100%" stop-color="#0d0b12" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
+    <!-- Exact 9:16 ViewBox (540 x 960) so every single prop stays 100% visible -->
+    <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="bgNightRoom" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#080b14"/>
+          <stop offset="52%" stop-color="#141d36"/>
+          <stop offset="100%" stop-color="#070910"/>
+        </linearGradient>
+        <radialGradient id="phoneGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#63b3ed" stop-opacity="0.72"/>
+          <stop offset="48%" stop-color="#2b6cb0" stop-opacity="0.24"/>
+          <stop offset="100%" stop-color="#0d0b12" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="moonBeam" cx="30%" cy="28%" r="55%">
+          <stop offset="0%" stop-color="#93c5fd" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#090c17" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
 
-          <g id="s1Camera" class="gpu-layer">
-            <rect width="1000" height="1000" fill="url(#bgNightRoom)"/>
+      <!-- Camera Group for Smooth Push-In -->
+      <g id="s1Camera" class="gpu-layer">
+        <rect width="540" height="960" fill="url(#bgNightRoom)"/>
+        <rect width="540" height="960" fill="url(#moonBeam)"/>
 
-            <!-- Window (Positioned inside safe center zone x: 320-450) -->
-            <g opacity="0.34">
-              <rect x="315" y="190" width="130" height="200" rx="12" fill="#253866"/>
-              <line x1="380" y1="190" x2="380" y2="390" stroke="#0b0f1d" stroke-width="7"/>
-              <line x1="315" y1="290" x2="445" y2="290" stroke="#0b0f1d" stroke-width="7"/>
-              <circle cx="355" cy="235" r="18" fill="#bae6fd" opacity="0.6"/>
+        <!-- Bedroom Window (Left Upper Safe Zone: x 55 to 205) -->
+        <g opacity="0.38">
+          <rect x="55" y="175" width="145" height="225" rx="12" fill="#233561"/>
+          <line x1="127.5" y1="175" x2="127.5" y2="400" stroke="#0a0e1a" stroke-width="7"/>
+          <line x1="55" y1="287" x2="200" y2="287" stroke="#0a0e1a" stroke-width="7"/>
+          <!-- Moon & Stars outside window -->
+          <circle cx="95" cy="222" r="18" fill="#bae6fd" opacity="0.65"/>
+          <circle cx="165" cy="245" r="2.5" fill="#f2ede2" opacity="0.7"/>
+          <circle cx="155" cy="210" r="2" fill="#f2ede2" opacity="0.5"/>
+        </g>
+
+        <!-- Digital Wall Clock (Right Upper Safe Zone: x 320 to 475 - 100% Visible!) -->
+        <g id="s1Clock" class="gpu-layer" transform="translate(320, 215)">
+          <rect x="-5" y="-5" width="165" height="76" rx="15" fill="#38bdf8" opacity="0.22"/>
+          <rect x="0" y="0" width="155" height="66" rx="11" fill="#070a12" stroke="#38bdf8" stroke-width="2.5"/>
+          <text id="s1ClockText" x="77.5" y="43" text-anchor="middle" fill="#7dd3fc" font-family="monospace" font-size="29" font-weight="bold">01:59</text>
+        </g>
+
+        <!-- Floor & Bed (Mattress top at y = 645) -->
+        <rect x="0" y="825" width="540" height="135" fill="#05070d"/>
+        <rect x="45" y="645" width="450" height="180" rx="14" fill="#101526"/>
+        <rect x="45" y="645" width="450" height="28" rx="10" fill="#1b243d"/>
+        <!-- Headboard & Pillow -->
+        <rect x="35" y="540" width="36" height="285" rx="8" fill="#171d33"/>
+        <rect x="80" y="608" width="115" height="40" rx="18" fill="#253052"/>
+
+        <!-- Dynamic Phone Screen Light Pool -->
+        <circle cx="305" cy="545" r="235" fill="url(#phoneGlow)" id="s1PhonePool" class="gpu-layer"/>
+
+        <!-- Character Sitting Firmly on Bed (Torso & Thighs rest on mattress at y = 645) -->
+        <g id="s1Char" transform="translate(225, 565)">
+          <!-- Warm Rim Light -->
+          <circle cx="4" cy="-60" r="48" fill="#f4c28a" opacity="0.58"/>
+
+          <!-- Torso (Bottom at y = 80 -> 565 + 80 = 645) -->
+          <rect id="s1Torso" x="-27" y="-12" width="54" height="92" rx="21" fill="#3b78c4"/>
+
+          <!-- Thigh resting flat on mattress & Lower leg hanging off bed edge -->
+          <rect x="8" y="62" width="78" height="20" rx="10" fill="#e8dcc0"/>
+          <rect x="70" y="64" width="20" height="84" rx="10" fill="#e8dcc0"/>
+
+          <!-- Head Group -->
+          <g id="s1Head">
+            <circle cx="0" cy="-60" r="48" fill="#0d0b12"/>
+
+            <!-- Eyes -->
+            <g id="s1Eyes">
+              <circle class="eye-dot" cx="14" cy="-64" r="4.5" fill="#f2ede2"/>
+              <circle class="eye-dot" cx="31" cy="-64" r="4.5" fill="#f2ede2"/>
+              <!-- Surprised Rings -->
+              <circle class="eye-ring" cx="14" cy="-64" r="6.8" fill="none" stroke="#f2ede2" stroke-width="2.5" opacity="0"/>
+              <circle class="eye-ring" cx="31" cy="-64" r="6.8" fill="none" stroke="#f2ede2" stroke-width="2.5" opacity="0"/>
             </g>
 
-            <!-- Digital Clock (Positioned safely inside x: 525-665, y: 235) -->
-            <g id="s1Clock" class="gpu-layer" transform="translate(525, 235)">
-              <rect x="-4" y="-4" width="148" height="68" rx="14" fill="#38bdf8" opacity="0.2"/>
-              <rect x="0" y="0" width="140" height="60" rx="10" fill="#080b14" stroke="#38bdf8" stroke-width="2.5"/>
-              <text id="s1ClockText" x="70" y="39" text-anchor="middle" fill="#7dd3fc" font-family="monospace" font-size="26" font-weight="bold">01:59</text>
+            <!-- Eyebrows -->
+            <g id="s1Brows">
+              <rect id="s1BrowL" x="7" y="-76" width="14" height="4" rx="2" fill="#f2ede2"/>
+              <rect id="s1BrowR" x="24" y="-76" width="14" height="4" rx="2" fill="#f2ede2"/>
             </g>
 
-            <!-- Floor & Bed (Top surface of mattress exactly at y = 635) -->
-            <rect x="0" y="810" width="1000" height="190" fill="#06080f"/>
-            <!-- Bed Frame & Mattress -->
-            <rect x="310" y="635" width="380" height="175" rx="14" fill="#101424"/>
-            <rect x="310" y="635" width="380" height="28" rx="10" fill="#1b243d"/>
-            <!-- Headboard & Pillow -->
-            <rect x="300" y="535" width="34" height="275" rx="8" fill="#171d33"/>
-            <rect x="342" y="600" width="105" height="38" rx="18" fill="#253052"/>
+            <!-- Mouth -->
+            <line id="s1MouthFlat" x1="16" y1="-44" x2="29" y2="-44" stroke="#f2ede2" stroke-width="3.5" stroke-linecap="round"/>
+            <ellipse id="s1MouthOpen" cx="22.5" cy="-43" rx="4.5" ry="5.5" fill="#f2ede2" opacity="0"/>
+          </g>
 
-            <!-- Dynamic Phone Light Pool -->
-            <circle cx="535" cy="545" r="220" fill="url(#phoneGlow)" id="s1PhonePool" class="gpu-layer"/>
-
-            <!-- Character Grounded Firmly on Bed (Torso bottom & thighs rest at y = 635) -->
-            <g id="s1Char" transform="translate(465, 555)">
-              <!-- Rim Light -->
-              <circle cx="4" cy="-58" r="46" fill="#f4c28a" opacity="0.55"/>
-              <!-- Torso (y: -10 to 80 -> bottom touches mattress at y=635) -->
-              <rect id="s1Torso" x="-26" y="-10" width="52" height="90" rx="20" fill="#3b78c4"/>
-              <!-- Thigh resting flat on mattress (y: 62 to 82) & Lower leg hanging off bed edge (x: 68) -->
-              <rect x="8" y="62" width="76" height="20" rx="10" fill="#e8dcc0"/>
-              <rect x="68" y="64" width="20" height="82" rx="10" fill="#e8dcc0"/>
-
-              <!-- Head -->
-              <g id="s1Head">
-                <circle cx="0" cy="-58" r="46" fill="#0d0b12"/>
-                <g id="s1Eyes">
-                  <circle class="eye-dot" cx="14" cy="-62" r="4.5" fill="#f2ede2"/>
-                  <circle class="eye-dot" cx="30" cy="-62" r="4.5" fill="#f2ede2"/>
-                  <circle class="eye-ring" cx="14" cy="-62" r="6.5" fill="none" stroke="#f2ede2" stroke-width="2.5" opacity="0"/>
-                  <circle class="eye-ring" cx="30" cy="-62" r="6.5" fill="none" stroke="#f2ede2" stroke-width="2.5" opacity="0"/>
-                </g>
-                <g id="s1Brows">
-                  <rect id="s1BrowL" x="7" y="-74" width="14" height="4" rx="2" fill="#f2ede2"/>
-                  <rect id="s1BrowR" x="23" y="-74" width="14" height="4" rx="2" fill="#f2ede2"/>
-                </g>
-                <line id="s1MouthFlat" x1="16" y1="-42" x2="28" y2="-42" stroke="#f2ede2" stroke-width="3.5" stroke-linecap="round"/>
-                <ellipse id="s1MouthOpen" cx="22" cy="-41" rx="4.5" ry="5.5" fill="#f2ede2" opacity="0"/>
-              </g>
-
-              <!-- Scrolling Arm & Smartphone -->
-              <g id="s1Arm" class="gpu-layer" transform="translate(8, 12)">
-                <rect x="0" y="-6" width="52" height="15" rx="7.5" fill="#0d0b12" transform="rotate(-14)"/>
-                <g transform="translate(50, -32) rotate(16)">
-                  <rect x="-3" y="-3" width="17" height="44" rx="6" fill="#38bdf8" opacity="0.35"/>
-                  <rect x="0" y="0" width="11" height="38" rx="4" fill="#7dd3fc"/>
-                  <rect id="s1ScreenFeed" x="2" y="6" width="7" height="12" rx="2" fill="#ffffff" opacity="0.9"/>
-                </g>
-              </g>
+          <!-- Arm & Glowing Smartphone -->
+          <g id="s1Arm" class="gpu-layer" transform="translate(8, 12)">
+            <rect x="0" y="-6" width="54" height="16" rx="8" fill="#0d0b12" transform="rotate(-14)"/>
+            <g transform="translate(52, -34) rotate(16)">
+              <rect x="-3" y="-3" width="18" height="46" rx="6" fill="#38bdf8" opacity="0.38"/>
+              <rect x="0" y="0" width="12" height="40" rx="4" fill="#7dd3fc"/>
+              <!-- Animated Feed Bars on Phone -->
+              <rect id="s1ScreenFeed" x="2.5" y="6" width="7" height="13" rx="2" fill="#ffffff" opacity="0.92"/>
             </g>
           </g>
-        </svg>
-      </div>
+        </g>
+      </g>
+    </svg>
 
-      <!-- =========================================================
-           SCENE 2 (0:07 - 0:16): 1720s Village + Grounded Walk Cycle
-           ========================================================= -->
-      <div class="scene" id="scene2">
-        <div class="location-pill">1720s · Before Electric Lights</div>
-        <svg class="scene-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <linearGradient id="bg18thSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#080c1a"/>
-              <stop offset="55%" stop-color="#1b2647"/>
-              <stop offset="100%" stop-color="#273254"/>
-            </linearGradient>
-          </defs>
-
-          <rect width="1000" height="1000" fill="url(#bg18thSky)"/>
-
-          <!-- Crescent Moon & Stars inside Safe Center -->
-          <circle cx="625" cy="210" r="32" fill="#f4e8c1" opacity="0.9"/>
-          <circle cx="612" cy="200" r="28" fill="#0d1326"/>
-          <g id="s2Stars" fill="#f2ede2">
-            <circle class="star" cx="350" cy="185" r="2.5"/><circle class="star" cx="430" cy="155" r="2"/>
-            <circle class="star" cx="510" cy="220" r="3"/><circle class="star" cx="340" cy="300" r="2"/>
-            <circle class="star" cx="560" cy="145" r="2.5"/><circle class="star" cx="655" cy="295" r="2.5"/>
-          </g>
-
-          <!-- Parallax Hills & Cottages -->
-          <g id="s2ParallaxBg" class="gpu-layer" opacity="0.85">
-            <path d="M0 640 Q 450 560 1000 630 L 1000 1000 L 0 1000 Z" fill="#13192e"/>
-            <!-- Cottage 1 -->
-            <rect x="335" y="555" width="105" height="75" rx="4" fill="#0d1221"/>
-            <polygon points="325,555 387,505 450,555" fill="#090c17"/>
-            <rect x="375" y="585" width="22" height="24" rx="4" fill="#f4a261" opacity="0.78"/>
-            <!-- Cottage 2 -->
-            <rect x="575" y="565" width="95" height="68" rx="4" fill="#0d1221"/>
-            <polygon points="565,565 622,520 680,565" fill="#090c17"/>
-            <rect x="610" y="592" width="18" height="20" rx="4" fill="#f4a261" opacity="0.6"/>
-          </g>
-
-          <!-- Foreground Ground (Flat top surface at y = 735) -->
-          <rect x="0" y="735" width="1000" height="265" fill="#090b12"/>
-          <line x1="0" y1="735" x2="1000" y2="735" stroke="#1b243d" stroke-width="3"/>
-
-          <!-- Spinning Rewind Clock Centered at x = 500, y = 340 -->
-          <g id="rewindClock" transform="translate(500, 340)">
-            <circle cx="0" cy="0" r="72" fill="none" stroke="#f4c28a" stroke-width="3" stroke-dasharray="7 7"/>
-            <circle cx="0" cy="0" r="60" fill="rgba(13,11,18,0.68)" stroke="#f4c28a" stroke-width="2"/>
-            <line id="clockHour" class="gpu-layer" x1="0" y1="0" x2="0" y2="-32" stroke="#f2ede2" stroke-width="4" stroke-linecap="round"/>
-            <line id="clockMin" class="gpu-layer" x1="0" y1="0" x2="40" y2="0" stroke="#f4c28a" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="0" cy="0" r="5" fill="#f4c28a"/>
-          </g>
-
-          <!-- Walking Character (Feet touch ground at y = 735 -> 635 + 100 = 735) -->
-          <g id="s2Walker" class="gpu-layer" transform="translate(320, 635)">
-            <rect id="s2LegL" x="-7" y="42" width="14" height="58" rx="7" fill="#e8dcc0"/>
-            <rect id="s2LegR" x="-7" y="42" width="14" height="58" rx="7" fill="#d4c5a3"/>
-            <rect x="-20" y="-12" width="40" height="62" rx="16" fill="#d97706"/>
-            <circle cx="3" cy="-48" r="34" fill="#f4c28a" opacity="0.65"/>
-            <circle cx="0" cy="-48" r="34" fill="#0d0b12"/>
-            <circle cx="14" cy="-52" r="3.5" fill="#f2ede2"/>
-            <circle cx="25" cy="-52" r="3.5" fill="#f2ede2"/>
-            <path d="M 14 -38 Q 20 -33 25 -38" fill="none" stroke="#f2ede2" stroke-width="2.5" stroke-linecap="round"/>
-            <rect id="s2Arm" x="-6" y="-2" width="12" height="46" rx="6" fill="#0d0b12"/>
-          </g>
-        </svg>
-      </div>
-
-      <!-- =========================================================
-           SCENE 3 (0:16 - 0:28): Candlelight First & Second Sleep (Seated on Chairs)
-           ========================================================= -->
-      <div class="scene" id="scene3">
-        <div class="location-pill">Midnight Pause · First & Second Sleep</div>
-        <svg class="scene-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <radialGradient id="candleWarmth" cx="50%" cy="56%" r="52%">
-              <stop offset="0%" stop-color="#f6ad55" stop-opacity="0.72"/>
-              <stop offset="48%" stop-color="#9c4221" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="#120b09" stop-opacity="1"/>
-            </radialGradient>
-          </defs>
-
-          <rect width="1000" height="1000" fill="#120b09"/>
-          <rect width="1000" height="1000" fill="url(#candleWarmth)" id="candlePulseBg" class="gpu-layer"/>
-
-          <!-- Cabin Interior Panels -->
-          <g opacity="0.35">
-            <rect x="315" y="180" width="150" height="230" rx="12" fill="#2d1a12"/>
-            <rect x="535" y="210" width="140" height="180" rx="12" fill="#26150e"/>
-          </g>
-
-          <!-- Floating Warm Embers -->
-          <g id="s3Embers" fill="#fbd38d" opacity="0.85">
-            <circle class="ember gpu-layer" cx="485" cy="560" r="2.5"/>
-            <circle class="ember gpu-layer" cx="515" cy="550" r="2"/>
-            <circle class="ember gpu-layer" cx="498" cy="540" r="3"/>
-            <circle class="ember gpu-layer" cx="506" cy="565" r="2"/>
-          </g>
-
-          <!-- Room Floor (y = 820) -->
-          <rect x="0" y="820" width="1000" height="180" fill="#0a0605"/>
-
-          <!-- Wooden Stools/Chairs (Seat top at y = 665, legs reach floor y = 820) -->
-          <rect x="345" y="665" width="76" height="14" rx="5" fill="#24130c"/>
-          <rect x="355" y="679" width="12" height="141" fill="#1a0d08"/>
-          <rect x="398" y="679" width="12" height="141" fill="#1a0d08"/>
-
-          <rect x="578" y="665" width="76" height="14" rx="5" fill="#24130c"/>
-          <rect x="588" y="679" width="12" height="141" fill="#1a0d08"/>
-          <rect x="631" y="679" width="12" height="141" fill="#1a0d08"/>
-
-          <!-- Table (Top at y = 635, legs reach floor y = 820) -->
-          <rect x="325" y="635" width="350" height="20" rx="6" fill="#2b1810"/>
-          <rect x="425" y="655" width="22" height="165" fill="#1f110b"/>
-          <rect x="553" y="655" width="22" height="165" fill="#1f110b"/>
-
-          <!-- Candle & Open Book Resting on Table (y = 635) -->
-          <g transform="translate(500, 580)">
-            <path d="M -78 52 Q -56 42 -35 52 L -35 55 Q -56 47 -78 55 Z" fill="#f2ede2"/>
-            <path d="M -35 52 Q -14 42 8 52 L 8 55 Q -14 47 -35 55 Z" fill="#e8dcc0"/>
-            <rect x="18" y="15" width="20" height="36" rx="4" fill="#f2ede2"/>
-            <rect x="10" y="48" width="36" height="7" rx="3.5" fill="#b7791f"/>
-            <ellipse id="candleFlame" class="gpu-layer" cx="28" cy="0" rx="7.5" ry="14" fill="#fbd38d"/>
-            <ellipse cx="28" cy="3" rx="3.5" ry="7" fill="#ffffff"/>
-          </g>
-
-          <!-- Character 1 Seated on Left Stool (Bottom at y = 665) -->
-          <g id="s3CharL" class="gpu-layer" transform="translate(383, 550)">
-            <circle cx="3" cy="-48" r="42" fill="#f4c28a" opacity="0.65"/>
-            <rect x="-24" y="-5" width="48" height="120" rx="18" fill="#744210"/>
-            <circle cx="0" cy="-48" r="42" fill="#0d0b12"/>
-            <circle cx="13" cy="-52" r="4" fill="#f2ede2"/>
-            <circle cx="27" cy="-52" r="4" fill="#f2ede2"/>
-            <ellipse id="s3MouthL" cx="20" cy="-35" rx="5" ry="2.5" fill="#f2ede2"/>
-            <rect id="s3ArmL" x="10" y="25" width="42" height="13" rx="6.5" fill="#0d0b12" transform="rotate(-18 10 25)"/>
-          </g>
-
-          <!-- Character 2 Seated on Right Stool (Bottom at y = 665) -->
-          <g id="s3CharR" class="gpu-layer" transform="translate(616, 555)">
-            <circle cx="-3" cy="-46" r="40" fill="#f4c28a" opacity="0.65"/>
-            <circle cx="20" cy="-75" r="15" fill="#0d0b12"/>
-            <rect x="-23" y="-4" width="46" height="114" rx="18" fill="#9b2c2c"/>
-            <circle cx="0" cy="-46" r="40" fill="#0d0b12"/>
-            <circle cx="-25" cy="-50" r="4" fill="#f2ede2"/>
-            <circle cx="-11" cy="-50" r="4" fill="#f2ede2"/>
-            <path d="M -25 -34 Q -18 -27 -11 -34" fill="none" stroke="#f2ede2" stroke-width="3" stroke-linecap="round"/>
-          </g>
-        </svg>
-      </div>
-
-      <!-- =========================================================
-           SCENE 4 (0:28 - 0:38): Close-Up Brain Wiring (Centered Safe Zone)
-           ========================================================= -->
-      <div class="scene" id="scene4">
-        <div class="location-pill">Biological Rhythm · Midnight Pause</div>
-        <svg class="scene-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <radialGradient id="bgBrainMood" cx="50%" cy="45%" r="55%">
-              <stop offset="0%" stop-color="#2e2152"/>
-              <stop offset="100%" stop-color="#08060f"/>
-            </radialGradient>
-            <radialGradient id="bokehPurple" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#805ad5" stop-opacity="0.45"/>
-              <stop offset="100%" stop-color="#805ad5" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="bokehBlue" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#3182ce" stop-opacity="0.4"/>
-              <stop offset="100%" stop-color="#3182ce" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-
-          <g id="s4Camera" class="gpu-layer">
-            <rect width="1000" height="1000" fill="url(#bgBrainMood)"/>
-
-            <!-- Centered Bokeh -->
-            <g id="s4Bokeh" class="gpu-layer">
-              <circle cx="380" cy="280" r="150" fill="url(#bokehPurple)"/>
-              <circle cx="620" cy="640" r="170" fill="url(#bokehBlue)"/>
-              <circle cx="500" cy="460" r="210" fill="url(#bokehPurple)"/>
-            </g>
-
-            <!-- Close-Up Silhouette Centered at x = 500 -->
-            <g transform="translate(500, 560)">
-              <circle cx="0" cy="-72" r="126" fill="#f4c28a" opacity="0.45"/>
-              <path d="M -165 320 C -165 110, 165 110, 165 320 Z" fill="#1e2433"/>
-              <circle cx="0" cy="-70" r="124" fill="#0d0b12"/>
-
-              <!-- Glowing Brain -->
-              <g id="glowingBrain" class="gpu-layer" transform="translate(0, -85)">
-                <path d="M -60 12 C -75 -28, -36 -66, 0 -58 C 36 -66, 75 -28, 60 12 C 68 40, 30 56, 0 44 C -30 56, -68 40, -60 12 Z"
-                      fill="rgba(125, 211, 252, 0.25)" stroke="#7dd3fc" stroke-width="4"/>
-                <circle cx="-30" cy="-18" r="6" fill="#fbd38d"/>
-                <circle cx="30" cy="-18" r="6" fill="#fbd38d"/>
-                <circle cx="0" cy="18" r="7" fill="#7dd3fc"/>
-                <circle cx="0" cy="-34" r="5" fill="#f4c28a"/>
-
-                <line x1="-30" y1="-18" x2="0" y2="-34" stroke="#fbd38d" stroke-width="2.5"/>
-                <line x1="30" y1="-18" x2="0" y2="-34" stroke="#fbd38d" stroke-width="2.5"/>
-                <line x1="-30" y1="-18" x2="0" y2="18" stroke="#7dd3fc" stroke-width="2.5"/>
-                <line x1="30" y1="-18" x2="0" y2="18" stroke="#7dd3fc" stroke-width="2.5"/>
-
-                <circle id="pulseOrb1" cx="-30" cy="-18" r="5.5" fill="#ffffff"/>
-                <circle id="pulseOrb2" cx="30" cy="-18" r="5.5" fill="#ffffff"/>
-              </g>
-            </g>
-          </g>
-        </svg>
-      </div>
-
-      <!-- =========================================================
-           SCENE 5 (0:38 - 0:48): Modern Dopamine Trap (Grounded on Bed)
-           ========================================================= -->
-      <div class="scene" id="scene5">
-        <div class="location-pill">Modern Trap · Dopamine Loop</div>
-        <svg class="scene-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <radialGradient id="trapGlow" cx="52%" cy="55%" r="50%">
-              <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.72"/>
-              <stop offset="58%" stop-color="#1e3a8a" stop-opacity="0.22"/>
-              <stop offset="100%" stop-color="#050508" stop-opacity="1"/>
-            </radialGradient>
-          </defs>
-
-          <g id="s5Camera" class="gpu-layer">
-            <rect width="1000" height="1000" fill="#050508"/>
-            <rect width="1000" height="1000" fill="url(#trapGlow)"/>
-
-            <!-- Floor & Bed (Mattress top at y = 635) -->
-            <rect x="0" y="810" width="1000" height="190" fill="#030408"/>
-            <rect x="310" y="635" width="380" height="175" rx="14" fill="#0c0f1c"/>
-            <rect x="310" y="635" width="380" height="28" rx="10" fill="#141a2e"/>
-
-            <!-- Hooked Character Seated Firmly on Bed (y = 555) -->
-            <g id="s5Char" class="gpu-layer" transform="translate(465, 555)">
-              <circle cx="4" cy="-58" r="46" fill="#38bdf8" opacity="0.65"/>
-              <rect x="-26" y="-10" width="52" height="90" rx="20" fill="#3b78c4"/>
-              <rect x="8" y="62" width="76" height="20" rx="10" fill="#e8dcc0"/>
-              <rect x="68" y="64" width="20" height="82" rx="10" fill="#e8dcc0"/>
-              <circle cx="0" cy="-58" r="46" fill="#0d0b12"/>
-              <circle cx="14" cy="-62" r="6.5" fill="none" stroke="#f2ede2" stroke-width="2.5"/>
-              <circle cx="30" cy="-62" r="6.5" fill="none" stroke="#f2ede2" stroke-width="2.5"/>
-              <circle cx="14" cy="-62" r="2" fill="#7dd3fc"/>
-              <circle cx="30" cy="-62" r="2" fill="#7dd3fc"/>
-              <ellipse cx="22" cy="-41" rx="4.5" ry="5.5" fill="#f2ede2"/>
-              <rect x="8" y="10" width="52" height="15" rx="7.5" fill="#0d0b12" transform="rotate(-14 8 10)"/>
-              <rect x="53" y="-31" width="17" height="44" rx="6" fill="#38bdf8" opacity="0.35" transform="rotate(16 53 -31)"/>
-              <rect x="56" y="-28" width="11" height="38" rx="4" fill="#7dd3fc" transform="rotate(16 56 -28)"/>
-            </g>
-
-            <!-- Streaming Dopamine Particles from Phone (525, 535) to Eyes (485, 495) -->
-            <g id="dopamineSparks">
-              <circle class="spark gpu-layer" cx="525" cy="535" r="4.5" fill="#7dd3fc"/>
-              <circle class="spark gpu-layer" cx="528" cy="542" r="3.5" fill="#f4c28a"/>
-              <circle class="spark gpu-layer" cx="522" cy="528" r="5" fill="#38bdf8"/>
-              <circle class="spark gpu-layer" cx="530" cy="538" r="4" fill="#fbd38d"/>
-              <circle class="spark gpu-layer" cx="520" cy="546" r="3.5" fill="#7dd3fc"/>
-              <circle class="spark gpu-layer" cx="526" cy="532" r="4" fill="#ffffff"/>
-            </g>
-          </g>
-        </svg>
-      </div>
-
-      <!-- Shared Overlays -->
-      <div class="fade-overlay" id="fadeOverlay"></div>
-      <div class="letterbox top"></div>
-      <div class="letterbox bottom"></div>
-      <div class="vignette"></div>
-    </div>
+    <div class="letterbox top"></div>
+    <div class="letterbox bottom"></div>
+    <div class="vignette"></div>
   </div>
 
   <div class="controls">
-    <button class="primary" id="playBtn">▶ Play / Replay (48s)</button>
-    <button id="ratioBtn">Aspect: 9:16</button>
+    <button class="primary" id="playBtn">▶ Play Scene 1 (7.5s)</button>
     <button id="soundBtn">🔊 Sound: ON</button>
   </div>
 
@@ -543,169 +259,76 @@
       setTimeout(() => playTone(95, 'sawtooth', 0.16, 0.08, 82), 230);
     }
 
-    function playBassDrop() { playTone(115, 'sine', 1.4, 0.28, 35); }
-
-    function playRewind() {
-      for (let i = 0; i < 10; i++) {
-        setTimeout(() => playTone(680 - i * 45, 'triangle', 0.08, 0.07), i * 100);
-      }
+    function playBassDrop() {
+      playTone(115, 'sine', 1.4, 0.28, 35);
     }
 
-    function playHeartbeat() {
-      playTone(65, 'sine', 0.24, 0.22, 42);
-      setTimeout(() => playTone(58, 'sine', 0.32, 0.18, 36), 270);
-    }
+    let sceneTl = null;
 
-    function playPing(pitch = 880) { playTone(pitch, 'sine', 0.32, 0.09, pitch * 1.25); }
+    function playScene1() {
+      if (sceneTl) sceneTl.kill();
 
-    const scenes = ['scene1', 'scene2', 'scene3', 'scene4', 'scene5'];
-    function showScene(id) {
-      scenes.forEach(s => {
-        const el = document.getElementById(s);
-        if (s === id) {
-          el.classList.add('active');
-          gsap.set(el, { opacity: 1 });
-        } else {
-          el.classList.remove('active');
-          gsap.set(el, { opacity: 0 });
-        }
-      });
-    }
-
-    let masterTl = null;
-
-    function buildTimeline() {
-      if (masterTl) masterTl.kill();
-
-      showScene('scene1');
-      gsap.set('#fadeOverlay', { opacity: 0 });
+      // Reset initial states
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s4Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s5Camera', { scale: 1, x: 0, y: 0 });
+      gsap.set('#s1Clock', { scale: 1 });
       gsap.set('.eye-dot', { scaleY: 1, opacity: 1, transformOrigin: 'center' });
       gsap.set('.eye-ring', { opacity: 0 });
+      gsap.set('#s1BrowL', { y: 0, rotation: 0 });
+      gsap.set('#s1BrowR', { y: 0, rotation: 0 });
       gsap.set('#s1MouthFlat', { opacity: 1 });
       gsap.set('#s1MouthOpen', { opacity: 0 });
-      gsap.set('#s2Walker', { x: 320, y: 635 });
-      gsap.set('#s2ParallaxBg', { x: 0 });
-      gsap.set('.spark', { x: 0, y: 0, opacity: 0 });
       document.getElementById('s1ClockText').textContent = '01:59';
 
-      masterTl = gsap.timeline({ paused: true });
+      sceneTl = gsap.timeline();
 
-      // SCENE 1 (0s - 7s)
-      masterTl.call(() => { showScene('scene1'); playVibrate(); }, null, 0);
-      masterTl.to('#s1Arm', { rotation: -6, duration: 0.45, yoyo: true, repeat: 13, ease: 'sine.inOut' }, 0);
-      masterTl.to('#s1ScreenFeed', { y: 16, duration: 0.45, yoyo: true, repeat: 13, ease: 'power1.inOut' }, 0);
-      masterTl.to('#s1PhonePool', { scale: 1.12, transformOrigin: 'center', duration: 1.5, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 0);
-      masterTl.to('.eye-dot', { scaleY: 0.1, duration: 0.08, yoyo: true, repeat: 1 }, 1.4);
+      // 0.0s: Phone buzz & continuous thumb scrolling
+      sceneTl.call(() => playVibrate(), null, 0);
+      sceneTl.to('#s1Arm', { rotation: -6, duration: 0.42, yoyo: true, repeat: 15, ease: 'sine.inOut' }, 0);
+      sceneTl.to('#s1ScreenFeed', { y: 15, duration: 0.42, yoyo: true, repeat: 15, ease: 'power1.inOut' }, 0);
+      sceneTl.to('#s1PhonePool', { scale: 1.12, transformOrigin: 'center', duration: 1.4, yoyo: true, repeat: 4, ease: 'sine.inOut' }, 0);
 
-      masterTl.call(() => {
+      // 1.3s: Natural eye blink
+      sceneTl.to('.eye-dot', { scaleY: 0.1, duration: 0.08, yoyo: true, repeat: 1 }, 1.3);
+
+      // 2.2s: Clock hits 02:00 -> Character reacts with shock & Camera zooms in
+      sceneTl.call(() => {
         document.getElementById('s1ClockText').textContent = '02:00';
         playBassDrop();
       }, null, 2.2);
-      masterTl.to('#s1Clock', { scale: 1.12, duration: 0.25, yoyo: true, repeat: 1, transformOrigin: 'center' }, 2.2);
-      masterTl.to('.eye-dot', { opacity: 0, duration: 0.1 }, 2.3);
-      masterTl.to('.eye-ring', { opacity: 1, duration: 0.15 }, 2.3);
-      masterTl.to('#s1BrowL', { y: -5, rotation: -12, duration: 0.2 }, 2.3);
-      masterTl.to('#s1BrowR', { y: -5, rotation: 12, duration: 0.2 }, 2.3);
-      masterTl.to('#s1MouthFlat', { opacity: 0, duration: 0.1 }, 2.3);
-      masterTl.to('#s1MouthOpen', { opacity: 1, duration: 0.15 }, 2.3);
-      masterTl.to('#s1Camera', { scale: 1.18, x: -20, y: -45, transformOrigin: 'center', duration: 4.2, ease: 'power2.inOut' }, 2.3);
 
-      // Transition 1 -> 2
-      masterTl.to('#fadeOverlay', { opacity: 1, duration: 0.45 }, 6.4);
-      masterTl.call(() => { showScene('scene2'); playRewind(); }, null, 6.85);
-      masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.45 }, 6.95);
+      sceneTl.to('#s1Clock', { scale: 1.14, duration: 0.24, yoyo: true, repeat: 1, transformOrigin: 'center' }, 2.2);
+      sceneTl.to('.eye-dot', { opacity: 0, duration: 0.1 }, 2.3);
+      sceneTl.to('.eye-ring', { opacity: 1, duration: 0.15 }, 2.3);
+      sceneTl.to('#s1BrowL', { y: -5, rotation: -12, duration: 0.2 }, 2.3);
+      sceneTl.to('#s1BrowR', { y: -5, rotation: 12, duration: 0.2 }, 2.3);
+      sceneTl.to('#s1MouthFlat', { opacity: 0, duration: 0.1 }, 2.3);
+      sceneTl.to('#s1MouthOpen', { opacity: 1, duration: 0.15 }, 2.3);
 
-      // SCENE 2 (7s - 16s)
-      masterTl.to('#clockMin', { rotation: -1080, svgOrigin: '0 0', duration: 5.5, ease: 'power2.inOut' }, 7.0);
-      masterTl.to('#clockHour', { rotation: -270, svgOrigin: '0 0', duration: 5.5, ease: 'power2.inOut' }, 7.0);
-      masterTl.to('.star', { opacity: 0.2, duration: 0.7, stagger: 0.15, yoyo: true, repeat: 10 }, 7.0);
-      masterTl.to('#s2ParallaxBg', { x: -30, duration: 8.5, ease: 'none' }, 7.0);
-
-      masterTl.to('#s2Walker', { x: 560, duration: 7.5, ease: 'power1.out' }, 7.2);
-      masterTl.to('#s2Walker', { y: 631, duration: 0.28, yoyo: true, repeat: 24, ease: 'sine.inOut' }, 7.2);
-      masterTl.to('#s2LegL', { rotation: 24, svgOrigin: '0 42', duration: 0.28, yoyo: true, repeat: 24, ease: 'sine.inOut' }, 7.2);
-      masterTl.to('#s2LegR', { rotation: -24, svgOrigin: '0 42', duration: 0.28, yoyo: true, repeat: 24, ease: 'sine.inOut' }, 7.2);
-      masterTl.to('#s2Arm', { rotation: -20, svgOrigin: '0 0', duration: 0.28, yoyo: true, repeat: 24, ease: 'sine.inOut' }, 7.2);
-
-      // Transition 2 -> 3
-      masterTl.to('#fadeOverlay', { opacity: 1, duration: 0.45 }, 15.4);
-      masterTl.call(() => { showScene('scene3'); playPing(540); }, null, 15.85);
-      masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.45 }, 15.95);
-
-      // SCENE 3 (16s - 28s)
-      masterTl.to('#candleFlame', { scaleY: 1.28, scaleX: 0.88, transformOrigin: 'bottom center', duration: 0.35, yoyo: true, repeat: 30, ease: 'sine.inOut' }, 16.0);
-      masterTl.to('#candlePulseBg', { opacity: 0.78, duration: 1.1, yoyo: true, repeat: 9, ease: 'sine.inOut' }, 16.0);
-      masterTl.to('.ember', { y: -110, opacity: 0, duration: 2.6, stagger: 0.4, repeat: 3, ease: 'power1.out' }, 16.0);
-      masterTl.to('#s3MouthL', { scaleY: 2.2, transformOrigin: 'center', duration: 0.22, yoyo: true, repeat: 36, ease: 'steps(1)' }, 16.5);
-      masterTl.to('#s3ArmL', { rotation: -32, duration: 0.9, yoyo: true, repeat: 10, ease: 'sine.inOut' }, 16.5);
-      masterTl.to('#s3CharL', { rotation: 2.5, transformOrigin: 'bottom center', duration: 1.6, yoyo: true, repeat: 6, ease: 'sine.inOut' }, 16.5);
-      masterTl.to('#s3CharR', { rotation: -3, transformOrigin: 'bottom center', duration: 1.8, yoyo: true, repeat: 5, ease: 'sine.inOut' }, 17.2);
-
-      // Transition 3 -> 4
-      masterTl.to('#fadeOverlay', { opacity: 1, duration: 0.45 }, 27.4);
-      masterTl.call(() => { showScene('scene4'); playHeartbeat(); }, null, 27.85);
-      masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.45 }, 27.95);
-
-      // SCENE 4 (28s - 38s)
-      masterTl.to('#s4Camera', { scale: 1.18, y: 25, transformOrigin: 'center', duration: 9.2, ease: 'sine.inOut' }, 28.0);
-      masterTl.to('#s4Bokeh', { rotation: 12, transformOrigin: 'center', duration: 9.5, ease: 'none' }, 28.0);
-      masterTl.to('#glowingBrain', { scale: 1.1, transformOrigin: 'center', duration: 0.85, yoyo: true, repeat: 10, ease: 'sine.inOut' }, 28.0);
-      masterTl.to('#pulseOrb1', { attr: { cx: 0, cy: 18 }, duration: 0.9, repeat: 9, yoyo: true, ease: 'power1.inOut' }, 28.2);
-      masterTl.to('#pulseOrb2', { attr: { cx: 0, cy: -34 }, duration: 0.9, repeat: 9, yoyo: true, ease: 'power1.inOut' }, 28.5);
-      masterTl.call(() => playHeartbeat(), null, 31.2);
-      masterTl.call(() => playHeartbeat(), null, 34.8);
-
-      // Transition 4 -> 5
-      masterTl.to('#fadeOverlay', { opacity: 1, duration: 0.45 }, 37.4);
-      masterTl.call(() => { showScene('scene5'); playPing(880); }, null, 37.85);
-      masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.45 }, 37.95);
-
-      // SCENE 5 (38s - 48s)
-      masterTl.to('.spark', {
-        x: -38,
-        y: -42,
-        opacity: 1,
-        scale: 1.3,
-        duration: 0.85,
-        stagger: 0.18,
-        repeat: 9,
-        ease: 'power1.out'
-      }, 38.0);
-      masterTl.to('#s5Char', { x: 467, duration: 0.12, yoyo: true, repeat: 65 }, 38.0);
-      masterTl.to('#s5Camera', { scale: 0.94, transformOrigin: 'center', duration: 8.5, ease: 'power1.inOut' }, 38.5);
-      masterTl.call(() => playPing(1046), null, 40.5);
-      masterTl.call(() => playPing(1244), null, 43.2);
-
-      // Final Fade to Black
-      masterTl.to('#fadeOverlay', { opacity: 1, duration: 1.2, ease: 'power2.in' }, 46.8);
+      // Smooth Push-In Camera Zoom (2.4s to 7.5s)
+      sceneTl.to('#s1Camera', {
+        scale: 1.25,
+        x: -25,
+        y: -45,
+        transformOrigin: 'center',
+        duration: 5.0,
+        ease: 'power2.inOut'
+      }, 2.4);
     }
 
-    const playBtn = document.getElementById('playBtn');
-    const ratioBtn = document.getElementById('ratioBtn');
-    const soundBtn = document.getElementById('soundBtn');
-    const stageWrapper = document.getElementById('stageWrapper');
-
-    playBtn.addEventListener('click', () => {
+    document.getElementById('playBtn').addEventListener('click', () => {
       initAudio();
-      buildTimeline();
-      masterTl.play(0);
+      playScene1();
     });
 
-    ratioBtn.addEventListener('click', () => {
-      stageWrapper.classList.toggle('landscape');
-      const isLand = stageWrapper.classList.contains('landscape');
-      ratioBtn.textContent = isLand ? 'Aspect: 16:9' : 'Aspect: 9:16';
-    });
-
-    soundBtn.addEventListener('click', () => {
+    document.getElementById('soundBtn').addEventListener('click', () => {
       soundEnabled = !soundEnabled;
-      soundBtn.textContent = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+      document.getElementById('soundBtn').textContent = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: OFF';
     });
 
-    buildTimeline();
+    // Auto-start preview on load
+    window.addEventListener('load', () => {
+      setTimeout(playScene1, 300);
+    });
   </script>
 </body>
 </html>
