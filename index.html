@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — The 2:00 AM Phone Scroll Trap (Dynamic v2)</title>
+  <title>Zenspiris — The 2:00 AM Phone Scroll Trap (60fps Smooth)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
@@ -35,8 +35,8 @@
       aspect-ratio: 9 / 16;
       background: #0d0b12;
       overflow: hidden;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
-      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95);
+      transform: translateZ(0);
     }
 
     .stage-wrapper.landscape {
@@ -55,37 +55,36 @@
       inset: 0;
       width: 100%;
       height: 100%;
+      display: none;
       opacity: 0;
-      visibility: hidden;
+      will-change: opacity, transform;
     }
 
     .scene.active {
+      display: block;
       opacity: 1;
-      visibility: visible;
     }
 
     svg.scene-svg {
       width: 100%;
       height: 100%;
       display: block;
+      shape-rendering: geometricPrecision;
     }
 
-    /* Cinematic Overlays */
+    /* Hardware-accelerated GPU layers */
+    .gpu-layer {
+      will-change: transform, opacity;
+      transform: translateZ(0);
+    }
+
+    /* Lightweight CSS Vignette (Zero GPU lag) */
     .vignette {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at center, transparent 40%, rgba(4, 3, 8, 0.88) 100%);
+      background: radial-gradient(circle at center, transparent 42%, rgba(4, 3, 8, 0.88) 100%);
       z-index: 10;
-    }
-
-    .grain {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.05;
-      z-index: 11;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
     .letterbox {
@@ -104,7 +103,7 @@
       position: absolute;
       top: 8%;
       left: 6%;
-      background: rgba(13, 11, 18, 0.78);
+      background: rgba(13, 11, 18, 0.82);
       border: 1px solid rgba(242, 237, 226, 0.18);
       color: #f2ede2;
       padding: 6px 14px;
@@ -113,7 +112,6 @@
       font-weight: 600;
       letter-spacing: 0.4px;
       z-index: 13;
-      backdrop-filter: blur(6px);
     }
 
     .controls {
@@ -132,10 +130,8 @@
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
     }
 
-    button:hover { background: #262336; }
     button:active { transform: scale(0.95); }
     button.primary { background: #2b6cb0; border-color: #63b3ed; }
 
@@ -146,6 +142,7 @@
       opacity: 0;
       pointer-events: none;
       z-index: 15;
+      will-change: opacity;
     }
   </style>
 </head>
@@ -155,7 +152,7 @@
     <div class="stage" id="stage">
 
       <!-- =========================================================
-           SCENE 1 (0:00 - 0:07): The 2:00 AM Bedroom Hook + Camera Push
+           SCENE 1 (0:00 - 0:07): The 2:00 AM Bedroom Hook
            ========================================================= -->
       <div class="scene active" id="scene1">
         <div class="location-pill">2:00 AM · Modern Bedroom</div>
@@ -167,31 +164,26 @@
               <stop offset="100%" stop-color="#080a10"/>
             </linearGradient>
             <radialGradient id="phoneGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#63b3ed" stop-opacity="0.7"/>
-              <stop offset="50%" stop-color="#2b6cb0" stop-opacity="0.22"/>
+              <stop offset="0%" stop-color="#63b3ed" stop-opacity="0.65"/>
+              <stop offset="50%" stop-color="#2b6cb0" stop-opacity="0.2"/>
               <stop offset="100%" stop-color="#0d0b12" stop-opacity="0"/>
             </radialGradient>
-            <filter id="blurSoft"><feGaussianBlur stdDeviation="5"/></filter>
-            <filter id="neonBlue" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="4" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
           </defs>
 
-          <!-- Camera Group for Smooth Zoom -->
-          <g id="s1Camera">
+          <g id="s1Camera" class="gpu-layer">
             <rect width="540" height="960" fill="url(#bgNightRoom)"/>
 
-            <!-- Blurred Window + Drifting Moonlight -->
-            <g filter="url(#blurSoft)" opacity="0.5">
-              <rect x="55" y="170" width="150" height="230" rx="8" fill="#1e2d52"/>
-              <line x1="130" y1="170" x2="130" y2="400" stroke="#090c17" stroke-width="6"/>
-              <line x1="55" y1="285" x2="205" y2="285" stroke="#090c17" stroke-width="6"/>
-              <circle cx="105" cy="220" r="20" fill="#bae6fd" opacity="0.6"/>
+            <!-- Soft Window (Lightweight opacity layers instead of heavy blur) -->
+            <g opacity="0.32">
+              <rect x="55" y="170" width="150" height="230" rx="12" fill="#253866"/>
+              <line x1="130" y1="170" x2="130" y2="400" stroke="#0b0f1d" stroke-width="8"/>
+              <line x1="55" y1="285" x2="205" y2="285" stroke="#0b0f1d" stroke-width="8"/>
+              <circle cx="105" cy="220" r="22" fill="#bae6fd" opacity="0.55"/>
             </g>
 
             <!-- Digital Clock Flipping 01:59 -> 02:00 -->
-            <g id="s1Clock" transform="translate(335, 225)" filter="url(#neonBlue)">
+            <g id="s1Clock" class="gpu-layer" transform="translate(335, 225)">
+              <rect x="-4" y="-4" width="150" height="70" rx="14" fill="#38bdf8" opacity="0.18"/>
               <rect x="0" y="0" width="142" height="62" rx="10" fill="#080b14" stroke="#38bdf8" stroke-width="2.5"/>
               <text id="s1ClockText" x="71" y="40" text-anchor="middle" fill="#7dd3fc" font-family="monospace" font-size="27" font-weight="bold">01:59</text>
             </g>
@@ -202,46 +194,38 @@
             <rect x="70" y="618" width="115" height="42" rx="20" fill="#212b4a"/>
 
             <!-- Dynamic Phone Light Pool -->
-            <circle cx="295" cy="525" r="250" fill="url(#phoneGlow)" id="s1PhonePool"/>
+            <circle cx="295" cy="525" r="245" fill="url(#phoneGlow)" id="s1PhonePool" class="gpu-layer"/>
 
             <!-- Character Sitting & Scrolling -->
             <g id="s1Char" transform="translate(225, 520)">
-              <!-- Warm Rim Light -->
               <circle cx="4" cy="-58" r="48" fill="#f4c28a" opacity="0.55"/>
-              <!-- Torso -->
-              <rect id="s1Torso" x="-28" y="-10" width="56" height="94" rx="22" fill="#3b78c4"/>
-              <!-- Legs -->
+              <rect x="-28" y="-10" width="56" height="94" rx="22" fill="#3b78c4"/>
               <rect x="12" y="68" width="76" height="22" rx="11" fill="#e8dcc0"/>
               <rect x="74" y="68" width="22" height="78" rx="11" fill="#e8dcc0"/>
 
-              <!-- Head Group -->
               <g id="s1Head">
                 <circle cx="0" cy="-58" r="48" fill="#0d0b12"/>
-                <!-- Eyes (Blinking & Shifting) -->
                 <g id="s1Eyes">
                   <circle class="eye-dot" cx="14" cy="-62" r="4.5" fill="#f2ede2"/>
                   <circle class="eye-dot" cx="31" cy="-62" r="4.5" fill="#f2ede2"/>
-                  <!-- Surprised Rings (Hidden initially) -->
                   <circle class="eye-ring" cx="14" cy="-62" r="6.5" fill="none" stroke="#f2ede2" stroke-width="2.5" opacity="0"/>
                   <circle class="eye-ring" cx="31" cy="-62" r="6.5" fill="none" stroke="#f2ede2" stroke-width="2.5" opacity="0"/>
                 </g>
-                <!-- Eyebrows -->
                 <g id="s1Brows">
                   <rect id="s1BrowL" x="7" y="-74" width="14" height="4" rx="2" fill="#f2ede2"/>
                   <rect id="s1BrowR" x="24" y="-74" width="14" height="4" rx="2" fill="#f2ede2"/>
                 </g>
-                <!-- Mouth -->
                 <line id="s1MouthFlat" x1="16" y1="-42" x2="29" y2="-42" stroke="#f2ede2" stroke-width="3.5" stroke-linecap="round"/>
                 <ellipse id="s1MouthOpen" cx="22.5" cy="-41" rx="4.5" ry="5.5" fill="#f2ede2" opacity="0"/>
               </g>
 
-              <!-- Scrolling Arm & Glowing Smartphone -->
-              <g id="s1Arm" transform="translate(8, 12)">
+              <!-- Scrolling Arm & Smartphone -->
+              <g id="s1Arm" class="gpu-layer" transform="translate(8, 12)">
                 <rect x="0" y="-6" width="54" height="16" rx="8" fill="#0d0b12" transform="rotate(-14)"/>
                 <g transform="translate(52, -32) rotate(16)">
-                  <rect x="0" y="0" width="11" height="40" rx="4" fill="#7dd3fc" filter="url(#neonBlue)"/>
-                  <!-- Scrolling Screen Bars -->
-                  <rect id="s1ScreenFeed" x="2" y="6" width="7" height="12" rx="2" fill="#ffffff" opacity="0.85"/>
+                  <rect x="-3" y="-3" width="17" height="46" rx="6" fill="#38bdf8" opacity="0.35"/>
+                  <rect x="0" y="0" width="11" height="40" rx="4" fill="#7dd3fc"/>
+                  <rect id="s1ScreenFeed" x="2" y="6" width="7" height="12" rx="2" fill="#ffffff" opacity="0.9"/>
                 </g>
               </g>
             </g>
@@ -250,7 +234,7 @@
       </div>
 
       <!-- =========================================================
-           SCENE 2 (0:07 - 0:16): 1720s Village + Walk Cycle + Clock Rewind
+           SCENE 2 (0:07 - 0:16): 1720s Village + Smooth Walk Cycle
            ========================================================= -->
       <div class="scene" id="scene2">
         <div class="location-pill">1720s · Before Electric Lights</div>
@@ -261,12 +245,11 @@
               <stop offset="55%" stop-color="#1b2647"/>
               <stop offset="100%" stop-color="#273254"/>
             </linearGradient>
-            <filter id="blurMed"><feGaussianBlur stdDeviation="3.5"/></filter>
           </defs>
 
           <rect width="540" height="960" fill="url(#bg18thSky)"/>
 
-          <!-- Twinkling Stars & Crescent Moon -->
+          <!-- Stars & Moon -->
           <circle cx="425" cy="195" r="34" fill="#f4e8c1" opacity="0.9"/>
           <circle cx="411" cy="185" r="30" fill="#0d1326"/>
           <g id="s2Stars" fill="#f2ede2">
@@ -275,16 +258,16 @@
             <circle class="star" cx="325" cy="135" r="2.5"/><circle class="star" cx="475" cy="295" r="2.5"/>
           </g>
 
-          <!-- Parallax Hills & Cottages -->
-          <g id="s2ParallaxBg" filter="url(#blurMed)">
-            <path d="M-40 620 Q 160 535 350 610 T 600 585 L 600 960 L -40 960 Z" fill="#12182b"/>
-            <rect x="75" y="540" width="115" height="80" fill="#0c101c"/>
-            <polygon points="65,540 132,488 200,540" fill="#080a12"/>
-            <rect x="118" y="572" width="24" height="26" rx="3" fill="#f4a261" opacity="0.75"/>
+          <!-- Soft Midground Hills & Cottages (No heavy SVG blur) -->
+          <g id="s2ParallaxBg" class="gpu-layer" opacity="0.82">
+            <path d="M-40 620 Q 160 535 350 610 T 600 585 L 600 960 L -40 960 Z" fill="#13192e"/>
+            <rect x="75" y="540" width="115" height="80" rx="4" fill="#0d1221"/>
+            <polygon points="65,540 132,488 200,540" fill="#090c17"/>
+            <rect x="118" y="572" width="24" height="26" rx="4" fill="#f4a261" opacity="0.75"/>
 
-            <rect x="345" y="555" width="100" height="70" fill="#0c101c"/>
-            <polygon points="335,555 395,510 455,555" fill="#080a12"/>
-            <rect x="382" y="582" width="20" height="22" rx="3" fill="#f4a261" opacity="0.55"/>
+            <rect x="345" y="555" width="100" height="70" rx="4" fill="#0d1221"/>
+            <polygon points="335,555 395,510 455,555" fill="#090c17"/>
+            <rect x="382" y="582" width="20" height="22" rx="4" fill="#f4a261" opacity="0.55"/>
           </g>
 
           <!-- Foreground Path -->
@@ -294,33 +277,28 @@
           <g id="rewindClock" transform="translate(270, 320)">
             <circle cx="0" cy="0" r="76" fill="none" stroke="#f4c28a" stroke-width="3" stroke-dasharray="7 7"/>
             <circle cx="0" cy="0" r="64" fill="rgba(13,11,18,0.65)" stroke="#f4c28a" stroke-width="2"/>
-            <line id="clockHour" x1="0" y1="0" x2="0" y2="-34" stroke="#f2ede2" stroke-width="4" stroke-linecap="round"/>
-            <line id="clockMin" x1="0" y1="0" x2="42" y2="0" stroke="#f4c28a" stroke-width="3" stroke-linecap="round"/>
+            <line id="clockHour" class="gpu-layer" x1="0" y1="0" x2="0" y2="-34" stroke="#f2ede2" stroke-width="4" stroke-linecap="round"/>
+            <line id="clockMin" class="gpu-layer" x1="0" y1="0" x2="42" y2="0" stroke="#f4c28a" stroke-width="3" stroke-linecap="round"/>
             <circle cx="0" cy="0" r="5" fill="#f4c28a"/>
           </g>
 
-          <!-- Walking Character (Side-View Walk Cycle) -->
-          <g id="s2Walker" transform="translate(-60, 625)">
-            <!-- Legs -->
+          <!-- Walking Character -->
+          <g id="s2Walker" class="gpu-layer" transform="translate(-60, 625)">
             <rect id="s2LegL" x="-7" y="45" width="14" height="58" rx="7" fill="#e8dcc0"/>
             <rect id="s2LegR" x="-7" y="45" width="14" height="58" rx="7" fill="#d4c5a3"/>
-            <!-- Torso -->
             <rect x="-20" y="-12" width="40" height="65" rx="16" fill="#d97706"/>
-            <!-- Rim Light & Head -->
             <circle cx="3" cy="-48" r="34" fill="#f4c28a" opacity="0.65"/>
             <circle cx="0" cy="-48" r="34" fill="#0d0b12"/>
-            <!-- Side Profile Eyes & Smile -->
             <circle cx="14" cy="-52" r="3.5" fill="#f2ede2"/>
             <circle cx="25" cy="-52" r="3.5" fill="#f2ede2"/>
             <path d="M 14 -38 Q 20 -33 25 -38" fill="none" stroke="#f2ede2" stroke-width="2.5" stroke-linecap="round"/>
-            <!-- Swinging Arm -->
             <rect id="s2Arm" x="-6" y="-2" width="12" height="48" rx="6" fill="#0d0b12"/>
           </g>
         </svg>
       </div>
 
       <!-- =========================================================
-           SCENE 3 (0:16 - 0:28): Candlelight First & Second Sleep + Talking
+           SCENE 3 (0:16 - 0:28): Candlelight First & Second Sleep
            ========================================================= -->
       <div class="scene" id="scene3">
         <div class="location-pill">Midnight Pause · First & Second Sleep</div>
@@ -331,24 +309,23 @@
               <stop offset="48%" stop-color="#9c4221" stop-opacity="0.35"/>
               <stop offset="100%" stop-color="#120b09" stop-opacity="1"/>
             </radialGradient>
-            <filter id="blurCandle"><feGaussianBlur stdDeviation="8"/></filter>
           </defs>
 
           <rect width="540" height="960" fill="#120b09"/>
-          <rect width="540" height="960" fill="url(#candleWarmth)" id="candlePulseBg"/>
+          <rect width="540" height="960" fill="url(#candleWarmth)" id="candlePulseBg" class="gpu-layer"/>
 
-          <!-- Blurred Cabin Interior -->
-          <g filter="url(#blurCandle)" opacity="0.55">
-            <rect x="40" y="160" width="180" height="260" rx="6" fill="#2d1a12"/>
-            <rect x="330" y="210" width="150" height="190" rx="6" fill="#26150e"/>
+          <!-- Soft Cabin Panels -->
+          <g opacity="0.35">
+            <rect x="40" y="160" width="180" height="260" rx="12" fill="#2d1a12"/>
+            <rect x="330" y="210" width="150" height="190" rx="12" fill="#26150e"/>
           </g>
 
           <!-- Floating Warm Embers -->
-          <g id="s3Embers" fill="#fbd38d" opacity="0.75">
-            <circle class="ember" cx="255" cy="560" r="2.5"/>
-            <circle class="ember" cx="285" cy="550" r="2"/>
-            <circle class="ember" cx="268" cy="540" r="3"/>
-            <circle class="ember" cx="276" cy="565" r="2"/>
+          <g id="s3Embers" fill="#fbd38d" opacity="0.8">
+            <circle class="ember gpu-layer" cx="255" cy="560" r="2.5"/>
+            <circle class="ember gpu-layer" cx="285" cy="550" r="2"/>
+            <circle class="ember gpu-layer" cx="268" cy="540" r="3"/>
+            <circle class="ember gpu-layer" cx="276" cy="565" r="2"/>
           </g>
 
           <!-- Table -->
@@ -356,32 +333,29 @@
           <rect x="105" y="662" width="24" height="220" fill="#1f110b"/>
           <rect x="411" y="662" width="24" height="220" fill="#1f110b"/>
 
-          <!-- Candle & Open Book Prop -->
+          <!-- Candle & Open Book -->
           <g transform="translate(270, 585)">
-            <!-- Open Book -->
             <path d="M -85 52 Q -62 42 -40 52 L -40 56 Q -62 48 -85 56 Z" fill="#f2ede2"/>
             <path d="M -40 52 Q -18 42 5 52 L 5 56 Q -18 48 -40 56 Z" fill="#e8dcc0"/>
-            <!-- Candle -->
             <rect x="18" y="15" width="22" height="40" rx="4" fill="#f2ede2"/>
             <rect x="10" y="50" width="38" height="8" rx="4" fill="#b7791f"/>
-            <ellipse id="candleFlame" cx="29" cy="0" rx="8" ry="15" fill="#fbd38d"/>
+            <ellipse id="candleFlame" class="gpu-layer" cx="29" cy="0" rx="8" ry="15" fill="#fbd38d"/>
             <ellipse cx="29" cy="3" rx="4" ry="8" fill="#ffffff"/>
           </g>
 
-          <!-- Character 1 (Left, Talking & Nodding) -->
-          <g id="s3CharL" transform="translate(155, 520)">
+          <!-- Character 1 -->
+          <g id="s3CharL" class="gpu-layer" transform="translate(155, 520)">
             <circle cx="3" cy="-50" r="44" fill="#f4c28a" opacity="0.65"/>
             <rect x="-26" y="-5" width="52" height="125" rx="20" fill="#744210"/>
             <circle cx="0" cy="-50" r="44" fill="#0d0b12"/>
             <circle cx="14" cy="-54" r="4" fill="#f2ede2"/>
             <circle cx="28" cy="-54" r="4" fill="#f2ede2"/>
             <ellipse id="s3MouthL" cx="21" cy="-37" rx="5" ry="2.5" fill="#f2ede2"/>
-            <!-- Gesture Arm -->
             <rect id="s3ArmL" x="10" y="25" width="44" height="14" rx="7" fill="#0d0b12" transform="rotate(-18 10 25)"/>
           </g>
 
-          <!-- Character 2 (Right, Listening & Smiling) -->
-          <g id="s3CharR" transform="translate(385, 525)">
+          <!-- Character 2 -->
+          <g id="s3CharR" class="gpu-layer" transform="translate(385, 525)">
             <circle cx="-3" cy="-48" r="42" fill="#f4c28a" opacity="0.65"/>
             <circle cx="22" cy="-78" r="16" fill="#0d0b12"/>
             <rect x="-25" y="-4" width="50" height="120" rx="20" fill="#9b2c2c"/>
@@ -394,7 +368,7 @@
       </div>
 
       <!-- =========================================================
-           SCENE 4 (0:28 - 0:38): Close-Up Brain Wiring + Neural Pulses
+           SCENE 4 (0:28 - 0:38): Close-Up Brain Wiring (Lag-Free Glow)
            ========================================================= -->
       <div class="scene" id="scene4">
         <div class="location-pill">Biological Rhythm · Midnight Pause</div>
@@ -404,21 +378,24 @@
               <stop offset="0%" stop-color="#2e2152"/>
               <stop offset="100%" stop-color="#08060f"/>
             </radialGradient>
-            <filter id="blurHeavy"><feGaussianBlur stdDeviation="16"/></filter>
-            <filter id="brainGlow" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="8" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
+            <radialGradient id="bokehPurple" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#805ad5" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#805ad5" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="bokehBlue" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#3182ce" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#3182ce" stop-opacity="0"/>
+            </radialGradient>
           </defs>
 
-          <g id="s4Camera">
+          <g id="s4Camera" class="gpu-layer">
             <rect width="540" height="960" fill="url(#bgBrainMood)"/>
 
-            <!-- Heavy Bokeh Background -->
-            <g id="s4Bokeh" filter="url(#blurHeavy)" opacity="0.6">
-              <circle cx="130" cy="260" r="95" fill="#553c9a"/>
-              <circle cx="430" cy="640" r="115" fill="#2b6cb0"/>
-              <circle cx="270" cy="440" r="140" fill="#805ad5"/>
+            <!-- Lightweight Radial Gradient Bokeh (Zero Blur Lag!) -->
+            <g id="s4Bokeh" class="gpu-layer">
+              <circle cx="130" cy="260" r="150" fill="url(#bokehPurple)"/>
+              <circle cx="430" cy="640" r="170" fill="url(#bokehBlue)"/>
+              <circle cx="270" cy="440" r="200" fill="url(#bokehPurple)"/>
             </g>
 
             <!-- Close-Up Silhouette -->
@@ -428,24 +405,21 @@
               <circle cx="0" cy="-70" r="128" fill="#0d0b12"/>
 
               <!-- Glowing Brain & Traveling Synapse Pulses -->
-              <g id="glowingBrain" transform="translate(0, -85)" filter="url(#brainGlow)">
+              <g id="glowingBrain" class="gpu-layer" transform="translate(0, -85)">
                 <path d="M -62 12 C -78 -28, -38 -68, 0 -60 C 38 -68, 78 -28, 62 12 C 70 42, 32 58, 0 46 C -32 58, -70 42, -62 12 Z"
-                      fill="rgba(125, 211, 252, 0.22)" stroke="#7dd3fc" stroke-width="3.5"/>
-                <!-- Neural Nodes -->
+                      fill="rgba(125, 211, 252, 0.25)" stroke="#7dd3fc" stroke-width="4"/>
                 <circle cx="-32" cy="-18" r="6" fill="#fbd38d"/>
                 <circle cx="32" cy="-18" r="6" fill="#fbd38d"/>
                 <circle cx="0" cy="18" r="7" fill="#7dd3fc"/>
                 <circle cx="0" cy="-35" r="5" fill="#f4c28a"/>
 
-                <!-- Neural Connections -->
                 <line x1="-32" y1="-18" x2="0" y2="-35" stroke="#fbd38d" stroke-width="2.5"/>
                 <line x1="32" y1="-18" x2="0" y2="-35" stroke="#fbd38d" stroke-width="2.5"/>
                 <line x1="-32" y1="-18" x2="0" y2="18" stroke="#7dd3fc" stroke-width="2.5"/>
                 <line x1="32" y1="-18" x2="0" y2="18" stroke="#7dd3fc" stroke-width="2.5"/>
 
-                <!-- Moving Electric Pulse Orbs -->
-                <circle id="pulseOrb1" cx="-32" cy="-18" r="5" fill="#ffffff"/>
-                <circle id="pulseOrb2" cx="32" cy="-18" r="5" fill="#ffffff"/>
+                <circle id="pulseOrb1" cx="-32" cy="-18" r="5.5" fill="#ffffff"/>
+                <circle id="pulseOrb2" cx="32" cy="-18" r="5.5" fill="#ffffff"/>
               </g>
             </g>
           </g>
@@ -464,45 +438,38 @@
               <stop offset="58%" stop-color="#1e3a8a" stop-opacity="0.22"/>
               <stop offset="100%" stop-color="#050508" stop-opacity="1"/>
             </radialGradient>
-            <filter id="sparkGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="5" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
           </defs>
 
-          <g id="s5Camera">
+          <g id="s5Camera" class="gpu-layer">
             <rect width="540" height="960" fill="#050508"/>
             <rect width="540" height="960" fill="url(#trapGlow)"/>
 
-            <!-- Bed -->
             <rect x="35" y="655" width="470" height="190" rx="14" fill="#0c0f1c"/>
 
-            <!-- Hooked Character -->
-            <g id="s5Char" transform="translate(225, 520)">
+            <g id="s5Char" class="gpu-layer" transform="translate(225, 520)">
               <circle cx="4" cy="-58" r="48" fill="#38bdf8" opacity="0.65"/>
               <rect x="-28" y="-10" width="56" height="94" rx="22" fill="#3b78c4"/>
               <rect x="12" y="68" width="76" height="22" rx="11" fill="#e8dcc0"/>
               <rect x="74" y="68" width="22" height="78" rx="11" fill="#e8dcc0"/>
               <circle cx="0" cy="-58" r="48" fill="#0d0b12"/>
-              <!-- Wide Hypnotized Eyes -->
               <circle cx="14" cy="-62" r="6.5" fill="none" stroke="#f2ede2" stroke-width="2.5"/>
               <circle cx="31" cy="-62" r="6.5" fill="none" stroke="#f2ede2" stroke-width="2.5"/>
               <circle cx="14" cy="-62" r="2" fill="#7dd3fc"/>
               <circle cx="31" cy="-62" r="2" fill="#7dd3fc"/>
               <ellipse cx="22.5" cy="-41" rx="4.5" ry="5.5" fill="#f2ede2"/>
-              <!-- Phone -->
               <rect x="8" y="6" width="54" height="16" rx="8" fill="#0d0b12" transform="rotate(-14 8 6)"/>
-              <rect x="58" y="-26" width="12" height="40" rx="4" fill="#38bdf8" filter="url(#sparkGlow)" transform="rotate(16 58 -26)"/>
+              <rect x="55" y="-29" width="18" height="46" rx="6" fill="#38bdf8" opacity="0.35" transform="rotate(16 55 -29)"/>
+              <rect x="58" y="-26" width="12" height="40" rx="4" fill="#7dd3fc" transform="rotate(16 58 -26)"/>
             </g>
 
             <!-- Streaming Dopamine Particles -->
-            <g id="dopamineSparks" filter="url(#sparkGlow)">
-              <circle class="spark" cx="285" cy="495" r="4.5" fill="#7dd3fc"/>
-              <circle class="spark" cx="288" cy="504" r="3.5" fill="#f4c28a"/>
-              <circle class="spark" cx="282" cy="488" r="5" fill="#38bdf8"/>
-              <circle class="spark" cx="292" cy="498" r="4" fill="#fbd38d"/>
-              <circle class="spark" cx="280" cy="508" r="3.5" fill="#7dd3fc"/>
-              <circle class="spark" cx="290" cy="492" r="4" fill="#ffffff"/>
+            <g id="dopamineSparks">
+              <circle class="spark gpu-layer" cx="285" cy="495" r="4.5" fill="#7dd3fc"/>
+              <circle class="spark gpu-layer" cx="288" cy="504" r="3.5" fill="#f4c28a"/>
+              <circle class="spark gpu-layer" cx="282" cy="488" r="5" fill="#38bdf8"/>
+              <circle class="spark gpu-layer" cx="292" cy="498" r="4" fill="#fbd38d"/>
+              <circle class="spark gpu-layer" cx="280" cy="508" r="3.5" fill="#7dd3fc"/>
+              <circle class="spark gpu-layer" cx="290" cy="492" r="4" fill="#ffffff"/>
             </g>
           </g>
         </svg>
@@ -513,7 +480,6 @@
       <div class="letterbox top"></div>
       <div class="letterbox bottom"></div>
       <div class="vignette"></div>
-      <div class="grain"></div>
     </div>
   </div>
 
@@ -524,9 +490,6 @@
   </div>
 
   <script>
-    // =========================================================
-    // Web Audio API Sound Synthesizer
-    // =========================================================
     let audioCtx = null;
     let soundEnabled = true;
 
@@ -571,9 +534,6 @@
 
     function playPing(pitch = 880) { playTone(pitch, 'sine', 0.32, 0.09, pitch * 1.25); }
 
-    // =========================================================
-    // Scene Switcher & Dynamic GSAP Master Timeline (48s)
-    // =========================================================
     const scenes = ['scene1', 'scene2', 'scene3', 'scene4', 'scene5'];
     function showScene(id) {
       scenes.forEach(s => {
@@ -593,7 +553,6 @@
     function buildTimeline() {
       if (masterTl) masterTl.kill();
 
-      // Reset all transforms and states
       showScene('scene1');
       gsap.set('#fadeOverlay', { opacity: 0 });
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
@@ -610,35 +569,24 @@
 
       masterTl = gsap.timeline({ paused: true });
 
-      // =======================================================
-      // SCENE 1 (0s - 7s): Hook + Clock Flip + Surprised Zoom
-      // =======================================================
+      // SCENE 1 (0s - 7s)
       masterTl.call(() => { showScene('scene1'); playVibrate(); }, null, 0);
-
-      // Continuous hand & phone scroll motion
       masterTl.to('#s1Arm', { rotation: -6, duration: 0.45, yoyo: true, repeat: 13, ease: 'sine.inOut' }, 0);
       masterTl.to('#s1ScreenFeed', { y: 16, duration: 0.45, yoyo: true, repeat: 13, ease: 'power1.inOut' }, 0);
       masterTl.to('#s1PhonePool', { scale: 1.12, transformOrigin: 'center', duration: 1.5, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 0);
-
-      // Natural Blink at 1.4s
       masterTl.to('.eye-dot', { scaleY: 0.1, duration: 0.08, yoyo: true, repeat: 1 }, 1.4);
 
-      // Clock flips to 02:00 at 2.2s -> Character reacts & Camera zooms in!
       masterTl.call(() => {
         document.getElementById('s1ClockText').textContent = '02:00';
         playBassDrop();
       }, null, 2.2);
       masterTl.to('#s1Clock', { scale: 1.15, duration: 0.25, yoyo: true, repeat: 1, transformOrigin: 'center' }, 2.2);
-
-      // Surprised expression swap
       masterTl.to('.eye-dot', { opacity: 0, duration: 0.1 }, 2.3);
       masterTl.to('.eye-ring', { opacity: 1, duration: 0.15 }, 2.3);
       masterTl.to('#s1BrowL', { y: -5, rotation: -12, duration: 0.2 }, 2.3);
       masterTl.to('#s1BrowR', { y: -5, rotation: 12, duration: 0.2 }, 2.3);
       masterTl.to('#s1MouthFlat', { opacity: 0, duration: 0.1 }, 2.3);
       masterTl.to('#s1MouthOpen', { opacity: 1, duration: 0.15 }, 2.3);
-
-      // Smooth Camera Push-In toward character
       masterTl.to('#s1Camera', { scale: 1.24, x: -45, y: -65, duration: 4.2, ease: 'power2.inOut' }, 2.3);
 
       // Transition 1 -> 2
@@ -646,20 +594,12 @@
       masterTl.call(() => { showScene('scene2'); playRewind(); }, null, 6.85);
       masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.45 }, 6.95);
 
-      // =======================================================
-      // SCENE 2 (7s - 16s): 1720s Village + Walk Cycle + Clock Rewind
-      // =======================================================
-      // Clock hands spinning backward rapidly
+      // SCENE 2 (7s - 16s)
       masterTl.to('#clockMin', { rotation: -1080, svgOrigin: '0 0', duration: 5.5, ease: 'power2.inOut' }, 7.0);
       masterTl.to('#clockHour', { rotation: -270, svgOrigin: '0 0', duration: 5.5, ease: 'power2.inOut' }, 7.0);
-
-      // Twinkling stars
       masterTl.to('.star', { opacity: 0.2, duration: 0.7, stagger: 0.15, yoyo: true, repeat: 10 }, 7.0);
-
-      // Parallax background drift
       masterTl.to('#s2ParallaxBg', { x: -35, duration: 8.5, ease: 'none' }, 7.0);
 
-      // Character Side-View Walk Cycle across the night path
       masterTl.to('#s2Walker', { x: 310, duration: 7.5, ease: 'power1.out' }, 7.2);
       masterTl.to('#s2Walker', { y: 620, duration: 0.28, yoyo: true, repeat: 24, ease: 'sine.inOut' }, 7.2);
       masterTl.to('#s2LegL', { rotation: 24, svgOrigin: '0 45', duration: 0.28, yoyo: true, repeat: 24, ease: 'sine.inOut' }, 7.2);
@@ -671,22 +611,13 @@
       masterTl.call(() => { showScene('scene3'); playPing(540); }, null, 15.85);
       masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.45 }, 15.95);
 
-      // =======================================================
-      // SCENE 3 (16s - 28s): Candlelight Conversation + Floating Embers
-      // =======================================================
-      // Flickering candle flame & warm room pulse
+      // SCENE 3 (16s - 28s)
       masterTl.to('#candleFlame', { scaleY: 1.28, scaleX: 0.88, transformOrigin: 'bottom center', duration: 0.35, yoyo: true, repeat: 30, ease: 'sine.inOut' }, 16.0);
       masterTl.to('#candlePulseBg', { opacity: 0.78, duration: 1.1, yoyo: true, repeat: 9, ease: 'sine.inOut' }, 16.0);
-
-      // Floating warm embers rising
       masterTl.to('.ember', { y: -110, opacity: 0, duration: 2.6, stagger: 0.4, repeat: 3, ease: 'power1.out' }, 16.0);
-
-      // Left character talking (mouth toggle + arm gesture + head nod)
       masterTl.to('#s3MouthL', { scaleY: 2.2, transformOrigin: 'center', duration: 0.22, yoyo: true, repeat: 36, ease: 'steps(1)' }, 16.5);
       masterTl.to('#s3ArmL', { rotation: -32, duration: 0.9, yoyo: true, repeat: 10, ease: 'sine.inOut' }, 16.5);
       masterTl.to('#s3CharL', { rotation: 3, transformOrigin: 'bottom center', duration: 1.6, yoyo: true, repeat: 6, ease: 'sine.inOut' }, 16.5);
-
-      // Right character nodding warmly
       masterTl.to('#s3CharR', { rotation: -3.5, transformOrigin: 'bottom center', duration: 1.8, yoyo: true, repeat: 5, ease: 'sine.inOut' }, 17.2);
 
       // Transition 3 -> 4
@@ -694,20 +625,12 @@
       masterTl.call(() => { showScene('scene4'); playHeartbeat(); }, null, 27.85);
       masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.45 }, 27.95);
 
-      // =======================================================
-      // SCENE 4 (28s - 38s): Close-Up Brain + Electric Synapse Pulses
-      // =======================================================
-      // Slow cinematic zoom into the glowing brain
+      // SCENE 4 (28s - 38s)
       masterTl.to('#s4Camera', { scale: 1.22, y: 35, transformOrigin: 'center', duration: 9.2, ease: 'sine.inOut' }, 28.0);
       masterTl.to('#s4Bokeh', { rotation: 12, transformOrigin: 'center', duration: 9.5, ease: 'none' }, 28.0);
-
-      // Brain rhythmic pulse
       masterTl.to('#glowingBrain', { scale: 1.1, transformOrigin: 'center', duration: 0.85, yoyo: true, repeat: 10, ease: 'sine.inOut' }, 28.0);
-
-      // Electric synapse orbs traveling along neural lines
       masterTl.to('#pulseOrb1', { attr: { cx: 0, cy: 18 }, duration: 0.9, repeat: 9, yoyo: true, ease: 'power1.inOut' }, 28.2);
       masterTl.to('#pulseOrb2', { attr: { cx: 0, cy: -35 }, duration: 0.9, repeat: 9, yoyo: true, ease: 'power1.inOut' }, 28.5);
-
       masterTl.call(() => playHeartbeat(), null, 31.2);
       masterTl.call(() => playHeartbeat(), null, 34.8);
 
@@ -716,10 +639,7 @@
       masterTl.call(() => { showScene('scene5'); playPing(880); }, null, 37.85);
       masterTl.to('#fadeOverlay', { opacity: 0, duration: 0.45 }, 37.95);
 
-      // =======================================================
-      // SCENE 5 (38s - 48s): Modern Dopamine Trap + Loop Fade
-      // =======================================================
-      // Continuous dopamine sparks streaming into eyes
+      // SCENE 5 (38s - 48s)
       masterTl.to('.spark', {
         x: -36,
         y: -46,
@@ -730,19 +650,15 @@
         repeat: 9,
         ease: 'power1.out'
       }, 38.0);
-
-      // Subtle screen hypnosis jitter & slow pull-out
       masterTl.to('#s5Char', { x: 227, duration: 0.12, yoyo: true, repeat: 65 }, 38.0);
       masterTl.to('#s5Camera', { scale: 0.92, transformOrigin: 'center', duration: 8.5, ease: 'power1.inOut' }, 38.5);
-
       masterTl.call(() => playPing(1046), null, 40.5);
       masterTl.call(() => playPing(1244), null, 43.2);
 
-      // Final Fade to Black for Seamless Loop
+      // Final Fade to Black
       masterTl.to('#fadeOverlay', { opacity: 1, duration: 1.2, ease: 'power2.in' }, 46.8);
     }
 
-    // Controls
     const playBtn = document.getElementById('playBtn');
     const ratioBtn = document.getElementById('ratioBtn');
     const soundBtn = document.getElementById('soundBtn');
