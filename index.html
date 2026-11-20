@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (Fixed Rig)</title>
+  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (Final)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -119,21 +119,34 @@
           <stop offset="100%" stop-color="#111016"/>
         </linearGradient>
 
-        <linearGradient id="lampConeGrad" x1="0" y1="0" x2="0.6" y2="1">
-          <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.34"/>
-          <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.11"/>
+        <!-- Symmetrical Vertical Lamp Cone Gradient -->
+        <linearGradient id="lampConeGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.34"/>
+          <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        </linearGradient>
+
+        <linearGradient id="lampUpGrad" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.2"/>
           <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </linearGradient>
 
         <radialGradient id="lampHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.55"/>
-          <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.16"/>
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.48"/>
+          <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.14"/>
           <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </radialGradient>
 
+        <!-- Directional Phone Screen Light Cone Toward Face -->
+        <linearGradient id="phoneBeamGrad" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.58"/>
+          <stop offset="55%" stop-color="#38bdf8" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
+        </linearGradient>
+
         <radialGradient id="phoneGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.65"/>
-          <stop offset="50%" stop-color="#0284c7" stop-opacity="0.2"/>
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.52"/>
+          <stop offset="55%" stop-color="#0284c7" stop-opacity="0.14"/>
           <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
         </radialGradient>
 
@@ -176,25 +189,25 @@
           <rect x="-14" y="280" width="248" height="10" rx="2" fill="#232530"/>
         </g>
 
-        <!-- BEDSIDE NIGHTSTAND, LAMP & DIGITAL CLOCK -->
+        <!-- BEDSIDE NIGHTSTAND, SYMMETRICAL LAMP & DIGITAL CLOCK -->
         <g transform="translate(36, 515)">
-          <!-- Lamp Halo & Light Cone -->
-          <circle cx="42" cy="35" r="130" fill="url(#lampHalo)"/>
-          <polygon points="22,48 62,48 310,200 15,200" fill="url(#lampConeGrad)"/>
+          <circle cx="42" cy="33" r="125" fill="url(#lampHalo)"/>
+          <polygon points="24,14 60,14 78,-38 6,-38" fill="url(#lampUpGrad)"/>
+          <polygon points="12,52 72,52 148,200 -64,200" fill="url(#lampConeGrad)"/>
 
-          <!-- Nightstand Cabinet (Top surface at y = 102) -->
+          <!-- Nightstand Cabinet -->
           <rect x="8" y="105" width="96" height="95" rx="3" fill="#181820"/>
           <rect x="4" y="102" width="104" height="8" rx="2" fill="#272733"/>
           <rect x="16" y="118" width="80" height="32" rx="2" fill="#121218"/>
           <circle cx="56" cy="134" r="3" fill="#3f3f52"/>
 
-          <!-- Table Lamp (Left side of nightstand, x = 22..62, base on y = 102) -->
+          <!-- Table Lamp -->
           <rect x="28" y="96" width="28" height="6" rx="2" fill="#2e2e3d"/>
           <rect x="39" y="52" width="6" height="44" fill="#2e2e3d"/>
           <polygon points="24,14 60,14 72,52 12,52" fill="#fde68a"/>
-          <polygon points="24,14 60,14 72,52 12,52" fill="#f59e0b" opacity="0.25"/>
+          <polygon points="24,14 60,14 72,52 12,52" fill="#f59e0b" opacity="0.22"/>
 
-          <!-- Red Digital Clock Sitting Firmly on Nightstand Tabletop (x = 58, bottom at y = 102) -->
+          <!-- Red Digital Clock -->
           <g id="s1Clock">
             <circle cx="82" cy="90" r="32" fill="url(#redClockGlow)"/>
             <rect x="58" y="78" width="48" height="24" rx="4" fill="#09080c" stroke="#3f1d22" stroke-width="1.5"/>
@@ -202,9 +215,8 @@
           </g>
         </g>
 
-        <!-- BED & SLEEK SILHOUETTE CHARACTER -->
+        <!-- BED & SLEEK SILHOUETTE CHARACTER WITH PHONE FACING FACE -->
         <g transform="translate(142, 565)">
-          <!-- Floor Shadow -->
           <ellipse cx="175" cy="152" rx="185" ry="12" fill="#07070a" opacity="0.85"/>
 
           <!-- Bed Frame & Mattress -->
@@ -214,12 +226,12 @@
           <rect x="14" y="92" width="322" height="24" rx="8" fill="#2a2b38"/>
           <rect x="18" y="68" width="56" height="26" rx="11" fill="#343646" transform="rotate(-18 46 81)"/>
 
-          <!-- Cool Blue Phone Glow Centered Directly Around Face & Phone (108, 42) -->
-          <circle cx="108" cy="42" r="105" fill="url(#phoneGlow)" id="s1PhonePool"/>
+          <!-- Soft Ambient Screen Glow -->
+          <circle cx="95" cy="48" r="95" fill="url(#phoneGlow)" id="s1PhonePool"/>
 
           <!-- Character Body & Attached Arm -->
           <g id="s1Char">
-            <!-- Rim Light -->
+            <!-- Warm & Cool Rim Light -->
             <g fill="none" stroke="#f4c28a" stroke-width="2" opacity="0.45">
               <circle cx="62" cy="66" r="19"/>
               <path d="M 78 76 L 145 86"/>
@@ -228,6 +240,13 @@
 
             <!-- Head -->
             <circle cx="63" cy="67" r="19" fill="#090a0f"/>
+
+            <!-- Neon Glowing Eyes (Aimed directly along the line of sight to the phone screen) -->
+            <g id="s1GlowingEyes">
+              <ellipse cx="72" cy="61" rx="5.5" ry="3.5" fill="#38bdf8" opacity="0.48" transform="rotate(-32 72 61)"/>
+              <ellipse class="neon-eye" cx="72" cy="61" rx="3.2" ry="1.8" fill="#e0f2fe" transform="rotate(-32 72 61)"/>
+              <ellipse class="neon-eye" cx="66" cy="57" rx="2.6" ry="1.5" fill="#bae6fd" transform="rotate(-32 66 57)"/>
+            </g>
 
             <!-- Torso -->
             <path d="M 76 74 L 152 84 L 150 96 L 74 88 Z" fill="#090a0f"/>
@@ -240,16 +259,22 @@
             <path d="M 215 84 Q 275 80 336 88 L 336 114 L 215 114 Z" fill="#252736"/>
             <path d="M 215 84 Q 275 80 336 88" fill="none" stroke="#3c3f54" stroke-width="2"/>
 
-            <!-- Attached Arm & Phone (Shoulder anchored at exact coordinate 92, 82) -->
+            <!-- Attached Arm Holding Phone Angled Directly Toward Face (92, 82 shoulder pivot) -->
             <g id="s1Arm">
-              <!-- Rim highlight on arm -->
-              <path d="M 92 81 L 116 64 L 111 38" fill="none" stroke="#7dd3fc" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-              <!-- Main silhouette arm -->
-              <path d="M 92 82 L 116 65 L 111 39" fill="none" stroke="#090a0f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-              <!-- Glowing Smartphone held in hand at (108, 22) -->
-              <g transform="translate(105, 19) rotate(16)">
-                <rect x="-2" y="-2" width="11" height="25" rx="3" fill="#38bdf8" opacity="0.45"/>
-                <rect x="0" y="0" width="7" height="21" rx="2" fill="#e0f2fe"/>
+              <!-- Directional Light Cone shining from the phone screen (96,26 -> 106,42) straight onto the face (68,55 -> 78,74) -->
+              <polygon points="96,26 106,42 78,76 62,52" fill="url(#phoneBeamGrad)"/>
+
+              <!-- Arm Rim Highlight -->
+              <path d="M 92 81 L 114 64 L 103 38" fill="none" stroke="#7dd3fc" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+              <!-- Main Silhouette Arm -->
+              <path d="M 92 82 L 114 65 L 103 39" fill="none" stroke="#090a0f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <!-- Smartphone tilted ~32deg so its glowing inner screen faces directly toward the character's eyes -->
+              <g transform="translate(95, 22) rotate(-32)">
+                <!-- Outer dark phone back/casing facing away -->
+                <rect x="2" y="-1" width="5" height="23" rx="2" fill="#090a0f"/>
+                <!-- Glowing bright screen side facing the face -->
+                <rect x="-1" y="0" width="3.5" height="21" rx="1.5" fill="#e0f2fe"/>
               </g>
             </g>
           </g>
@@ -309,14 +334,15 @@
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
       gsap.set('#s1Clock', { scale: 1 });
       gsap.set('#s1Arm', { rotation: 0, svgOrigin: '92 82' });
+      gsap.set('.neon-eye', { scaleY: 1, scaleX: 1, svgOrigin: '69 59' });
       document.getElementById('s1ClockText').textContent = '01:59';
 
       sceneTl = gsap.timeline();
 
-      // 0.0s: Phone vibration + subtle arm/hand scroll pivoted strictly at shoulder (92, 82)
+      // 0.0s: Phone buzz & subtle scroll motion pivoted at shoulder (92, 82)
       sceneTl.call(() => playVibrate(), null, 0);
       sceneTl.to('#s1Arm', {
-        rotation: -5,
+        rotation: -4,
         svgOrigin: '92 82',
         duration: 0.45,
         yoyo: true,
@@ -325,15 +351,24 @@
       }, 0);
 
       sceneTl.to('#s1PhonePool', {
-        scale: 1.14,
-        svgOrigin: '108 42',
+        scale: 1.12,
+        svgOrigin: '95 48',
         duration: 1.3,
         yoyo: true,
         repeat: 4,
         ease: 'sine.inOut'
       }, 0);
 
-      // 2.2s: Red Clock hits 02:00 (pivoted at clock center 82, 90)
+      // 1.3s: Natural blink of the neon eyes
+      sceneTl.to('.neon-eye', {
+        scaleY: 0.1,
+        svgOrigin: '69 59',
+        duration: 0.08,
+        yoyo: true,
+        repeat: 1
+      }, 1.3);
+
+      // 2.2s: Clock flips to 02:00 -> Eyes widen + Bass drop + Camera push-in
       sceneTl.call(() => {
         document.getElementById('s1ClockText').textContent = '02:00';
         playBassDrop();
@@ -347,7 +382,14 @@
         repeat: 1
       }, 2.2);
 
-      // Smooth cinematic camera push-in (2.3s - 7.5s)
+      sceneTl.to('.neon-eye', {
+        scaleY: 1.45,
+        scaleX: 1.2,
+        svgOrigin: '69 59',
+        duration: 0.25,
+        ease: 'power2.out'
+      }, 2.3);
+
       sceneTl.to('#s1Camera', {
         scale: 1.24,
         svgOrigin: '240 560',
