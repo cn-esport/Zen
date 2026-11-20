@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (Final)</title>
+  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (Single Profile Eye)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -215,7 +215,7 @@
           </g>
         </g>
 
-        <!-- BED & SLEEK SILHOUETTE CHARACTER WITH PHONE FACING FACE -->
+        <!-- BED & SLEEK SILHOUETTE CHARACTER (SINGLE SIDE-PROFILE EYE) -->
         <g transform="translate(142, 565)">
           <ellipse cx="175" cy="152" rx="185" ry="12" fill="#07070a" opacity="0.85"/>
 
@@ -241,11 +241,10 @@
             <!-- Head -->
             <circle cx="63" cy="67" r="19" fill="#090a0f"/>
 
-            <!-- Neon Glowing Eyes (Aimed directly along the line of sight to the phone screen) -->
-            <g id="s1GlowingEyes">
-              <ellipse cx="72" cy="61" rx="5.5" ry="3.5" fill="#38bdf8" opacity="0.48" transform="rotate(-32 72 61)"/>
-              <ellipse class="neon-eye" cx="72" cy="61" rx="3.2" ry="1.8" fill="#e0f2fe" transform="rotate(-32 72 61)"/>
-              <ellipse class="neon-eye" cx="66" cy="57" rx="2.6" ry="1.5" fill="#bae6fd" transform="rotate(-32 66 57)"/>
+            <!-- Single Side-Profile Neon Eye (Positioned near upper-right edge of head, aimed toward phone) -->
+            <g id="s1GlowingEye">
+              <ellipse cx="73" cy="59" rx="5.5" ry="3.2" fill="#38bdf8" opacity="0.45" transform="rotate(-34 73 59)"/>
+              <ellipse class="neon-eye" cx="73" cy="59" rx="3.4" ry="1.8" fill="#e0f2fe" transform="rotate(-34 73 59)"/>
             </g>
 
             <!-- Torso -->
@@ -259,21 +258,13 @@
             <path d="M 215 84 Q 275 80 336 88 L 336 114 L 215 114 Z" fill="#252736"/>
             <path d="M 215 84 Q 275 80 336 88" fill="none" stroke="#3c3f54" stroke-width="2"/>
 
-            <!-- Attached Arm Holding Phone Angled Directly Toward Face (92, 82 shoulder pivot) -->
+            <!-- Attached Arm Holding Phone Angled Directly Toward Face -->
             <g id="s1Arm">
-              <!-- Directional Light Cone shining from the phone screen (96,26 -> 106,42) straight onto the face (68,55 -> 78,74) -->
               <polygon points="96,26 106,42 78,76 62,52" fill="url(#phoneBeamGrad)"/>
-
-              <!-- Arm Rim Highlight -->
               <path d="M 92 81 L 114 64 L 103 38" fill="none" stroke="#7dd3fc" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-              <!-- Main Silhouette Arm -->
               <path d="M 92 82 L 114 65 L 103 39" fill="none" stroke="#090a0f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-
-              <!-- Smartphone tilted ~32deg so its glowing inner screen faces directly toward the character's eyes -->
               <g transform="translate(95, 22) rotate(-32)">
-                <!-- Outer dark phone back/casing facing away -->
                 <rect x="2" y="-1" width="5" height="23" rx="2" fill="#090a0f"/>
-                <!-- Glowing bright screen side facing the face -->
                 <rect x="-1" y="0" width="3.5" height="21" rx="1.5" fill="#e0f2fe"/>
               </g>
             </g>
@@ -334,12 +325,12 @@
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
       gsap.set('#s1Clock', { scale: 1 });
       gsap.set('#s1Arm', { rotation: 0, svgOrigin: '92 82' });
-      gsap.set('.neon-eye', { scaleY: 1, scaleX: 1, svgOrigin: '69 59' });
+      gsap.set('.neon-eye', { scaleY: 1, scaleX: 1, svgOrigin: '73 59' });
       document.getElementById('s1ClockText').textContent = '01:59';
 
       sceneTl = gsap.timeline();
 
-      // 0.0s: Phone buzz & subtle scroll motion pivoted at shoulder (92, 82)
+      // 0.0s: Phone buzz & subtle scroll motion
       sceneTl.call(() => playVibrate(), null, 0);
       sceneTl.to('#s1Arm', {
         rotation: -4,
@@ -359,16 +350,16 @@
         ease: 'sine.inOut'
       }, 0);
 
-      // 1.3s: Natural blink of the neon eyes
+      // 1.3s: Natural blink of the single side-profile neon eye
       sceneTl.to('.neon-eye', {
         scaleY: 0.1,
-        svgOrigin: '69 59',
+        svgOrigin: '73 59',
         duration: 0.08,
         yoyo: true,
         repeat: 1
       }, 1.3);
 
-      // 2.2s: Clock flips to 02:00 -> Eyes widen + Bass drop + Camera push-in
+      // 2.2s: Clock flips to 02:00 -> Eye widens + Bass drop + Camera push-in
       sceneTl.call(() => {
         document.getElementById('s1ClockText').textContent = '02:00';
         playBassDrop();
@@ -385,7 +376,7 @@
       sceneTl.to('.neon-eye', {
         scaleY: 1.45,
         scaleX: 1.2,
-        svgOrigin: '69 59',
+        svgOrigin: '73 59',
         duration: 0.25,
         ease: 'power2.out'
       }, 2.3);
