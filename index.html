@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 2: 2026 to 1720 Time Roll & Fluid Walk</title>
+  <title>Zenspiris — Scene 3: Segmented Sleep & Candlelight</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
@@ -34,7 +34,7 @@
       width: 100vw;
       max-width: 410px;
       aspect-ratio: 9 / 16;
-      background: #080b14;
+      background: #0b0a0f;
       overflow: hidden;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
     }
@@ -50,7 +50,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(4, 4, 8, 0.9) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 36%, rgba(4, 4, 7, 0.92) 100%);
       z-index: 10;
     }
 
@@ -93,186 +93,182 @@
   <div class="stage-wrapper">
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <linearGradient id="nightSky1720" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#070a14"/>
-          <stop offset="55%" stop-color="#111930"/>
-          <stop offset="100%" stop-color="#1a2440"/>
+        <!-- 18th Century Rustic Cabin Wall -->
+        <linearGradient id="cabinWall" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0f0e14"/>
+          <stop offset="65%" stop-color="#181620"/>
+          <stop offset="100%" stop-color="#111017"/>
         </linearGradient>
 
-        <linearGradient id="earthGround" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#14161f"/>
-          <stop offset="40%" stop-color="#0d0e14"/>
-          <stop offset="100%" stop-color="#06070a"/>
+        <!-- Midnight Window Sky -->
+        <linearGradient id="cabinWindowSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#080c1a"/>
+          <stop offset="60%" stop-color="#121b36"/>
+          <stop offset="100%" stop-color="#1b2647"/>
         </linearGradient>
 
-        <radialGradient id="yearHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#f4c28a" stop-opacity="0.24"/>
-          <stop offset="60%" stop-color="#d97706" stop-opacity="0.06"/>
+        <!-- Wooden Cabin Floor -->
+        <linearGradient id="cabinFloor" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#161318"/>
+          <stop offset="45%" stop-color="#1e1a21"/>
+          <stop offset="100%" stop-color="#0d0b0f"/>
+        </linearGradient>
+
+        <!-- Warm Candlelight Halo -->
+        <radialGradient id="candleHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.58"/>
+          <stop offset="45%" stop-color="#f59e0b" stop-opacity="0.2"/>
           <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
         </radialGradient>
 
-        <linearGradient id="reelFadeMask" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
-          <stop offset="22%" stop-color="#ffffff" stop-opacity="1"/>
-          <stop offset="78%" stop-color="#ffffff" stop-opacity="1"/>
-          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-        </linearGradient>
-        <mask id="yearReelMask">
-          <rect x="130" y="255" width="280" height="120" fill="url(#reelFadeMask)"/>
-        </mask>
-
-        <linearGradient id="lanternCone" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.44"/>
-          <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.14"/>
+        <!-- Symmetrical Downward Candle Spill -->
+        <linearGradient id="candleCone" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.32"/>
+          <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.1"/>
           <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </linearGradient>
-
-        <radialGradient id="lanternHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.65"/>
-          <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.18"/>
-          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
-        </radialGradient>
       </defs>
 
       <!-- Camera Group -->
-      <g id="s2Camera">
-        <rect width="540" height="960" fill="url(#nightSky1720)"/>
+      <g id="s3Camera">
+        <!-- Wall & Floor -->
+        <rect width="540" height="715" fill="url(#cabinWall)"/>
+        <!-- Subtle Timber Wall Beams -->
+        <rect x="0" y="130" width="540" height="10" fill="#0b0a0e" opacity="0.6"/>
+        <rect x="0" y="485" width="540" height="10" fill="#0b0a0e" opacity="0.6"/>
 
-        <!-- Crescent Moon & Twinkling Stars -->
-        <circle cx="430" cy="185" r="24" fill="#f3f4f6" opacity="0.9"/>
-        <circle cx="439" cy="178" r="20" fill="#0d1324"/>
+        <rect x="0" y="715" width="540" height="245" fill="url(#cabinFloor)"/>
+        <line x1="0" y1="750" x2="540" y2="750" stroke="#100e12" stroke-width="2"/>
+        <line x1="0" y1="796" x2="540" y2="796" stroke="#100e12" stroke-width="2"/>
+        <line x1="0" y1="850" x2="540" y2="850" stroke="#100e12" stroke-width="2"/>
+        <line x1="0" y1="910" x2="540" y2="910" stroke="#100e12" stroke-width="2"/>
 
-        <g id="s2Stars" fill="#f2ede2">
-          <circle class="star" cx="95" cy="165" r="2"/>
-          <circle class="star" cx="175" cy="135" r="1.8"/>
-          <circle class="star" cx="255" cy="195" r="2.2"/>
-          <circle class="star" cx="345" cy="140" r="1.8"/>
-          <circle class="star" cx="120" cy="275" r="1.8"/>
-          <circle class="star" cx="465" cy="265" r="2"/>
-          <circle class="star" cx="210" cy="245" r="1.5"/>
+        <!-- 1720s WOODEN COTTAGE WINDOW (High Midnight Moon) -->
+        <g transform="translate(175, 165)">
+          <rect x="-8" y="-8" width="236" height="286" rx="4" fill="#0a090e"/>
+          <rect x="0" y="0" width="220" height="270" fill="url(#cabinWindowSky)"/>
+          <!-- Distant Pine & Roofline Silhouette -->
+          <path d="M 0 270 L 0 230 L 35 198 L 70 232 L 110 192 L 155 235 L 190 202 L 220 228 L 220 270 Z" fill="#090d1c"/>
+          <!-- Full/High Crescent Moon -->
+          <circle cx="110" cy="72" r="20" fill="#f3f4f6" opacity="0.92"/>
+          <circle cx="118" cy="67" r="17" fill="#0d1429"/>
+          <!-- Stars -->
+          <circle cx="48" cy="52" r="1.8" fill="#fff" opacity="0.7"/>
+          <circle cx="172" cy="46" r="1.6" fill="#fff" opacity="0.6"/>
+          <circle cx="164" cy="115" r="1.5" fill="#fff" opacity="0.5"/>
+          <!-- Wooden Mullions -->
+          <rect x="107" y="0" width="6" height="270" fill="#0c0b10"/>
+          <rect x="0" y="132" width="220" height="6" fill="#0c0b10"/>
+          <rect x="-14" y="270" width="248" height="10" rx="2" fill="#1e1b24"/>
         </g>
 
-        <!-- Distant Rolling Hills & 18th Century Village Cottages -->
-        <g id="s2VillageBg">
-          <path d="M -60 645 Q 180 575 380 635 T 640 615 L 640 760 L -60 760 Z" fill="#0e1324"/>
+        <!-- RUSTIC WOODEN SIDE TABLE & FLICKERING CANDLE -->
+        <g transform="translate(365, 535)">
+          <!-- Symmetrical Candle Glow -->
+          <circle id="s3CandleHalo" cx="46" cy="24" r="135" fill="url(#candleHalo)"/>
+          <polygon points="18,46 74,46 130,185 -38,185" fill="url(#candleCone)"/>
 
-          <!-- Cottage 1 -->
-          <g transform="translate(85, 558)">
-            <rect x="0" y="25" width="76" height="52" fill="#090c17"/>
-            <polygon points="-8,25 38,-6 84,25" fill="#06080f"/>
-            <rect x="54" y="2" width="10" height="18" fill="#06080f"/>
-            <rect x="28" y="42" width="16" height="18" rx="2" fill="#f59e0b" opacity="0.55"/>
-          </g>
+          <!-- Wooden Table -->
+          <rect x="8" y="88" width="76" height="92" rx="3" fill="#15131a"/>
+          <rect x="2" y="84" width="88" height="8" rx="2" fill="#231f2b"/>
+          <rect x="16" y="102" width="60" height="28" rx="2" fill="#0f0e14"/>
 
-          <!-- Cottage 2 -->
-          <g transform="translate(365, 568)">
-            <rect x="0" y="22" width="68" height="46" fill="#090c17"/>
-            <polygon points="-7,22 34,-5 75,22" fill="#06080f"/>
-            <rect x="24" y="38" width="14" height="15" rx="2" fill="#f59e0b" opacity="0.35"/>
-          </g>
+          <!-- Brass Candle Holder & Tall Beeswax Candle -->
+          <ellipse cx="46" cy="83" rx="16" ry="3.5" fill="#d97706" opacity="0.7"/>
+          <rect x="44" y="74" width="4" height="9" fill="#b45309"/>
+          <rect x="41" y="42" width="10" height="32" rx="2" fill="#f2ede2"/>
 
-          <!-- Bare Silhouette Trees -->
-          <g stroke="#080b14" stroke-width="4" stroke-linecap="round" fill="none">
-            <path d="M 245 628 L 245 572 M 245 595 L 230 580 M 245 588 L 260 574"/>
-            <path d="M 485 632 L 485 582 M 485 602 L 472 588 M 485 596 L 498 584"/>
-          </g>
-        </g>
-
-        <!-- Foreground Dirt Path (Flat Surface at y = 735) -->
-        <rect x="0" y="735" width="540" height="225" fill="url(#earthGround)"/>
-        <line x1="0" y1="735" x2="540" y2="735" stroke="#1e2538" stroke-width="2"/>
-
-        <!-- VERTICAL ROLLING YEAR REEL (2026 -> 1720) -->
-        <g id="yearRewindDisplay">
-          <ellipse cx="270" cy="315" rx="145" ry="65" fill="url(#yearHalo)"/>
-          <line x1="175" y1="274" x2="365" y2="274" stroke="#f4c28a" stroke-width="1" opacity="0.25"/>
-          <line x1="175" y1="356" x2="365" y2="356" stroke="#f4c28a" stroke-width="1" opacity="0.25"/>
-          <polygon points="164,311 172,315 164,319" fill="#f4c28a" opacity="0.7"/>
-          <polygon points="376,311 368,315 376,319" fill="#f4c28a" opacity="0.7"/>
-
-          <g mask="url(#yearReelMask)">
-            <g id="yearStrip" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="54" font-weight="700" text-anchor="middle" letter-spacing="4">
-              <text x="270" y="333" fill="#7dd3fc">2026</text>
-              <text x="270" y="409" fill="#cbd5e1">2010</text>
-              <text x="270" y="485" fill="#cbd5e1">1985</text>
-              <text x="270" y="561" fill="#e2e8f0">1950</text>
-              <text x="270" y="637" fill="#e2e8f0">1910</text>
-              <text x="270" y="713" fill="#fde68a">1870</text>
-              <text x="270" y="789" fill="#fde68a">1830</text>
-              <text x="270" y="865" fill="#f4c28a">1790</text>
-              <text x="270" y="941" fill="#f4c28a">1755</text>
-              <text x="270" y="1017" fill="#f4c28a">1735</text>
-              <text x="270" y="1093" fill="#f2ede2">1720</text>
-            </g>
+          <!-- Animated Flickering Flame (Pivot at base 46, 42) -->
+          <g id="s3Flame">
+            <path d="M 46 24 Q 53 34 46 42 Q 39 34 46 24 Z" fill="#f59e0b"/>
+            <path d="M 46 29 Q 50 35 46 41 Q 42 35 46 29 Z" fill="#fef3c7"/>
           </g>
         </g>
 
-        <!-- =====================================================
-             SLIM & SHORTER SHIRT PROPORTIONS + FLUID WALK RIG
-             Hip anchored at (0, 0) -> placed at (110, 671) so longer slim legs (64px) touch y = 735
-             ===================================================== -->
-        <g id="s2Walker" transform="translate(110, 671)">
-          <!-- Ground Contact Shadow -->
-          <ellipse cx="3" cy="64" rx="26" ry="5.5" fill="#040508" opacity="0.85"/>
+        <!-- WOODEN BED & CHARACTER (TRANSITIONS FROM SLEEPING -> AWAKE READING) -->
+        <g transform="translate(68, 565)">
+          <ellipse cx="145" cy="152" rx="155" ry="12" fill="#060508" opacity="0.88"/>
 
-          <!-- 1. Back Slim Leg (Hip 0,0 -> Knee 0,32 -> Foot y=64) -->
-          <g id="s2ThighBack">
-            <line x1="-1" y1="0" x2="-1" y2="32" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round"/>
-            <g id="s2ShinBack">
-              <path d="M -1 32 L -1 64 L 7 64" fill="none" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Rustic Wooden Bed Frame (Mattress top at y = 92) -->
+          <rect x="0" y="34" width="14" height="116" rx="3" fill="#16131c"/>
+          <rect x="276" y="68" width="14" height="82" rx="3" fill="#16131c"/>
+          <rect x="10" y="112" width="270" height="22" rx="3" fill="#1c1924"/>
+          <rect x="14" y="92" width="262" height="24" rx="8" fill="#272433"/>
+          <!-- Soft Pillow -->
+          <rect x="20" y="74" width="60" height="22" rx="10" fill="#322e40"/>
+
+          <!-- Floating Sleep "Zzz" Particles (Fade out upon waking) -->
+          <g id="s3ZzzGroup" fill="#f4c28a" font-family="sans-serif" font-weight="700" opacity="0.75">
+            <text id="z1" x="62" y="42" font-size="14">z</text>
+            <text id="z2" x="74" y="26" font-size="18">z</text>
+            <text id="z3" x="89" y="8" font-size="22">Z</text>
+          </g>
+
+          <!-- =====================================================
+               STATE A: SLEEPING POSE (0.0s -> 2.8s)
+               ===================================================== -->
+          <g id="s3SleepingPose">
+            <!-- Blanket over lower body -->
+            <path d="M 118 82 Q 195 76 276 86 L 276 114 L 118 114 Z" fill="#23202e"/>
+            <path d="M 118 82 Q 195 76 276 86" fill="none" stroke="#3b364d" stroke-width="2"/>
+
+            <!-- Slim Blue Torso reclining -->
+            <rect x="66" y="75" width="58" height="17" rx="8.5" fill="var(--outfit-top)"/>
+
+            <!-- Head resting on pillow with closed peaceful eye -->
+            <circle cx="48" cy="69" r="21" fill="var(--rim)" opacity="0.45"/>
+            <circle cx="47" cy="70" r="21" fill="var(--head)"/>
+            <!-- Closed Sleeping Eye Arc & Peaceful Mouth -->
+            <path d="M 52 65 Q 56 68 60 65" fill="none" stroke="var(--face)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="57" cy="74" r="1.8" fill="var(--face)" opacity="0.75"/>
+          </g>
+
+          <!-- =====================================================
+               STATE B: AWAKE & SITTING CALMLY WITH BOOK (2.8s -> 8.5s)
+               Uses exact slim & short torso rig + warm right candle rim light
+               ===================================================== -->
+          <g id="s3AwakePose" opacity="0">
+            <!-- Back Leg -->
+            <path d="M 115 86 L 148 86 L 150 116 L 149 144 L 157 144"
+                  fill="none" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Slim & Short Torso (Width 18px, warm right rim light from candle) -->
+            <path d="M 103 34 Q 103 29.5 108 28.5 Q 112 24.5 116 28.5 Q 122.5 29.5 122.5 34 L 122.5 87 L 103 87 Z"
+                  fill="var(--rim)" opacity="0.5"/>
+            <path d="M 103 34 Q 103 29.5 108 28.5 Q 112 25 116 28.5 Q 121 29.5 121 34 L 121 87 L 103 87 Z"
+                  fill="var(--outfit-top)"/>
+
+            <!-- Front Leg -->
+            <path d="M 112 87 L 152 87 L 155 117 L 153 145 L 162 145"
+                  fill="none" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Head Group (Centered at 112, 4, r=22 -> seamless collar touch) -->
+            <g id="s3AwakeHead">
+              <circle cx="113.5" cy="4" r="22" fill="var(--rim)" opacity="0.65"/>
+              <circle cx="112" cy="4" r="22" fill="var(--head)"/>
+
+              <!-- 3/4 Side-Offset Calm Face Looking Down at Open Book -->
+              <g id="s3Face">
+                <circle class="awake-eye" cx="122" cy="3" r="2.1" fill="var(--face)"/>
+                <circle class="awake-eye" cx="129.8" cy="3" r="2.1" fill="var(--face)"/>
+                <!-- Gentle Calm Smile -->
+                <path d="M 122.5 11 Q 126 13.5 129.5 11" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+              </g>
             </g>
-          </g>
 
-          <!-- 2. Back Slim Arm & Sleeve (Shoulder pivot at -1, -48) -->
-          <g id="s2ArmBack">
-            <path d="M -1 -48 L -4 -26 L -2 -9" fill="none" stroke="#07060a" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M -1 -50 L -2.8 -39" fill="none" stroke="#295794" stroke-width="7.4" stroke-linecap="round"/>
-            <path d="M -1.9 -44.5 L -2.8 -39" fill="none" stroke="#295794" stroke-width="7.4" stroke-linecap="butt"/>
-          </g>
+            <!-- Front Arm & Unified Sleeve Holding Open Leather Book (Shoulder pivot at 113, 36) -->
+            <g id="s3BookArm">
+              <path d="M 113 35.5 L 129 52 L 146 47" fill="none" stroke="var(--rim)" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+              <path d="M 113 36 L 129 53 L 146 48" fill="none" stroke="var(--head)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 111.2 33.8 L 119.5 42.6" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="round"/>
+              <path d="M 115.3 38.2 L 119.5 42.6" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="butt"/>
 
-          <!-- 3. Slimmer & Shorter Torso (Width 18px instead of 22px, shorter hem at y = 0) -->
-          <g id="s2Torso">
-            <path d="M -9 -49 Q -9 -53.5 -4 -54.5 Q 0 -58.5 4 -54.5 Q 10.5 -53.5 10.5 -49 L 10.5 0 L -9 0 Z" fill="var(--rim)" opacity="0.45"/>
-            <path d="M -9 -49 Q -9 -53.5 -4 -54.5 Q 0 -58 4 -54.5 Q 9 -53.5 9 -49 L 9 0 L -9 0 Z" fill="var(--outfit-top)"/>
-          </g>
-
-          <!-- 4. Front Slim Leg with Rounded Hip Overlap (Hip 0,0 -> Knee 0,32 -> Foot y=64) -->
-          <g id="s2ThighFront">
-            <line x1="0" y1="0" x2="0" y2="32" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round"/>
-            <g id="s2ShinFront">
-              <path d="M 0 32 L 0 64 L 9 64" fill="none" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-            </g>
-          </g>
-
-          <!-- 5. Head Group (Centered at 0, -79, r=22 -> bottom touches collar peak at y = -57) -->
-          <g id="s2Head">
-            <circle cx="-1.1" cy="-79" r="22" fill="var(--rim)" opacity="0.35"/>
-            <circle cx="1.4" cy="-79" r="22" fill="var(--rim)" opacity="0.68"/>
-            <circle cx="0" cy="-79" r="22" fill="var(--head)"/>
-
-            <!-- 3/4 Side-Offset Face Features -->
-            <g id="s2Face">
-              <circle class="walker-eye" cx="10" cy="-81.5" r="2.1" fill="var(--face)"/>
-              <circle class="walker-eye" cx="17.8" cy="-81.5" r="2.1" fill="var(--face)"/>
-              <line x1="11" y1="-72.5" x2="16.8" y2="-72.5" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
-            </g>
-          </g>
-
-          <!-- 6. Front Slim Arm & Unified Sleeve Holding Lantern (Shoulder pivot at 1, -48) -->
-          <g id="s2ArmFront">
-            <path d="M 1 -48.5 L 13 -31 L 26 -24" fill="none" stroke="var(--rim)" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-            <path d="M 1 -48 L 13 -30 L 26 -23" fill="none" stroke="var(--head)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M -0.8 -50.6 L 6.8 -39.2" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="round"/>
-            <path d="M 3 -44.9 L 6.8 -39.2" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="butt"/>
-
-            <!-- Antique Lantern & Symmetrical Light Cone (Anchored at hand 26, -23) -->
-            <g id="s2Lantern" transform="translate(26, -23)">
-              <polygon points="-6,18 6,18 48,87 -48,87" fill="url(#lanternCone)"/>
-              <circle cx="0" cy="12" r="54" fill="url(#lanternHalo)"/>
-              <path d="M -5 0 Q 0 -6 5 0" fill="none" stroke="var(--head)" stroke-width="2"/>
-              <rect x="-6" y="2" width="12" height="16" rx="3" fill="var(--head)"/>
-              <rect x="-3.5" y="5" width="7" height="10" rx="1.5" fill="#fde68a"/>
-              <circle cx="0" cy="10" r="2.5" fill="#ffffff"/>
+              <!-- Open Book Held Calmly -->
+              <g transform="translate(144, 34) rotate(-14)">
+                <path d="M 0 12 Q 8 9 16 12 L 16 24 Q 8 21 0 24 Z" fill="#f2ede2"/>
+                <path d="M 16 12 Q 24 9 32 12 L 32 24 Q 24 21 16 24 Z" fill="#e2d9c5"/>
+                <path d="M -1 12 L 16 13 L 33 12" fill="none" stroke="#7c4a32" stroke-width="2.2" stroke-linecap="round"/>
+              </g>
             </g>
           </g>
         </g>
@@ -285,7 +281,7 @@
   </div>
 
   <div class="controls">
-    <button class="primary" id="playBtn">▶ Play Scene 2 (9.0s)</button>
+    <button class="primary" id="playBtn">▶ Play Scene 3 (8.5s)</button>
     <button id="soundBtn">🔊 Sound: ON</button>
   </div>
 
@@ -314,216 +310,124 @@
       osc.stop(audioCtx.currentTime + duration);
     }
 
-    function playRollTick(pitchShift = 0) {
-      playTone(540 + pitchShift, 'triangle', 0.045, 0.08, 220);
+    // Soft warm chime when waking peacefully in the quiet midnight hour
+    function playWakeChime() {
+      playTone(392, 'sine', 1.2, 0.11);
+      setTimeout(() => playTone(523.25, 'sine', 1.4, 0.09), 180);
     }
 
-    function playYearLock() {
-      playTone(135, 'sine', 0.65, 0.25, 42);
-      playTone(680, 'sine', 0.18, 0.09);
-    }
-
-    function playFootstep() {
-      playTone(74, 'sine', 0.11, 0.085, 36);
+    // Subtle page turn rustle
+    function playPageTurn() {
+      playTone(260, 'triangle', 0.14, 0.06, 140);
     }
 
     let sceneTl = null;
-    let lastRollIndex = 0;
 
-    function playScene2() {
+    function playScene3() {
       if (sceneTl) sceneTl.kill();
-      lastRollIndex = 0;
 
-      gsap.set('#s2Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s2VillageBg', { x: 0 });
-      gsap.set('#yearStrip', { y: 0 });
-      gsap.set('#yearRewindDisplay', { scale: 1 });
-      gsap.set('#s2Walker', { x: 110, y: 671 });
-      gsap.set('#s2Torso', { rotation: 2.5, svgOrigin: '0 0' });
-      gsap.set('#s2Head', { rotation: 0, svgOrigin: '0 -57' });
-      gsap.set('#s2ThighFront', { rotation: 22, svgOrigin: '0 0' });
-      gsap.set('#s2ShinFront', { rotation: 4, svgOrigin: '0 32' });
-      gsap.set('#s2ThighBack', { rotation: -22, svgOrigin: '0 0' });
-      gsap.set('#s2ShinBack', { rotation: 18, svgOrigin: '-1 32' });
-      gsap.set('#s2ArmBack', { rotation: -16, svgOrigin: '-1 -48' });
-      gsap.set('#s2ArmFront', { rotation: 2, svgOrigin: '1 -48' });
-      gsap.set('#s2Lantern', { rotation: -4, svgOrigin: '0 0' });
-      gsap.set('.walker-eye', { scaleY: 1, svgOrigin: '14 -81.5' });
+      gsap.set('#s3Camera', { scale: 1, x: 0, y: 0 });
+      gsap.set('#s3SleepingPose', { opacity: 1, y: 0 });
+      gsap.set('#s3ZzzGroup', { opacity: 0.85, y: 0 });
+      gsap.set('#s3AwakePose', { opacity: 0, y: 10 });
+      gsap.set('#s3BookArm', { rotation: 0, svgOrigin: '113 36' });
+      gsap.set('#s3Flame', { scaleY: 1, scaleX: 1, rotation: 0, svgOrigin: '46 42' });
+      gsap.set('.awake-eye', { scaleY: 1, svgOrigin: '126 3' });
 
       sceneTl = gsap.timeline();
 
-      // 1. VERTICAL ROLLING YEAR COUNTER (2026 -> 1720)
-      sceneTl.to('#yearStrip', {
-        y: -760,
-        duration: 4.8,
-        ease: 'power3.inOut',
-        onUpdate: function() {
-          const currentY = Math.abs(gsap.getProperty('#yearStrip', 'y'));
-          const stepIndex = Math.floor(currentY / 76);
-          if (stepIndex > lastRollIndex && stepIndex <= 10) {
-            lastRollIndex = stepIndex;
-            playRollTick((10 - stepIndex) * 18);
-          }
-        },
-        onComplete: function() {
-          playYearLock();
-          gsap.to('#yearRewindDisplay', {
-            scale: 1.08,
-            svgOrigin: '270 315',
-            duration: 0.18,
-            yoyo: true,
-            repeat: 1
-          });
-        }
-      }, 0.2);
-
-      // Twinkling stars
-      sceneTl.to('.star', {
-        opacity: 0.25,
-        duration: 0.8,
-        stagger: 0.18,
+      // Continuous organic candle flame flicker
+      sceneTl.to('#s3Flame', {
+        scaleY: 1.14,
+        scaleX: 0.92,
+        rotation: 3,
+        svgOrigin: '46 42',
+        duration: 0.35,
         yoyo: true,
-        repeat: 9
-      }, 0);
-
-      // Parallax drift on distant village hills
-      sceneTl.to('#s2VillageBg', {
-        x: -26,
-        duration: 9.0,
-        ease: 'none'
-      }, 0);
-
-      // 2. CONTINUOUS FLUID SINE-WAVE WALK CYCLE (Zero jerky breaks!)
-      const halfStride = 0.48; // 0.96s full left-right cycle
-      const totalHalfStrides = 18;
-
-      // Smooth constant forward glide matched to stride length
-      sceneTl.to('#s2Walker', {
-        x: 380,
-        duration: halfStride * totalHalfStrides,
-        ease: 'none'
-      }, 0);
-
-      // Continuous sinusoidal hip swing (Front & Back thighs oppose smoothly)
-      sceneTl.to('#s2ThighFront', {
-        rotation: -22,
-        svgOrigin: '0 0',
-        duration: halfStride,
-        yoyo: true,
-        repeat: totalHalfStrides - 1,
+        repeat: 23,
         ease: 'sine.inOut'
       }, 0);
 
-      sceneTl.to('#s2ThighBack', {
-        rotation: 22,
-        svgOrigin: '0 0',
-        duration: halfStride,
+      sceneTl.to('#s3CandleHalo', {
+        scale: 1.08,
+        svgOrigin: '46 24',
+        duration: 0.7,
         yoyo: true,
-        repeat: totalHalfStrides - 1,
+        repeat: 11,
         ease: 'sine.inOut'
       }, 0);
 
-      // Delayed-phase knee bend (peaks smoothly mid-swing so foot clears dirt naturally)
-      sceneTl.to('#s2ShinFront', {
-        rotation: 28,
-        svgOrigin: '0 32',
-        duration: halfStride * 0.5,
-        yoyo: true,
-        repeat: totalHalfStrides * 2 - 1,
-        ease: 'sine.inOut'
-      }, halfStride * 0.25);
-
-      sceneTl.to('#s2ShinBack', {
-        rotation: 28,
-        svgOrigin: '-1 32',
-        duration: halfStride * 0.5,
-        yoyo: true,
-        repeat: totalHalfStrides * 2 - 1,
-        ease: 'sine.inOut'
-      }, halfStride * 0.75);
-
-      // Smooth vertical weight shift (double-frequency bob synced with footfalls)
-      sceneTl.to('#s2Walker', {
-        y: 668,
-        duration: halfStride * 0.5,
-        yoyo: true,
-        repeat: totalHalfStrides * 2 - 1,
+      // 0.0s - 2.6s: Peaceful First Sleep ("Zzz" drifting gently upward)
+      sceneTl.to('#s3ZzzGroup', {
+        y: -18,
+        opacity: 0.2,
+        duration: 2.5,
         ease: 'sine.inOut'
       }, 0);
 
-      // Footstep SFX synced to each stride plant
-      for (let i = 0; i < totalHalfStrides; i++) {
-        sceneTl.call(() => playFootstep(), null, i * halfStride + 0.05);
-      }
+      // 2.6s: Smooth transition from First Sleep to Quiet Midnight Awakening
+      sceneTl.call(() => playWakeChime(), null, 2.6);
 
-      // Smooth counter-swinging back arm
-      sceneTl.to('#s2ArmBack', {
-        rotation: 16,
-        svgOrigin: '-1 -48',
-        duration: halfStride,
-        yoyo: true,
-        repeat: totalHalfStrides - 1,
-        ease: 'sine.inOut'
-      }, 0);
+      sceneTl.to('#s3SleepingPose', {
+        opacity: 0,
+        y: -6,
+        duration: 0.55,
+        ease: 'power2.inOut'
+      }, 2.6);
 
-      // Fluid lantern sway & pendulum inertia
-      sceneTl.to('#s2ArmFront', {
+      sceneTl.to('#s3ZzzGroup', {
+        opacity: 0,
+        duration: 0.3
+      }, 2.5);
+
+      sceneTl.to('#s3AwakePose', {
+        opacity: 1,
+        y: 0,
+        duration: 0.65,
+        ease: 'power2.out'
+      }, 2.85);
+
+      // 4.2s - 8.5s: Calm reading & gentle breathing in candlelight
+      sceneTl.to('#s3BookArm', {
         rotation: -3,
-        svgOrigin: '1 -48',
-        duration: halfStride,
+        svgOrigin: '113 36',
+        duration: 1.4,
         yoyo: true,
-        repeat: totalHalfStrides - 1,
+        repeat: 2,
         ease: 'sine.inOut'
-      }, 0);
+      }, 3.6);
 
-      sceneTl.to('#s2Lantern', {
-        rotation: 5,
-        svgOrigin: '0 0',
-        duration: halfStride,
-        yoyo: true,
-        repeat: totalHalfStrides - 1,
-        ease: 'sine.inOut'
-      }, halfStride * 0.3);
+      sceneTl.call(() => playPageTurn(), null, 5.2);
 
-      // Subtle head balance nod
-      sceneTl.to('#s2Head', {
-        rotation: 1.5,
-        svgOrigin: '0 -57',
-        duration: halfStride * 0.5,
-        yoyo: true,
-        repeat: totalHalfStrides * 2 - 1,
-        ease: 'sine.inOut'
-      }, 0);
-
-      // Natural Eye Blinks
-      sceneTl.to('.walker-eye', {
+      // Natural eye blinks while reading
+      sceneTl.to('.awake-eye', {
         scaleY: 0.1,
-        svgOrigin: '14 -81.5',
+        svgOrigin: '126 3',
         duration: 0.08,
         yoyo: true,
         repeat: 1
-      }, 3.1);
+      }, 4.8);
 
-      sceneTl.to('.walker-eye', {
+      sceneTl.to('.awake-eye', {
         scaleY: 0.1,
-        svgOrigin: '14 -81.5',
+        svgOrigin: '126 3',
         duration: 0.08,
         yoyo: true,
         repeat: 1
-      }, 6.6);
+      }, 7.3);
 
-      // Gentle cinematic camera push-in
-      sceneTl.to('#s2Camera', {
-        scale: 1.12,
-        svgOrigin: '270 540',
-        duration: 9.0,
+      // Slow cinematic camera push-in toward candlelit reader
+      sceneTl.to('#s3Camera', {
+        scale: 1.18,
+        svgOrigin: '250 560',
+        duration: 8.5,
         ease: 'sine.inOut'
       }, 0);
     }
 
     document.getElementById('playBtn').addEventListener('click', () => {
       initAudio();
-      playScene2();
+      playScene3();
     });
 
     document.getElementById('soundBtn').addEventListener('click', () => {
@@ -532,7 +436,7 @@
     });
 
     window.addEventListener('load', () => {
-      setTimeout(playScene2, 300);
+      setTimeout(playScene3, 300);
     });
   </script>
 </body>
