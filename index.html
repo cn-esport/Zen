@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (Clean Frame)</title>
+  <title>Zenspiris — Scene 2: 1720s Rewind & Village Walk</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
       --head: #0d0b12;
       --face: #f2ede2;
       --rim: #f4c28a;
-      --outfit-top: #3b78c4;
+      --outfit-top: #7c4a32;
       --outfit-bottom: #e8dcc0;
       --outfit-bottom-back: #b8ac92;
     }
@@ -34,7 +34,7 @@
       width: 100vw;
       max-width: 410px;
       aspect-ratio: 9 / 16;
-      background: #0d0d12;
+      background: #080b14;
       overflow: hidden;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
     }
@@ -50,7 +50,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(4, 4, 7, 0.9) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(4, 4, 8, 0.9) 100%);
       z-index: 10;
     }
 
@@ -93,178 +93,181 @@
   <div class="stage-wrapper">
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#12131a"/>
-          <stop offset="65%" stop-color="#1b1c24"/>
-          <stop offset="100%" stop-color="#14141b"/>
+        <!-- Deep 18th Century Midnight Sky -->
+        <linearGradient id="nightSky1720" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#070a14"/>
+          <stop offset="55%" stop-color="#111930"/>
+          <stop offset="100%" stop-color="#1a2440"/>
         </linearGradient>
 
-        <linearGradient id="windowSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#0b0f1f"/>
-          <stop offset="60%" stop-color="#182242"/>
-          <stop offset="100%" stop-color="#222d52"/>
+        <!-- Ground Path Gradient -->
+        <linearGradient id="earthGround" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#14161f"/>
+          <stop offset="40%" stop-color="#0d0e14"/>
+          <stop offset="100%" stop-color="#06070a"/>
         </linearGradient>
 
-        <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#18171e"/>
-          <stop offset="40%" stop-color="#222029"/>
-          <stop offset="100%" stop-color="#111016"/>
-        </linearGradient>
-
-        <linearGradient id="lampConeGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.34"/>
-          <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.12"/>
-          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
-        </linearGradient>
-
-        <linearGradient id="lampUpGrad" x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.2"/>
-          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
-        </linearGradient>
-
-        <radialGradient id="lampHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.48"/>
-          <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.14"/>
-          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        <!-- Rewind Clock Ambient Halo -->
+        <radialGradient id="clockHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f4c28a" stop-opacity="0.22"/>
+          <stop offset="60%" stop-color="#d97706" stop-opacity="0.06"/>
+          <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
         </radialGradient>
 
-        <linearGradient id="phoneBeamGrad" x1="1" y1="0.5" x2="0" y2="0.5">
-          <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.55"/>
-          <stop offset="55%" stop-color="#38bdf8" stop-opacity="0.16"/>
-          <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
+        <!-- Symmetrical Lantern Light Cone -->
+        <linearGradient id="lanternCone" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.44"/>
+          <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </linearGradient>
 
-        <radialGradient id="phoneGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.5"/>
-          <stop offset="55%" stop-color="#0284c7" stop-opacity="0.14"/>
-          <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
-        </radialGradient>
-
-        <radialGradient id="redClockGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#ef4444" stop-opacity="0.5"/>
-          <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+        <radialGradient id="lanternHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.65"/>
+          <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </radialGradient>
       </defs>
 
       <!-- Camera Group -->
-      <g id="s1Camera">
-        <rect width="540" height="715" fill="url(#wallGrad)"/>
-        <rect x="0" y="715" width="540" height="245" fill="url(#floorGrad)"/>
-        <line x1="0" y1="748" x2="540" y2="748" stroke="#131218" stroke-width="2"/>
-        <line x1="0" y1="792" x2="540" y2="792" stroke="#131218" stroke-width="2"/>
-        <line x1="0" y1="845" x2="540" y2="845" stroke="#131218" stroke-width="2"/>
-        <line x1="0" y1="905" x2="540" y2="905" stroke="#131218" stroke-width="2"/>
+      <g id="s2Camera">
+        <rect width="540" height="960" fill="url(#nightSky1720)"/>
 
-        <!-- LARGE BEDROOM WINDOW -->
-        <g transform="translate(175, 165)">
-          <rect x="-8" y="-8" width="236" height="296" rx="4" fill="#0c0d12"/>
-          <rect x="0" y="0" width="220" height="280" fill="url(#windowSky)"/>
-          <g fill="#0e1324">
-            <rect x="0" y="215" width="42" height="65"/>
-            <rect x="38" y="195" width="48" height="85"/>
-            <rect x="82" y="225" width="38" height="55"/>
-            <rect x="118" y="182" width="54" height="98"/>
-            <rect x="168" y="208" width="52" height="72"/>
-            <rect x="136" y="198" width="5" height="6" fill="#fde68a" opacity="0.7"/>
-            <rect x="54" y="212" width="4" height="5" fill="#fde68a" opacity="0.4"/>
-          </g>
-          <circle cx="168" cy="68" r="18" fill="#f3f4f6" opacity="0.9"/>
-          <circle cx="175" cy="63" r="15" fill="#11172e"/>
-          <circle cx="55" cy="48" r="1.8" fill="#fff" opacity="0.6"/>
-          <circle cx="115" cy="35" r="1.5" fill="#fff" opacity="0.5"/>
-          <circle cx="145" cy="112" r="1.5" fill="#fff" opacity="0.5"/>
-          <rect x="107" y="0" width="6" height="280" fill="#0d0e14"/>
-          <rect x="0" y="148" width="220" height="6" fill="#0d0e14"/>
-          <rect x="-14" y="280" width="248" height="10" rx="2" fill="#232530"/>
+        <!-- Crescent Moon & Twinkling Stars -->
+        <circle cx="430" cy="185" r="24" fill="#f3f4f6" opacity="0.9"/>
+        <circle cx="439" cy="178" r="20" fill="#0d1324"/>
+
+        <g id="s2Stars" fill="#f2ede2">
+          <circle class="star" cx="95" cy="165" r="2"/>
+          <circle class="star" cx="175" cy="135" r="1.8"/>
+          <circle class="star" cx="255" cy="195" r="2.2"/>
+          <circle class="star" cx="345" cy="140" r="1.8"/>
+          <circle class="star" cx="120" cy="275" r="1.8"/>
+          <circle class="star" cx="465" cy="265" r="2"/>
+          <circle class="star" cx="210" cy="245" r="1.5"/>
         </g>
 
-        <!-- BEDSIDE NIGHTSTAND, SYMMETRICAL LAMP & DIGITAL CLOCK -->
-        <g transform="translate(36, 515)">
-          <circle cx="42" cy="33" r="125" fill="url(#lampHalo)"/>
-          <polygon points="24,14 60,14 78,-38 6,-38" fill="url(#lampUpGrad)"/>
-          <polygon points="12,52 72,52 148,200 -64,200" fill="url(#lampConeGrad)"/>
+        <!-- Distant Rolling Hills & 18th Century Village Cottages -->
+        <g id="s2VillageBg">
+          <path d="M -60 645 Q 180 575 380 635 T 640 615 L 640 760 L -60 760 Z" fill="#0e1324"/>
 
-          <!-- Nightstand -->
-          <rect x="8" y="105" width="96" height="95" rx="3" fill="#181820"/>
-          <rect x="4" y="102" width="104" height="8" rx="2" fill="#272733"/>
-          <rect x="16" y="118" width="80" height="32" rx="2" fill="#121218"/>
-          <circle cx="56" cy="134" r="3" fill="#3f3f52"/>
+          <!-- Cottage 1 -->
+          <g transform="translate(85, 558)">
+            <rect x="0" y="25" width="76" height="52" fill="#090c17"/>
+            <polygon points="-8,25 38,-6 84,25" fill="#06080f"/>
+            <rect x="54" y="2" width="10" height="18" fill="#06080f"/>
+            <rect x="28" y="42" width="16" height="18" rx="2" fill="#f59e0b" opacity="0.55"/>
+          </g>
 
-          <!-- Lamp -->
-          <rect x="28" y="96" width="28" height="6" rx="2" fill="#2e2e3d"/>
-          <rect x="39" y="52" width="6" height="44" fill="#2e2e3d"/>
-          <polygon points="24,14 60,14 72,52 12,52" fill="#fde68a"/>
-          <polygon points="24,14 60,14 72,52 12,52" fill="#f59e0b" opacity="0.22"/>
+          <!-- Cottage 2 -->
+          <g transform="translate(365, 568)">
+            <rect x="0" y="22" width="68" height="46" fill="#090c17"/>
+            <polygon points="-7,22 34,-5 75,22" fill="#06080f"/>
+            <rect x="24" y="38" width="14" height="15" rx="2" fill="#f59e0b" opacity="0.35"/>
+          </g>
 
-          <!-- Red Digital Clock -->
-          <g id="s1Clock">
-            <circle cx="82" cy="90" r="32" fill="url(#redClockGlow)"/>
-            <rect x="58" y="78" width="48" height="24" rx="4" fill="#09080c" stroke="#3f1d22" stroke-width="1.5"/>
-            <text id="s1ClockText" x="82" y="94" text-anchor="middle" fill="#f87171" font-family="monospace" font-size="13" font-weight="bold">01:59</text>
+          <!-- Bare Silhouette Trees -->
+          <g stroke="#080b14" stroke-width="4" stroke-linecap="round" fill="none">
+            <path d="M 245 628 L 245 572 M 245 595 L 230 580 M 245 588 L 260 574"/>
+            <path d="M 485 632 L 485 582 M 485 602 L 472 588 M 485 596 L 498 584"/>
           </g>
         </g>
 
-        <!-- BED & CHARACTER -->
-        <g transform="translate(152, 565)">
-          <ellipse cx="170" cy="152" rx="180" ry="12" fill="#07070a" opacity="0.85"/>
+        <!-- Foreground Dirt Path (Flat Surface at y = 735) -->
+        <rect x="0" y="735" width="540" height="225" fill="url(#earthGround)"/>
+        <line x1="0" y1="735" x2="540" y2="735" stroke="#1e2538" stroke-width="2"/>
 
-          <!-- Bed Frame & Mattress -->
-          <rect x="0" y="38" width="14" height="112" rx="3" fill="#16161f"/>
-          <rect x="326" y="72" width="14" height="78" rx="3" fill="#16161f"/>
-          <rect x="10" y="112" width="320" height="22" rx="3" fill="#1d1d29"/>
-          <rect x="14" y="92" width="312" height="24" rx="8" fill="#2a2b38"/>
-          <rect x="20" y="74" width="64" height="22" rx="10" fill="#343646"/>
+        <!-- ANTIQUE POCKET CLOCK REWINDING IN NIGHT SKY (x=270, y=315) -->
+        <g id="rewindClock">
+          <circle cx="270" cy="315" r="105" fill="url(#clockHalo)"/>
+          <circle cx="270" cy="315" r="68" fill="none" stroke="#f4c28a" stroke-width="2.5" stroke-dasharray="6 6" opacity="0.75"/>
+          <circle cx="270" cy="315" r="56" fill="rgba(9, 11, 20, 0.72)" stroke="#f4c28a" stroke-width="2"/>
+          <line x1="270" y1="265" x2="270" y2="273" stroke="#f4c28a" stroke-width="2.5"/>
+          <line x1="270" y1="357" x2="270" y2="365" stroke="#f4c28a" stroke-width="2.5"/>
+          <line x1="220" y1="315" x2="228" y2="315" stroke="#f4c28a" stroke-width="2.5"/>
+          <line x1="312" y1="315" x2="320" y2="315" stroke="#f4c28a" stroke-width="2.5"/>
 
-          <!-- Cool Blue Ambient Glow -->
-          <circle cx="138" cy="24" r="100" fill="url(#phoneGlow)" id="s1PhonePool"/>
+          <line id="clockHour" x1="270" y1="315" x2="270" y2="283" stroke="#f2ede2" stroke-width="3.5" stroke-linecap="round"/>
+          <line id="clockMin" x1="270" y1="315" x2="308" y2="315" stroke="#f4c28a" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="270" cy="315" r="4.5" fill="#f4c28a"/>
+        </g>
 
-          <!-- Character Rig -->
-          <g id="s1Char">
-            <!-- Back Leg -->
-            <path d="M 103 85 L 133 85 L 135 115 L 134 143 L 143 143"
+        <!-- =====================================================
+             EXACT SCENE 1 CHARACTER RIG WALKING WITH LANTERN
+             Feet grounded precisely on path at y = 735
+             Hip anchored at (0, 0) -> placed at (125, 677) so foot reaches y = 735
+             ===================================================== -->
+        <g id="s2Walker" transform="translate(125, 677)">
+          <!-- Ground Contact Shadow -->
+          <ellipse cx="3" cy="58" rx="28" ry="6" fill="#040508" opacity="0.85"/>
+
+          <!-- 1. Back Leg (Hip pivot at 0, 0 -> knee bend + forward rounded foot at y = 58) -->
+          <g id="s2LegBack">
+            <path d="M -2 0 L 0 29 L -1 58 L 8 58"
                   fill="none" stroke="var(--outfit-bottom-back)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
 
-            <!-- Slim Torso with Rounded Collar Peak & Warm Left Rim -->
-            <path d="M 88.5 28 Q 88.5 23 95 22 Q 101 18.5 107 22 Q 112 23 112 28 L 112 90 L 88.5 90 Z"
-                  fill="var(--rim)" opacity="0.45"/>
-            <path d="M 90 28 Q 90 23 96 22 Q 101 19 106 22 Q 112 23 112 28 L 112 90 L 90 90 Z"
-                  fill="var(--outfit-top)"/>
+          <!-- 2. Back Arm & Integrated Sleeve (Shoulder pivot at -1, -55) -->
+          <g id="s2ArmBack">
+            <path d="M -1 -55 L -6 -32 L -4 -14"
+                  fill="none" stroke="#07060a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M -1 -57 L -3.5 -45.5"
+                  fill="none" stroke="#5e3623" stroke-width="8.4" stroke-linecap="round"/>
+            <path d="M -2.2 -51 L -3.5 -45.5"
+                  fill="none" stroke="#5e3623" stroke-width="8.4" stroke-linecap="butt"/>
+          </g>
 
-            <!-- Front Leg with Rounded Hip Cap -->
-            <path d="M 99 86 L 137 86 L 140 116 L 138 144 L 148 144"
+          <!-- 3. Slim Torso with Rounded Collar Peak at Top (x=0, y=-66) & Warm Right Rim -->
+          <path d="M -11 -56 Q -11 -61 -5 -62 Q 0 -66.5 5 -62 Q 12.5 -61 12.5 -56 L 12.5 5 L -11 5 Z"
+                fill="var(--rim)" opacity="0.45"/>
+          <path d="M -11 -56 Q -11 -61 -5 -62 Q 0 -66 5 -62 Q 11 -61 11 -56 L 11 5 L -11 5 Z"
+                fill="var(--outfit-top)"/>
+
+          <!-- 4. Front Leg with Rounded Hip Cap Overlapping Shirt Bottom (Hip pivot at 0, 0 -> foot at y = 58) -->
+          <g id="s2LegFront">
+            <path d="M 0 0 L 2 29 L 1 58 L 11 58"
                   fill="none" stroke="var(--outfit-bottom)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
 
-            <!-- Head Group -->
-            <g id="s1Head">
-              <circle cx="99.5" cy="-2.5" r="22.5" fill="var(--rim)" opacity="0.65"/>
-              <circle cx="102.2" cy="-2.5" r="22.5" fill="#7dd3fc" opacity="0.4"/>
-              <circle cx="101" cy="-2.5" r="22.5" fill="var(--head)"/>
+          <!-- 5. Head Group (Centered at 0, -87.5, r=22.5 -> bottom at y=-65 overlaps collar peak cleanly!) -->
+          <g id="s2Head">
+            <circle cx="-1.2" cy="-87.5" r="22.5" fill="var(--rim)" opacity="0.35"/>
+            <circle cx="1.5" cy="-87.5" r="22.5" fill="var(--rim)" opacity="0.68"/>
+            <circle cx="0" cy="-87.5" r="22.5" fill="var(--head)"/>
 
-              <!-- 3/4 Side-Offset Face Features -->
-              <g id="s1Face">
-                <circle class="eye-dot" cx="111.5" cy="-5" r="2.2" fill="var(--face)"/>
-                <circle class="eye-dot" cx="119.5" cy="-5" r="2.2" fill="var(--face)"/>
-
-                <circle class="eye-ring" cx="111.5" cy="-5" r="3.2" fill="none" stroke="var(--face)" stroke-width="1.5" opacity="0"/>
-                <circle class="eye-ring" cx="119.5" cy="-5" r="3.2" fill="none" stroke="var(--face)" stroke-width="1.5" opacity="0"/>
-
-                <line id="s1MouthFlat" x1="112.5" y1="4.5" x2="118.5" y2="4.5" stroke="var(--face)" stroke-width="2" stroke-linecap="round"/>
-                <ellipse id="s1MouthOpen" cx="115.5" cy="5.5" rx="2.2" ry="3" fill="var(--face)" opacity="0"/>
-              </g>
+            <!-- 3/4 Side-Offset Face Features (Looking forward along the dark path) -->
+            <g id="s2Face">
+              <circle class="walker-eye" cx="10.5" cy="-90" r="2.2" fill="var(--face)"/>
+              <circle class="walker-eye" cx="18.5" cy="-90" r="2.2" fill="var(--face)"/>
+              <line x1="11.5" y1="-80.5" x2="17.5" y2="-80.5" stroke="var(--face)" stroke-width="2" stroke-linecap="round"/>
             </g>
+          </g>
 
-            <!-- Front Arm & Unified Sleeve -->
-            <g id="s1Arm">
-              <polygon points="141,8 141,28 113,12 113,-18" fill="url(#phoneBeamGrad)"/>
-              <path d="M 101 28.5 L 123 42 L 139 24" fill="none" stroke="#7dd3fc" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-              <path d="M 101 29 L 123 43 L 139 25" fill="none" stroke="var(--head)" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M 98 27.1 L 112.5 36.3" fill="none" stroke="var(--outfit-top)" stroke-width="8.6" stroke-linecap="round"/>
-              <path d="M 106 32.2 L 112.5 36.3" fill="none" stroke="var(--outfit-top)" stroke-width="8.6" stroke-linecap="butt"/>
+          <!-- 6. Front Arm & Unified Sleeve Holding Glowing Lantern (Shoulder pivot at 1, -55) -->
+          <g id="s2ArmFront">
+            <!-- Arm Rim Light -->
+            <path d="M 1 -55.5 L 14 -37 L 28 -30"
+                  fill="none" stroke="var(--rim)" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+            <!-- Sleek Black Arm -->
+            <path d="M 1 -55 L 14 -36 L 28 -29"
+                  fill="none" stroke="var(--head)" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Unified Short Sleeve -->
+            <path d="M -1 -57.9 L 7.5 -45.5"
+                  fill="none" stroke="var(--outfit-top)" stroke-width="8.6" stroke-linecap="round"/>
+            <path d="M 3.2 -51.7 L 7.5 -45.5"
+                  fill="none" stroke="var(--outfit-top)" stroke-width="8.6" stroke-linecap="butt"/>
 
-              <g transform="translate(141, 7) rotate(12)">
-                <rect x="2.5" y="-1" width="4.2" height="22" rx="1.8" fill="#090a0f"/>
-                <rect x="0" y="0" width="2.8" height="20" rx="1.4" fill="#e0f2fe"/>
-              </g>
+            <!-- Antique Lantern & Symmetrical Light Cone (Anchored at hand 28, -29) -->
+            <g id="s2Lantern" transform="translate(28, -29)">
+              <!-- Symmetrical Downward Cone onto Dirt Path (Reaches y = 87 -> ground level) -->
+              <polygon points="-6,18 6,18 48,87 -48,87" fill="url(#lanternCone)"/>
+              <!-- Warm Lantern Halo -->
+              <circle cx="0" cy="12" r="54" fill="url(#lanternHalo)"/>
+              <!-- Lantern Handle & Frame -->
+              <path d="M -5 0 Q 0 -6 5 0" fill="none" stroke="var(--head)" stroke-width="2"/>
+              <rect x="-6" y="2" width="12" height="16" rx="3" fill="var(--head)"/>
+              <!-- Glowing Candle Core -->
+              <rect x="-3.5" y="5" width="7" height="10" rx="1.5" fill="#fde68a"/>
+              <circle cx="0" cy="10" r="2.5" fill="#ffffff"/>
             </g>
           </g>
         </g>
@@ -277,7 +280,7 @@
   </div>
 
   <div class="controls">
-    <button class="primary" id="playBtn">▶ Play Scene 1 (7.5s)</button>
+    <button class="primary" id="playBtn">▶ Play Scene 2 (9.0s)</button>
     <button id="soundBtn">🔊 Sound: ON</button>
   </div>
 
@@ -306,87 +309,148 @@
       osc.stop(audioCtx.currentTime + duration);
     }
 
-    function playVibrate() {
-      playTone(92, 'sawtooth', 0.15, 0.07, 80);
-      setTimeout(() => playTone(92, 'sawtooth', 0.15, 0.07, 80), 220);
-    }
-
-    function playBassDrop() {
-      playTone(110, 'sine', 1.5, 0.28, 34);
+    function playRewindEffect() {
+      playTone(180, 'sine', 1.4, 0.14, 65);
+      for (let i = 0; i < 14; i++) {
+        setTimeout(() => {
+          playTone(720 - i * 32, 'triangle', 0.06, 0.06);
+        }, i * 110);
+      }
     }
 
     let sceneTl = null;
 
-    function playScene1() {
+    function playScene2() {
       if (sceneTl) sceneTl.kill();
 
-      gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s1Clock', { scale: 1 });
-      gsap.set('#s1Arm', { rotation: 0, svgOrigin: '101 29' });
-      gsap.set('.eye-dot', { scaleY: 1, opacity: 1, svgOrigin: '115.5 -5' });
-      gsap.set('.eye-ring', { opacity: 0 });
-      gsap.set('#s1MouthFlat', { opacity: 1 });
-      gsap.set('#s1MouthOpen', { opacity: 0 });
-      document.getElementById('s1ClockText').textContent = '01:59';
+      gsap.set('#s2Camera', { scale: 1, x: 0, y: 0 });
+      gsap.set('#s2VillageBg', { x: 0 });
+      gsap.set('#clockMin', { rotation: 0, svgOrigin: '270 315' });
+      gsap.set('#clockHour', { rotation: 0, svgOrigin: '270 315' });
+      gsap.set('#s2Walker', { x: 125, y: 677 });
+      gsap.set('#s2LegFront', { rotation: 0, svgOrigin: '0 0' });
+      gsap.set('#s2LegBack', { rotation: 0, svgOrigin: '0 0' });
+      gsap.set('#s2ArmBack', { rotation: 0, svgOrigin: '-1 -55' });
+      gsap.set('#s2ArmFront', { rotation: 0, svgOrigin: '1 -55' });
+      gsap.set('.walker-eye', { scaleY: 1, svgOrigin: '14.5 -90' });
 
       sceneTl = gsap.timeline();
 
-      sceneTl.call(() => playVibrate(), null, 0);
-      sceneTl.to('#s1Arm', {
-        rotation: -4.5,
-        svgOrigin: '101 29',
-        duration: 0.45,
-        yoyo: true,
-        repeat: 14,
-        ease: 'sine.inOut'
+      // 0.0s: Clock hands spin rapidly backward (Rewind into 1720s)
+      sceneTl.call(() => playRewindEffect(), null, 0);
+      sceneTl.to('#clockMin', {
+        rotation: -1440,
+        svgOrigin: '270 315',
+        duration: 5.5,
+        ease: 'power2.inOut'
+      }, 0);
+      sceneTl.to('#clockHour', {
+        rotation: -360,
+        svgOrigin: '270 315',
+        duration: 5.5,
+        ease: 'power2.inOut'
       }, 0);
 
-      sceneTl.to('#s1PhonePool', {
-        scale: 1.12,
-        svgOrigin: '138 24',
-        duration: 1.3,
+      // Twinkling stars
+      sceneTl.to('.star', {
+        opacity: 0.25,
+        duration: 0.8,
+        stagger: 0.18,
         yoyo: true,
-        repeat: 4,
-        ease: 'sine.inOut'
+        repeat: 9
       }, 0);
 
-      sceneTl.to('.eye-dot', {
+      // Subtle parallax drift on distant village hills
+      sceneTl.to('#s2VillageBg', {
+        x: -24,
+        duration: 9.0,
+        ease: 'none'
+      }, 0);
+
+      // Smooth human walk cycle across the dirt path (0.2s to 9.0s)
+      sceneTl.to('#s2Walker', {
+        x: 375,
+        duration: 8.8,
+        ease: 'none'
+      }, 0.2);
+
+      // Subtle vertical body bob (2px) synced with steps
+      sceneTl.to('#s2Walker', {
+        y: 675,
+        duration: 0.36,
+        yoyo: true,
+        repeat: 23,
+        ease: 'sine.inOut'
+      }, 0.2);
+
+      // Alternating Leg Swing anchored strictly at hip (0, 0)
+      sceneTl.to('#s2LegFront', {
+        rotation: 22,
+        svgOrigin: '0 0',
+        duration: 0.36,
+        yoyo: true,
+        repeat: 23,
+        ease: 'sine.inOut'
+      }, 0.2);
+
+      sceneTl.to('#s2LegBack', {
+        rotation: -22,
+        svgOrigin: '0 0',
+        duration: 0.36,
+        yoyo: true,
+        repeat: 23,
+        ease: 'sine.inOut'
+      }, 0.2);
+
+      // Opposite Back Arm Swing anchored at shoulder (-1, -55)
+      sceneTl.to('#s2ArmBack', {
+        rotation: 18,
+        svgOrigin: '-1 -55',
+        duration: 0.36,
+        yoyo: true,
+        repeat: 23,
+        ease: 'sine.inOut'
+      }, 0.2);
+
+      // Subtle Lantern Sway anchored at front shoulder (1, -55)
+      sceneTl.to('#s2ArmFront', {
+        rotation: -4,
+        svgOrigin: '1 -55',
+        duration: 0.72,
+        yoyo: true,
+        repeat: 11,
+        ease: 'sine.inOut'
+      }, 0.2);
+
+      // Natural Eye Blink at 3.2s & 6.8s
+      sceneTl.to('.walker-eye', {
         scaleY: 0.1,
-        svgOrigin: '115.5 -5',
+        svgOrigin: '14.5 -90',
         duration: 0.08,
         yoyo: true,
         repeat: 1
-      }, 1.3);
+      }, 3.2);
 
-      sceneTl.call(() => {
-        document.getElementById('s1ClockText').textContent = '02:00';
-        playBassDrop();
-      }, null, 2.2);
-
-      sceneTl.to('#s1Clock', {
-        scale: 1.16,
-        svgOrigin: '82 90',
-        duration: 0.25,
+      sceneTl.to('.walker-eye', {
+        scaleY: 0.1,
+        svgOrigin: '14.5 -90',
+        duration: 0.08,
         yoyo: true,
         repeat: 1
-      }, 2.2);
+      }, 6.8);
 
-      sceneTl.to('.eye-dot', { opacity: 0, duration: 0.1 }, 2.3);
-      sceneTl.to('.eye-ring', { opacity: 1, duration: 0.15 }, 2.3);
-      sceneTl.to('#s1MouthFlat', { opacity: 0, duration: 0.1 }, 2.3);
-      sceneTl.to('#s1MouthOpen', { opacity: 1, duration: 0.15 }, 2.3);
-
-      sceneTl.to('#s1Camera', {
-        scale: 1.24,
-        svgOrigin: '250 560',
-        duration: 5.2,
-        ease: 'power2.inOut'
-      }, 2.3);
+      // Gentle cinematic camera push-in
+      sceneTl.to('#s2Camera', {
+        scale: 1.12,
+        svgOrigin: '270 540',
+        duration: 9.0,
+        ease: 'sine.inOut'
+      }, 0);
     }
 
     document.getElementById('playBtn').addEventListener('click', () => {
       initAudio();
-      playScene1();
+      playScene2();
     });
 
     document.getElementById('soundBtn').addEventListener('click', () => {
@@ -395,7 +459,7 @@
     });
 
     window.addEventListener('load', () => {
-      setTimeout(playScene1, 300);
+      setTimeout(playScene2, 300);
     });
   </script>
 </body>
