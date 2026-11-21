@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 2: 2026 to 1720 Time Roll & Village Walk</title>
+  <title>Zenspiris — Scene 2: 2026 to 1720 Time Roll & Fluid Walk</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
@@ -93,28 +93,24 @@
   <div class="stage-wrapper">
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <!-- Deep 18th Century Midnight Sky -->
         <linearGradient id="nightSky1720" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#070a14"/>
           <stop offset="55%" stop-color="#111930"/>
           <stop offset="100%" stop-color="#1a2440"/>
         </linearGradient>
 
-        <!-- Ground Path Gradient -->
         <linearGradient id="earthGround" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#14161f"/>
           <stop offset="40%" stop-color="#0d0e14"/>
           <stop offset="100%" stop-color="#06070a"/>
         </linearGradient>
 
-        <!-- Year Counter Ambient Halo -->
         <radialGradient id="yearHalo" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#f4c28a" stop-opacity="0.24"/>
           <stop offset="60%" stop-color="#d97706" stop-opacity="0.06"/>
           <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Top/Bottom Fade Mask for Rolling Year Reel -->
         <linearGradient id="reelFadeMask" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
           <stop offset="22%" stop-color="#ffffff" stop-opacity="1"/>
@@ -125,7 +121,6 @@
           <rect x="130" y="255" width="280" height="120" fill="url(#reelFadeMask)"/>
         </mask>
 
-        <!-- Symmetrical Lantern Light Cone -->
         <linearGradient id="lanternCone" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#fde68a" stop-opacity="0.44"/>
           <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.14"/>
@@ -187,20 +182,14 @@
         <rect x="0" y="735" width="540" height="225" fill="url(#earthGround)"/>
         <line x1="0" y1="735" x2="540" y2="735" stroke="#1e2538" stroke-width="2"/>
 
-        <!-- =====================================================
-             VERTICAL ROLLING YEAR REEL (2026 -> 1720)
-             ===================================================== -->
+        <!-- VERTICAL ROLLING YEAR REEL (2026 -> 1720) -->
         <g id="yearRewindDisplay">
           <ellipse cx="270" cy="315" rx="145" ry="65" fill="url(#yearHalo)"/>
-
-          <!-- Minimal Cinematic Frame Accent Lines -->
           <line x1="175" y1="274" x2="365" y2="274" stroke="#f4c28a" stroke-width="1" opacity="0.25"/>
           <line x1="175" y1="356" x2="365" y2="356" stroke="#f4c28a" stroke-width="1" opacity="0.25"/>
-          <!-- Side Indicator Notches -->
           <polygon points="164,311 172,315 164,319" fill="#f4c28a" opacity="0.7"/>
           <polygon points="376,311 368,315 376,319" fill="#f4c28a" opacity="0.7"/>
 
-          <!-- Masked Rolling Year Strip (Each step = 76px) -->
           <g mask="url(#yearReelMask)">
             <g id="yearStrip" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="54" font-weight="700" text-anchor="middle" letter-spacing="4">
               <text x="270" y="333" fill="#7dd3fc">2026</text>
@@ -219,65 +208,65 @@
         </g>
 
         <!-- =====================================================
-             CHARACTER RIG WITH ARTICULATED KNEE-BEND WALK CYCLE
-             Hip anchored at (0, 0) -> placed at (110, 677) so feet touch y = 735
+             SLIM & SHORTER SHIRT PROPORTIONS + FLUID WALK RIG
+             Hip anchored at (0, 0) -> placed at (110, 671) so longer slim legs (64px) touch y = 735
              ===================================================== -->
-        <g id="s2Walker" transform="translate(110, 677)">
+        <g id="s2Walker" transform="translate(110, 671)">
           <!-- Ground Contact Shadow -->
-          <ellipse cx="4" cy="58" rx="30" ry="6" fill="#040508" opacity="0.85"/>
+          <ellipse cx="3" cy="64" rx="26" ry="5.5" fill="#040508" opacity="0.85"/>
 
-          <!-- 1. Back Articulated Leg (Thigh hip 0,0 -> knee 0,29 -> Shin calf -> ankle 0,58 + foot) -->
+          <!-- 1. Back Slim Leg (Hip 0,0 -> Knee 0,32 -> Foot y=64) -->
           <g id="s2ThighBack">
-            <line x1="-1" y1="0" x2="-1" y2="29" stroke="var(--outfit-bottom-back)" stroke-width="7.5" stroke-linecap="round"/>
+            <line x1="-1" y1="0" x2="-1" y2="32" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round"/>
             <g id="s2ShinBack">
-              <path d="M -1 29 L -1 58 L 8 58" fill="none" stroke="var(--outfit-bottom-back)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M -1 32 L -1 64 L 7 64" fill="none" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
             </g>
           </g>
 
-          <!-- 2. Back Arm & Integrated Sleeve (Shoulder pivot at -1, -55) -->
+          <!-- 2. Back Slim Arm & Sleeve (Shoulder pivot at -1, -48) -->
           <g id="s2ArmBack">
-            <path d="M -1 -55 L -5 -32 L -2 -14" fill="none" stroke="#07060a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M -1 -57 L -3 -45.5" fill="none" stroke="#295794" stroke-width="8.4" stroke-linecap="round"/>
-            <path d="M -2 -51 L -3 -45.5" fill="none" stroke="#295794" stroke-width="8.4" stroke-linecap="butt"/>
+            <path d="M -1 -48 L -4 -26 L -2 -9" fill="none" stroke="#07060a" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M -1 -50 L -2.8 -39" fill="none" stroke="#295794" stroke-width="7.4" stroke-linecap="round"/>
+            <path d="M -1.9 -44.5 L -2.8 -39" fill="none" stroke="#295794" stroke-width="7.4" stroke-linecap="butt"/>
           </g>
 
-          <!-- 3. Slim Torso (Signature Blue #3b78c4) with Rounded Collar Peak & Warm Rim -->
+          <!-- 3. Slimmer & Shorter Torso (Width 18px instead of 22px, shorter hem at y = 0) -->
           <g id="s2Torso">
-            <path d="M -11 -56 Q -11 -61 -5 -62 Q 0 -66.5 5 -62 Q 12.5 -61 12.5 -56 L 12.5 5 L -11 5 Z" fill="var(--rim)" opacity="0.45"/>
-            <path d="M -11 -56 Q -11 -61 -5 -62 Q 0 -66 5 -62 Q 11 -61 11 -56 L 11 5 L -11 5 Z" fill="var(--outfit-top)"/>
+            <path d="M -9 -49 Q -9 -53.5 -4 -54.5 Q 0 -58.5 4 -54.5 Q 10.5 -53.5 10.5 -49 L 10.5 0 L -9 0 Z" fill="var(--rim)" opacity="0.45"/>
+            <path d="M -9 -49 Q -9 -53.5 -4 -54.5 Q 0 -58 4 -54.5 Q 9 -53.5 9 -49 L 9 0 L -9 0 Z" fill="var(--outfit-top)"/>
           </g>
 
-          <!-- 4. Front Articulated Leg (Thigh hip 0,0 -> knee 0,29 -> Shin calf -> ankle 0,58 + foot) -->
+          <!-- 4. Front Slim Leg with Rounded Hip Overlap (Hip 0,0 -> Knee 0,32 -> Foot y=64) -->
           <g id="s2ThighFront">
-            <line x1="0" y1="0" x2="0" y2="29" stroke="var(--outfit-bottom)" stroke-width="8" stroke-linecap="round"/>
+            <line x1="0" y1="0" x2="0" y2="32" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round"/>
             <g id="s2ShinFront">
-              <path d="M 0 29 L 0 58 L 10 58" fill="none" stroke="var(--outfit-bottom)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 0 32 L 0 64 L 9 64" fill="none" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
             </g>
           </g>
 
-          <!-- 5. Head Group (Centered at 0, -87.5, r=22.5 -> seamless collar touch) -->
+          <!-- 5. Head Group (Centered at 0, -79, r=22 -> bottom touches collar peak at y = -57) -->
           <g id="s2Head">
-            <circle cx="-1.2" cy="-87.5" r="22.5" fill="var(--rim)" opacity="0.35"/>
-            <circle cx="1.5" cy="-87.5" r="22.5" fill="var(--rim)" opacity="0.68"/>
-            <circle cx="0" cy="-87.5" r="22.5" fill="var(--head)"/>
+            <circle cx="-1.1" cy="-79" r="22" fill="var(--rim)" opacity="0.35"/>
+            <circle cx="1.4" cy="-79" r="22" fill="var(--rim)" opacity="0.68"/>
+            <circle cx="0" cy="-79" r="22" fill="var(--head)"/>
 
             <!-- 3/4 Side-Offset Face Features -->
             <g id="s2Face">
-              <circle class="walker-eye" cx="10.5" cy="-90" r="2.2" fill="var(--face)"/>
-              <circle class="walker-eye" cx="18.5" cy="-90" r="2.2" fill="var(--face)"/>
-              <line x1="11.5" y1="-80.5" x2="17.5" y2="-80.5" stroke="var(--face)" stroke-width="2" stroke-linecap="round"/>
+              <circle class="walker-eye" cx="10" cy="-81.5" r="2.1" fill="var(--face)"/>
+              <circle class="walker-eye" cx="17.8" cy="-81.5" r="2.1" fill="var(--face)"/>
+              <line x1="11" y1="-72.5" x2="16.8" y2="-72.5" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
             </g>
           </g>
 
-          <!-- 6. Front Arm & Unified Sleeve Holding Glowing Lantern (Shoulder pivot at 1, -55) -->
+          <!-- 6. Front Slim Arm & Unified Sleeve Holding Lantern (Shoulder pivot at 1, -48) -->
           <g id="s2ArmFront">
-            <path d="M 1 -55.5 L 14 -37 L 28 -30" fill="none" stroke="var(--rim)" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-            <path d="M 1 -55 L 14 -36 L 28 -29" fill="none" stroke="var(--head)" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M -1 -57.9 L 7.5 -45.5" fill="none" stroke="var(--outfit-top)" stroke-width="8.6" stroke-linecap="round"/>
-            <path d="M 3.2 -51.7 L 7.5 -45.5" fill="none" stroke="var(--outfit-top)" stroke-width="8.6" stroke-linecap="butt"/>
+            <path d="M 1 -48.5 L 13 -31 L 26 -24" fill="none" stroke="var(--rim)" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+            <path d="M 1 -48 L 13 -30 L 26 -23" fill="none" stroke="var(--head)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M -0.8 -50.6 L 6.8 -39.2" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="round"/>
+            <path d="M 3 -44.9 L 6.8 -39.2" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="butt"/>
 
-            <!-- Antique Lantern & Symmetrical Light Cone (Anchored at hand 28, -29) -->
-            <g id="s2Lantern" transform="translate(28, -29)">
+            <!-- Antique Lantern & Symmetrical Light Cone (Anchored at hand 26, -23) -->
+            <g id="s2Lantern" transform="translate(26, -23)">
               <polygon points="-6,18 6,18 48,87 -48,87" fill="url(#lanternCone)"/>
               <circle cx="0" cy="12" r="54" fill="url(#lanternHalo)"/>
               <path d="M -5 0 Q 0 -6 5 0" fill="none" stroke="var(--head)" stroke-width="2"/>
@@ -325,20 +314,17 @@
       osc.stop(audioCtx.currentTime + duration);
     }
 
-    // Crisp mechanical slot-roller click as years spin backward
     function playRollTick(pitchShift = 0) {
       playTone(540 + pitchShift, 'triangle', 0.045, 0.08, 220);
     }
 
-    // Deep resonant lock sound when landing on 1720
     function playYearLock() {
       playTone(135, 'sine', 0.65, 0.25, 42);
       playTone(680, 'sine', 0.18, 0.09);
     }
 
-    // Soft earthy footstep sound on dirt path
     function playFootstep() {
-      playTone(76, 'sine', 0.11, 0.09, 36);
+      playTone(74, 'sine', 0.11, 0.085, 36);
     }
 
     let sceneTl = null;
@@ -348,26 +334,25 @@
       if (sceneTl) sceneTl.kill();
       lastRollIndex = 0;
 
-      // Reset all states
       gsap.set('#s2Camera', { scale: 1, x: 0, y: 0 });
       gsap.set('#s2VillageBg', { x: 0 });
       gsap.set('#yearStrip', { y: 0 });
       gsap.set('#yearRewindDisplay', { scale: 1 });
-      gsap.set('#s2Walker', { x: 110, y: 677 });
-      gsap.set('#s2Torso', { rotation: 2, svgOrigin: '0 0' });
-      gsap.set('#s2Head', { rotation: 0, svgOrigin: '0 -66' });
-      gsap.set('#s2ThighFront', { rotation: 0, svgOrigin: '0 0' });
-      gsap.set('#s2ShinFront', { rotation: 0, svgOrigin: '0 29' });
-      gsap.set('#s2ThighBack', { rotation: 0, svgOrigin: '0 0' });
-      gsap.set('#s2ShinBack', { rotation: 0, svgOrigin: '-1 29' });
-      gsap.set('#s2ArmBack', { rotation: 0, svgOrigin: '-1 -55' });
-      gsap.set('#s2ArmFront', { rotation: 0, svgOrigin: '1 -55' });
-      gsap.set('#s2Lantern', { rotation: 0, svgOrigin: '0 0' });
-      gsap.set('.walker-eye', { scaleY: 1, svgOrigin: '14.5 -90' });
+      gsap.set('#s2Walker', { x: 110, y: 671 });
+      gsap.set('#s2Torso', { rotation: 2.5, svgOrigin: '0 0' });
+      gsap.set('#s2Head', { rotation: 0, svgOrigin: '0 -57' });
+      gsap.set('#s2ThighFront', { rotation: 22, svgOrigin: '0 0' });
+      gsap.set('#s2ShinFront', { rotation: 4, svgOrigin: '0 32' });
+      gsap.set('#s2ThighBack', { rotation: -22, svgOrigin: '0 0' });
+      gsap.set('#s2ShinBack', { rotation: 18, svgOrigin: '-1 32' });
+      gsap.set('#s2ArmBack', { rotation: -16, svgOrigin: '-1 -48' });
+      gsap.set('#s2ArmFront', { rotation: 2, svgOrigin: '1 -48' });
+      gsap.set('#s2Lantern', { rotation: -4, svgOrigin: '0 0' });
+      gsap.set('.walker-eye', { scaleY: 1, svgOrigin: '14 -81.5' });
 
       sceneTl = gsap.timeline();
 
-      // 1. VERTICAL ROLLING YEAR COUNTER (2026 -> 1720 across 10 steps * 76px = -760px)
+      // 1. VERTICAL ROLLING YEAR COUNTER (2026 -> 1720)
       sceneTl.to('#yearStrip', {
         y: -760,
         duration: 4.8,
@@ -408,96 +393,112 @@
         ease: 'none'
       }, 0);
 
-      // 2. REALISTIC ARTICULATED WALK CYCLE WITH KNEE BEND & FOOTSTEPS
-      const stepDuration = 0.44;
-      const totalSteps = 20;
+      // 2. CONTINUOUS FLUID SINE-WAVE WALK CYCLE (Zero jerky breaks!)
+      const halfStride = 0.48; // 0.96s full left-right cycle
+      const totalHalfStrides = 18;
 
-      // Forward translation across dirt path
+      // Smooth constant forward glide matched to stride length
       sceneTl.to('#s2Walker', {
-        x: 385,
-        duration: stepDuration * totalSteps,
+        x: 380,
+        duration: halfStride * totalHalfStrides,
         ease: 'none'
-      }, 0.1);
+      }, 0);
 
-      // Build natural two-phase stride loop (Left/Back step & Right/Front step)
-      const walkLoop = gsap.timeline({ repeat: totalSteps / 2 - 1 });
+      // Continuous sinusoidal hip swing (Front & Back thighs oppose smoothly)
+      sceneTl.to('#s2ThighFront', {
+        rotation: -22,
+        svgOrigin: '0 0',
+        duration: halfStride,
+        yoyo: true,
+        repeat: totalHalfStrides - 1,
+        ease: 'sine.inOut'
+      }, 0);
 
-      // Phase A: Front leg swings forward (thigh forward, knee bends then extends), Back leg pushes off
-      walkLoop
-        .call(() => playFootstep(), null, 0.02)
-        .to('#s2ThighFront', { rotation: -26, svgOrigin: '0 0', duration: stepDuration * 0.5, ease: 'sine.out' }, 0)
-        .to('#s2ShinFront', { rotation: 34, svgOrigin: '0 29', duration: stepDuration * 0.5, ease: 'sine.out' }, 0)
-        .to('#s2ThighBack', { rotation: 22, svgOrigin: '0 0', duration: stepDuration * 0.5, ease: 'sine.inOut' }, 0)
-        .to('#s2ShinBack', { rotation: 10, svgOrigin: '-1 29', duration: stepDuration * 0.5, ease: 'sine.inOut' }, 0)
-        .to('#s2Walker', { y: 673.5, duration: stepDuration * 0.5, ease: 'sine.out' }, 0)
+      sceneTl.to('#s2ThighBack', {
+        rotation: 22,
+        svgOrigin: '0 0',
+        duration: halfStride,
+        yoyo: true,
+        repeat: totalHalfStrides - 1,
+        ease: 'sine.inOut'
+      }, 0);
 
-        // Plant front foot
-        .to('#s2ThighFront', { rotation: -18, svgOrigin: '0 0', duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 0.5)
-        .to('#s2ShinFront', { rotation: 4, svgOrigin: '0 29', duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 0.5)
-        .to('#s2ThighBack', { rotation: 26, svgOrigin: '0 0', duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 0.5)
-        .to('#s2ShinBack', { rotation: 28, svgOrigin: '-1 29', duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 0.5)
-        .to('#s2Walker', { y: 677, duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 0.5)
+      // Delayed-phase knee bend (peaks smoothly mid-swing so foot clears dirt naturally)
+      sceneTl.to('#s2ShinFront', {
+        rotation: 28,
+        svgOrigin: '0 32',
+        duration: halfStride * 0.5,
+        yoyo: true,
+        repeat: totalHalfStrides * 2 - 1,
+        ease: 'sine.inOut'
+      }, halfStride * 0.25);
 
-      // Phase B: Back leg swings forward through (knee bends to clear ground), Front leg sweeps back
-        .call(() => playFootstep(), null, stepDuration + 0.02)
-        .to('#s2ThighBack', { rotation: -26, svgOrigin: '0 0', duration: stepDuration * 0.5, ease: 'sine.out' }, stepDuration)
-        .to('#s2ShinBack', { rotation: 34, svgOrigin: '-1 29', duration: stepDuration * 0.5, ease: 'sine.out' }, stepDuration)
-        .to('#s2ThighFront', { rotation: 22, svgOrigin: '0 0', duration: stepDuration * 0.5, ease: 'sine.inOut' }, stepDuration)
-        .to('#s2ShinFront', { rotation: 10, svgOrigin: '0 29', duration: stepDuration * 0.5, ease: 'sine.inOut' }, stepDuration)
-        .to('#s2Walker', { y: 673.5, duration: stepDuration * 0.5, ease: 'sine.out' }, stepDuration)
+      sceneTl.to('#s2ShinBack', {
+        rotation: 28,
+        svgOrigin: '-1 32',
+        duration: halfStride * 0.5,
+        yoyo: true,
+        repeat: totalHalfStrides * 2 - 1,
+        ease: 'sine.inOut'
+      }, halfStride * 0.75);
 
-        // Plant back foot
-        .to('#s2ThighBack', { rotation: -18, svgOrigin: '0 0', duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 1.5)
-        .to('#s2ShinBack', { rotation: 4, svgOrigin: '-1 29', duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 1.5)
-        .to('#s2ThighFront', { rotation: 26, svgOrigin: '0 0', duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 1.5)
-        .to('#s2ShinFront', { rotation: 28, svgOrigin: '0 29', duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 1.5)
-        .to('#s2Walker', { y: 677, duration: stepDuration * 0.5, ease: 'sine.in' }, stepDuration * 1.5);
+      // Smooth vertical weight shift (double-frequency bob synced with footfalls)
+      sceneTl.to('#s2Walker', {
+        y: 668,
+        duration: halfStride * 0.5,
+        yoyo: true,
+        repeat: totalHalfStrides * 2 - 1,
+        ease: 'sine.inOut'
+      }, 0);
 
-      sceneTl.add(walkLoop, 0.1);
+      // Footstep SFX synced to each stride plant
+      for (let i = 0; i < totalHalfStrides; i++) {
+        sceneTl.call(() => playFootstep(), null, i * halfStride + 0.05);
+      }
 
-      // Counter-swinging back arm
+      // Smooth counter-swinging back arm
       sceneTl.to('#s2ArmBack', {
-        rotation: 20,
-        svgOrigin: '-1 -55',
-        duration: stepDuration,
+        rotation: 16,
+        svgOrigin: '-1 -48',
+        duration: halfStride,
         yoyo: true,
-        repeat: totalSteps - 1,
+        repeat: totalHalfStrides - 1,
         ease: 'sine.inOut'
-      }, 0.1);
+      }, 0);
 
-      // Gentle lantern sway & pendulum inertia
+      // Fluid lantern sway & pendulum inertia
       sceneTl.to('#s2ArmFront', {
-        rotation: -4,
-        svgOrigin: '1 -55',
-        duration: stepDuration,
+        rotation: -3,
+        svgOrigin: '1 -48',
+        duration: halfStride,
         yoyo: true,
-        repeat: totalSteps - 1,
+        repeat: totalHalfStrides - 1,
         ease: 'sine.inOut'
-      }, 0.1);
+      }, 0);
 
       sceneTl.to('#s2Lantern', {
-        rotation: 6,
+        rotation: 5,
         svgOrigin: '0 0',
-        duration: stepDuration,
+        duration: halfStride,
         yoyo: true,
-        repeat: totalSteps - 1,
+        repeat: totalHalfStrides - 1,
         ease: 'sine.inOut'
-      }, 0.22);
+      }, halfStride * 0.3);
 
-      // Subtle natural head nod synced with steps
+      // Subtle head balance nod
       sceneTl.to('#s2Head', {
-        rotation: 2,
-        svgOrigin: '0 -66',
-        duration: stepDuration,
+        rotation: 1.5,
+        svgOrigin: '0 -57',
+        duration: halfStride * 0.5,
         yoyo: true,
-        repeat: totalSteps - 1,
+        repeat: totalHalfStrides * 2 - 1,
         ease: 'sine.inOut'
-      }, 0.1);
+      }, 0);
 
       // Natural Eye Blinks
       sceneTl.to('.walker-eye', {
         scaleY: 0.1,
-        svgOrigin: '14.5 -90',
+        svgOrigin: '14 -81.5',
         duration: 0.08,
         yoyo: true,
         repeat: 1
@@ -505,7 +506,7 @@
 
       sceneTl.to('.walker-eye', {
         scaleY: 0.1,
-        svgOrigin: '14.5 -90',
+        svgOrigin: '14 -81.5',
         duration: 0.08,
         yoyo: true,
         repeat: 1
