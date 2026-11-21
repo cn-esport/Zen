@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 4: Second Sleep & Natural Sunrise</title>
+  <title>Zenspiris — Scene 5: Modern Blue Light & Outro Hook</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
       --head: #0d0b12;
       --face: #f2ede2;
-      --rim: #fde68a;
+      --rim: #7dd3fc;
       --outfit-top: #3b78c4;
       --outfit-bottom: #e8dcc0;
       --outfit-bottom-back: #b8ac92;
@@ -34,7 +34,7 @@
       width: 100vw;
       max-width: 410px;
       aspect-ratio: 9 / 16;
-      background: #141218;
+      background: #090a10;
       overflow: hidden;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
     }
@@ -50,7 +50,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 40%, rgba(12, 10, 14, 0.78) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 35%, rgba(3, 4, 8, 0.94) 100%);
       z-index: 10;
     }
 
@@ -93,187 +93,182 @@
   <div class="stage-wrapper">
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <!-- Morning Cabin Wall -->
-        <linearGradient id="morningWall" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1d1a24"/>
-          <stop offset="65%" stop-color="#292433"/>
-          <stop offset="100%" stop-color="#1c1922"/>
+        <!-- Modern Dark Bedroom Wall -->
+        <linearGradient id="s5WallGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0d0e14"/>
+          <stop offset="65%" stop-color="#141620"/>
+          <stop offset="100%" stop-color="#0e0f16"/>
         </linearGradient>
 
-        <!-- Dawn to Golden Morning Sky -->
-        <linearGradient id="sunriseSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1e3a5f"/>
-          <stop offset="48%" stop-color="#d97706"/>
-          <stop offset="82%" stop-color="#fbbf24"/>
-          <stop offset="100%" stop-color="#fef3c7"/>
+        <!-- Late Night Window Sky -->
+        <linearGradient id="s5WindowSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#070a14"/>
+          <stop offset="60%" stop-color="#111830"/>
+          <stop offset="100%" stop-color="#192342"/>
         </linearGradient>
 
-        <!-- Warm Wooden Floor -->
-        <linearGradient id="morningFloor" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#221d26"/>
-          <stop offset="45%" stop-color="#2c2530"/>
-          <stop offset="100%" stop-color="#16131a"/>
+        <!-- Modern Floor -->
+        <linearGradient id="s5FloorGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#13131a"/>
+          <stop offset="40%" stop-color="#1a1a24"/>
+          <stop offset="100%" stop-color="#0b0b10"/>
         </linearGradient>
 
-        <!-- Sunlight Ray Stream through Window -->
-        <linearGradient id="sunBeamGrad" x1="0.5" y1="0" x2="0.2" y2="1">
-          <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.34"/>
-          <stop offset="60%" stop-color="#fde68a" stop-opacity="0.12"/>
-          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        <!-- Harsh Artificial Phone Light Beam -->
+        <linearGradient id="s5PhoneBeam" x1="1" y1="0.5" x2="0" y2="0.5">
+          <stop offset="0%" stop-color="#bae6fd" stop-opacity="0.72"/>
+          <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.24"/>
+          <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
         </linearGradient>
 
-        <!-- Rising Sun Glow -->
-        <radialGradient id="sunHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.9"/>
-          <stop offset="45%" stop-color="#fbbf24" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        <!-- Intense Blue Screen Ambient Pool -->
+        <radialGradient id="s5BluePool" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.62"/>
+          <stop offset="50%" stop-color="#0284c7" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
         </radialGradient>
 
-        <clipPath id="s4WindowClip">
-          <rect x="0" y="0" width="220" height="270"/>
-        </clipPath>
+        <radialGradient id="s5ClockGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ef4444" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+        </radialGradient>
       </defs>
 
       <!-- Camera Group -->
-      <g id="s4Camera">
-        <rect width="540" height="715" fill="url(#morningWall)"/>
-        <rect x="0" y="130" width="540" height="10" fill="#14111a" opacity="0.55"/>
-        <rect x="0" y="485" width="540" height="10" fill="#14111a" opacity="0.55"/>
+      <g id="s5Camera">
+        <rect width="540" height="715" fill="url(#s5WallGrad)"/>
+        <rect x="0" y="715" width="540" height="245" fill="url(#s5FloorGrad)"/>
+        <line x1="0" y1="748" x2="540" y2="748" stroke="#0f0f14" stroke-width="2"/>
+        <line x1="0" y1="792" x2="540" y2="792" stroke="#0f0f14" stroke-width="2"/>
+        <line x1="0" y1="845" x2="540" y2="845" stroke="#0f0f14" stroke-width="2"/>
+        <line x1="0" y1="905" x2="540" y2="905" stroke="#0f0f14" stroke-width="2"/>
 
-        <rect x="0" y="715" width="540" height="245" fill="url(#morningFloor)"/>
-        <line x1="0" y1="750" x2="540" y2="750" stroke="#18141c" stroke-width="2"/>
-        <line x1="0" y1="796" x2="540" y2="796" stroke="#18141c" stroke-width="2"/>
-        <line x1="0" y1="850" x2="540" y2="850" stroke="#18141c" stroke-width="2"/>
-        <line x1="0" y1="910" x2="540" y2="910" stroke="#18141c" stroke-width="2"/>
-
-        <!-- 1720s WOODEN COTTAGE WINDOW WITH NATURAL SUNRISE -->
+        <!-- MODERN BEDROOM WINDOW (3:14 AM Late Night) -->
         <g transform="translate(175, 165)">
-          <rect x="-8" y="-8" width="236" height="286" rx="4" fill="#121017"/>
-          <g clip-path="url(#s4WindowClip)">
-            <rect x="0" y="0" width="220" height="270" fill="url(#sunriseSky)"/>
-
-            <!-- Rising Morning Sun (Starts low behind mountains at y=225 -> rises to y=115) -->
-            <g id="s4Sun" transform="translate(110, 225)">
-              <circle cx="0" cy="0" r="68" fill="url(#sunHalo)"/>
-              <circle cx="0" cy="0" r="24" fill="#fef3c7"/>
-            </g>
-
-            <!-- Morning Mountain Peaks -->
-            <path d="M 0 270 L 0 226 L 38 192 L 76 228 L 110 198 L 148 232 L 186 196 L 220 224 L 220 270 Z" fill="#1c1926"/>
+          <rect x="-8" y="-8" width="236" height="296" rx="4" fill="#090a0f"/>
+          <rect x="0" y="0" width="220" height="280" fill="url(#s5WindowSky)"/>
+          <!-- City Skyline -->
+          <g fill="#0a0e1c">
+            <rect x="0" y="215" width="42" height="65"/>
+            <rect x="38" y="195" width="48" height="85"/>
+            <rect x="82" y="225" width="38" height="55"/>
+            <rect x="118" y="182" width="54" height="98"/>
+            <rect x="168" y="208" width="52" height="72"/>
           </g>
-          <rect x="107" y="0" width="6" height="270" fill="#14111a"/>
-          <rect x="0" y="132" width="220" height="6" fill="#14111a"/>
-          <rect x="-14" y="270" width="248" height="10" rx="2" fill="#282330"/>
+          <!-- Fading Low Crescent Moon -->
+          <circle cx="52" cy="128" r="16" fill="#e2e8f0" opacity="0.75"/>
+          <circle cx="59" cy="123" r="13" fill="#0e1429"/>
+          <!-- Stars -->
+          <circle cx="135" cy="48" r="1.6" fill="#fff" opacity="0.5"/>
+          <circle cx="175" cy="82" r="1.4" fill="#fff" opacity="0.45"/>
+          <!-- Window Frame Mullions -->
+          <rect x="107" y="0" width="6" height="280" fill="#0a0b10"/>
+          <rect x="0" y="148" width="220" height="6" fill="#0a0b10"/>
+          <rect x="-14" y="280" width="248" height="10" rx="2" fill="#1c1e29"/>
         </g>
 
-        <!-- GOLDEN MORNING SUNBEAMS STREAMING INTO ROOM -->
-        <polygon id="s4SunBeams" points="180,170 390,170 310,730 40,730" fill="url(#sunBeamGrad)" opacity="0.25"/>
+        <!-- BEDSIDE NIGHTSTAND (Room Lamp Off -> Only Harsh Red 03:14 Clock & Blue Phone) -->
+        <g transform="translate(36, 515)">
+          <rect x="8" y="105" width="96" height="95" rx="3" fill="#13131a"/>
+          <rect x="4" y="102" width="104" height="8" rx="2" fill="#1f1f2b"/>
+          <rect x="16" y="118" width="80" height="32" rx="2" fill="#0d0d12"/>
+          <circle cx="56" cy="134" r="3" fill="#2e2e3d"/>
 
-        <!-- RUSTIC SIDE TABLE WITH MELTED EXTINGUISHED CANDLE & CLOSED BOOK -->
-        <g transform="translate(365, 535)">
-          <rect x="8" y="88" width="76" height="92" rx="3" fill="#1c1924"/>
-          <rect x="2" y="84" width="88" height="8" rx="2" fill="#2c2738"/>
-          <rect x="16" y="102" width="60" height="28" rx="2" fill="#15131c"/>
+          <!-- Unlit Dark Lamp -->
+          <rect x="28" y="96" width="28" height="6" rx="2" fill="#22222e"/>
+          <rect x="39" y="52" width="6" height="44" fill="#22222e"/>
+          <polygon points="24,14 60,14 72,52 12,52" fill="#262836"/>
 
-          <!-- Closed Book resting on table -->
-          <rect x="12" y="77" width="24" height="7" rx="1.5" fill="#7c4a32"/>
-          <rect x="14" y="79" width="20" height="3" fill="#e2d9c5"/>
-
-          <!-- Melted Short Candle Stub (Extinguished at dawn) -->
-          <ellipse cx="58" cy="83" rx="14" ry="3" fill="#d97706" opacity="0.7"/>
-          <rect x="54" y="68" width="8" height="15" rx="2" fill="#f2ede2"/>
-          <line x1="58" y1="64" x2="58" y2="68" stroke="#18181b" stroke-width="1.5"/>
-          <!-- Thin wisping morning smoke -->
-          <path id="s4Smoke" d="M 58 63 Q 55 55 59 48 Q 62 41 58 34" fill="none" stroke="#f2ede2" stroke-width="1.2" opacity="0.25"/>
+          <!-- Red Digital Clock showing 03:14 -->
+          <g id="s5Clock">
+            <circle cx="82" cy="90" r="32" fill="url(#s5ClockGlow)"/>
+            <rect x="58" y="78" width="48" height="24" rx="4" fill="#07060a" stroke="#3f1d22" stroke-width="1.5"/>
+            <text id="s5ClockText" x="82" y="94" text-anchor="middle" fill="#f87171" font-family="monospace" font-size="13" font-weight="bold">03:14</text>
+          </g>
         </g>
 
-        <!-- WOODEN BED & SINGLE-RIG REFRESHED AWAKENING CHARACTER -->
-        <g transform="translate(68, 565)">
-          <ellipse cx="145" cy="152" rx="155" ry="12" fill="#0d0b10" opacity="0.75"/>
+        <!-- BED & CHARACTER (FATIGUED BLUE-LIGHT SCROLL -> DIRECT OUTRO LOOK AT VIEWER) -->
+        <g transform="translate(152, 565)">
+          <ellipse cx="170" cy="152" rx="180" ry="12" fill="#050508" opacity="0.9"/>
 
-          <!-- Rustic Wooden Bed Frame -->
-          <rect x="0" y="34" width="14" height="116" rx="3" fill="#1d1926"/>
-          <rect x="276" y="68" width="14" height="82" rx="3" fill="#1d1926"/>
-          <rect x="10" y="112" width="270" height="22" rx="3" fill="#252030"/>
-          <rect x="14" y="92" width="262" height="24" rx="8" fill="#322c40"/>
-          <rect x="20" y="74" width="60" height="22" rx="10" fill="#3f3852"/>
+          <!-- Bed Frame & Mattress -->
+          <rect x="0" y="38" width="14" height="112" rx="3" fill="#12121a"/>
+          <rect x="326" y="72" width="14" height="78" rx="3" fill="#12121a"/>
+          <rect x="10" y="112" width="320" height="22" rx="3" fill="#181822"/>
+          <rect x="14" y="92" width="312" height="24" rx="8" fill="#22232e"/>
+          <rect x="20" y="74" width="64" height="22" rx="10" fill="#2b2d3b"/>
 
-          <!-- Floating Second Sleep "Zzz" -->
-          <g id="s4ZzzGroup" fill="#fde68a" font-family="sans-serif" font-weight="700" opacity="0.75">
-            <text x="64" y="42" font-size="14">z</text>
-            <text x="76" y="26" font-size="18">z</text>
-          </g>
+          <!-- Intense Cool Blue Ambient Glow -->
+          <circle cx="138" cy="24" r="115" fill="url(#s5BluePool)" id="s5PhonePool"/>
 
-          <!-- SINGLE UNIFIED CHARACTER RIG (Hip pivot at 112, 85) -->
-          <g id="s4UnifiedChar">
+          <!-- Character Rig (Exact Slim & Short Torso Proportions) -->
+          <g id="s5Char">
             <!-- Back Leg -->
-            <g id="s4BackThigh">
-              <line x1="115" y1="86" x2="148" y2="86" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round"/>
-              <g id="s4BackShin">
-                <path d="M 148 86 L 150 116 L 149 144 L 157 144"
-                      fill="none" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </g>
-            </g>
+            <path d="M 103 85 L 133 85 L 135 115 L 134 143 L 143 143"
+                  fill="none" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <!-- Front Leg -->
-            <g id="s4FrontThigh">
-              <line x1="112" y1="87" x2="152" y2="87" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round"/>
-              <g id="s4FrontShin">
-                <path d="M 152 87 L 155 117 L 153 145 L 162 145"
-                      fill="none" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-              </g>
-            </g>
-
-            <!-- Upper Body Group -->
-            <g id="s4UpperBody">
-              <!-- Back Arm (Raises smoothly for morning stretch!) -->
-              <g id="s4BackArm">
-                <path d="M 111 36 L 122 54 L 130 70" fill="none" stroke="#07060a" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 111 34 L 116 43" fill="none" stroke="#295794" stroke-width="7.4" stroke-linecap="round"/>
-              </g>
-
-              <!-- Slim & Short Torso with Golden Sunlight Rim -->
-              <path d="M 103 34 Q 103 29.5 108 28.5 Q 112 24.5 116 28.5 Q 122.5 29.5 122.5 34 L 122.5 87 L 103 87 Z"
-                    fill="var(--rim)" opacity="0.55"/>
-              <path d="M 103 34 Q 103 29.5 108 28.5 Q 112 25 116 28.5 Q 121 29.5 121 34 L 121 87 L 103 87 Z"
+            <!-- Slim & Short Torso (Slightly slouched forward at 5deg while tired, straightens at outro!) -->
+            <g id="s5TorsoGroup">
+              <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 24.5 105 28.5 Q 111.5 29.5 111.5 34 L 111.5 87 L 92 87 Z"
+                    fill="var(--rim)" opacity="0.5"/>
+              <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 25 105 28.5 Q 110 29.5 110 34 L 110 87 L 92 87 Z"
                     fill="var(--outfit-top)"/>
 
-              <!-- Head Group -->
-              <g id="s4Head">
-                <circle cx="113.5" cy="4" r="22" fill="var(--rim)" opacity="0.7"/>
-                <circle cx="112" cy="4" r="22" fill="var(--head)"/>
+              <!-- Head Group (Centered at 101, 4, r=22 -> seamless collar touch) -->
+              <g id="s5Head">
+                <circle cx="102.5" cy="4" r="22" fill="var(--rim)" opacity="0.65"/>
+                <circle cx="101" cy="4" r="22" fill="var(--head)"/>
 
-                <g id="s4Face">
-                  <!-- Sleeping Closed Eye Arcs -->
-                  <path class="s4-sleep-eye" d="M 119.5 3.5 Q 122 5.8 124.5 3.5" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
-                  <path class="s4-sleep-eye" d="M 127.5 3.5 Q 130 5.8 132.5 3.5" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+                <!-- Phase 1 Face: 3/4 Side-Offset Tired Eyes staring at Blue Screen -->
+                <g id="s5FaceSide">
+                  <circle class="s5-eye" cx="111" cy="2.5" r="2.1" fill="var(--face)"/>
+                  <circle class="s5-eye" cx="118.8" cy="2.5" r="2.1" fill="var(--face)"/>
+                  <!-- Subtle tired under-eye lines -->
+                  <line x1="109.5" y1="6.2" x2="112.5" y2="6.2" stroke="#7dd3fc" stroke-width="1.1" opacity="0.55" stroke-linecap="round"/>
+                  <line x1="117.3" y1="6.2" x2="120.3" y2="6.2" stroke="#7dd3fc" stroke-width="1.1" opacity="0.55" stroke-linecap="round"/>
+                  <!-- Flat fatigued mouth -->
+                  <line x1="112" y1="11.5" x2="118" y2="11.5" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+                </g>
 
-                  <!-- Refreshed Open Eyes -->
-                  <circle class="s4-awake-eye" cx="122" cy="2.5" r="2.2" fill="var(--face)" opacity="0"/>
-                  <circle class="s4-awake-eye" cx="129.8" cy="2.5" r="2.2" fill="var(--face)" opacity="0"/>
-
-                  <!-- Refreshed Morning Smile -->
-                  <path id="s4Smile" d="M 122 10.5 Q 126 14.5 130 10.5" fill="none" stroke="var(--face)" stroke-width="2" stroke-linecap="round"/>
+                <!-- Phase 2 Face: Direct Front-Facing Outro Hook (Looks straight at viewer!) -->
+                <g id="s5FaceFront" opacity="0">
+                  <circle cx="95.5" cy="2.5" r="2.3" fill="var(--face)"/>
+                  <circle cx="106.5" cy="2.5" r="2.3" fill="var(--face)"/>
+                  <!-- Thoughtful Questioning Mouth -->
+                  <path d="M 97.5 11.5 Q 101 10.5 104.5 11.5" fill="none" stroke="var(--face)" stroke-width="2" stroke-linecap="round"/>
                 </g>
               </g>
 
-              <!-- Front Arm & Unified Sleeve (Stretches upward into morning sunlight, then rests comfortably) -->
-              <g id="s4FrontArm">
-                <path d="M 113 35.5 L 122 55 L 126 73" fill="none" stroke="var(--rim)" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-                <path d="M 113 36 L 122 55 L 126 73" fill="none" stroke="var(--head)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 111.2 33.8 L 116.5 44.5" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="round"/>
-                <path d="M 113.8 39.1 L 116.5 44.5" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="butt"/>
+              <!-- Front Arm & Unified Sleeve (Lowers phone at 5.2s for Outro Hook) -->
+              <g id="s5Arm">
+                <!-- Harsh Directional Blue Light Beam + Pulsing Circadian Wave Rings -->
+                <g id="s5LightBeamGroup">
+                  <polygon points="140,12 140,32 112,16 112,-14" fill="url(#s5PhoneBeam)"/>
+                  <path class="blue-wave" d="M 134 15 Q 128 22 134 29" fill="none" stroke="#bae6fd" stroke-width="1.5" opacity="0"/>
+                  <path class="blue-wave" d="M 126 11 Q 119 22 126 33" fill="none" stroke="#7dd3fc" stroke-width="1.4" opacity="0"/>
+                </g>
+
+                <!-- Arm Rim Light -->
+                <path d="M 102 35.5 L 122 48 L 138 30" fill="none" stroke="var(--rim)" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+                <!-- Sleek Black Arm -->
+                <path d="M 102 36 L 122 49 L 138 31" fill="none" stroke="var(--head)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Unified Short Sleeve -->
+                <path d="M 100.2 33.8 L 111.5 41.2" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="round"/>
+                <path d="M 105.8 37.5 L 111.5 41.2" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="butt"/>
+
+                <!-- Glowing Smartphone -->
+                <g transform="translate(140, 12) rotate(12)">
+                  <rect x="2.5" y="-1" width="4.2" height="22" rx="1.8" fill="#090a0f"/>
+                  <rect x="0" y="0" width="2.8" height="20" rx="1.4" fill="#e0f2fe"/>
+                </g>
               </g>
             </g>
 
-            <!-- Soft Blanket covering flat legs while sleeping -->
-            <path id="s4Blanket" d="M 114 80 Q 195 75 276 84 L 276 114 L 114 114 Z" fill="#2c2638"/>
-            <path id="s4BlanketTrim" d="M 114 80 Q 195 75 276 84" fill="none" stroke="#483f5c" stroke-width="2"/>
+            <!-- Front Leg with Rounded Hip Cap -->
+            <path d="M 99 86 L 137 86 L 140 116 L 138 144 L 148 144"
+                  fill="none" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
           </g>
         </g>
-
-        <!-- Warm Darkness Overlay that lifts as the Sun Rises -->
-        <rect id="s4DawnVeil" width="540" height="960" fill="#07080f" opacity="0.52" pointer-events="none"/>
       </g>
     </svg>
 
@@ -283,7 +278,7 @@
   </div>
 
   <div class="controls">
-    <button class="primary" id="playBtn">▶ Play Scene 4 (8.5s)</button>
+    <button class="primary" id="playBtn">▶ Play Scene 5 (8.5s)</button>
     <button id="soundBtn">🔊 Sound: ON</button>
   </div>
 
@@ -312,181 +307,123 @@
       osc.stop(audioCtx.currentTime + duration);
     }
 
-    // Gentle morning birdsong & warm sunrise chord
-    function playMorningBirds() {
-      playTone(1320, 'sine', 0.12, 0.05, 1680);
-      setTimeout(() => playTone(1560, 'sine', 0.14, 0.05, 1980), 140);
-      setTimeout(() => playTone(1420, 'sine', 0.18, 0.04, 1760), 340);
+    // Subtle hypnotic blue-light hum & outro question resolve
+    function playScreenPulse() {
+      playTone(210, 'sine', 0.35, 0.05, 190);
     }
 
-    function playSunriseChord() {
-      playTone(261.63, 'sine', 1.8, 0.08);
-      setTimeout(() => playTone(329.63, 'sine', 1.8, 0.07), 120);
-      setTimeout(() => playTone(392.00, 'sine', 1.8, 0.07), 240);
+    function playOutroHookNote() {
+      playTone(293.66, 'sine', 0.9, 0.12);
+      setTimeout(() => playTone(440.00, 'sine', 1.4, 0.11), 160);
     }
 
     let sceneTl = null;
 
-    function playScene4() {
+    function playScene5() {
       if (sceneTl) sceneTl.kill();
 
-      gsap.set('#s4Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s4Sun', { x: 110, y: 225 });
-      gsap.set('#s4SunBeams', { opacity: 0.12 });
-      gsap.set('#s4DawnVeil', { opacity: 0.52 });
-      gsap.set('#s4UpperBody', { rotation: -82, svgOrigin: '112 85' });
-      gsap.set('#s4FrontShin', { rotation: -88, svgOrigin: '152 87' });
-      gsap.set('#s4BackShin', { rotation: -88, svgOrigin: '148 86' });
-      gsap.set('#s4Blanket', { opacity: 1, y: 0 });
-      gsap.set('#s4BlanketTrim', { opacity: 1, y: 0 });
-      gsap.set('#s4ZzzGroup', { opacity: 0.8, y: 0 });
-      gsap.set('.s4-sleep-eye', { opacity: 1 });
-      gsap.set('.s4-awake-eye', { opacity: 0, scaleY: 1, svgOrigin: '126 2.5' });
-      gsap.set('#s4FrontArm', { rotation: 0, svgOrigin: '113 36' });
-      gsap.set('#s4BackArm', { rotation: 0, svgOrigin: '111 36' });
-      gsap.set('#s4Head', { rotation: 0, svgOrigin: '112 25' });
+      gsap.set('#s5Camera', { scale: 1, x: 0, y: 0 });
+      gsap.set('#s5TorsoGroup', { rotation: 5, svgOrigin: '101 86' });
+      gsap.set('#s5Arm', { rotation: 0, svgOrigin: '102 36' });
+      gsap.set('#s5LightBeamGroup', { opacity: 1 });
+      gsap.set('#s5PhonePool', { opacity: 1, scale: 1, svgOrigin: '138 24' });
+      gsap.set('#s5FaceSide', { opacity: 1 });
+      gsap.set('#s5FaceFront', { opacity: 0 });
+      gsap.set('.s5-eye', { scaleY: 1, svgOrigin: '115 2.5' });
+      gsap.set('.blue-wave', { opacity: 0, x: 0 });
+      document.getElementById('s5ClockText').textContent = '03:14';
 
       sceneTl = gsap.timeline();
 
-      // 0.0s - 3.2s: Sun rises naturally from behind mountains & room fills with warm light!
-      sceneTl.to('#s4Sun', {
-        y: 115,
-        duration: 3.4,
-        ease: 'power1.inOut'
+      // 0.0s - 5.0s: Late-night blue-light scrolling & circadian disruption waves
+      sceneTl.to('#s5Arm', {
+        rotation: -3.5,
+        svgOrigin: '102 36',
+        duration: 0.55,
+        yoyo: true,
+        repeat: 7,
+        ease: 'sine.inOut'
       }, 0);
 
-      sceneTl.to('#s4DawnVeil', {
-        opacity: 0,
-        duration: 3.2,
-        ease: 'power1.inOut'
-      }, 0);
-
-      sceneTl.to('#s4SunBeams', {
-        opacity: 0.65,
-        duration: 3.4,
-        ease: 'power1.inOut'
+      // Pulsing blue-light waves hitting the eyes
+      sceneTl.to('.blue-wave', {
+        opacity: 0.75,
+        x: -10,
+        duration: 0.75,
+        stagger: 0.25,
+        yoyo: true,
+        repeat: 5,
+        ease: 'sine.inOut',
+        onStart: () => playScreenPulse()
       }, 0.4);
 
-      sceneTl.to('#s4Smoke', {
-        y: -14,
-        opacity: 0,
-        duration: 3.5,
-        ease: 'sine.out'
-      }, 0);
-
-      sceneTl.to('#s4ZzzGroup', {
-        y: -16,
-        opacity: 0.2,
-        duration: 2.2,
-        ease: 'sine.inOut'
-      }, 0);
-
-      // 2.3s: Refreshed Awakening as sunlight hits the room
-      sceneTl.call(() => {
-        playSunriseChord();
-        playMorningBirds();
-      }, null, 2.3);
-
-      sceneTl.to('#s4ZzzGroup', { opacity: 0, duration: 0.3 }, 2.25);
-      sceneTl.to('.s4-sleep-eye', { opacity: 0, duration: 0.2 }, 2.35);
-      sceneTl.to('.s4-awake-eye', { opacity: 1, duration: 0.25 }, 2.4);
-
-      sceneTl.to(['#s4Blanket', '#s4BlanketTrim'], {
-        opacity: 0,
-        y: 12,
-        duration: 0.6,
-        ease: 'power2.inOut'
-      }, 2.45);
-
-      // Smooth Sit-Up Pivot
-      sceneTl.to('#s4UpperBody', {
-        rotation: 0,
-        svgOrigin: '112 85',
-        duration: 1.05,
-        ease: 'power2.out'
-      }, 2.45);
-
-      sceneTl.to('#s4FrontShin', {
-        rotation: 0,
-        svgOrigin: '152 87',
-        duration: 1.05,
-        ease: 'power2.out'
-      }, 2.45);
-
-      sceneTl.to('#s4BackShin', {
-        rotation: 0,
-        svgOrigin: '148 86',
-        duration: 1.05,
-        ease: 'power2.out'
-      }, 2.45);
-
-      // 3.5s - 5.4s: Energized Morning Stretch (Both arms raise smoothly & head tilts slightly up)
-      sceneTl.to('#s4FrontArm', {
-        rotation: -135,
-        svgOrigin: '113 36',
-        duration: 0.85,
-        ease: 'power2.out'
-      }, 3.5);
-
-      sceneTl.to('#s4BackArm', {
-        rotation: -145,
-        svgOrigin: '111 36',
-        duration: 0.85,
-        ease: 'power2.out'
-      }, 3.55);
-
-      sceneTl.to('#s4Head', {
-        rotation: -6,
-        svgOrigin: '112 25',
-        duration: 0.85,
-        ease: 'sine.inOut'
-      }, 3.55);
-
-      // Arms lower relaxedly to lap at 5.2s
-      sceneTl.to('#s4FrontArm', {
-        rotation: -12,
-        svgOrigin: '113 36',
-        duration: 0.9,
-        ease: 'power2.inOut'
-      }, 5.1);
-
-      sceneTl.to('#s4BackArm', {
-        rotation: -8,
-        svgOrigin: '111 36',
-        duration: 0.9,
-        ease: 'power2.inOut'
-      }, 5.1);
-
-      sceneTl.to('#s4Head', {
-        rotation: 0,
-        svgOrigin: '112 25',
-        duration: 0.8,
-        ease: 'sine.inOut'
-      }, 5.1);
-
-      sceneTl.call(() => playMorningBirds(), null, 6.2);
-
-      // Natural eye blink
-      sceneTl.to('.s4-awake-eye', {
-        scaleY: 0.1,
-        svgOrigin: '126 2.5',
-        duration: 0.08,
+      // Heavy tired slow blink (2.2s)
+      sceneTl.to('.s5-eye', {
+        scaleY: 0.15,
+        svgOrigin: '115 2.5',
+        duration: 0.35,
         yoyo: true,
-        repeat: 1
-      }, 6.6);
+        repeat: 1,
+        ease: 'power1.inOut'
+      }, 2.2);
 
-      // Gentle cinematic camera push-in
-      sceneTl.to('#s4Camera', {
-        scale: 1.16,
-        svgOrigin: '250 540',
-        duration: 8.5,
-        ease: 'sine.inOut'
-      }, 0);
+      // Clock ticks to 03:15 at 3.4s
+      sceneTl.call(() => {
+        document.getElementById('s5ClockText').textContent = '03:15';
+      }, null, 3.4);
+
+      // 5.2s: OUTRO HOOK — Character lowers phone, straightens posture & looks directly at the viewer!
+      sceneTl.call(() => playOutroHookNote(), null, 5.25);
+
+      sceneTl.to('#s5Arm', {
+        rotation: 42,
+        svgOrigin: '102 36',
+        duration: 0.75,
+        ease: 'power2.inOut'
+      }, 5.2);
+
+      sceneTl.to('#s5LightBeamGroup', {
+        opacity: 0.15,
+        duration: 0.5
+      }, 5.2);
+
+      sceneTl.to('#s5PhonePool', {
+        opacity: 0.25,
+        scale: 0.75,
+        svgOrigin: '138 24',
+        duration: 0.75
+      }, 5.2);
+
+      // Straightens posture & turns head smoothly toward the viewer
+      sceneTl.to('#s5TorsoGroup', {
+        rotation: 0,
+        svgOrigin: '101 86',
+        duration: 0.7,
+        ease: 'power2.out'
+      }, 5.3);
+
+      sceneTl.to('#s5FaceSide', {
+        opacity: 0,
+        duration: 0.22
+      }, 5.45);
+
+      sceneTl.to('#s5FaceFront', {
+        opacity: 1,
+        duration: 0.28
+      }, 5.55);
+
+      // Cinematic push-in on the direct eye-contact outro frame
+      sceneTl.to('#s5Camera', {
+        scale: 1.28,
+        svgOrigin: '253 565',
+        duration: 3.3,
+        ease: 'power2.out'
+      }, 5.2);
     }
 
     document.getElementById('playBtn').addEventListener('click', () => {
       initAudio();
-      playScene4();
+      playScene5();
     });
 
     document.getElementById('soundBtn').addEventListener('click', () => {
@@ -495,7 +432,7 @@
     });
 
     window.addEventListener('load', () => {
-      setTimeout(playScene4, 300);
+      setTimeout(playScene5, 300);
     });
   </script>
 </body>
