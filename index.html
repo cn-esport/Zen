@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 3: Segmented Sleep & Candlelight</title>
+  <title>Zenspiris — Scene 3: Midnight Moonrise & Smooth Sit-Up</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
@@ -102,8 +102,8 @@
 
         <!-- Midnight Window Sky -->
         <linearGradient id="cabinWindowSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#080c1a"/>
-          <stop offset="60%" stop-color="#121b36"/>
+          <stop offset="0%" stop-color="#070b18"/>
+          <stop offset="60%" stop-color="#111a34"/>
           <stop offset="100%" stop-color="#1b2647"/>
         </linearGradient>
 
@@ -114,26 +114,30 @@
           <stop offset="100%" stop-color="#0d0b0f"/>
         </linearGradient>
 
-        <!-- Warm Candlelight Halo -->
-        <radialGradient id="candleHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.58"/>
-          <stop offset="45%" stop-color="#f59e0b" stop-opacity="0.2"/>
+        <!-- Realistic Omnidirectional Spherical Candle Glow (No artificial downward lamp cone!) -->
+        <radialGradient id="candleHaloOuter" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.45"/>
+          <stop offset="40%" stop-color="#f59e0b" stop-opacity="0.16"/>
+          <stop offset="75%" stop-color="#d97706" stop-opacity="0.04"/>
           <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Symmetrical Downward Candle Spill -->
-        <linearGradient id="candleCone" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.32"/>
-          <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.1"/>
+        <radialGradient id="candleHaloCore" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.85"/>
+          <stop offset="50%" stop-color="#fbbf24" stop-opacity="0.32"/>
           <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
-        </linearGradient>
+        </radialGradient>
+
+        <!-- Clip Path inside Window Frame so Moon Rises Naturally From Behind Mountains -->
+        <clipPath id="windowGlassClip">
+          <rect x="0" y="0" width="220" height="270"/>
+        </clipPath>
       </defs>
 
       <!-- Camera Group -->
       <g id="s3Camera">
         <!-- Wall & Floor -->
         <rect width="540" height="715" fill="url(#cabinWall)"/>
-        <!-- Subtle Timber Wall Beams -->
         <rect x="0" y="130" width="540" height="10" fill="#0b0a0e" opacity="0.6"/>
         <rect x="0" y="485" width="540" height="10" fill="#0b0a0e" opacity="0.6"/>
 
@@ -143,30 +147,41 @@
         <line x1="0" y1="850" x2="540" y2="850" stroke="#100e12" stroke-width="2"/>
         <line x1="0" y1="910" x2="540" y2="910" stroke="#100e12" stroke-width="2"/>
 
-        <!-- 1720s WOODEN COTTAGE WINDOW (High Midnight Moon) -->
+        <!-- 1720s WOODEN COTTAGE WINDOW WITH RISING MOON -->
         <g transform="translate(175, 165)">
           <rect x="-8" y="-8" width="236" height="286" rx="4" fill="#0a090e"/>
-          <rect x="0" y="0" width="220" height="270" fill="url(#cabinWindowSky)"/>
-          <!-- Distant Pine & Roofline Silhouette -->
-          <path d="M 0 270 L 0 230 L 35 198 L 70 232 L 110 192 L 155 235 L 190 202 L 220 228 L 220 270 Z" fill="#090d1c"/>
-          <!-- Full/High Crescent Moon -->
-          <circle cx="110" cy="72" r="20" fill="#f3f4f6" opacity="0.92"/>
-          <circle cx="118" cy="67" r="17" fill="#0d1429"/>
-          <!-- Stars -->
-          <circle cx="48" cy="52" r="1.8" fill="#fff" opacity="0.7"/>
-          <circle cx="172" cy="46" r="1.6" fill="#fff" opacity="0.6"/>
-          <circle cx="164" cy="115" r="1.5" fill="#fff" opacity="0.5"/>
-          <!-- Wooden Mullions -->
+
+          <!-- Clipped Glass Pane -->
+          <g clip-path="url(#windowGlassClip)">
+            <rect x="0" y="0" width="220" height="270" fill="url(#cabinWindowSky)"/>
+
+            <!-- Twinkling Stars -->
+            <circle cx="48" cy="52" r="1.8" fill="#fff" opacity="0.7"/>
+            <circle cx="172" cy="46" r="1.6" fill="#fff" opacity="0.6"/>
+            <circle cx="164" cy="115" r="1.5" fill="#fff" opacity="0.5"/>
+            <circle cx="65" cy="108" r="1.4" fill="#fff" opacity="0.45"/>
+
+            <!-- RISING CRESCENT MOON (Starts low behind mountains at y=225 -> rises to midnight center y=72) -->
+            <g id="s3Moon" transform="translate(110, 225)">
+              <circle cx="0" cy="0" r="20" fill="#f3f4f6" opacity="0.94"/>
+              <circle cx="8" cy="-5" r="17" fill="#101830"/>
+            </g>
+
+            <!-- Mountain Peaks Silhouette (Moon rises from behind the valley) -->
+            <path d="M 0 270 L 0 226 L 38 192 L 76 228 L 110 198 L 148 232 L 186 196 L 220 224 L 220 270 Z" fill="#090d1c"/>
+          </g>
+
+          <!-- Wooden Window Mullions & Sill -->
           <rect x="107" y="0" width="6" height="270" fill="#0c0b10"/>
           <rect x="0" y="132" width="220" height="6" fill="#0c0b10"/>
           <rect x="-14" y="270" width="248" height="10" rx="2" fill="#1e1b24"/>
         </g>
 
-        <!-- RUSTIC WOODEN SIDE TABLE & FLICKERING CANDLE -->
+        <!-- RUSTIC WOODEN SIDE TABLE & REALISTIC SPHERICAL CANDLELIGHT -->
         <g transform="translate(365, 535)">
-          <!-- Symmetrical Candle Glow -->
-          <circle id="s3CandleHalo" cx="46" cy="24" r="135" fill="url(#candleHalo)"/>
-          <polygon points="18,46 74,46 130,185 -38,185" fill="url(#candleCone)"/>
+          <!-- Realistic Radial Spherical Glow (No artificial downward cone) -->
+          <circle id="s3CandleHalo" cx="46" cy="30" r="165" fill="url(#candleHaloOuter)"/>
+          <circle id="s3CandleCoreGlow" cx="46" cy="30" r="52" fill="url(#candleHaloCore)"/>
 
           <!-- Wooden Table -->
           <rect x="8" y="88" width="76" height="92" rx="3" fill="#15131a"/>
@@ -174,18 +189,21 @@
           <rect x="16" y="102" width="60" height="28" rx="2" fill="#0f0e14"/>
 
           <!-- Brass Candle Holder & Tall Beeswax Candle -->
-          <ellipse cx="46" cy="83" rx="16" ry="3.5" fill="#d97706" opacity="0.7"/>
+          <ellipse cx="46" cy="83" rx="16" ry="3.5" fill="#d97706" opacity="0.75"/>
           <rect x="44" y="74" width="4" height="9" fill="#b45309"/>
           <rect x="41" y="42" width="10" height="32" rx="2" fill="#f2ede2"/>
 
-          <!-- Animated Flickering Flame (Pivot at base 46, 42) -->
+          <!-- Animated Flickering Flame (Pivot at wick base 46, 42) -->
           <g id="s3Flame">
             <path d="M 46 24 Q 53 34 46 42 Q 39 34 46 24 Z" fill="#f59e0b"/>
             <path d="M 46 29 Q 50 35 46 41 Q 42 35 46 29 Z" fill="#fef3c7"/>
           </g>
         </g>
 
-        <!-- WOODEN BED & CHARACTER (TRANSITIONS FROM SLEEPING -> AWAKE READING) -->
+        <!-- =====================================================
+             WOODEN BED & SINGLE-RIG ARTICULATED CHARACTER
+             Starts lying down -> Smoothly pivots at Hip (112, 85) to sit up & open book!
+             ===================================================== -->
         <g transform="translate(68, 565)">
           <ellipse cx="145" cy="152" rx="155" ry="12" fill="#060508" opacity="0.88"/>
 
@@ -197,79 +215,71 @@
           <!-- Soft Pillow -->
           <rect x="20" y="74" width="60" height="22" rx="10" fill="#322e40"/>
 
-          <!-- Floating Sleep "Zzz" Particles (Fade out upon waking) -->
-          <g id="s3ZzzGroup" fill="#f4c28a" font-family="sans-serif" font-weight="700" opacity="0.75">
-            <text id="z1" x="62" y="42" font-size="14">z</text>
-            <text id="z2" x="74" y="26" font-size="18">z</text>
-            <text id="z3" x="89" y="8" font-size="22">Z</text>
+          <!-- Floating Sleep "Zzz" Particles -->
+          <g id="s3ZzzGroup" fill="#f4c28a" font-family="sans-serif" font-weight="700" opacity="0.8">
+            <text x="64" y="42" font-size="14">z</text>
+            <text x="76" y="26" font-size="18">z</text>
+            <text x="91" y="8" font-size="22">Z</text>
           </g>
 
-          <!-- =====================================================
-               STATE A: SLEEPING POSE (0.0s -> 2.8s)
-               ===================================================== -->
-          <g id="s3SleepingPose">
-            <!-- Blanket over lower body -->
-            <path d="M 118 82 Q 195 76 276 86 L 276 114 L 118 114 Z" fill="#23202e"/>
-            <path d="M 118 82 Q 195 76 276 86" fill="none" stroke="#3b364d" stroke-width="2"/>
+          <!-- SINGLE UNIFIED CHARACTER RIG (Hip pivot at 112, 85) -->
+          <g id="s3UnifiedChar">
+            <!-- 1. Legs Group (Starts stretched flat on bed -90deg -> swings down off bed edge 0deg as character sits up) -->
+            <g id="s3LegsGroup">
+              <!-- Back Leg -->
+              <path d="M 115 86 L 148 86 L 150 116 L 149 144 L 157 144"
+                    fill="none" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Front Leg -->
+              <path d="M 112 87 L 152 87 L 155 117 L 153 145 L 162 145"
+                    fill="none" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
 
-            <!-- Slim Blue Torso reclining -->
-            <rect x="66" y="75" width="58" height="17" rx="8.5" fill="var(--outfit-top)"/>
+            <!-- 2. Upper Body Group (Pivots at Hip 112, 85 from lying -82deg to sitting upright 0deg!) -->
+            <g id="s3UpperBody">
+              <!-- Slim & Short Torso (Width 18px, warm right rim light from candle) -->
+              <path d="M 103 34 Q 103 29.5 108 28.5 Q 112 24.5 116 28.5 Q 122.5 29.5 122.5 34 L 122.5 87 L 103 87 Z"
+                    fill="var(--rim)" opacity="0.5"/>
+              <path d="M 103 34 Q 103 29.5 108 28.5 Q 112 25 116 28.5 Q 121 29.5 121 34 L 121 87 L 103 87 Z"
+                    fill="var(--outfit-top)"/>
 
-            <!-- Head resting on pillow with closed peaceful eye -->
-            <circle cx="48" cy="69" r="21" fill="var(--rim)" opacity="0.45"/>
-            <circle cx="47" cy="70" r="21" fill="var(--head)"/>
-            <!-- Closed Sleeping Eye Arc & Peaceful Mouth -->
-            <path d="M 52 65 Q 56 68 60 65" fill="none" stroke="var(--face)" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="57" cy="74" r="1.8" fill="var(--face)" opacity="0.75"/>
-          </g>
+              <!-- Head Group (Centered at 112, 4, r=22 -> seamless collar touch) -->
+              <g id="s3Head">
+                <circle cx="113.5" cy="4" r="22" fill="var(--rim)" opacity="0.65"/>
+                <circle cx="112" cy="4" r="22" fill="var(--head)"/>
 
-          <!-- =====================================================
-               STATE B: AWAKE & SITTING CALMLY WITH BOOK (2.8s -> 8.5s)
-               Uses exact slim & short torso rig + warm right candle rim light
-               ===================================================== -->
-          <g id="s3AwakePose" opacity="0">
-            <!-- Back Leg -->
-            <path d="M 115 86 L 148 86 L 150 116 L 149 144 L 157 144"
-                  fill="none" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- 3/4 Side-Offset Face Features -->
+                <g id="s3Face">
+                  <!-- Sleeping Closed Eye Arcs (Visible while lying down) -->
+                  <path class="sleep-eye" d="M 119.5 3.5 Q 122 5.8 124.5 3.5" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+                  <path class="sleep-eye" d="M 127.5 3.5 Q 130 5.8 132.5 3.5" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
 
-            <!-- Slim & Short Torso (Width 18px, warm right rim light from candle) -->
-            <path d="M 103 34 Q 103 29.5 108 28.5 Q 112 24.5 116 28.5 Q 122.5 29.5 122.5 34 L 122.5 87 L 103 87 Z"
-                  fill="var(--rim)" opacity="0.5"/>
-            <path d="M 103 34 Q 103 29.5 108 28.5 Q 112 25 116 28.5 Q 121 29.5 121 34 L 121 87 L 103 87 Z"
-                  fill="var(--outfit-top)"/>
+                  <!-- Awake Open Dots (Fade in smoothly as eyes open upon sitting up) -->
+                  <circle class="awake-eye" cx="122" cy="3" r="2.1" fill="var(--face)" opacity="0"/>
+                  <circle class="awake-eye" cx="129.8" cy="3" r="2.1" fill="var(--face)" opacity="0"/>
 
-            <!-- Front Leg -->
-            <path d="M 112 87 L 152 87 L 155 117 L 153 145 L 162 145"
-                  fill="none" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- Gentle Calm Mouth -->
+                  <path d="M 122.5 11 Q 126 13.5 129.5 11" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+                </g>
+              </g>
 
-            <!-- Head Group (Centered at 112, 4, r=22 -> seamless collar touch) -->
-            <g id="s3AwakeHead">
-              <circle cx="113.5" cy="4" r="22" fill="var(--rim)" opacity="0.65"/>
-              <circle cx="112" cy="4" r="22" fill="var(--head)"/>
+              <!-- Front Arm & Unified Sleeve Holding Open Book (Shoulder pivot at 113, 36) -->
+              <g id="s3BookArm">
+                <path d="M 113 35.5 L 129 52 L 146 47" fill="none" stroke="var(--rim)" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+                <path d="M 113 36 L 129 53 L 146 48" fill="none" stroke="var(--head)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M 111.2 33.8 L 119.5 42.6" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="round"/>
+                <path d="M 115.3 38.2 L 119.5 42.6" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="butt"/>
 
-              <!-- 3/4 Side-Offset Calm Face Looking Down at Open Book -->
-              <g id="s3Face">
-                <circle class="awake-eye" cx="122" cy="3" r="2.1" fill="var(--face)"/>
-                <circle class="awake-eye" cx="129.8" cy="3" r="2.1" fill="var(--face)"/>
-                <!-- Gentle Calm Smile -->
-                <path d="M 122.5 11 Q 126 13.5 129.5 11" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+                <!-- Open Leather Book (Unfolds smoothly once seated) -->
+                <g id="s3Book" transform="translate(144, 34) rotate(-14)">
+                  <path d="M 0 12 Q 8 9 16 12 L 16 24 Q 8 21 0 24 Z" fill="#f2ede2"/>
+                  <path d="M 16 12 Q 24 9 32 12 L 32 24 Q 24 21 16 24 Z" fill="#e2d9c5"/>
+                  <path d="M -1 12 L 16 13 L 33 12" fill="none" stroke="#7c4a32" stroke-width="2.2" stroke-linecap="round"/>
+                </g>
               </g>
             </g>
 
-            <!-- Front Arm & Unified Sleeve Holding Open Leather Book (Shoulder pivot at 113, 36) -->
-            <g id="s3BookArm">
-              <path d="M 113 35.5 L 129 52 L 146 47" fill="none" stroke="var(--rim)" stroke-width="6.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-              <path d="M 113 36 L 129 53 L 146 48" fill="none" stroke="var(--head)" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M 111.2 33.8 L 119.5 42.6" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="round"/>
-              <path d="M 115.3 38.2 L 119.5 42.6" fill="none" stroke="var(--outfit-top)" stroke-width="7.6" stroke-linecap="butt"/>
-
-              <!-- Open Book Held Calmly -->
-              <g transform="translate(144, 34) rotate(-14)">
-                <path d="M 0 12 Q 8 9 16 12 L 16 24 Q 8 21 0 24 Z" fill="#f2ede2"/>
-                <path d="M 16 12 Q 24 9 32 12 L 32 24 Q 24 21 16 24 Z" fill="#e2d9c5"/>
-                <path d="M -1 12 L 16 13 L 33 12" fill="none" stroke="#7c4a32" stroke-width="2.2" stroke-linecap="round"/>
-              </g>
-            </g>
+            <!-- Soft Blanket over bed foot (Fades down gently as legs swing off bed) -->
+            <path id="s3Blanket" d="M 114 82 Q 195 76 276 86 L 276 114 L 114 114 Z" fill="#23202e"/>
           </g>
         </g>
       </g>
@@ -281,7 +291,7 @@
   </div>
 
   <div class="controls">
-    <button class="primary" id="playBtn">▶ Play Scene 3 (8.5s)</button>
+    <button class="primary" id="playBtn">▶ Play Scene 3 (9.0s)</button>
     <button id="soundBtn">🔊 Sound: ON</button>
   </div>
 
@@ -310,15 +320,13 @@
       osc.stop(audioCtx.currentTime + duration);
     }
 
-    // Soft warm chime when waking peacefully in the quiet midnight hour
     function playWakeChime() {
-      playTone(392, 'sine', 1.2, 0.11);
-      setTimeout(() => playTone(523.25, 'sine', 1.4, 0.09), 180);
+      playTone(392, 'sine', 1.2, 0.10);
+      setTimeout(() => playTone(523.25, 'sine', 1.4, 0.08), 180);
     }
 
-    // Subtle page turn rustle
     function playPageTurn() {
-      playTone(260, 'triangle', 0.14, 0.06, 140);
+      playTone(250, 'triangle', 0.14, 0.055, 130);
     }
 
     let sceneTl = null;
@@ -326,13 +334,18 @@
     function playScene3() {
       if (sceneTl) sceneTl.kill();
 
+      // Initial State: Lying down asleep while moon is low behind the mountains
       gsap.set('#s3Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s3SleepingPose', { opacity: 1, y: 0 });
+      gsap.set('#s3Moon', { x: 110, y: 225 });
+      gsap.set('#s3UpperBody', { rotation: -82, svgOrigin: '112 85' });
+      gsap.set('#s3LegsGroup', { rotation: -86, svgOrigin: '112 85' });
+      gsap.set('#s3Blanket', { opacity: 1, y: 0 });
       gsap.set('#s3ZzzGroup', { opacity: 0.85, y: 0 });
-      gsap.set('#s3AwakePose', { opacity: 0, y: 10 });
-      gsap.set('#s3BookArm', { rotation: 0, svgOrigin: '113 36' });
+      gsap.set('.sleep-eye', { opacity: 1 });
+      gsap.set('.awake-eye', { opacity: 0, scaleY: 1, svgOrigin: '126 3' });
+      gsap.set('#s3BookArm', { rotation: 38, svgOrigin: '113 36' });
+      gsap.set('#s3Book', { opacity: 0, scale: 0.7, svgOrigin: '16 18' });
       gsap.set('#s3Flame', { scaleY: 1, scaleX: 1, rotation: 0, svgOrigin: '46 42' });
-      gsap.set('.awake-eye', { scaleY: 1, svgOrigin: '126 3' });
 
       sceneTl = gsap.timeline();
 
@@ -344,60 +357,97 @@
         svgOrigin: '46 42',
         duration: 0.35,
         yoyo: true,
-        repeat: 23,
+        repeat: 25,
         ease: 'sine.inOut'
       }, 0);
 
       sceneTl.to('#s3CandleHalo', {
-        scale: 1.08,
-        svgOrigin: '46 24',
-        duration: 0.7,
+        scale: 1.07,
+        svgOrigin: '46 30',
+        duration: 0.75,
         yoyo: true,
         repeat: 11,
         ease: 'sine.inOut'
       }, 0);
 
-      // 0.0s - 2.6s: Peaceful First Sleep ("Zzz" drifting gently upward)
+      // 0.0s - 2.8s: Moon rises smoothly from behind the mountains to top center of window!
+      sceneTl.to('#s3Moon', {
+        y: 68,
+        duration: 2.8,
+        ease: 'power1.inOut'
+      }, 0);
+
+      // Floating "Zzz" during First Sleep
       sceneTl.to('#s3ZzzGroup', {
         y: -18,
-        opacity: 0.2,
+        opacity: 0.25,
         duration: 2.5,
         ease: 'sine.inOut'
       }, 0);
 
-      // 2.6s: Smooth transition from First Sleep to Quiet Midnight Awakening
-      sceneTl.call(() => playWakeChime(), null, 2.6);
-
-      sceneTl.to('#s3SleepingPose', {
-        opacity: 0,
-        y: -6,
-        duration: 0.55,
-        ease: 'power2.inOut'
-      }, 2.6);
+      // 2.6s: Moon reaches midnight peak -> Character wakes & smoothly pivots at Hip to sit up!
+      sceneTl.call(() => playWakeChime(), null, 2.65);
 
       sceneTl.to('#s3ZzzGroup', {
         opacity: 0,
-        duration: 0.3
-      }, 2.5);
+        duration: 0.35
+      }, 2.55);
 
-      sceneTl.to('#s3AwakePose', {
-        opacity: 1,
-        y: 0,
+      // Eyes open smoothly
+      sceneTl.to('.sleep-eye', { opacity: 0, duration: 0.2 }, 2.7);
+      sceneTl.to('.awake-eye', { opacity: 1, duration: 0.25 }, 2.75);
+
+      // Blanket slides down gently as legs swing off the side of the bed
+      sceneTl.to('#s3Blanket', {
+        opacity: 0,
+        y: 12,
         duration: 0.65,
-        ease: 'power2.out'
-      }, 2.85);
+        ease: 'power2.inOut'
+      }, 2.8);
 
-      // 4.2s - 8.5s: Calm reading & gentle breathing in candlelight
+      // Smooth Sit-Up Pivot (Upper body rises from -82deg to 0deg upright!)
+      sceneTl.to('#s3UpperBody', {
+        rotation: 0,
+        svgOrigin: '112 85',
+        duration: 1.15,
+        ease: 'power2.inOut'
+      }, 2.8);
+
+      // Legs swing naturally off the bed edge (-86deg to 0deg)
+      sceneTl.to('#s3LegsGroup', {
+        rotation: 0,
+        svgOrigin: '112 85',
+        duration: 1.15,
+        ease: 'power2.inOut'
+      }, 2.8);
+
+      // 3.8s: Once seated upright, arm raises smoothly and opens the book
       sceneTl.to('#s3BookArm', {
-        rotation: -3,
+        rotation: 0,
+        svgOrigin: '113 36',
+        duration: 0.75,
+        ease: 'power2.out'
+      }, 3.7);
+
+      sceneTl.to('#s3Book', {
+        opacity: 1,
+        scale: 1,
+        svgOrigin: '16 18',
+        duration: 0.45,
+        ease: 'back.out(1.4)'
+      }, 4.0);
+
+      // 4.6s - 9.0s: Calm reading in warm candlelight
+      sceneTl.to('#s3BookArm', {
+        rotation: -2.5,
         svgOrigin: '113 36',
         duration: 1.4,
         yoyo: true,
         repeat: 2,
         ease: 'sine.inOut'
-      }, 3.6);
+      }, 4.5);
 
-      sceneTl.call(() => playPageTurn(), null, 5.2);
+      sceneTl.call(() => playPageTurn(), null, 5.8);
 
       // Natural eye blinks while reading
       sceneTl.to('.awake-eye', {
@@ -406,7 +456,7 @@
         duration: 0.08,
         yoyo: true,
         repeat: 1
-      }, 4.8);
+      }, 5.4);
 
       sceneTl.to('.awake-eye', {
         scaleY: 0.1,
@@ -414,13 +464,13 @@
         duration: 0.08,
         yoyo: true,
         repeat: 1
-      }, 7.3);
+      }, 7.8);
 
-      // Slow cinematic camera push-in toward candlelit reader
+      // Gentle cinematic camera push-in
       sceneTl.to('#s3Camera', {
         scale: 1.18,
         svgOrigin: '250 560',
-        duration: 8.5,
+        duration: 9.0,
         ease: 'sine.inOut'
       }, 0);
     }
