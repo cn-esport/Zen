@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (Perfected)</title>
+  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (Exact Joint Match)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
@@ -12,7 +12,7 @@
       --rim: #f4c28a;
       --outfit-top: #3b78c4;
       --outfit-bottom: #e8dcc0;
-      --outfit-bottom-back: #c4b79b;
+      --outfit-bottom-back: #b8ac92;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -221,7 +221,7 @@
           </g>
         </g>
 
-        <!-- BED & PERFECTED CHARACTER PROPORTIONS -->
+        <!-- BED & EXACT ZOOM-REFERENCE CHARACTER RIG -->
         <g transform="translate(152, 565)">
           <ellipse cx="170" cy="152" rx="180" ry="12" fill="#07070a" opacity="0.85"/>
 
@@ -233,53 +233,57 @@
           <rect x="20" y="74" width="64" height="22" rx="10" fill="#343646"/>
 
           <!-- Cool Blue Ambient Glow -->
-          <circle cx="138" cy="26" r="100" fill="url(#phoneGlow)" id="s1PhonePool"/>
+          <circle cx="138" cy="24" r="100" fill="url(#phoneGlow)" id="s1PhonePool"/>
 
-          <!-- Character (Balanced Head r=23, Slim Torso, Glitch-Free Sleeve & Arm) -->
+          <!-- Character Rig Matching Zoomed Reference Joints -->
           <g id="s1Char">
-            <!-- Back Leg -->
-            <path d="M 97 86 L 133 86 L 135 115 L 134 143 L 142 143"
+            <!-- 1. Back Leg (Drawn behind torso, darker shade #b8ac92) -->
+            <path d="M 103 85 L 133 85 L 135 115 L 134 143 L 143 143"
                   fill="none" stroke="var(--outfit-bottom-back)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <!-- Front Leg -->
-            <path d="M 99 87 L 137 87 L 140 116 L 138 144 L 147 144"
+            <!-- 2. Slim Torso with Rounded Collar Peak at Top (x=101, y=19.5) & Warm Left Rim -->
+            <!-- Rim highlight along left back edge of torso -->
+            <path d="M 88.5 28 Q 88.5 23 95 22 Q 101 18.5 107 22 Q 112 23 112 28 L 112 90 L 88.5 90 Z"
+                  fill="var(--rim)" opacity="0.45"/>
+            <!-- Main Slim Blue Torso -->
+            <path d="M 90 28 Q 90 23 96 22 Q 101 19 106 22 Q 112 23 112 28 L 112 90 L 90 90 Z"
+                  fill="var(--outfit-top)"/>
+
+            <!-- 3. Front Leg with Rounded Hip Cap Overlapping Shirt Bottom (Matches zoomed reference!) -->
+            <path d="M 99 86 L 137 86 L 140 116 L 138 144 L 148 144"
                   fill="none" stroke="var(--outfit-bottom)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <!-- Slim Torso with Crisp Shoulder Slope (Collar at y = 22) -->
-            <polygon points="94,22 108,22 112,27 112,88 90,88 90,27" fill="var(--outfit-top)"/>
-            <!-- Subtle Rim Highlight on Front Edge of Shirt -->
-            <line x1="111.5" y1="27" x2="111.5" y2="87" stroke="#7dd3fc" stroke-width="1.3" opacity="0.5"/>
-
-            <!-- Balanced Head (Centered at 101, -1, radius 23 -> bottom touches collar seamlessly at y = 22!) -->
+            <!-- 4. Head Group (Centered at 101, -2.5, r=22.5 -> bottom at y=20 overlaps collar peak cleanly with zero gap!) -->
             <g id="s1Head">
-              <circle cx="99.7" cy="-1" r="23" fill="var(--rim)" opacity="0.55"/>
-              <circle cx="102.3" cy="-1" r="23" fill="#7dd3fc" opacity="0.45"/>
-              <circle cx="101" cy="-1" r="23" fill="var(--head)"/>
+              <circle cx="99.5" cy="-2.5" r="22.5" fill="var(--rim)" opacity="0.65"/>
+              <circle cx="102.2" cy="-2.5" r="22.5" fill="#7dd3fc" opacity="0.4"/>
+              <circle cx="101" cy="-2.5" r="22.5" fill="var(--head)"/>
 
               <!-- 3/4 Side-Offset Face Features -->
               <g id="s1Face">
-                <circle class="eye-dot" cx="111.5" cy="-3.5" r="2.2" fill="var(--face)"/>
-                <circle class="eye-dot" cx="119.5" cy="-3.5" r="2.2" fill="var(--face)"/>
+                <circle class="eye-dot" cx="111.5" cy="-5" r="2.2" fill="var(--face)"/>
+                <circle class="eye-dot" cx="119.5" cy="-5" r="2.2" fill="var(--face)"/>
 
-                <circle class="eye-ring" cx="111.5" cy="-3.5" r="3.2" fill="none" stroke="var(--face)" stroke-width="1.5" opacity="0"/>
-                <circle class="eye-ring" cx="119.5" cy="-3.5" r="3.2" fill="none" stroke="var(--face)" stroke-width="1.5" opacity="0"/>
+                <circle class="eye-ring" cx="111.5" cy="-5" r="3.2" fill="none" stroke="var(--face)" stroke-width="1.5" opacity="0"/>
+                <circle class="eye-ring" cx="119.5" cy="-5" r="3.2" fill="none" stroke="var(--face)" stroke-width="1.5" opacity="0"/>
 
-                <line id="s1MouthFlat" x1="112.5" y1="6" x2="118.5" y2="6" stroke="var(--face)" stroke-width="2" stroke-linecap="round"/>
-                <ellipse id="s1MouthOpen" cx="115.5" cy="7" rx="2.2" ry="3" fill="var(--face)" opacity="0"/>
+                <line id="s1MouthFlat" x1="112.5" y1="4.5" x2="118.5" y2="4.5" stroke="var(--face)" stroke-width="2" stroke-linecap="round"/>
+                <ellipse id="s1MouthOpen" cx="115.5" cy="5.5" rx="2.2" ry="3" fill="var(--face)" opacity="0"/>
               </g>
             </g>
 
-            <!-- Front Arm with Glitch-Free Integrated Sleeve (Shoulder anchored at 103, 30) -->
+            <!-- 5. Front Arm & Seamless Unified Sleeve (Pivot locked inside shoulder at 101, 29) -->
             <g id="s1Arm">
               <!-- Directional Phone Light Beam -->
               <polygon points="141,8 141,28 113,12 113,-18" fill="url(#phoneBeamGrad)"/>
 
               <!-- Arm Rim Light -->
-              <path d="M 103 29 L 123 42 L 139 24" fill="none" stroke="#7dd3fc" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+              <path d="M 101 28.5 L 123 42 L 139 24" fill="none" stroke="#7dd3fc" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
               <!-- Sleek Black Arm -->
-              <path d="M 103 30 L 123 43 L 139 25" fill="none" stroke="var(--head)" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
-              <!-- Glitch-Free Short Sleeve (Shares exact angle from shoulder 101,28.7 to 113,36.5) -->
-              <line x1="101" y1="28.7" x2="113" y2="36.5" stroke="var(--outfit-top)" stroke-width="8.5" stroke-linecap="butt"/>
+              <path d="M 101 29 L 123 43 L 139 25" fill="none" stroke="var(--head)" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Unified Short Sleeve (Starts inside shirt at 98,27.1 with rounded shoulder top, ends cleanly on arm at 112.5,36.3) -->
+              <path d="M 98 27.1 L 112.5 36.3" fill="none" stroke="var(--outfit-top)" stroke-width="8.6" stroke-linecap="round"/>
+              <path d="M 106 32.2 L 112.5 36.3" fill="none" stroke="var(--outfit-top)" stroke-width="8.6" stroke-linecap="butt"/>
 
               <!-- Smartphone held at (141, 7) facing character's eyes -->
               <g transform="translate(141, 7) rotate(12)">
@@ -343,8 +347,8 @@
 
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
       gsap.set('#s1Clock', { scale: 1 });
-      gsap.set('#s1Arm', { rotation: 0, svgOrigin: '103 30' });
-      gsap.set('.eye-dot', { scaleY: 1, opacity: 1, svgOrigin: '115.5 -3.5' });
+      gsap.set('#s1Arm', { rotation: 0, svgOrigin: '101 29' });
+      gsap.set('.eye-dot', { scaleY: 1, opacity: 1, svgOrigin: '115.5 -5' });
       gsap.set('.eye-ring', { opacity: 0 });
       gsap.set('#s1MouthFlat', { opacity: 1 });
       gsap.set('#s1MouthOpen', { opacity: 0 });
@@ -355,7 +359,7 @@
       sceneTl.call(() => playVibrate(), null, 0);
       sceneTl.to('#s1Arm', {
         rotation: -4.5,
-        svgOrigin: '103 30',
+        svgOrigin: '101 29',
         duration: 0.45,
         yoyo: true,
         repeat: 14,
@@ -364,7 +368,7 @@
 
       sceneTl.to('#s1PhonePool', {
         scale: 1.12,
-        svgOrigin: '138 26',
+        svgOrigin: '138 24',
         duration: 1.3,
         yoyo: true,
         repeat: 4,
@@ -373,7 +377,7 @@
 
       sceneTl.to('.eye-dot', {
         scaleY: 0.1,
-        svgOrigin: '115.5 -3.5',
+        svgOrigin: '115.5 -5',
         duration: 0.08,
         yoyo: true,
         repeat: 1
