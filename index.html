@@ -3,9 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 2: 1720s Before Electric Lights</title>
+  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (3/4 Gaze & Block Outfit)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
+    :root {
+      --head: #0d0b12;
+      --face: #f2ede2;
+      --rim: #f4c28a;
+      --outfit-top: #2c4c7c;
+      --outfit-bottom: #e8dcc0;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -20,12 +28,13 @@
       overflow: hidden;
     }
 
+    /* Native 9:16 Stage - 60fps Hardware Accelerated */
     .stage-wrapper {
       position: relative;
       width: 100vw;
       max-width: 410px;
       aspect-ratio: 9 / 16;
-      background: #080b14;
+      background: #0d0d12;
       overflow: hidden;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
     }
@@ -41,7 +50,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(4, 4, 8, 0.9) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(4, 4, 7, 0.9) 100%);
       z-index: 10;
     }
 
@@ -61,7 +70,7 @@
       position: absolute;
       top: 7.5%;
       left: 6%;
-      background: rgba(10, 12, 20, 0.78);
+      background: rgba(10, 10, 15, 0.78);
       border: 1px solid rgba(242, 237, 226, 0.14);
       color: rgba(242, 237, 226, 0.85);
       padding: 5px 13px;
@@ -97,173 +106,195 @@
 <body>
 
   <div class="stage-wrapper">
-    <div class="location-pill">1720s · Before Electric Lights</div>
+    <div class="location-pill">2:00 AM · Bedroom</div>
 
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <!-- Deep 18th Century Midnight Sky -->
-        <linearGradient id="nightSky1720" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#070a14"/>
-          <stop offset="55%" stop-color="#111930"/>
-          <stop offset="100%" stop-color="#1a2440"/>
+        <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#12131a"/>
+          <stop offset="65%" stop-color="#1b1c24"/>
+          <stop offset="100%" stop-color="#14141b"/>
         </linearGradient>
 
-        <!-- Ground Path Gradient -->
-        <linearGradient id="earthGround" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#14161f"/>
-          <stop offset="40%" stop-color="#0d0e14"/>
-          <stop offset="100%" stop-color="#06070a"/>
+        <linearGradient id="windowSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0b0f1f"/>
+          <stop offset="60%" stop-color="#182242"/>
+          <stop offset="100%" stop-color="#222d52"/>
         </linearGradient>
 
-        <!-- Rewind Clock Ambient Halo -->
-        <radialGradient id="clockHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#f4c28a" stop-opacity="0.22"/>
-          <stop offset="60%" stop-color="#d97706" stop-opacity="0.06"/>
-          <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
+        <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#18171e"/>
+          <stop offset="40%" stop-color="#222029"/>
+          <stop offset="100%" stop-color="#111016"/>
+        </linearGradient>
+
+        <!-- Symmetrical Lamp Cone -->
+        <linearGradient id="lampConeGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.34"/>
+          <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        </linearGradient>
+
+        <linearGradient id="lampUpGrad" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        </linearGradient>
+
+        <radialGradient id="lampHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.48"/>
+          <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Symmetrical Lantern Light Cone -->
-        <linearGradient id="lanternCone" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.42"/>
-          <stop offset="60%" stop-color="#f59e0b" stop-opacity="0.14"/>
-          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        <!-- Directional Phone Screen Light Beam Toward Face -->
+        <linearGradient id="phoneBeamGrad" x1="1" y1="0.5" x2="0" y2="0.5">
+          <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.55"/>
+          <stop offset="55%" stop-color="#38bdf8" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
         </linearGradient>
 
-        <radialGradient id="lanternHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.65"/>
-          <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.18"/>
-          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        <radialGradient id="phoneGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.5"/>
+          <stop offset="55%" stop-color="#0284c7" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
+        </radialGradient>
+
+        <radialGradient id="redClockGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ef4444" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
         </radialGradient>
       </defs>
 
       <!-- Camera Group -->
-      <g id="s2Camera">
-        <rect width="540" height="960" fill="url(#nightSky1720)"/>
+      <g id="s1Camera">
+        <!-- Bedroom Wall & Wooden Floor -->
+        <rect width="540" height="715" fill="url(#wallGrad)"/>
+        <rect x="0" y="715" width="540" height="245" fill="url(#floorGrad)"/>
+        <line x1="0" y1="748" x2="540" y2="748" stroke="#131218" stroke-width="2"/>
+        <line x1="0" y1="792" x2="540" y2="792" stroke="#131218" stroke-width="2"/>
+        <line x1="0" y1="845" x2="540" y2="845" stroke="#131218" stroke-width="2"/>
+        <line x1="0" y1="905" x2="540" y2="905" stroke="#131218" stroke-width="2"/>
 
-        <!-- Crescent Moon & Twinkling Stars -->
-        <circle cx="430" cy="185" r="24" fill="#f3f4f6" opacity="0.9"/>
-        <circle cx="439" cy="178" r="20" fill="#0d1324"/>
-
-        <g id="s2Stars" fill="#f2ede2">
-          <circle class="star" cx="95" cy="165" r="2"/>
-          <circle class="star" cx="175" cy="135" r="1.8"/>
-          <circle class="star" cx="255" cy="195" r="2.2"/>
-          <circle class="star" cx="345" cy="140" r="1.8"/>
-          <circle class="star" cx="120" cy="275" r="1.8"/>
-          <circle class="star" cx="465" cy="265" r="2"/>
-          <circle class="star" cx="210" cy="245" r="1.5"/>
+        <!-- LARGE BEDROOM WINDOW -->
+        <g transform="translate(175, 165)">
+          <rect x="-8" y="-8" width="236" height="296" rx="4" fill="#0c0d12"/>
+          <rect x="0" y="0" width="220" height="280" fill="url(#windowSky)"/>
+          <g fill="#0e1324">
+            <rect x="0" y="215" width="42" height="65"/>
+            <rect x="38" y="195" width="48" height="85"/>
+            <rect x="82" y="225" width="38" height="55"/>
+            <rect x="118" y="182" width="54" height="98"/>
+            <rect x="168" y="208" width="52" height="72"/>
+            <rect x="136" y="198" width="5" height="6" fill="#fde68a" opacity="0.7"/>
+            <rect x="54" y="212" width="4" height="5" fill="#fde68a" opacity="0.4"/>
+          </g>
+          <circle cx="168" cy="68" r="18" fill="#f3f4f6" opacity="0.9"/>
+          <circle cx="175" cy="63" r="15" fill="#11172e"/>
+          <circle cx="55" cy="48" r="1.8" fill="#fff" opacity="0.6"/>
+          <circle cx="115" cy="35" r="1.5" fill="#fff" opacity="0.5"/>
+          <circle cx="145" cy="112" r="1.5" fill="#fff" opacity="0.5"/>
+          <rect x="107" y="0" width="6" height="280" fill="#0d0e14"/>
+          <rect x="0" y="148" width="220" height="6" fill="#0d0e14"/>
+          <rect x="-14" y="280" width="248" height="10" rx="2" fill="#232530"/>
         </g>
 
-        <!-- Distant Rolling Hills & 18th Century Village Cottages (Parallax Layer) -->
-        <g id="s2VillageBg">
-          <!-- Distant Hill -->
-          <path d="M -60 645 Q 180 575 380 635 T 640 615 L 640 760 L -60 760 Z" fill="#0e1324"/>
+        <!-- BEDSIDE NIGHTSTAND, SYMMETRICAL LAMP & DIGITAL CLOCK -->
+        <g transform="translate(36, 515)">
+          <circle cx="42" cy="33" r="125" fill="url(#lampHalo)"/>
+          <polygon points="24,14 60,14 78,-38 6,-38" fill="url(#lampUpGrad)"/>
+          <polygon points="12,52 72,52 148,200 -64,200" fill="url(#lampConeGrad)"/>
 
-          <!-- Cottage 1 (Left) -->
-          <g transform="translate(85, 558)">
-            <rect x="0" y="25" width="76" height="52" fill="#090c17"/>
-            <polygon points="-8,25 38,-6 84,25" fill="#06080f"/>
-            <!-- Chimney -->
-            <rect x="54" y="2" width="10" height="18" fill="#06080f"/>
-            <!-- Warm Candlelit Cottage Window -->
-            <rect x="28" y="42" width="16" height="18" rx="2" fill="#f59e0b" opacity="0.55"/>
-          </g>
+          <!-- Nightstand Cabinet -->
+          <rect x="8" y="105" width="96" height="95" rx="3" fill="#181820"/>
+          <rect x="4" y="102" width="104" height="8" rx="2" fill="#272733"/>
+          <rect x="16" y="118" width="80" height="32" rx="2" fill="#121218"/>
+          <circle cx="56" cy="134" r="3" fill="#3f3f52"/>
 
-          <!-- Cottage 2 (Right) -->
-          <g transform="translate(365, 568)">
-            <rect x="0" y="22" width="68" height="46" fill="#090c17"/>
-            <polygon points="-7,22 34,-5 75,22" fill="#06080f"/>
-            <rect x="24" y="38" width="14" height="15" rx="2" fill="#f59e0b" opacity="0.35"/>
-          </g>
+          <!-- Table Lamp -->
+          <rect x="28" y="96" width="28" height="6" rx="2" fill="#2e2e3d"/>
+          <rect x="39" y="52" width="6" height="44" fill="#2e2e3d"/>
+          <polygon points="24,14 60,14 72,52 12,52" fill="#fde68a"/>
+          <polygon points="24,14 60,14 72,52 12,52" fill="#f59e0b" opacity="0.22"/>
 
-          <!-- Bare Silhouette Trees -->
-          <g stroke="#080b14" stroke-width="4" stroke-linecap="round" fill="none">
-            <path d="M 245 628 L 245 572 M 245 595 L 230 580 M 245 588 L 260 574"/>
-            <path d="M 485 632 L 485 582 M 485 602 L 472 588 M 485 596 L 498 584"/>
+          <!-- Red Digital Clock -->
+          <g id="s1Clock">
+            <circle cx="82" cy="90" r="32" fill="url(#redClockGlow)"/>
+            <rect x="58" y="78" width="48" height="24" rx="4" fill="#09080c" stroke="#3f1d22" stroke-width="1.5"/>
+            <text id="s1ClockText" x="82" y="94" text-anchor="middle" fill="#f87171" font-family="monospace" font-size="13" font-weight="bold">01:59</text>
           </g>
         </g>
 
-        <!-- Foreground Dirt Path (Flat Surface at y = 735) -->
-        <rect x="0" y="735" width="540" height="225" fill="url(#earthGround)"/>
-        <line x1="0" y1="735" x2="540" y2="735" stroke="#1e2538" stroke-width="2"/>
+        <!-- BED & BLOCK-OUTFIT CHARACTER (3/4 SIDE-OFFSET GAZE TOWARD PHONE) -->
+        <g transform="translate(152, 565)">
+          <ellipse cx="170" cy="152" rx="180" ry="12" fill="#07070a" opacity="0.85"/>
 
-        <!-- =====================================================
-             ANTIQUE POCKET CLOCK REWINDING IN NIGHT SKY (x=270, y=315)
-             ===================================================== -->
-        <g id="rewindClock">
-          <circle cx="270" cy="315" r="105" fill="url(#clockHalo)"/>
-          <!-- Outer Brass Ring -->
-          <circle cx="270" cy="315" r="68" fill="none" stroke="#f4c28a" stroke-width="2.5" stroke-dasharray="6 6" opacity="0.75"/>
-          <circle cx="270" cy="315" r="56" fill="rgba(9, 11, 20, 0.72)" stroke="#f4c28a" stroke-width="2"/>
-          <!-- Roman/Minimal Tick Marks -->
-          <line x1="270" y1="265" x2="270" y2="273" stroke="#f4c28a" stroke-width="2.5"/>
-          <line x1="270" y1="357" x2="270" y2="365" stroke="#f4c28a" stroke-width="2.5"/>
-          <line x1="220" y1="315" x2="228" y2="315" stroke="#f4c28a" stroke-width="2.5"/>
-          <line x1="312" y1="315" x2="320" y2="315" stroke="#f4c28a" stroke-width="2.5"/>
+          <!-- Bed Frame & Mattress (Mattress top at y = 92) -->
+          <rect x="0" y="38" width="14" height="112" rx="3" fill="#16161f"/>
+          <rect x="326" y="72" width="14" height="78" rx="3" fill="#16161f"/>
+          <rect x="10" y="112" width="320" height="22" rx="3" fill="#1d1d29"/>
+          <rect x="14" y="92" width="312" height="24" rx="8" fill="#2a2b38"/>
+          <rect x="20" y="74" width="64" height="22" rx="10" fill="#343646"/>
 
-          <!-- Clock Hands (Exact Pivot at 270, 315) -->
-          <line id="clockHour" x1="270" y1="315" x2="270" y2="283" stroke="#f2ede2" stroke-width="3.5" stroke-linecap="round"/>
-          <line id="clockMin" x1="270" y1="315" x2="308" y2="315" stroke="#f4c28a" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="270" cy="315" r="4.5" fill="#f4c28a"/>
-        </g>
+          <!-- Cool Blue Ambient Glow Around Phone & Face -->
+          <circle cx="145" cy="25" r="110" fill="url(#phoneGlow)" id="s1PhonePool"/>
 
-        <!-- =====================================================
-             SLEEK 17-18yo SILHOUETTE WALKER WITH LANTERN
-             Feet grounded precisely on path at y = 735
-             Base coordinate system anchored at hip (0, 0) -> placed at (130, 655)
-             ===================================================== -->
-        <g id="s2Walker" transform="translate(130, 655)">
-          <!-- Ground Contact Shadow -->
-          <ellipse cx="4" cy="80" rx="28" ry="6" fill="#040508" opacity="0.85"/>
+          <!-- Character Seated on Bed (Torso & Thighs resting cleanly at y = 92) -->
+          <g id="s1Char">
+            <!-- Back Arm (Subtle dark silhouette behind torso) -->
+            <path d="M 102 36 L 128 46 L 146 28" fill="none" stroke="#07060a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
 
-          <!-- Back Leg (Hip pivot at 0, 0 -> foot reaches y = 80) -->
-          <g id="s2LegBack">
-            <path d="M -2 0 L -5 40 L -3 78 L 6 78" fill="none" stroke="#06070a" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
+            <!-- Lower Garment / Pants (Cream #e8dcc0) -->
+            <!-- Thigh resting flat on mattress (y: 80 to 94) -->
+            <rect x="92" y="80" width="56" height="15" rx="7.5" fill="var(--outfit-bottom)"/>
+            <!-- Lower leg hanging down off edge of bed (y: 82 to 146) -->
+            <rect x="134" y="82" width="15" height="64" rx="7.5" fill="var(--outfit-bottom)"/>
 
-          <!-- Back Arm (Shoulder pivot at 0, -48) -->
-          <g id="s2ArmBack">
-            <path d="M -2 -48 L -10 -22 L -6 -2" fill="none" stroke="#06070a" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
+            <!-- Torso Block (Night T-Shirt #2c4c7c, bottom at y = 86) -->
+            <rect x="82" y="24" width="38" height="64" rx="14" fill="var(--outfit-top)"/>
+            <!-- Subtle Rim Light on Torso Front Edge -->
+            <path d="M 118 28 L 118 82" stroke="#7dd3fc" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
 
-          <!-- Torso (From hip y=0 up to neck y=-56) with Warm Lantern Rim Light -->
-          <path d="M -9 -54 L 11 -54 L 9 2 L -9 2 Z" fill="#090a0f" stroke="#f4c28a" stroke-width="1.2" stroke-opacity="0.45"/>
+            <!-- Head Group (Centered at 101, -6, radius 27) -->
+            <g id="s1Head">
+              <!-- Rim Light Offset (Warm left from lamp, cool right from phone) -->
+              <circle cx="99.5" cy="-6" r="27" fill="var(--rim)" opacity="0.55"/>
+              <circle cx="102.5" cy="-6" r="27" fill="#7dd3fc" opacity="0.45"/>
+              <!-- Solid Near-Black Head -->
+              <circle cx="101" cy="-6" r="27" fill="var(--head)"/>
 
-          <!-- Front Leg (Hip pivot at 0, 0 -> foot reaches y = 80) -->
-          <g id="s2LegFront">
-            <path d="M 1 0 L 4 40 L 2 78 L 12 78" fill="none" stroke="#090a0f" stroke-width="11.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- Subtle Rim Highlight on Front Leg -->
-            <path d="M 6 4 L 8 40 L 6 75" fill="none" stroke="#f4c28a" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-          </g>
+              <!-- 3/4 Side-Offset Face Features (Shifted toward right edge x=113..123 so character looks at phone, NOT camera!) -->
+              <g id="s1Face">
+                <!-- Two Small Off-White Dots (Neutral/Focused) -->
+                <circle class="eye-dot" cx="113" cy="-9" r="2.6" fill="var(--face)"/>
+                <circle class="eye-dot" cx="122" cy="-9" r="2.6" fill="var(--face)"/>
 
-          <!-- Head & Single Side-Profile Neon Eye (Centered at 1, -74) -->
-          <g id="s2Head">
-            <!-- Warm Rim Light on Front Edge of Head -->
-            <circle cx="2.5" cy="-74" r="16.5" fill="#f4c28a" opacity="0.45"/>
-            <circle cx="1" cy="-74" r="16.5" fill="#090a0f"/>
-            <!-- Single Side-Profile Glowing Eye looking forward -->
-            <ellipse cx="11" cy="-76" rx="4.5" ry="2.6" fill="#fde68a" opacity="0.4"/>
-            <ellipse class="walker-eye" cx="11" cy="-76" rx="2.8" ry="1.5" fill="#fef3c7"/>
-          </g>
+                <!-- Surprised Ring Eyes (Hidden until 02:00) -->
+                <circle class="eye-ring" cx="113" cy="-9" r="3.8" fill="none" stroke="var(--face)" stroke-width="1.6" opacity="0"/>
+                <circle class="eye-ring" cx="122" cy="-9" r="3.8" fill="none" stroke="var(--face)" stroke-width="1.6" opacity="0"/>
 
-          <!-- Front Arm Holding Glowing Antique Lantern (Shoulder pivot at 2, -48) -->
-          <g id="s2ArmFront">
-            <!-- Arm reaching forward to hold lantern handle at (26, -16) -->
-            <path d="M 2 -48 L 12 -26 L 26 -16" fill="none" stroke="#090a0f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 4 -47 L 14 -26 L 26 -17" fill="none" stroke="#f4c28a" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+                <!-- Small Rounded Mouth (Flat neutral -> Small oval surprise at 02:00) -->
+                <line id="s1MouthFlat" x1="114" y1="2" x2="121" y2="2" stroke="var(--face)" stroke-width="2.2" stroke-linecap="round"/>
+                <ellipse id="s1MouthOpen" cx="117.5" cy="3" rx="2.6" ry="3.4" fill="var(--face)" opacity="0"/>
+              </g>
+            </g>
 
-            <!-- Swinging Lantern & Symmetrical Light Cone (Anchored at hand 26, -16) -->
-            <g id="s2Lantern" transform="translate(26, -16)">
-              <!-- Symmetrical Downward Cone onto Dirt Path -->
-              <polygon points="-6,18 6,18 46,96 -46,96" fill="url(#lanternCone)"/>
-              <!-- Warm Lantern Halo -->
-              <circle cx="0" cy="12" r="52" fill="url(#lanternHalo)"/>
-              <!-- Lantern Handle & Frame -->
-              <path d="M -5 0 Q 0 -6 5 0" fill="none" stroke="#090a0f" stroke-width="2"/>
-              <rect x="-6" y="2" width="12" height="16" rx="3" fill="#090a0f"/>
-              <!-- Glowing Candle Core Inside Lantern -->
-              <rect x="-3.5" y="5" width="7" height="10" rx="1.5" fill="#fde68a"/>
-              <circle cx="0" cy="10" r="2.5" fill="#ffffff"/>
+            <!-- Front Arm Holding Smartphone (Shoulder anchored at 104, 36) -->
+            <g id="s1Arm">
+              <!-- Directional Light Cone shining from phone (150, 8..30) directly onto face (115, -24..14) -->
+              <polygon points="150,8 150,30 116,14 116,-24" fill="url(#phoneBeamGrad)"/>
+
+              <!-- Arm Rim Light -->
+              <path d="M 104 35 L 130 46 L 148 26" fill="none" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+              <!-- Sleek Black Arm -->
+              <path d="M 104 36 L 130 47 L 148 27" fill="none" stroke="var(--head)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+              <!-- Smartphone held at (150, 7) facing directly toward character's eyes -->
+              <g transform="translate(150, 7) rotate(12)">
+                <!-- Outer dark phone casing facing away -->
+                <rect x="2.5" y="-1" width="4.5" height="24" rx="2" fill="#090a0f"/>
+                <!-- Bright glowing screen facing the character -->
+                <rect x="0" y="0" width="3" height="22" rx="1.5" fill="#e0f2fe"/>
+              </g>
             </g>
           </g>
         </g>
@@ -276,7 +307,7 @@
   </div>
 
   <div class="controls">
-    <button class="primary" id="playBtn">▶ Play Scene 2 (9.0s)</button>
+    <button class="primary" id="playBtn">▶ Play Scene 1 (7.5s)</button>
     <button id="soundBtn">🔊 Sound: ON</button>
   </div>
 
@@ -305,154 +336,90 @@
       osc.stop(audioCtx.currentTime + duration);
     }
 
-    function playRewindEffect() {
-      // Soft atmospheric whoosh + mechanical clock ticks spinning backward
-      playTone(180, 'sine', 1.4, 0.14, 65);
-      for (let i = 0; i < 14; i++) {
-        setTimeout(() => {
-          playTone(720 - i * 32, 'triangle', 0.06, 0.06);
-        }, i * 110);
-      }
+    function playVibrate() {
+      playTone(92, 'sawtooth', 0.15, 0.07, 80);
+      setTimeout(() => playTone(92, 'sawtooth', 0.15, 0.07, 80), 220);
     }
 
-    function playFootstep() {
-      playTone(68, 'sine', 0.12, 0.08, 38);
+    function playBassDrop() {
+      playTone(110, 'sine', 1.5, 0.28, 34);
     }
 
     let sceneTl = null;
 
-    function playScene2() {
+    function playScene1() {
       if (sceneTl) sceneTl.kill();
 
-      // Reset initial states with exact SVG joint coordinates
-      gsap.set('#s2Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s2VillageBg', { x: 0 });
-      gsap.set('#clockMin', { rotation: 0, svgOrigin: '270 315' });
-      gsap.set('#clockHour', { rotation: 0, svgOrigin: '270 315' });
-      gsap.set('#s2Walker', { x: 130, y: 655 });
-      gsap.set('#s2LegFront', { rotation: 0, svgOrigin: '0 0' });
-      gsap.set('#s2LegBack', { rotation: 0, svgOrigin: '0 0' });
-      gsap.set('#s2ArmBack', { rotation: 0, svgOrigin: '0 -48' });
-      gsap.set('#s2ArmFront', { rotation: 0, svgOrigin: '2 -48' });
-      gsap.set('.walker-eye', { scaleY: 1, svgOrigin: '11 -76' });
+      gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
+      gsap.set('#s1Clock', { scale: 1 });
+      gsap.set('#s1Arm', { rotation: 0, svgOrigin: '104 36' });
+      gsap.set('.eye-dot', { scaleY: 1, opacity: 1, svgOrigin: '117.5 -9' });
+      gsap.set('.eye-ring', { opacity: 0 });
+      gsap.set('#s1MouthFlat', { opacity: 1 });
+      gsap.set('#s1MouthOpen', { opacity: 0 });
+      document.getElementById('s1ClockText').textContent = '01:59';
 
       sceneTl = gsap.timeline();
 
-      // 0.0s: Clock hands spin rapidly backward (Rewind into 18th century)
-      sceneTl.call(() => playRewindEffect(), null, 0);
-      sceneTl.to('#clockMin', {
-        rotation: -1440,
-        svgOrigin: '270 315',
-        duration: 5.5,
-        ease: 'power2.inOut'
-      }, 0);
-      sceneTl.to('#clockHour', {
-        rotation: -360,
-        svgOrigin: '270 315',
-        duration: 5.5,
-        ease: 'power2.inOut'
+      // 0.0s: Phone buzz & subtle scrolling motion pivoted strictly at shoulder (104, 36)
+      sceneTl.call(() => playVibrate(), null, 0);
+      sceneTl.to('#s1Arm', {
+        rotation: -4.5,
+        svgOrigin: '104 36',
+        duration: 0.45,
+        yoyo: true,
+        repeat: 14,
+        ease: 'sine.inOut'
       }, 0);
 
-      // Twinkling stars
-      sceneTl.to('.star', {
-        opacity: 0.25,
-        duration: 0.8,
-        stagger: 0.18,
-        yoyo: true,
-        repeat: 9
-      }, 0);
-
-      // Subtle parallax drift on distant village hills
-      sceneTl.to('#s2VillageBg', {
-        x: -24,
-        duration: 9.0,
-        ease: 'none'
-      }, 0);
-
-      // Smooth human walk cycle across the dirt path (0.2s to 9.0s)
-      sceneTl.to('#s2Walker', {
-        x: 375,
-        duration: 8.8,
-        ease: 'none'
-      }, 0.2);
-
-      // Subtle vertical body bob (2px) synced with steps
-      sceneTl.to('#s2Walker', {
-        y: 652,
-        duration: 0.36,
-        yoyo: true,
-        repeat: 23,
-        ease: 'sine.inOut'
-      }, 0.2);
-
-      // Alternating Leg Swing anchored strictly at hip (0, 0)
-      sceneTl.to('#s2LegFront', {
-        rotation: 22,
-        svgOrigin: '0 0',
-        duration: 0.36,
-        yoyo: true,
-        repeat: 23,
-        ease: 'sine.inOut'
-      }, 0.2);
-
-      sceneTl.to('#s2LegBack', {
-        rotation: -22,
-        svgOrigin: '0 0',
-        duration: 0.36,
-        yoyo: true,
-        repeat: 23,
-        ease: 'sine.inOut'
-      }, 0.2);
-
-      // Opposite Back Arm Swing anchored at shoulder (0, -48)
-      sceneTl.to('#s2ArmBack', {
-        rotation: 18,
-        svgOrigin: '0 -48',
-        duration: 0.36,
-        yoyo: true,
-        repeat: 23,
-        ease: 'sine.inOut'
-      }, 0.2);
-
-      // Subtle Lantern Sway anchored at front shoulder (2, -48)
-      sceneTl.to('#s2ArmFront', {
-        rotation: -4,
-        svgOrigin: '2 -48',
-        duration: 0.72,
-        yoyo: true,
-        repeat: 11,
-        ease: 'sine.inOut'
-      }, 0.2);
-
-      // Natural Eye Blink at 3.2s & 6.8s
-      sceneTl.to('.walker-eye', {
-        scaleY: 0.1,
-        svgOrigin: '11 -76',
-        duration: 0.08,
-        yoyo: true,
-        repeat: 1
-      }, 3.2);
-
-      sceneTl.to('.walker-eye', {
-        scaleY: 0.1,
-        svgOrigin: '11 -76',
-        duration: 0.08,
-        yoyo: true,
-        repeat: 1
-      }, 6.8);
-
-      // Gentle cinematic camera push-in
-      sceneTl.to('#s2Camera', {
+      sceneTl.to('#s1PhonePool', {
         scale: 1.12,
-        svgOrigin: '270 540',
-        duration: 9.0,
+        svgOrigin: '145 25',
+        duration: 1.3,
+        yoyo: true,
+        repeat: 4,
         ease: 'sine.inOut'
       }, 0);
+
+      // 1.3s: Natural eye blink
+      sceneTl.to('.eye-dot', {
+        scaleY: 0.1,
+        svgOrigin: '117.5 -9',
+        duration: 0.08,
+        yoyo: true,
+        repeat: 1
+      }, 1.3);
+
+      // 2.2s: Clock flips to 02:00 -> 3/4 Face reacts with shock + Bass drop + Camera push-in
+      sceneTl.call(() => {
+        document.getElementById('s1ClockText').textContent = '02:00';
+        playBassDrop();
+      }, null, 2.2);
+
+      sceneTl.to('#s1Clock', {
+        scale: 1.16,
+        svgOrigin: '82 90',
+        duration: 0.25,
+        yoyo: true,
+        repeat: 1
+      }, 2.2);
+
+      sceneTl.to('.eye-dot', { opacity: 0, duration: 0.1 }, 2.3);
+      sceneTl.to('.eye-ring', { opacity: 1, duration: 0.15 }, 2.3);
+      sceneTl.to('#s1MouthFlat', { opacity: 0, duration: 0.1 }, 2.3);
+      sceneTl.to('#s1MouthOpen', { opacity: 1, duration: 0.15 }, 2.3);
+
+      sceneTl.to('#s1Camera', {
+        scale: 1.24,
+        svgOrigin: '250 560',
+        duration: 5.2,
+        ease: 'power2.inOut'
+      }, 2.3);
     }
 
     document.getElementById('playBtn').addEventListener('click', () => {
       initAudio();
-      playScene2();
+      playScene1();
     });
 
     document.getElementById('soundBtn').addEventListener('click', () => {
@@ -461,7 +428,7 @@
     });
 
     window.addEventListener('load', () => {
-      setTimeout(playScene2, 300);
+      setTimeout(playScene1, 300);
     });
   </script>
 </body>
