@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (3/4 Gaze & Block Outfit)</title>
+  <title>Zenspiris — Scene 1: 2:00 AM Bedroom (Exact Proportions)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
       --head: #0d0b12;
       --face: #f2ede2;
       --rim: #f4c28a;
-      --outfit-top: #2c4c7c;
+      --outfit-top: #3b78c4;
       --outfit-bottom: #e8dcc0;
+      --outfit-bottom-back: #c4b79b;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +29,6 @@
       overflow: hidden;
     }
 
-    /* Native 9:16 Stage - 60fps Hardware Accelerated */
     .stage-wrapper {
       position: relative;
       width: 100vw;
@@ -128,7 +128,6 @@
           <stop offset="100%" stop-color="#111016"/>
         </linearGradient>
 
-        <!-- Symmetrical Lamp Cone -->
         <linearGradient id="lampConeGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#fde68a" stop-opacity="0.34"/>
           <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.12"/>
@@ -146,7 +145,6 @@
           <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Directional Phone Screen Light Beam Toward Face -->
         <linearGradient id="phoneBeamGrad" x1="1" y1="0.5" x2="0" y2="0.5">
           <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.55"/>
           <stop offset="55%" stop-color="#38bdf8" stop-opacity="0.16"/>
@@ -167,7 +165,6 @@
 
       <!-- Camera Group -->
       <g id="s1Camera">
-        <!-- Bedroom Wall & Wooden Floor -->
         <rect width="540" height="715" fill="url(#wallGrad)"/>
         <rect x="0" y="715" width="540" height="245" fill="url(#floorGrad)"/>
         <line x1="0" y1="748" x2="540" y2="748" stroke="#131218" stroke-width="2"/>
@@ -204,13 +201,13 @@
           <polygon points="24,14 60,14 78,-38 6,-38" fill="url(#lampUpGrad)"/>
           <polygon points="12,52 72,52 148,200 -64,200" fill="url(#lampConeGrad)"/>
 
-          <!-- Nightstand Cabinet -->
+          <!-- Nightstand -->
           <rect x="8" y="105" width="96" height="95" rx="3" fill="#181820"/>
           <rect x="4" y="102" width="104" height="8" rx="2" fill="#272733"/>
           <rect x="16" y="118" width="80" height="32" rx="2" fill="#121218"/>
           <circle cx="56" cy="134" r="3" fill="#3f3f52"/>
 
-          <!-- Table Lamp -->
+          <!-- Lamp -->
           <rect x="28" y="96" width="28" height="6" rx="2" fill="#2e2e3d"/>
           <rect x="39" y="52" width="6" height="44" fill="#2e2e3d"/>
           <polygon points="24,14 60,14 72,52 12,52" fill="#fde68a"/>
@@ -224,7 +221,7 @@
           </g>
         </g>
 
-        <!-- BED & BLOCK-OUTFIT CHARACTER (3/4 SIDE-OFFSET GAZE TOWARD PHONE) -->
+        <!-- BED & SLEEK REFERENCE-PROPORTION CHARACTER -->
         <g transform="translate(152, 565)">
           <ellipse cx="170" cy="152" rx="180" ry="12" fill="#07070a" opacity="0.85"/>
 
@@ -235,64 +232,61 @@
           <rect x="14" y="92" width="312" height="24" rx="8" fill="#2a2b38"/>
           <rect x="20" y="74" width="64" height="22" rx="10" fill="#343646"/>
 
-          <!-- Cool Blue Ambient Glow Around Phone & Face -->
-          <circle cx="145" cy="25" r="110" fill="url(#phoneGlow)" id="s1PhonePool"/>
+          <!-- Cool Blue Ambient Glow -->
+          <circle cx="145" cy="25" r="105" fill="url(#phoneGlow)" id="s1PhonePool"/>
 
-          <!-- Character Seated on Bed (Torso & Thighs resting cleanly at y = 92) -->
+          <!-- Sleek Character (Matches Reference Neck Connection, Slim Torso, & Angled Foot Tip) -->
           <g id="s1Char">
-            <!-- Back Arm (Subtle dark silhouette behind torso) -->
-            <path d="M 102 36 L 128 46 L 146 28" fill="none" stroke="#07060a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Back Leg (Slightly darker shade #c4b79b for depth, subtle knee bend + forward rounded foot) -->
+            <path d="M 96 85 L 136 85 L 139 114 L 137 142 L 146 142"
+                  fill="none" stroke="var(--outfit-bottom-back)" stroke-width="9.5" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <!-- Lower Garment / Pants (Cream #e8dcc0) -->
-            <!-- Thigh resting flat on mattress (y: 80 to 94) -->
-            <rect x="92" y="80" width="56" height="15" rx="7.5" fill="var(--outfit-bottom)"/>
-            <!-- Lower leg hanging down off edge of bed (y: 82 to 146) -->
-            <rect x="134" y="82" width="15" height="64" rx="7.5" fill="var(--outfit-bottom)"/>
+            <!-- Front Leg (Cream #e8dcc0, resting on mattress y=86, knee bend, forward rounded foot tip at y=144) -->
+            <path d="M 98 86 L 141 86 L 144 115 L 142 144 L 152 144"
+                  fill="none" stroke="var(--outfit-bottom)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <!-- Torso Block (Night T-Shirt #2c4c7c, bottom at y = 86) -->
-            <rect x="82" y="24" width="38" height="64" rx="14" fill="var(--outfit-top)"/>
-            <!-- Subtle Rim Light on Torso Front Edge -->
-            <path d="M 118 28 L 118 82" stroke="#7dd3fc" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+            <!-- Slim Torso Block (Width 26px — narrower than head, seamless neck connection at y = 21) -->
+            <path d="M 88 26 Q 88 20 96 20 L 106 20 Q 114 20 114 26 L 114 84 Q 114 89 108 89 L 94 89 Q 88 89 88 84 Z"
+                  fill="var(--outfit-top)"/>
+            <!-- Subtle Rim Highlight on Front Edge of Shirt -->
+            <path d="M 113 26 L 113 83" stroke="#7dd3fc" stroke-width="1.4" stroke-linecap="round" opacity="0.5"/>
 
-            <!-- Head Group (Centered at 101, -6, radius 27) -->
+            <!-- Head Group (Centered at 101, -6, radius 27 -> bottom touches torso seamlessly at y = 21!) -->
             <g id="s1Head">
-              <!-- Rim Light Offset (Warm left from lamp, cool right from phone) -->
+              <!-- Warm Left Rim & Cool Right Rim -->
               <circle cx="99.5" cy="-6" r="27" fill="var(--rim)" opacity="0.55"/>
               <circle cx="102.5" cy="-6" r="27" fill="#7dd3fc" opacity="0.45"/>
               <!-- Solid Near-Black Head -->
               <circle cx="101" cy="-6" r="27" fill="var(--head)"/>
 
-              <!-- 3/4 Side-Offset Face Features (Shifted toward right edge x=113..123 so character looks at phone, NOT camera!) -->
+              <!-- 3/4 Side-Offset Face Features (Looking toward phone, NOT camera) -->
               <g id="s1Face">
-                <!-- Two Small Off-White Dots (Neutral/Focused) -->
-                <circle class="eye-dot" cx="113" cy="-9" r="2.6" fill="var(--face)"/>
-                <circle class="eye-dot" cx="122" cy="-9" r="2.6" fill="var(--face)"/>
+                <circle class="eye-dot" cx="113" cy="-9" r="2.5" fill="var(--face)"/>
+                <circle class="eye-dot" cx="122" cy="-9" r="2.5" fill="var(--face)"/>
 
-                <!-- Surprised Ring Eyes (Hidden until 02:00) -->
-                <circle class="eye-ring" cx="113" cy="-9" r="3.8" fill="none" stroke="var(--face)" stroke-width="1.6" opacity="0"/>
-                <circle class="eye-ring" cx="122" cy="-9" r="3.8" fill="none" stroke="var(--face)" stroke-width="1.6" opacity="0"/>
+                <circle class="eye-ring" cx="113" cy="-9" r="3.6" fill="none" stroke="var(--face)" stroke-width="1.6" opacity="0"/>
+                <circle class="eye-ring" cx="122" cy="-9" r="3.6" fill="none" stroke="var(--face)" stroke-width="1.6" opacity="0"/>
 
-                <!-- Small Rounded Mouth (Flat neutral -> Small oval surprise at 02:00) -->
-                <line id="s1MouthFlat" x1="114" y1="2" x2="121" y2="2" stroke="var(--face)" stroke-width="2.2" stroke-linecap="round"/>
-                <ellipse id="s1MouthOpen" cx="117.5" cy="3" rx="2.6" ry="3.4" fill="var(--face)" opacity="0"/>
+                <line id="s1MouthFlat" x1="114" y1="2" x2="121" y2="2" stroke="var(--face)" stroke-width="2.1" stroke-linecap="round"/>
+                <ellipse id="s1MouthOpen" cx="117.5" cy="3" rx="2.5" ry="3.3" fill="var(--face)" opacity="0"/>
               </g>
             </g>
 
-            <!-- Front Arm Holding Smartphone (Shoulder anchored at 104, 36) -->
+            <!-- Front Arm with Short Sleeve Cap + Thin Black Arm (Shoulder anchored at 103, 33) -->
             <g id="s1Arm">
-              <!-- Directional Light Cone shining from phone (150, 8..30) directly onto face (115, -24..14) -->
-              <polygon points="150,8 150,30 116,14 116,-24" fill="url(#phoneBeamGrad)"/>
+              <!-- Directional Phone Light Beam -->
+              <polygon points="148,7 148,29 115,13 115,-23" fill="url(#phoneBeamGrad)"/>
 
               <!-- Arm Rim Light -->
-              <path d="M 104 35 L 130 46 L 148 26" fill="none" stroke="#7dd3fc" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-              <!-- Sleek Black Arm -->
-              <path d="M 104 36 L 130 47 L 148 27" fill="none" stroke="var(--head)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 103 32 L 128 45 L 146 25" fill="none" stroke="#7dd3fc" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+              <!-- Thin Black Arm -->
+              <path d="M 103 33 L 128 46 L 146 26" fill="none" stroke="var(--head)" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Short Sleeve Cap matching shirt color -->
+              <path d="M 102 32 L 113 38" fill="none" stroke="var(--outfit-top)" stroke-width="9.5" stroke-linecap="round"/>
 
-              <!-- Smartphone held at (150, 7) facing directly toward character's eyes -->
-              <g transform="translate(150, 7) rotate(12)">
-                <!-- Outer dark phone casing facing away -->
+              <!-- Smartphone held at (148, 6) facing character's eyes -->
+              <g transform="translate(148, 6) rotate(12)">
                 <rect x="2.5" y="-1" width="4.5" height="24" rx="2" fill="#090a0f"/>
-                <!-- Bright glowing screen facing the character -->
                 <rect x="0" y="0" width="3" height="22" rx="1.5" fill="#e0f2fe"/>
               </g>
             </g>
@@ -352,7 +346,7 @@
 
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
       gsap.set('#s1Clock', { scale: 1 });
-      gsap.set('#s1Arm', { rotation: 0, svgOrigin: '104 36' });
+      gsap.set('#s1Arm', { rotation: 0, svgOrigin: '103 33' });
       gsap.set('.eye-dot', { scaleY: 1, opacity: 1, svgOrigin: '117.5 -9' });
       gsap.set('.eye-ring', { opacity: 0 });
       gsap.set('#s1MouthFlat', { opacity: 1 });
@@ -361,11 +355,11 @@
 
       sceneTl = gsap.timeline();
 
-      // 0.0s: Phone buzz & subtle scrolling motion pivoted strictly at shoulder (104, 36)
+      // 0.0s: Phone buzz & subtle scrolling motion pivoted strictly at shoulder (103, 33)
       sceneTl.call(() => playVibrate(), null, 0);
       sceneTl.to('#s1Arm', {
         rotation: -4.5,
-        svgOrigin: '104 36',
+        svgOrigin: '103 33',
         duration: 0.45,
         yoyo: true,
         repeat: 14,
