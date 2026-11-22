@@ -133,7 +133,7 @@
 
         <!-- Strict Clip Path Inside Window Glass -->
         <clipPath id="s2GlassClip">
-          <rect x="0" y="0" width="136" height="205"/>
+          <rect x="0" y="0" width="132" height="190"/>
         </clipPath>
       </defs>
 
@@ -141,47 +141,47 @@
       <g id="s2Camera">
         <!-- Bedroom Wall & Floor (Floor line at y=775) -->
         <rect width="540" height="775" fill="url(#s2WallGrad)"/>
-        <rect x="0" y="555" width="540" height="5" fill="#141927"/>
+        <rect x="0" y="575" width="540" height="5" fill="#141927"/>
         <rect x="0" y="775" width="540" height="185" fill="url(#s2FloorGrad)"/>
 
         <!-- Warm Candle Ambient Room Wash -->
         <circle id="s2RoomWarmWash" cx="152" cy="645" r="340" fill="url(#s2CandleGlow)" opacity="0"/>
 
-        <!-- BEDROOM WINDOW (Lowered to y=275 for Natural Room Proportions) -->
-        <g transform="translate(330, 275)">
-          <rect x="-10" y="-10" width="156" height="225" rx="3" fill="#181f30"/>
-          <rect x="0" y="0" width="136" height="205" fill="url(#s2OutsideSky)"/>
+        <!-- BEDROOM WINDOW (Lowered to y=340 for Realistic Room Scale) -->
+        <g transform="translate(332, 340)">
+          <rect x="-10" y="-10" width="152" height="210" rx="3" fill="#181f30"/>
+          <rect x="0" y="0" width="132" height="190" fill="url(#s2OutsideSky)"/>
 
           <!-- Clipped Glass Interior for Bamboo Pole -->
           <g clip-path="url(#s2GlassClip)">
             <g id="s2OutsidePole">
-              <line x1="126" y1="210" x2="54" y2="122" stroke="var(--bamboo)" stroke-width="5" stroke-linecap="round"/>
-              <line x1="125" y1="210" x2="53" y2="122" stroke="var(--bamboo-hi)" stroke-width="1.3" opacity="0.7" stroke-linecap="round"/>
-              <circle cx="90" cy="166" r="2.8" fill="#78350f"/>
-              <circle cx="54" cy="122" r="3.5" fill="#fde68a"/>
+              <line x1="122" y1="196" x2="52" y2="112" stroke="var(--bamboo)" stroke-width="5" stroke-linecap="round"/>
+              <line x1="121" y1="196" x2="51" y2="112" stroke="var(--bamboo-hi)" stroke-width="1.3" opacity="0.7" stroke-linecap="round"/>
+              <circle cx="87" cy="154" r="2.8" fill="#78350f"/>
+              <circle cx="52" cy="112" r="3.5" fill="#fde68a"/>
             </g>
           </g>
 
           <!-- Window Panes & Sill -->
-          <rect x="65" y="0" width="6" height="205" fill="#0d1018"/>
-          <rect x="0" y="100" width="136" height="6" fill="#0d1018"/>
-          <rect x="-15" y="205" width="166" height="12" rx="2" fill="#212a3f"/>
+          <rect x="63" y="0" width="6" height="190" fill="#0d1018"/>
+          <rect x="0" y="92" width="132" height="6" fill="#0d1018"/>
+          <rect x="-15" y="190" width="162" height="12" rx="2" fill="#212a3f"/>
 
           <!-- Indoor Glass Tap Ripples -->
-          <circle id="s2Ripple1" cx="54" cy="122" r="3" fill="none" stroke="#fde68a" stroke-width="2" opacity="0"/>
-          <circle id="s2Ripple2" cx="54" cy="122" r="3" fill="none" stroke="#93c5fd" stroke-width="1.5" opacity="0"/>
+          <circle id="s2Ripple1" cx="52" cy="112" r="3" fill="none" stroke="#fde68a" stroke-width="2" opacity="0"/>
+          <circle id="s2Ripple2" cx="52" cy="112" r="3" fill="none" stroke="#93c5fd" stroke-width="1.5" opacity="0"/>
         </g>
 
-        <!-- Realistic Diagonal Pre-Dawn Window Light Beam (Aligned to Lowered Window y=275..480) -->
-        <polygon points="330,275 466,275 466,480 345,775 135,775 330,480" fill="url(#s2WindowBeam)" pointer-events="none"/>
+        <!-- Realistic Diagonal Pre-Dawn Window Light Beam (Aligned to Lowered Window y=340..530) -->
+        <polygon points="332,340 464,340 464,530 355,775 155,775 332,530" fill="url(#s2WindowBeam)" pointer-events="none"/>
 
-        <!-- LOW BEDSIDE CABINET WITH SHORT STUBBY FEET (Matches Mattress Height, Floor y=775) -->
+        <!-- LOW BEDSIDE CABINET WITH SHORT STUBBY FEET (Floor y=775) -->
         <g transform="translate(116, 709)">
           <ellipse cx="36" cy="68" rx="42" ry="4.5" fill="#020305" opacity="0.9"/>
           <!-- Short Stubby Wooden Legs -->
           <rect x="9" y="54" width="6" height="12" rx="1" fill="#0c0a0d"/>
           <rect x="57" y="54" width="6" height="12" rx="1" fill="#0c0a0d"/>
-          <!-- Compact Cabinet Body (Two Drawers) -->
+          <!-- Compact Cabinet Body -->
           <rect x="5" y="6" width="62" height="50" rx="2" fill="var(--wood)"/>
           <rect x="10" y="11" width="52" height="17" rx="1.5" fill="#211c20"/>
           <circle cx="36" cy="19.5" r="1.7" fill="#94a3b8"/>
@@ -210,27 +210,27 @@
         <!-- LOW-PROFILE 1800s WOODEN BED & SLEEPER RIG (Floor y=775) -->
         <g transform="translate(202, 575)">
           <!-- Bed Floor Shadow -->
-          <ellipse cx="106" cy="202" rx="118" ry="6.5" fill="#020305" opacity="0.95"/>
+          <ellipse cx="110" cy="202" rx="122" ry="6.5" fill="#020305" opacity="0.95"/>
 
           <!-- Low Wooden Headboard (Left) & Footboard (Right) -->
           <rect x="0" y="72" width="11" height="128" rx="2.5" fill="#141115"/>
           <circle cx="5.5" cy="68" r="6" fill="#1e1920"/>
-          <rect x="202" y="114" width="10" height="86" rx="2.5" fill="#141115"/>
-          <circle cx="207" cy="110" r="5.5" fill="#1e1920"/>
+          <rect x="210" y="114" width="10" height="86" rx="2.5" fill="#141115"/>
+          <circle cx="215" cy="110" r="5.5" fill="#1e1920"/>
 
-          <!-- Mattress & Fluffed Pillow -->
-          <rect x="11" y="144" width="191" height="26" rx="4" fill="#1e2433"/>
-          <path d="M 13 144 Q 42 126 70 145 Z" fill="#cbd5e1" opacity="0.88"/>
+          <!-- Mattress & Fluffed Pillow (Extended slightly wider so sleeping head fits inside headboard) -->
+          <rect x="11" y="144" width="199" height="26" rx="4" fill="#1e2433"/>
+          <path d="M 14 144 Q 48 125 82 145 Z" fill="#cbd5e1" opacity="0.88"/>
 
-          <!-- CHARACTER ANCHORED DIRECTLY INSIDE MATTRESS (x=80, y=146) -->
-          <g transform="translate(80, 146)">
+          <!-- CHARACTER ANCHORED INSIDE MATTRESS (x=98, y=146 so head stays inside headboard when lying down) -->
+          <g transform="translate(98, 146)">
             <g id="s2SleeperPivot" transform="rotate(-74)">
+              <!-- Subtle Far Arm Tucked Behind Torso (Never Clashes When Reaching Left) -->
+              <path d="M -6 -32 L -10 -12" fill="none" stroke="#18202c" stroke-width="6.5" stroke-linecap="round"/>
+
               <!-- Upper Torso (Extended Deep Beneath Blanket) -->
               <path d="M -13 -44 L 14 -44 L 18 24 L -16 24 Z" fill="var(--shirt)"/>
               <path d="M -7 -44 Q 0.5 -36 8 -44" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
-
-              <!-- Back Arm (Resting Parallel on Blanket — Zero 'X' Crossing) -->
-              <path id="s2ArmBack" d="M 4 -32 L 17 -14 L 31 -12" fill="none" stroke="#1e2533" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
 
               <!-- Zenspiris Signature Head (Exact r=22) -->
               <g transform="translate(1, -67)">
@@ -258,25 +258,25 @@
                 </g>
               </g>
 
-              <!-- Front Arm (Resting Together in Same Direction on Lap, Then Reaches Left to Light Candle) -->
+              <!-- Single Clean Foreground Arm (Rests on Blanket, Then Reaches Left to Light Candle) -->
               <path id="s2ArmFront" d="M 1 -32 L 13 -13 L 26 -10" fill="none" stroke="var(--head)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
             </g>
           </g>
 
           <!-- Floating Sleeping "z Z Z" Indicators Above Pillow -->
           <g id="s2ZzzGroup" fill="#94a3b8" font-family="sans-serif" font-weight="700">
-            <text id="s2Z1" x="26" y="114" font-size="13" opacity="0">z</text>
-            <text id="s2Z2" x="38" y="96" font-size="16" opacity="0">Z</text>
-            <text id="s2Z3" x="52" y="76" font-size="19" opacity="0">Z</text>
+            <text id="s2Z1" x="42" y="114" font-size="13" opacity="0">z</text>
+            <text id="s2Z2" x="54" y="96" font-size="16" opacity="0">Z</text>
+            <text id="s2Z3" x="68" y="76" font-size="19" opacity="0">Z</text>
           </g>
 
           <!-- HEAVY WOOL BLANKET FOREGROUND LAYER -->
-          <path d="M 58 143 Q 130 134 202 145 L 202 170 L 58 170 Z" fill="var(--blanket)"/>
+          <path d="M 74 143 Q 142 134 210 145 L 210 170 L 74 170 Z" fill="var(--blanket)"/>
           <!-- Blanket Folded Cuff -->
-          <path d="M 54 141 Q 70 138 79 143 L 76 168 L 54 168 Z" fill="var(--blanket-fold)"/>
+          <path d="M 70 141 Q 86 138 95 143 L 92 168 L 70 168 Z" fill="var(--blanket-fold)"/>
 
           <!-- Low Wooden Bed Frame Rail -->
-          <rect x="11" y="168" width="191" height="16" fill="#1c171d"/>
+          <rect x="11" y="168" width="199" height="16" fill="#1c171d"/>
         </g>
       </g>
     </svg>
@@ -431,9 +431,8 @@
       gsap.set('#s2EyeR', { attr: { cx: 16 } });
       gsap.set('#s2Mouth', { attr: { x1: 9, x2: 15 } });
       gsap.set('#s2HeadWarmRim', { opacity: 0 });
-      gsap.set('#s2OutsidePole', { rotation: -7, transformOrigin: '126px 210px', opacity: 1 });
+      gsap.set('#s2OutsidePole', { rotation: -7, transformOrigin: '122px 196px', opacity: 1 });
       gsap.set('#s2ArmFront', { attr: { d: 'M 1 -32 L 13 -13 L 26 -10' } });
-      gsap.set('#s2ArmBack', { attr: { d: 'M 4 -32 L 17 -14 L 31 -12' } });
       gsap.set('#s2CandleFlameGroup', { opacity: 0, scale: 0.4, transformOrigin: '0px 0px' });
       gsap.set('#s2RoomWarmWash', { opacity: 0 });
       gsap.set(['#s2Ripple1', '#s2Ripple2'], { opacity: 0, attr: { r: 3 } });
@@ -444,7 +443,7 @@
       // Gentle camera drift
       sceneTl.to('#s2Camera', {
         scale: 1.06,
-        transformOrigin: '260px 510px',
+        transformOrigin: '260px 530px',
         duration: 6.0,
         ease: 'power1.inOut'
       }, 0);
@@ -500,7 +499,7 @@
         ease: 'power2.in'
       }, 2.65);
 
-      // 3.15s: Looks left toward the low bedside cabinet & reaches front hand out to light candle
+      // 3.15s: Looks left toward bedside cabinet & reaches front hand out to light candle
       sceneTl.to(state, {
         headAngle: -10,
         duration: 0.35,
@@ -514,9 +513,9 @@
       sceneTl.to('#s2EyeR', { attr: { cx: -8 }, duration: 0.28, ease: 'power2.out' }, 3.15);
       sceneTl.to('#s2Mouth', { attr: { x1: -15, x2: -9 }, duration: 0.28, ease: 'power2.out' }, 3.15);
 
-      // Front arm reaches cleanly left toward candle wick while back arm stays resting on blanket
+      // Single clean foreground arm reaches left toward candle wick
       sceneTl.to('#s2ArmFront', {
-        attr: { d: 'M -1 -32 L -46 -22 L -92 -14' },
+        attr: { d: 'M -1 -32 L -54 -22 L -110 -14' },
         duration: 0.45,
         ease: 'power2.out'
       }, 3.35);
@@ -543,7 +542,7 @@
         ease: 'power2.out'
       }, 3.9);
 
-      // Front arm returns to rest naturally alongside the other arm on the blanket
+      // Arm returns cleanly to rest on blanket
       sceneTl.to('#s2ArmFront', {
         attr: { d: 'M 1 -32 L 13 -13 L 26 -10' },
         duration: 0.5,
