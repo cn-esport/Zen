@@ -3,16 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Knocker-Uppers Scene 1 (5.0s)</title>
+  <title>Zenspiris — Knocker-Uppers Scene 1 (Period Outfit)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
       --head: #0d0b12;
       --face: #f2ede2;
       --rim: #fcd34d;
-      --outfit-top: #3b78c4;
-      --outfit-bottom: #e8dcc0;
-      --outfit-bottom-back: #b8ac92;
+      /* 1800s Knocker-Upper Period Outfit Palette */
+      --coat: #1e2430;
+      --coat-dark: #141821;
+      --scarf: #7c2d12;
+      --trousers: #2c2825;
+      --trousers-back: #1d1a18;
+      --cap: #161922;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,7 +36,7 @@
     .stage-wrapper {
       position: relative;
       width: 100vw;
-      max-width: 410px;
+      max-width: 390px;
       aspect-ratio: 9 / 16;
       background: #080b12;
       overflow: hidden;
@@ -69,7 +73,7 @@
     .controls {
       display: flex;
       gap: 10px;
-      margin-top: 14px;
+      margin-top: 10px;
       z-index: 20;
     }
 
@@ -77,7 +81,7 @@
       background: #16161f;
       color: #f2ede2;
       border: 1px solid rgba(242, 237, 226, 0.2);
-      padding: 9px 18px;
+      padding: 8px 16px;
       border-radius: 999px;
       font-size: 13px;
       font-weight: 600;
@@ -150,7 +154,6 @@
         <!-- 1800s BRICK TOWNHOUSE (Right Side) -->
         <g id="s1Building">
           <rect x="295" y="95" width="245" height="730" fill="#0b0e17"/>
-          <!-- Subtle Warm Rim Light on Building Edge from Streetlamp -->
           <rect x="295" y="95" width="3" height="730" fill="var(--rim)" opacity="0.22"/>
           <rect x="286" y="90" width="254" height="14" fill="#06080e"/>
           <rect x="291" y="104" width="249" height="7" fill="#111625"/>
@@ -180,41 +183,56 @@
         <rect x="0" y="825" width="540" height="135" fill="url(#s1GroundGrad)"/>
         <ellipse cx="115" cy="842" rx="95" ry="9" fill="#f59e0b" opacity="0.12"/>
 
-        <!-- EXACT ZENSPIRIS CHARACTER RIG (Scaled Proportionally to Building) -->
+        <!-- EXACT ZENSPIRIS CHARACTER RIG + 1800s KNOCKER-UPPER OUTFIT -->
         <g transform="translate(105, 678)">
           <!-- Ground Shadow -->
           <ellipse cx="103" cy="148" rx="26" ry="5" fill="#030406" opacity="0.85"/>
 
           <g id="s1Char">
-            <!-- Back Leg (Outfit Bottom Back) -->
+            <!-- Back Leg (Dark 1800s Wool Trousers) -->
             <path d="M 98 85 L 88 116 L 84 144 L 77 144"
-                  fill="none" stroke="var(--outfit-bottom-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  fill="none" stroke="var(--trousers-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <!-- Front Leg (Outfit Bottom) -->
+            <!-- Front Leg (Dark 1800s Wool Trousers) -->
             <path d="M 104 85 L 114 116 L 118 144 L 126 144"
-                  fill="none" stroke="var(--outfit-bottom)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+                  fill="none" stroke="var(--trousers)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <!-- Torso Group (Exact Zenspiris Slim & Short Torso + Rim Light) -->
+            <!-- Torso Group (Exact Zenspiris Proportions Dressed in 1800s Overcoat & Scarf) -->
             <g id="s1TorsoGroup">
-              <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 24.5 105 28.5 Q 111.5 29.5 111.5 34 L 111.5 87 L 92 87 Z"
+              <!-- Warm Streetlamp Rim Light Along Coat Back -->
+              <path d="M 91 34 Q 91 29.5 96.5 28.5 Q 101 24.5 105.5 28.5 Q 112 29.5 112.5 34 L 115 104 L 88 104 Z"
                     fill="var(--rim)" opacity="0.45"/>
-              <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 25 105 28.5 Q 110 29.5 110 34 L 110 87 L 92 87 Z"
-                    fill="var(--outfit-top)"/>
 
-              <!-- Back Left Arm Holding Lower Pole -->
+              <!-- 1800s Knee-Length Victorian Overcoat (Fits Exact Zenspiris Torso Rig) -->
+              <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 25 105 28.5 Q 110.5 29.5 111 34 L 114 104 L 89 104 Z"
+                    fill="var(--coat)"/>
+
+              <!-- Subtle Coat Lapel & Center Seam Detail -->
+              <line x1="103" y1="36" x2="104" y2="104" stroke="#0d1017" stroke-width="1.2" opacity="0.75"/>
+
+              <!-- Warm Rust-Red Winter Scarf Around Collar + Trailing Tail -->
+              <path d="M 91 33 L 85 52 L 91 53 L 96 35 Z" fill="#63220d"/>
+              <rect x="92" y="27" width="18.5" height="6.5" rx="3" fill="var(--scarf)"/>
+
+              <!-- Back Left Arm in Dark Coat Sleeve Holding Lower Pole -->
               <path d="M 96 36 L 87 54 L 98 66"
                     fill="none" stroke="var(--head)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M 99 34 L 92 44"
-                    fill="none" stroke="#2d60a1" stroke-width="7.2" stroke-linecap="round"/>
+              <path d="M 99 34 L 90 48"
+                    fill="none" stroke="var(--coat-dark)" stroke-width="7.4" stroke-linecap="round"/>
 
-              <!-- Head Group (Exact r=22, Tilted Up Looking at Second Floor Window) -->
+              <!-- Head Group (Exact Zenspiris Head r=22 + 1800s Flat Cap) -->
               <g id="s1Head" transform="rotate(-24, 101, 4)">
-                <!-- Warm Rim Light on Back of Head from Streetlamp -->
+                <!-- Warm Rim Light on Back of Head -->
                 <circle cx="99.5" cy="4" r="22" fill="var(--rim)" opacity="0.55"/>
                 <!-- Main Black Head -->
                 <circle cx="101" cy="4" r="22" fill="var(--head)"/>
 
-                <!-- Exact Zenspiris Minimalist Face (No Eyebrows, Clean Dot Eyes & Tiny Mouth) -->
+                <!-- 1800s British Flat Cap (Newsboy Cap) Fitted Snugly on Top -->
+                <path d="M 80 -10 C 82 -22, 114 -23, 121 -11 L 130 -8 L 80 -7 Z" fill="var(--cap)"/>
+                <!-- Warm Rim Highlight on Cap Crown -->
+                <path d="M 81 -11 C 84 -20, 104 -22, 115 -16" fill="none" stroke="var(--rim)" stroke-width="1.4" opacity="0.5"/>
+
+                <!-- Exact Zenspiris Minimalist Face -->
                 <circle class="s1-eye" cx="111" cy="2.5" r="2.1" fill="var(--face)"/>
                 <circle class="s1-eye" cx="118.8" cy="2.5" r="2.1" fill="var(--face)"/>
                 <line x1="112" y1="11.5" x2="118" y2="11.5" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
@@ -222,19 +240,17 @@
 
               <!-- Animated Front Arm + Long Bamboo Pole -->
               <g id="s1ArmPoleGroup">
-                <!-- Long Bamboo Pole Reaching Second Floor Window (267, -406 in local coords = 372, 272 global) -->
+                <!-- Long Bamboo Pole Reaching Second Floor Window -->
                 <line x1="95" y1="72" x2="267" y2="-406" stroke="#07080c" stroke-width="4.2" stroke-linecap="round"/>
-                <!-- Subtle Rim Highlight on Pole so it Stays Crisp Against Dark Sky -->
                 <line x1="94" y1="71.5" x2="266" y2="-406.5" stroke="#94a3b8" stroke-width="1" opacity="0.45" stroke-linecap="round"/>
-                <!-- Pole Tip -->
                 <circle cx="267" cy="-406" r="3.5" fill="#1e293b"/>
 
                 <!-- Arm Rim Light -->
                 <path d="M 103 35.5 L 118 47 L 111 33" fill="none" stroke="var(--rim)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
                 <!-- Sleek Black Arm -->
                 <path d="M 103 36 L 118 47 L 111 33" fill="none" stroke="var(--head)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
-                <!-- Unified Short Sleeve -->
-                <path d="M 101 34 L 110 40.5" fill="none" stroke="var(--outfit-top)" stroke-width="7.4" stroke-linecap="round"/>
+                <!-- Overcoat Sleeve -->
+                <path d="M 101 34 L 113 43" fill="none" stroke="var(--coat)" stroke-width="7.6" stroke-linecap="round"/>
               </g>
             </g>
           </g>
@@ -258,7 +274,6 @@
     function playScene1() {
       if (sceneTl) sceneTl.kill();
 
-      // Reset everything cleanly to 0.0s
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
       gsap.set('#s1TorsoGroup', { rotation: 0, y: 0, svgOrigin: '101 86' });
       gsap.set('#s1ArmPoleGroup', { rotation: 0, svgOrigin: '103 36' });
@@ -285,9 +300,7 @@
         ease: 'sine.inOut'
       }, 0);
 
-      // Helper for each rhythmic tap ("Every. Single. Morning.")
       function addWindowTap(tapTime) {
-        // Pole & Arm tap forward
         sceneTl.to('#s1ArmPoleGroup', {
           rotation: 4.5,
           svgOrigin: '103 36',
@@ -303,7 +316,6 @@
           ease: 'power2.in'
         }, tapTime - 0.16);
 
-        // Glass Ripple & Window Vibration on impact
         sceneTl.fromTo('#s1TapRipple',
           { opacity: 0.9, scale: 0.3, svgOrigin: '372 272' },
           { opacity: 0, scale: 2.0, duration: 0.55, ease: 'power2.out' },
@@ -318,7 +330,6 @@
           ease: 'sine.inOut'
         }, tapTime);
 
-        // Return to resting position
         sceneTl.to('#s1ArmPoleGroup', {
           rotation: 0,
           svgOrigin: '103 36',
