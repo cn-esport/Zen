@@ -141,7 +141,7 @@
         <circle cx="115" cy="145" r="14" fill="#475569" opacity="0.45"/>
 
         <!-- Distant Victorian Rooftops & Chimneys -->
-        <path d="M 0 565 L 0 435 L 55 415 L 55 390 L 72 390 L 72 410 L 155 392 L 225 425 L 225 565 Z" fill="#090c14"/>
+        <path d="M 0 565 L 0 435 L 55 415 L 55 390 L 72 390 L 72 410 L 155 392 L 225 425 L 225 565 Z" fill="#0d111b"/>
 
         <!-- Main Brick Townhouse Facade (Right Side) -->
         <rect x="245" y="125" width="295" height="665" fill="#0c0f18"/>
@@ -154,26 +154,20 @@
 
         <!-- UPSTAIRS TARGET BEDROOM WINDOW -->
         <g transform="translate(318, 205)">
-          <!-- Stone Window Frame -->
           <rect x="-10" y="-10" width="156" height="205" rx="3" fill="#171d2c"/>
-          <!-- Dark Interior / Glass Pane -->
           <rect x="0" y="0" width="136" height="185" fill="url(#s1GlassGrad)"/>
-          <!-- Subtle Interior Warm Stirring Glow on Final Tap -->
           <rect id="s1WindowStir" x="0" y="0" width="136" height="185" fill="#f59e0b" opacity="0"/>
-          <!-- Diagonal Glass Sheen -->
           <polygon points="15,0 42,0 10,115 0,115" fill="#94a3b8" opacity="0.07"/>
-          <!-- Wooden Mullions -->
           <rect x="65" y="0" width="6" height="185" fill="#090b10"/>
           <rect x="0" y="90" width="136" height="6" fill="#090b10"/>
-          <!-- Stone Sill -->
           <rect x="-15" y="185" width="166" height="12" rx="2" fill="#1f273b"/>
 
-          <!-- Glass Tap Ripple Rings (Hidden at 0.0s, Triggers Only on Impact at x=34, y=135) -->
+          <!-- Glass Tap Ripple Rings -->
           <circle id="s1Ripple1" cx="34" cy="135" r="3" fill="none" stroke="#fde68a" stroke-width="2" opacity="0"/>
           <circle id="s1Ripple2" cx="34" cy="135" r="3" fill="none" stroke="#fcd34d" stroke-width="1.5" opacity="0"/>
         </g>
 
-        <!-- Downstairs Window (Matches Reference Architecture) -->
+        <!-- Downstairs Window -->
         <g transform="translate(318, 485)">
           <rect x="-10" y="-10" width="156" height="195" rx="3" fill="#151b29"/>
           <rect x="0" y="0" width="136" height="175" fill="#0a0e17"/>
@@ -182,36 +176,45 @@
           <rect x="-15" y="175" width="166" height="11" rx="2" fill="#1b2233"/>
         </g>
 
-        <!-- CLASSIC VICTORIAN GAS STREETLAMP (Matches Reference Lantern Silhouette) -->
-        <g transform="translate(86, 365)">
-          <!-- Fluted Cast-Iron Base & Post -->
-          <path d="M -12 425 L 12 425 L 8 385 L -8 385 Z" fill="#090b10"/>
-          <rect x="-5" y="340" width="10" height="48" rx="2" fill="#090b10"/>
-          <rect x="-3.2" y="42" width="6.4" height="302" fill="#090b10"/>
-          <!-- Crossbar & Collar -->
-          <rect x="-13" y="48" width="26" height="3.5" rx="1.5" fill="#090b10"/>
-          <rect x="-10" y="40" width="20" height="4" rx="1.5" fill="#090b10"/>
-
-          <!-- Ambient Radial Warm Glow -->
-          <circle cx="0" cy="24" r="135" fill="url(#s1GasGlow)"/>
-
-          <!-- Tapered Victorian Lantern Housing -->
-          <polygon points="-9,40 9,40 13,12 -13,12" fill="#fef9c3" stroke="#090b10" stroke-width="2.5"/>
-          <!-- Lantern Vertical Cage Bars -->
-          <line x1="-3.5" y1="40" x2="-4.5" y2="12" stroke="#090b10" stroke-width="1.6"/>
-          <line x1="3.5" y1="40" x2="4.5" y2="12" stroke="#090b10" stroke-width="1.6"/>
-          <!-- Tiered Lantern Roof & Finial Spire -->
-          <polygon points="-16,12 16,12 10,4 -10,4" fill="#090b10"/>
-          <polygon points="-8,4 8,4 0,-4" fill="#090b10"/>
-          <circle cx="0" cy="-6" r="2.2" fill="#090b10"/>
-        </g>
-
         <!-- Cobblestone Street -->
         <rect x="0" y="790" width="540" height="170" fill="url(#s1GroundGrad)"/>
-        <!-- Subtle Warm Lamp Pool on Street -->
         <ellipse cx="115" cy="793" rx="68" ry="6" fill="#f59e0b" opacity="0.08"/>
         <ellipse cx="245" cy="798" rx="34" ry="4.5" fill="#151926"/>
         <ellipse cx="335" cy="793" rx="26" ry="3.5" fill="#181d2b"/>
+
+        <!-- CLASSIC VICTORIAN GAS STREETLAMP (Clearly Visible Post + Base + Rim Highlight) -->
+        <g transform="translate(86, 365)">
+          <!-- Ambient Radial Warm Glow Behind Post -->
+          <circle cx="0" cy="24" r="135" fill="url(#s1GasGlow)"/>
+
+          <!-- Ground Contact Shadow Under Post Base -->
+          <ellipse cx="0" cy="426" rx="22" ry="4.5" fill="#020305" opacity="0.95"/>
+
+          <!-- Cast-Iron Base & Fluted Pedestal -->
+          <path d="M -14 425 L 14 425 L 10 385 L -10 385 Z" fill="#050609"/>
+          <rect x="-15" y="421" width="30" height="5" rx="2" fill="#050609"/>
+          <rect x="-6.5" y="340" width="13" height="48" rx="2" fill="#050609"/>
+          <rect x="-9" y="338" width="18" height="4" rx="1.5" fill="#141824"/>
+
+          <!-- Main Vertical Iron Pole (Crisp Dark Silhouette + Subtle Warm Rim Edge) -->
+          <rect x="-4" y="42" width="8" height="298" fill="#050609"/>
+          <!-- Subtle Warm Light Catching the Pole Edge -->
+          <line x1="-2.2" y1="45" x2="-2.2" y2="338" stroke="#fcd34d" stroke-width="1.1" opacity="0.32"/>
+          <line x1="2.2" y1="45" x2="2.2" y2="338" stroke="#475569" stroke-width="0.9" opacity="0.38"/>
+
+          <!-- Crossbar & Collar -->
+          <rect x="-15" y="52" width="30" height="3.5" rx="1.5" fill="#050609"/>
+          <rect x="-11" y="40" width="22" height="4.5" rx="1.5" fill="#050609"/>
+
+          <!-- Tapered Victorian Lantern Housing -->
+          <polygon points="-9,40 9,40 13,12 -13,12" fill="#fef9c3" stroke="#050609" stroke-width="2.5"/>
+          <line x1="-3.5" y1="40" x2="-4.5" y2="12" stroke="#050609" stroke-width="1.6"/>
+          <line x1="3.5" y1="40" x2="4.5" y2="12" stroke="#050609" stroke-width="1.6"/>
+          <!-- Pointed Pyramid Lantern Roof & Finial Spire -->
+          <polygon points="-16,12 16,12 10,4 -10,4" fill="#050609"/>
+          <polygon points="-9,4 9,4 0,-6" fill="#050609"/>
+          <circle cx="0" cy="-8" r="2.2" fill="#050609"/>
+        </g>
 
         <!-- KNOCKER-UPPER CHARACTER RIG (Victorian Overcoat, Red Scarf & Defined Flat Cap) -->
         <g id="s1Knocker" transform="translate(175, 595)">
@@ -232,42 +235,37 @@
 
           <!-- Upper Torso, Tailored Overcoat, Red Scarf, Head & Bamboo Pole -->
           <g id="s1Torso">
-            <!-- Long Victorian Overcoat (Warm Left Gaslight Rim Highlight) -->
+            <!-- Long Victorian Overcoat -->
             <path d="M -3 33 L 25 33 L 33 142 L -11 142 Z" fill="var(--rim)" opacity="0.48"/>
             <path d="M -1 33 L 25 33 L 33 142 L -9 142 Z" fill="var(--coat)"/>
-            <!-- Coat Seam & Buttons -->
             <line x1="17" y1="45" x2="21" y2="140" stroke="var(--coat-dark)" stroke-width="1.5"/>
             <circle cx="20" cy="64" r="1.6" fill="#475569"/>
             <circle cx="21" cy="82" r="1.6" fill="#475569"/>
             <circle cx="22" cy="100" r="1.6" fill="#475569"/>
-            <!-- Folded Lapel Collar -->
             <polygon points="10,34 24,34 21,49 14,46" fill="#283042"/>
 
-            <!-- RED SCARF (Wrapped Snugly Around Neck + Trailing Ends Over Back) -->
+            <!-- RED SCARF -->
             <path d="M -16 39 Q -6 47 2 38 L 0 46 Q -9 54 -19 45 Z" fill="var(--scarf)"/>
             <path d="M -12 41 Q -4 49 3 42 L 1 48 Q -7 55 -15 47 Z" fill="var(--scarf-hi)" opacity="0.85"/>
             <path d="M -2 30 Q 12 36 25 30 L 24 38 Q 12 43 -2 38 Z" fill="var(--scarf)"/>
             <path d="M 0 31 Q 12 36 24 31" fill="none" stroke="var(--scarf-hi)" stroke-width="1.5"/>
 
-            <!-- Back Support Arm Holding Lower Pole -->
+            <!-- Back Support Arm -->
             <path d="M 10 46 L 26 62 L 42 54" fill="none" stroke="var(--coat-dark)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <!-- Zenspiris Signature Head (Exact r=22, Tilted Up Looking at Upstairs Window) -->
+            <!-- Zenspiris Signature Head (Exact r=22) -->
             <g id="s1Head" transform="translate(13, 9)">
-              <!-- Warm Left Gaslight Rim -->
               <circle cx="-1.6" cy="0" r="22" fill="var(--rim)" opacity="0.55"/>
               <circle cx="0" cy="0" r="22" fill="var(--head)"/>
 
-              <!-- Distinct Tailored Flat Cap Sitting Cleanly on Top of Head -->
+              <!-- Distinct Tailored Flat Cap -->
               <g transform="rotate(-8)">
-                <!-- Cap Crown with Subtle Warm Rim -->
                 <path d="M -21 -11 C -21 -25, 19 -26, 22 -12 Z" fill="var(--rim)" opacity="0.45"/>
                 <path d="M -20 -11 C -20 -24, 19 -25, 22 -12 Z" fill="#252b3b"/>
-                <!-- Cap Band & Forward Visor Brim -->
                 <path d="M -20 -11 L 22 -12 L 32 -8 Q 22 -5 12 -8 L -20 -8 Z" fill="#141822"/>
               </g>
 
-              <!-- Crisp Off-White Eyes Looking Up-Right Toward Window -->
+              <!-- Crisp Off-White Eyes -->
               <circle cx="11" cy="-2" r="2.1" fill="var(--face)"/>
               <circle cx="17.5" cy="-2" r="2.1" fill="var(--face)"/>
               <line x1="12" y1="7" x2="16.5" y2="6.5" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
@@ -275,17 +273,13 @@
 
             <!-- LONG BAMBOO POLE & FRONT TAPPING ARM -->
             <g id="s1PoleRig">
-              <!-- Long Bamboo Pole Reaching Up to Upstairs Window (352, 340 in stage coords) -->
               <line x1="14" y1="86" x2="177" y2="-255" stroke="var(--bamboo)" stroke-width="4.2" stroke-linecap="round"/>
               <line x1="13" y1="86" x2="176" y2="-255" stroke="var(--bamboo-hi)" stroke-width="1.1" opacity="0.65" stroke-linecap="round"/>
-              <!-- Bamboo Segment Nodes -->
               <circle cx="55" cy="1" r="2.4" fill="#78350f"/>
               <circle cx="96" cy="-84" r="2.4" fill="#78350f"/>
               <circle cx="137" cy="-170" r="2.4" fill="#78350f"/>
-              <!-- Soft Knocking Tip -->
               <circle cx="177" cy="-255" r="3.2" fill="#fde68a"/>
 
-              <!-- Front Coat Sleeve & Hand Gripping Pole -->
               <path d="M 16 44 L 34 56 L 44 26" fill="none" stroke="var(--coat)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
               <circle cx="44" cy="26" r="4.2" fill="var(--head)"/>
             </g>
@@ -319,7 +313,6 @@
       }
     }
 
-    // Subtle Pre-Dawn Street Breeze
     function playNightWind(duration = 5.2) {
       if (!soundEnabled) return;
       initAudio();
@@ -353,7 +346,6 @@
       noise.start(now);
     }
 
-    // Cobblestone Boot Footstep
     function playCobblestoneStep() {
       if (!soundEnabled) return;
       initAudio();
@@ -371,7 +363,6 @@
       osc.stop(now + 0.095);
     }
 
-    // Crisp Bamboo-on-Window-Glass Tap Foley SFX
     function playGlassTap() {
       if (!soundEnabled) return;
       initAudio();
@@ -411,7 +402,6 @@
     function playScene1() {
       if (sceneTl) sceneTl.kill();
 
-      // Reset cleanly to 0.0s
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
       gsap.set('#s1Knocker', { x: 118, y: 595 });
       gsap.set('#s1Torso', { y: 0, rotation: 0 });
@@ -424,10 +414,8 @@
 
       sceneTl = gsap.timeline();
 
-      // Pre-dawn night wind
       sceneTl.call(() => playNightWind(5.3), null, 0.05);
 
-      // Slow atmospheric camera push-in
       sceneTl.to('#s1Camera', {
         scale: 1.07,
         svgOrigin: '270 430',
@@ -435,14 +423,12 @@
         ease: 'power1.inOut'
       }, 0);
 
-      // 0.0s - 1.2s: Knocker-Upper walks up to the townhouse
       sceneTl.to('#s1Knocker', {
         x: 175,
         duration: 1.2,
         ease: 'power1.out'
       }, 0);
 
-      // Natural walk cycle (3 steps)
       [0.15, 0.55, 0.95].forEach((stepTime, idx) => {
         sceneTl.call(() => playCobblestoneStep(), null, stepTime);
         const dir = idx % 2 === 0 ? 1 : -1;
@@ -451,17 +437,14 @@
         sceneTl.to('#s1Torso', { y: -2.5, duration: 0.18, yoyo: true, repeat: 1, ease: 'sine.inOut' }, stepTime - 0.1);
       });
 
-      // 1.15s: Tilts head up toward the upstairs bedroom window
       sceneTl.to('#s1Head', {
         rotation: -22,
         duration: 0.45,
         ease: 'power2.out'
       }, 1.15);
 
-      // Three firm bamboo taps ("Every. Single. Morning.")
       const tapTimes = [1.65, 3.05, 4.45];
       tapTimes.forEach((t) => {
-        // Pole swings forward to tap glass at (352, 340)
         sceneTl.to('#s1PoleRig', {
           rotation: 0,
           duration: 0.14,
@@ -470,7 +453,6 @@
 
         triggerGlassRipple(sceneTl, t);
 
-        // Slight recoil after tap
         sceneTl.to('#s1PoleRig', {
           rotation: -3.2,
           duration: 0.35,
@@ -478,7 +460,6 @@
         }, t + 0.02);
       });
 
-      // Subtle warm flicker inside the bedroom on the final tap
       sceneTl.to('#s1WindowStir', {
         opacity: 0.22,
         duration: 0.65,
