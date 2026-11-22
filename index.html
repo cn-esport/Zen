@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Knocker-Uppers Scene 2: Waking Up Inside (5.0s + Foley SFX)</title>
+  <title>Zenspiris — Knocker-Uppers Scene 3: Paying the Coin & Walking Down the Street (5.5s + Foley SFX)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
       --head: #0d0b12;
       --face: #f2ede2;
-      --rim: #93c5fd;
-      --nightshirt: #cbd5e1;
-      --nightshirt-shadow: #94a3b8;
-      --blanket: #2b3344;
-      --blanket-dark: #1e2433;
-      --wood: #171412;
-      --wood-light: #26201c;
+      --rim: #fcd34d;
+      --coat: #1e2430;
+      --coat-dark: #141821;
+      --scarf: #7c2d12;
+      --trousers: #2c2825;
+      --trousers-back: #1d1a18;
+      --cap: #161922;
+      --client-shirt: #3b4252;
+      --coin: #fbbf24;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,7 +39,7 @@
       width: 100vw;
       max-width: 355px;
       aspect-ratio: 9 / 16;
-      background: #080a10;
+      background: #080b12;
       overflow: hidden;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
     }
@@ -53,7 +55,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 36%, rgba(3, 4, 8, 0.94) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(3, 4, 8, 0.92) 100%);
       z-index: 10;
     }
 
@@ -96,156 +98,173 @@
   <div class="stage-wrapper">
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <linearGradient id="s2WallGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#090b12"/>
-          <stop offset="60%" stop-color="#111522"/>
-          <stop offset="100%" stop-color="#0b0d14"/>
+        <linearGradient id="s3SkyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#070b16"/>
+          <stop offset="50%" stop-color="#111b30"/>
+          <stop offset="100%" stop-color="#1b2842"/>
         </linearGradient>
 
-        <linearGradient id="s2WindowSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#080d1a"/>
-          <stop offset="55%" stop-color="#142038"/>
-          <stop offset="100%" stop-color="#1e2d4a"/>
-        </linearGradient>
-
-        <linearGradient id="s2WindowBeam" x1="0.8" y1="0" x2="0.2" y2="1">
-          <stop offset="0%" stop-color="#bae6fd" stop-opacity="0.22"/>
-          <stop offset="55%" stop-color="#60a5fa" stop-opacity="0.08"/>
+        <radialGradient id="s3LampHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.88"/>
+          <stop offset="25%" stop-color="#f59e0b" stop-opacity="0.35"/>
+          <stop offset="60%" stop-color="#b45309" stop-opacity="0.1"/>
           <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
-        </linearGradient>
+        </radialGradient>
 
-        <linearGradient id="s2FloorGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#120f0d"/>
-          <stop offset="100%" stop-color="#070605"/>
-        </linearGradient>
+        <radialGradient id="s3DoorGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.65"/>
+          <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+        </radialGradient>
 
-        <clipPath id="windowGlassClip">
-          <rect x="0" y="0" width="200" height="280"/>
-        </clipPath>
+        <linearGradient id="s3GroundGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0d1017"/>
+          <stop offset="100%" stop-color="#050608"/>
+        </linearGradient>
       </defs>
 
       <!-- Camera Group -->
-      <g id="s2Camera">
-        <rect width="540" height="725" fill="url(#s2WallGrad)"/>
-        <rect x="0" y="725" width="540" height="235" fill="url(#s2FloorGrad)"/>
-        <line x1="0" y1="765" x2="540" y2="765" stroke="#090807" stroke-width="2"/>
-        <line x1="0" y1="815" x2="540" y2="815" stroke="#090807" stroke-width="2"/>
-        <line x1="0" y1="875" x2="540" y2="875" stroke="#090807" stroke-width="2"/>
+      <g id="s3Camera">
+        <!-- Sky -->
+        <rect width="540" height="825" fill="url(#s3SkyGrad)"/>
 
-        <!-- 1800s BEDROOM WINDOW -->
-        <g id="s2WindowGroup" transform="translate(275, 165)">
-          <rect x="-8" y="-8" width="216" height="296" rx="4" fill="#07090e"/>
-          <rect x="0" y="0" width="200" height="280" fill="url(#s2WindowSky)"/>
+        <!-- Distant 1800s Rowhouses Silhouette -->
+        <path d="M 0 580 L 0 420 L 90 395 L 90 365 L 115 365 L 115 392 L 220 375 L 265 415 L 540 415 L 540 580 Z" fill="#090e1a"/>
 
-          <!-- Clipped Exterior Elements -->
-          <g clip-path="url(#windowGlassClip)">
-            <circle cx="148" cy="58" r="14" fill="#e2e8f0" opacity="0.25"/>
-            <path d="M 0 280 L 0 225 L 55 212 L 55 195 L 72 195 L 72 210 L 140 200 L 200 222 L 200 280 Z" fill="#0a0f1c"/>
+        <!-- Distant Gas Streetlamp (Right Side) -->
+        <g id="s3Streetlamp">
+          <circle id="s3LampGlow" cx="445" cy="485" r="200" fill="url(#s3LampHalo)"/>
+          <rect x="442" y="505" width="6" height="320" fill="#07080c"/>
+          <path d="M 435 825 L 455 825 L 451 775 L 439 775 Z" fill="#07080c"/>
+          <rect x="435" y="502" width="20" height="5" rx="2" fill="#07080c"/>
+          <polygon points="434,470 456,470 452,502 438,502" fill="#fef3c7"/>
+          <polygon points="434,470 456,470 452,502 438,502" fill="none" stroke="#07080c" stroke-width="2.5"/>
+          <line x1="445" y1="470" x2="445" y2="502" stroke="#07080c" stroke-width="1.5"/>
+          <polygon points="429,470 445,454 461,470" fill="#07080c"/>
+          <circle cx="445" cy="451" r="3" fill="#07080c"/>
+        </g>
 
-            <!-- Bamboo Pole Tip Strictly Outside Window Glass -->
-            <g id="s2OutsidePole">
-              <line x1="-18" y1="285" x2="52" y2="132" stroke="#05070b" stroke-width="5.5" stroke-linecap="round"/>
-              <line x1="-17" y1="285" x2="53" y2="132" stroke="#94a3b8" stroke-width="1.2" opacity="0.4" stroke-linecap="round"/>
-              <circle cx="52" cy="132" r="5" fill="#1e293b"/>
+        <!-- 1800s BRICK TOWNHOUSE FRONT DOORWAY (Left Side) -->
+        <g id="s3Townhouse">
+          <rect x="0" y="130" width="235" height="695" fill="#0b0e17"/>
+          <rect x="232" y="130" width="3" height="695" fill="var(--rim)" opacity="0.2"/>
+          <rect x="0" y="122" width="244" height="14" fill="#06080e"/>
+
+          <!-- Upper Window -->
+          <rect x="65" y="210" width="110" height="145" rx="3" fill="#06080d" stroke="#1e293b" stroke-width="2.5"/>
+          <rect x="72" y="217" width="96" height="131" fill="#182438"/>
+          <rect x="118" y="217" width="4" height="131" fill="#07090f"/>
+          <rect x="72" y="280" width="96" height="4" fill="#07090f"/>
+
+          <!-- Open Doorway Frame & Warm Interior Candlelight -->
+          <rect x="52" y="545" width="118" height="262" rx="3" fill="#06080d" stroke="#1e293b" stroke-width="3"/>
+          <!-- Warm Interior Candlelight Spill -->
+          <rect x="56" y="549" width="110" height="258" fill="#451a03"/>
+          <circle cx="111" cy="675" r="95" fill="url(#s3DoorGlow)"/>
+
+          <!-- Stone Doorstep -->
+          <rect x="44" y="807" width="142" height="18" rx="2" fill="#1a1f2c"/>
+
+          <!-- CLIENT CHARACTER IN DOORWAY (Zenspiris Rig, Handing Over Coin!) -->
+          <g transform="translate(15, 660)">
+            <!-- Client Legs -->
+            <path d="M 98 85 L 96 146 L 104 146" fill="none" stroke="#1f2430" stroke-width="6.5" stroke-linecap="round"/>
+            <path d="M 104 85 L 106 146 L 114 146" fill="none" stroke="#2d3445" stroke-width="7" stroke-linecap="round"/>
+
+            <!-- Client Torso -->
+            <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 25 105 28.5 Q 110 29.5 110 34 L 110 87 L 92 87 Z" fill="var(--client-shirt)"/>
+
+            <!-- Client Head (Exact r=22) -->
+            <g id="s3ClientHead">
+              <circle cx="99.5" cy="4" r="22" fill="#fde68a" opacity="0.45"/>
+              <circle cx="101" cy="4" r="22" fill="var(--head)"/>
+              <circle cx="111" cy="2.5" r="2.1" fill="var(--face)"/>
+              <circle cx="118.8" cy="2.5" r="2.1" fill="var(--face)"/>
+              <line x1="112" y1="11.5" x2="118" y2="11.5" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+            </g>
+
+            <!-- Client Extended Arm Handing Over Coin -->
+            <g id="s3ClientArm">
+              <path d="M 103 36 L 125 46 L 146 43" fill="none" stroke="var(--head)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 101 34 L 114 40" fill="none" stroke="var(--client-shirt)" stroke-width="7.4" stroke-linecap="round"/>
             </g>
           </g>
 
-          <!-- Glass Tap Ripple Centered EXACTLY on Pole Tip -->
-          <circle id="s2GlassRipple" cx="52" cy="132" r="14" fill="none" stroke="#f2ede2" stroke-width="2" opacity="0"/>
-
-          <!-- Window Frame Crossbars -->
-          <rect x="97" y="0" width="6" height="280" fill="#07090e"/>
-          <rect x="0" y="138" width="200" height="6" fill="#07090e"/>
-          <rect x="-14" y="280" width="228" height="10" rx="2" fill="#181c26"/>
+          <!-- Swung-Open Wooden Front Door -->
+          <path d="M 56 549 L 28 558 L 28 815 L 56 807 Z" fill="#14110f" stroke="#29231f" stroke-width="1.5"/>
         </g>
 
-        <!-- Diagonal Moonlight Shaft -->
-        <polygon points="275,165 475,165 360,725 80,725" fill="url(#s2WindowBeam)" pointer-events="none"/>
+        <!-- Ground -->
+        <rect x="0" y="825" width="540" height="135" fill="url(#s3GroundGrad)"/>
+        <ellipse cx="445" cy="842" rx="95" ry="9" fill="#f59e0b" opacity="0.12"/>
 
-        <!-- 1800s NIGHTSTAND -->
-        <g transform="translate(32, 520)">
-          <rect x="8" y="105" width="90" height="100" rx="3" fill="var(--wood)"/>
-          <rect x="4" y="101" width="98" height="8" rx="2" fill="var(--wood-light)"/>
-          <rect x="16" y="118" width="74" height="30" rx="2" fill="#0e0c0a"/>
-          <circle cx="53" cy="133" r="3" fill="#3a322c"/>
-
-          <!-- Brass Candlestick + Wax Candle -->
-          <ellipse cx="42" cy="99" rx="14" ry="3.5" fill="#785a28"/>
-          <rect x="39" y="88" width="6" height="11" fill="#926f34"/>
-          <rect x="38" y="64" width="8" height="24" rx="1.5" fill="#e2d9c8"/>
-          <line x1="42" y1="59" x2="42" y2="64" stroke="#1c1917" stroke-width="1.5"/>
-
-          <!-- Vintage Pocket Watch -->
-          <circle cx="74" cy="97" r="8" fill="#a17c38"/>
-          <circle cx="74" cy="97" r="6" fill="#e7e0d0"/>
+        <!-- Gold/Copper Penny Coin Passing Between Hands -->
+        <g id="s3CoinGroup">
+          <circle cx="163" cy="702" r="7" fill="#fef08a" opacity="0.45"/>
+          <circle cx="163" cy="702" r="3.6" fill="var(--coin)" stroke="#b45309" stroke-width="1"/>
         </g>
 
-        <!-- 1800s WOODEN BED & SLEEPING WORKER -->
-        <g transform="translate(132, 560)">
-          <ellipse cx="165" cy="166" rx="175" ry="12" fill="#040406" opacity="0.9"/>
+        <!-- KNOCKER-UPPER CHARACTER (Receives Coin, Nods Thanks, Walks Off Right Down Street) -->
+        <g id="s3KnockerGroup" transform="translate(115, 678)">
+          <!-- Ground Shadow -->
+          <ellipse cx="103" cy="148" rx="26" ry="5" fill="#030406" opacity="0.85"/>
 
-          <!-- Vintage Wooden Headboard & Footboard -->
-          <rect x="0" y="34" width="14" height="130" rx="4" fill="var(--wood-light)"/>
-          <circle cx="7" cy="30" r="9" fill="var(--wood-light)"/>
-          <rect x="314" y="72" width="14" height="92" rx="4" fill="var(--wood-light)"/>
-          <circle cx="321" cy="68" r="8" fill="var(--wood-light)"/>
+          <!-- Animated Walking Legs -->
+          <path id="s3LegBack" d="M 101 85 L 95 116 L 92 144 L 85 144"
+                fill="none" stroke="var(--trousers-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="s3LegFront" d="M 103 85 L 109 116 L 112 144 L 120 144"
+                fill="none" stroke="var(--trousers)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 
-          <!-- Bed Frame & Mattress -->
-          <rect x="10" y="122" width="308" height="22" rx="3" fill="var(--wood)"/>
-          <rect x="14" y="102" width="300" height="24" rx="8" fill="#1e222d"/>
+          <!-- Torso & Coat -->
+          <g id="s3TorsoGroup">
+            <path d="M 91 34 Q 91 29.5 96.5 28.5 Q 101 24.5 105.5 28.5 Q 112 29.5 112.5 34 L 115 104 L 88 104 Z"
+                  fill="var(--rim)" opacity="0.45"/>
+            <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 25 105 28.5 Q 110.5 29.5 111 34 L 114 104 L 89 104 Z"
+                  fill="var(--coat)"/>
+            <line x1="103" y1="36" x2="104" y2="104" stroke="#0d1017" stroke-width="1.2" opacity="0.75"/>
 
-          <!-- Plump Feather Pillow -->
-          <rect x="24" y="76" width="68" height="28" rx="13" fill="#333b4d"/>
+            <!-- Rust Scarf -->
+            <path d="M 91 33 L 85 52 L 91 53 L 96 35 Z" fill="#63220d"/>
+            <rect x="92" y="27" width="18.5" height="6.5" rx="3" fill="var(--scarf)"/>
 
-          <!-- Floating "z Z Z" Sleep Indicator (Matches Reference Screenshot) -->
-          <g id="s2ZzzGroup" fill="#94a3b8" font-family="sans-serif" font-weight="600">
-            <text id="s2Z1" x="86" y="42" font-size="11" opacity="0.85">z</text>
-            <text id="s2Z2" x="100" y="26" font-size="14" opacity="0.75">Z</text>
-            <text id="s2Z3" x="116" y="8" font-size="17" opacity="0.65">Z</text>
-          </g>
+            <!-- Back Arm Holding Bamboo Pole Upright on Shoulder -->
+            <g id="s3PoleArmGroup">
+              <!-- Long Bamboo Pole Resting Against Shoulder -->
+              <line x1="88" y1="142" x2="128" y2="-340" stroke="#07080c" stroke-width="4.2" stroke-linecap="round"/>
+              <line x1="87" y1="142" x2="127" y2="-340" stroke="#94a3b8" stroke-width="1" opacity="0.45" stroke-linecap="round"/>
+              <path d="M 104 36 L 114 52 L 106 64" fill="none" stroke="var(--head)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 102 34 L 109 45" fill="none" stroke="var(--coat-dark)" stroke-width="7.4" stroke-linecap="round"/>
+            </g>
 
-          <!-- ZENSPIRIS CHARACTER RIG -->
-          <g id="s2Char">
-            <!-- Upper Body Group (Pivots cleanly from hip at 136, 94) -->
-            <g id="s2UpperBody">
-              <!-- Period Cotton Nightshirt Torso (Extended smoothly downward so zero edge glitches above blanket) -->
-              <path d="M 126 36 Q 126 31.5 131.5 30.5 Q 136 26.5 140.5 30.5 Q 147 31.5 147.5 36 L 147 110 L 126 110 Z"
-                    fill="var(--rim)" opacity="0.35"/>
-              <path d="M 127 36 Q 127 31.5 132 30.5 Q 136 27 140 30.5 Q 145.5 31.5 146 36 L 146 110 L 127 110 Z"
-                    fill="var(--nightshirt)"/>
-              <line x1="139" y1="33" x2="139" y2="56" stroke="var(--nightshirt-shadow)" stroke-width="1.5"/>
+            <!-- Head Group (Starts Facing Left Toward Client -> Turns Right to Walk Away) -->
+            <g id="s3Head">
+              <circle cx="102.5" cy="4" r="22" fill="var(--rim)" opacity="0.55"/>
+              <circle cx="101" cy="4" r="22" fill="var(--head)"/>
 
-              <!-- Zenspiris Signature Head (Exact r=22) -->
-              <g id="s2Head">
-                <circle cx="137.5" cy="6" r="22" fill="var(--rim)" opacity="0.5"/>
-                <circle cx="136" cy="6" r="22" fill="var(--head)"/>
+              <!-- 1800s Flat Cap (Flips direction smoothly when turning around) -->
+              <path id="s3CapLeft" d="M 122 -10 C 120 -22, 88 -23, 81 -11 L 72 -8 L 122 -7 Z" fill="var(--cap)"/>
+              <path id="s3CapRight" d="M 80 -10 C 82 -22, 114 -23, 121 -11 L 130 -8 L 80 -7 Z" fill="var(--cap)" opacity="0"/>
 
-                <!-- Closed Curved Sleeping Eyes (Exact Match to Reference Screenshot) -->
-                <g id="s2EyesClosed">
-                  <path d="M 142 3.5 Q 145 6.5 148 3.5" fill="none" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
-                  <path d="M 150 3.5 Q 153 6.5 156 3.5" fill="none" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
-                  <line x1="146" y1="12.5" x2="152" y2="12.5" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
-                </g>
-
-                <!-- Awake Dot Eyes Looking Straight Toward the Window -->
-                <g id="s2EyesAwake" opacity="0">
-                  <circle cx="145" cy="4.5" r="2.2" fill="var(--face)"/>
-                  <circle cx="152.5" cy="4.5" r="2.2" fill="var(--face)"/>
-                  <circle cx="149" cy="13.5" r="2" fill="var(--face)"/>
-                </g>
+              <!-- Left-Facing Face (Receiving Coin from Client) -->
+              <g id="s3FaceLeft">
+                <circle cx="91" cy="2.5" r="2.1" fill="var(--face)"/>
+                <circle cx="83.2" cy="2.5" r="2.1" fill="var(--face)"/>
+                <path d="M 84 11 Q 87 13 90 11" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
               </g>
 
-              <!-- Sleek Black Arm Resting Naturally on Blanket -->
-              <g id="s2Arm">
-                <path d="M 137 40 L 144 64 L 160 84" fill="none" stroke="var(--head)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 136 37 L 141 53" fill="none" stroke="var(--nightshirt)" stroke-width="7.6" stroke-linecap="round"/>
+              <!-- Right-Facing Face (Walking Down Street) -->
+              <g id="s3FaceRight" opacity="0">
+                <circle cx="111" cy="2.5" r="2.1" fill="var(--face)"/>
+                <circle cx="118.8" cy="2.5" r="2.1" fill="var(--face)"/>
+                <line x1="112" y1="11.5" x2="118" y2="11.5" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
               </g>
             </g>
 
-            <!-- Heavy Wool Blanket Covering Torso & Legs Cleanly (Zero Exposed Torso Glitch!) -->
-            <path d="M 102 82 Q 168 74 248 84 L 308 92 L 308 118 L 102 118 Z" fill="var(--blanket)"/>
-            <!-- Folded Blanket Cuff Over Chest -->
-            <path d="M 102 82 Q 126 78 150 82 L 150 118 L 102 118 Z" fill="var(--blanket-dark)"/>
+            <!-- Front Arm (Reaches Left to Take Coin -> Pockets Coin -> Swings While Walking) -->
+            <g id="s3FrontArm">
+              <path d="M 98 36 L 76 46 L 54 42" fill="none" stroke="var(--head)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 100 34 L 87 40" fill="none" stroke="var(--coat)" stroke-width="7.6" stroke-linecap="round"/>
+            </g>
           </g>
         </g>
       </g>
@@ -258,7 +277,7 @@
 
   <!-- Unified Control Bar -->
   <div class="controls">
-    <button class="primary" id="playBtn">▶ Play (5.0s)</button>
+    <button class="primary" id="playBtn">▶ Play (5.5s)</button>
     <button id="replayBtn">↺ 0.0s</button>
     <button id="soundBtn">🔊 Sound: ON</button>
   </div>
@@ -276,167 +295,165 @@
       }
     }
 
-    function playIndoorGlassTap() {
+    // Crisp Copper/Silver Coin Clink Foley SFX
+    function playCoinClink() {
       if (!soundEnabled) return;
       initAudio();
       const now = audioCtx.currentTime;
 
-      const osc1 = audioCtx.createOscillator();
-      const gain1 = audioCtx.createGain();
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(1280, now);
-      osc1.frequency.exponentialRampToValueAtTime(780, now + 0.09);
-      gain1.gain.setValueAtTime(0.16, now);
-      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.095);
-      osc1.connect(gain1);
-      gain1.connect(audioCtx.destination);
-      osc1.start(now);
-      osc1.stop(now + 0.1);
-
-      const osc2 = audioCtx.createOscillator();
-      const gain2 = audioCtx.createGain();
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(340, now);
-      osc2.frequency.exponentialRampToValueAtTime(150, now + 0.07);
-      gain2.gain.setValueAtTime(0.15, now);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.075);
-      osc2.connect(gain2);
-      gain2.connect(audioCtx.destination);
-      osc2.start(now);
-      osc2.stop(now + 0.08);
+      const freqs = [2450, 3680];
+      freqs.forEach((f, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, now + idx * 0.03);
+        gain.gain.setValueAtTime(0.14, now + idx * 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.03 + 0.28);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now + idx * 0.03);
+        osc.stop(now + idx * 0.03 + 0.3);
+      });
     }
 
-    function playBedRustle() {
+    // Soft Cobblestone Footstep Foley SFX
+    function playFootstep() {
       if (!soundEnabled) return;
       initAudio();
       const now = audioCtx.currentTime;
-      const bufferSize = audioCtx.sampleRate * 0.45;
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.sin((i / bufferSize) * Math.PI);
-      }
 
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
-
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(650, now);
-      filter.Q.setValueAtTime(1.2, now);
-
+      const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.08, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-
-      noise.connect(filter);
-      filter.connect(gain);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(145, now);
+      osc.frequency.exponentialRampToValueAtTime(55, now + 0.08);
+      gain.gain.setValueAtTime(0.13, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      osc.connect(gain);
       gain.connect(audioCtx.destination);
-      noise.start(now);
+      osc.start(now);
+      osc.stop(now + 0.095);
     }
 
     let sceneTl = null;
 
-    function playScene2() {
+    function playScene3() {
       if (sceneTl) sceneTl.kill();
 
-      // Reset to 0.0s: Tucked cleanly under blanket with head resting on pillow
-      gsap.set('#s2Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s2UpperBody', { rotation: -78, x: 0, y: 2, svgOrigin: '136 94' });
-      gsap.set('#s2Head', { rotation: 0, svgOrigin: '136 6' });
-      gsap.set('#s2Arm', { rotation: 0, svgOrigin: '137 40' });
-      gsap.set('#s2EyesClosed', { opacity: 1 });
-      gsap.set('#s2EyesAwake', { opacity: 0 });
-      gsap.set('#s2ZzzGroup', { opacity: 1, y: 0 });
-      gsap.set('#s2OutsidePole', { rotation: -6, svgOrigin: '-18 285' });
-      gsap.set('#s2GlassRipple', { opacity: 0, scale: 0.3, svgOrigin: '52 132' });
-      gsap.set('#s2WindowGroup', { x: 275, y: 165 });
+      // Reset to 0.0s
+      gsap.set('#s3Camera', { scale: 1, x: 0, y: 0 });
+      gsap.set('#s3KnockerGroup', { x: 115, y: 678 });
+      gsap.set('#s3Head', { rotation: 0, svgOrigin: '101 4' });
+      gsap.set('#s3FaceLeft', { opacity: 1 });
+      gsap.set('#s3FaceRight', { opacity: 0 });
+      gsap.set('#s3CapLeft', { opacity: 1 });
+      gsap.set('#s3CapRight', { opacity: 0 });
+      gsap.set('#s3FrontArm', { rotation: 0, svgOrigin: '98 36' });
+      gsap.set('#s3ClientArm', { rotation: 0, svgOrigin: '103 36' });
+      gsap.set('#s3CoinGroup', { x: 0, y: 0, opacity: 1 });
+      gsap.set('#s3LegBack', { rotation: 0, svgOrigin: '101 85' });
+      gsap.set('#s3LegFront', { rotation: 0, svgOrigin: '103 85' });
+      gsap.set('#s3TorsoGroup', { y: 0 });
 
       sceneTl = gsap.timeline();
 
-      sceneTl.to('#s2Camera', {
-        scale: 1.09,
-        svgOrigin: '290 500',
-        duration: 5.0,
+      // Slow cinematic pan following the coin exchange into the street walk
+      sceneTl.to('#s3Camera', {
+        scale: 1.07,
+        x: -18,
+        svgOrigin: '270 550',
+        duration: 5.5,
         ease: 'none'
       }, 0);
 
-      // Gentle floating Zzz while sleeping (0.0s - 1.15s)
-      sceneTl.to('#s2ZzzGroup', {
-        y: -8,
-        duration: 1.15,
-        ease: 'sine.inOut'
-      }, 0);
-
-      function addOutsideTap(tapTime) {
-        sceneTl.to('#s2OutsidePole', {
-          rotation: 0,
-          svgOrigin: '-18 285',
-          duration: 0.14,
-          ease: 'power2.in'
-        }, tapTime - 0.14);
-
-        sceneTl.call(() => playIndoorGlassTap(), null, tapTime);
-
-        sceneTl.fromTo('#s2GlassRipple',
-          { opacity: 0.9, scale: 0.3, svgOrigin: '52 132' },
-          { opacity: 0, scale: 2.1, duration: 0.55, ease: 'power2.out' },
-          tapTime
-        );
-
-        sceneTl.to('#s2WindowGroup', {
-          x: 277,
-          duration: 0.04,
-          yoyo: true,
-          repeat: 3,
-          ease: 'sine.inOut'
-        }, tapTime);
-
-        sceneTl.to('#s2OutsidePole', {
-          rotation: -6,
-          svgOrigin: '-18 285',
-          duration: 0.25,
-          ease: 'power2.out'
-        }, tapTime);
-      }
-
-      addOutsideTap(0.8);
-      addOutsideTap(2.2);
-
-      // 1.15s: Zzz disappears & eyes snap open!
-      sceneTl.to('#s2ZzzGroup', { opacity: 0, y: -14, duration: 0.2 }, 1.05);
-      sceneTl.to('#s2EyesClosed', { opacity: 0, duration: 0.08 }, 1.15);
-      sceneTl.to('#s2EyesAwake', { opacity: 1, duration: 0.12 }, 1.18);
-
-      // 1.3s: Worker sits up smoothly out of the blanket
-      sceneTl.call(() => playBedRustle(), null, 1.3);
-      sceneTl.to('#s2UpperBody', {
-        rotation: 4,
-        y: 0,
-        svgOrigin: '136 94',
-        duration: 0.85,
-        ease: 'back.out(1.2)'
-      }, 1.3);
-
-      // 2.25s: Looks up slightly toward the window on the second tap
-      sceneTl.to('#s2Head', {
-        rotation: -12,
-        svgOrigin: '136 6',
-        duration: 0.4,
+      // 0.7s: Coin clinks into Knocker-Upper's hand
+      sceneTl.call(() => playCoinClink(), null, 0.75);
+      sceneTl.to('#s3CoinGroup', {
+        x: 6,
+        y: 2,
+        duration: 0.35,
         ease: 'power2.out'
-      }, 2.25);
+      }, 0.55);
 
-      sceneTl.to('#s2UpperBody', {
-        rotation: 0,
-        svgOrigin: '136 94',
-        duration: 0.8,
+      // 1.15s: Knocker-Upper pockets the coin & gives a polite nod
+      sceneTl.to('#s3FrontArm', {
+        rotation: -52,
+        svgOrigin: '98 36',
+        duration: 0.45,
         ease: 'power2.inOut'
-      }, 3.4);
+      }, 1.1);
+
+      sceneTl.to('#s3CoinGroup', {
+        x: 48,
+        y: 28,
+        opacity: 0,
+        duration: 0.35,
+        ease: 'power2.in'
+      }, 1.1);
+
+      sceneTl.to('#s3Head', {
+        rotation: -12,
+        svgOrigin: '101 4',
+        duration: 0.25,
+        yoyo: true,
+        repeat: 1,
+        ease: 'sine.inOut'
+      }, 1.2);
+
+      // Client lowers arm back inside doorway
+      sceneTl.to('#s3ClientArm', {
+        rotation: 45,
+        svgOrigin: '103 36',
+        duration: 0.5,
+        ease: 'power2.inOut'
+      }, 1.45);
+
+      // 1.85s: Knocker-Upper turns toward the right (down the street)
+      sceneTl.to('#s3FaceLeft', { opacity: 0, duration: 0.12 }, 1.85);
+      sceneTl.to('#s3CapLeft', { opacity: 0, duration: 0.12 }, 1.85);
+      sceneTl.to('#s3FaceRight', { opacity: 1, duration: 0.15 }, 1.92);
+      sceneTl.to('#s3CapRight', { opacity: 1, duration: 0.15 }, 1.92);
+
+      // 2.0s - 5.5s: Walks down the cobblestone street toward the next house
+      sceneTl.to('#s3KnockerGroup', {
+        x: 335,
+        duration: 3.5,
+        ease: 'none'
+      }, 2.0);
+
+      // Walking stride cycle + synchronized cobblestone footsteps
+      const stepTimes = [2.1, 2.55, 3.0, 3.45, 3.9, 4.35, 4.8, 5.25];
+      stepTimes.forEach((st, idx) => {
+        const dir = idx % 2 === 0 ? 1 : -1;
+        sceneTl.call(() => playFootstep(), null, st);
+
+        sceneTl.to('#s3LegFront', {
+          rotation: dir * 20,
+          svgOrigin: '103 85',
+          duration: 0.42,
+          ease: 'sine.inOut'
+        }, st - 0.1);
+
+        sceneTl.to('#s3LegBack', {
+          rotation: -dir * 20,
+          svgOrigin: '101 85',
+          duration: 0.42,
+          ease: 'sine.inOut'
+        }, st - 0.1);
+
+        sceneTl.to('#s3TorsoGroup', {
+          y: -2.5,
+          duration: 0.21,
+          yoyo: true,
+          repeat: 1,
+          ease: 'sine.inOut'
+        }, st - 0.1);
+      });
     }
 
     document.getElementById('playBtn').addEventListener('click', () => {
       initAudio();
-      playScene2();
+      playScene3();
     });
 
     document.getElementById('replayBtn').addEventListener('click', () => {
@@ -449,7 +466,7 @@
     });
 
     window.addEventListener('load', () => {
-      setTimeout(playScene2, 250);
+      setTimeout(playScene3, 250);
     });
   </script>
 </body>
