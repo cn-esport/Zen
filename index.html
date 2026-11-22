@@ -146,13 +146,11 @@
         <!-- Smartphone Ambient Blue Screen Wash -->
         <circle id="s4RoomScreenWash" cx="152" cy="675" r="310" fill="url(#s4PhoneGlow)" opacity="0"/>
 
-        <!-- MODERN BEDROOM WINDOW (Clean Glass — No Bamboo Pole!) -->
+        <!-- MODERN BEDROOM WINDOW (Clean Glass — No Bamboo Pole) -->
         <g transform="translate(332, 340)">
           <rect x="-8" y="-8" width="148" height="206" rx="4" fill="#161d2e"/>
           <rect x="0" y="0" width="132" height="190" fill="url(#s4OutsideSky)"/>
-          <!-- Subtle Glass Reflection -->
           <polygon points="14,0 42,0 10,115 0,115" fill="#94a3b8" opacity="0.06"/>
-          <!-- Sleek Modern Center Mullion & Sill -->
           <rect x="64" y="0" width="4" height="190" fill="#0d111a"/>
           <rect x="-12" y="190" width="156" height="10" rx="2" fill="#1e263b"/>
         </g>
@@ -177,18 +175,11 @@
 
           <!-- POCKET-SIZED GLASS SMARTPHONE ON NIGHTSTAND -->
           <g id="s4PhoneGroup" transform="translate(36, -3)">
-            <!-- Ambient Screen Glow Halo -->
             <circle id="s4PhoneHalo" cx="0" cy="-6" r="46" fill="url(#s4PhoneGlow)" opacity="0"/>
-
-            <!-- Expanding Alarm Soundwave Rings -->
             <circle id="s4Wave1" cx="0" cy="-8" r="6" fill="none" stroke="#7dd3fc" stroke-width="2" opacity="0"/>
             <circle id="s4Wave2" cx="0" cy="-8" r="6" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0"/>
-
-            <!-- Angled Phone Stand / Slim Bezel Resting on Table -->
             <rect x="-11" y="-16" width="22" height="15" rx="3" fill="#090b10" stroke="#334155" stroke-width="1.2"/>
-            <!-- Glowing Glass Screen -->
             <rect id="s4PhoneScreen" x="-9" y="-14" width="18" height="11" rx="2" fill="#1e293b"/>
-            <!-- Minimalist Alarm Bell Icon Bars (No Text Clutter) -->
             <circle id="s4AlarmDot" cx="0" cy="-8.5" r="2.2" fill="#38bdf8" opacity="0"/>
           </g>
         </g>
@@ -218,9 +209,7 @@
               <!-- Zenspiris Signature Head (Exact r=22) -->
               <g transform="translate(1, -67)">
                 <g id="s4Head" transform="rotate(14)">
-                  <!-- Cool Window Rim (Right) -->
                   <circle cx="1.6" cy="0" r="22" fill="var(--rim-cool)" opacity="0.45"/>
-                  <!-- Phone Screen Blue Rim (Left — Lights Up When Alarm Rings) -->
                   <circle id="s4HeadPhoneRim" cx="-1.8" cy="0" r="22" fill="var(--rim-alarm)" opacity="0"/>
                   <circle cx="0" cy="0" r="22" fill="var(--head)"/>
 
@@ -241,7 +230,7 @@
                 </g>
               </g>
 
-              <!-- Single Clean Foreground Arm (Reaches Left to Hit Snooze on Phone) -->
+              <!-- Single Clean Foreground Arm (Reaches Upward-Left Directly to Phone Screen!) -->
               <path id="s4ArmFront" d="M 1 -32 L 13 -13 L 26 -10" fill="none" stroke="var(--head)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
             </g>
           </g>
@@ -288,13 +277,11 @@
       }
     }
 
-    // Modern Smartphone Digital Marimba/Chime + Buzz Foley
     function playPhoneAlarmPulse() {
       if (!soundEnabled) return;
       initAudio();
       const now = audioCtx.currentTime;
 
-      // Two-note gentle digital chime (E5 -> B5)
       [659.25, 987.77].forEach((freq, idx) => {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
@@ -310,7 +297,6 @@
         osc.stop(start + 0.26);
       });
 
-      // Subtle table vibration hum
       const buzz = audioCtx.createOscillator();
       const buzzGain = audioCtx.createGain();
       buzz.type = 'triangle';
@@ -324,7 +310,6 @@
       buzz.stop(now + 0.24);
     }
 
-    // Crisp Glass Screen Tap (Snooze Button)
     function playSnoozeTap() {
       if (!soundEnabled) return;
       initAudio();
@@ -342,7 +327,6 @@
       osc.stop(now + 0.065);
     }
 
-    // Soft Pillow Flop Sound
     function playPillowFlop() {
       if (!soundEnabled) return;
       initAudio();
@@ -405,7 +389,6 @@
     function triggerAlarmPulse(tl, time) {
       tl.call(() => playPhoneAlarmPulse(), null, time);
 
-      // Phone vibrates rapidly on nightstand
       tl.to('#s4PhoneGroup', {
         x: 38.5,
         rotation: 4,
@@ -417,7 +400,6 @@
 
       tl.set('#s4PhoneGroup', { x: 36, rotation: 0 }, time + 0.38);
 
-      // Soundwave rings expand out from glass screen
       tl.fromTo('#s4Wave1',
         { attr: { r: 6 }, opacity: 0.9 },
         { attr: { r: 34 }, opacity: 0, duration: 0.55, ease: 'power2.out', immediateRender: false },
@@ -443,7 +425,6 @@
         }
       });
 
-      // Slow camera push
       sceneTl.to('#s4Camera', {
         scale: 1.06,
         transformOrigin: '260px 530px',
@@ -460,7 +441,7 @@
         );
       });
 
-      // 1.55s: Smartphone screen lights up brightly & alarm pulses twice (1.55s & 2.45s)
+      // 1.55s: Smartphone screen lights up brightly & alarm pulses twice
       sceneTl.to('#s4PhoneScreen', { attr: { fill: '#e0f2fe' }, duration: 0.15 }, 1.55);
       sceneTl.to('#s4AlarmDot', { opacity: 1, duration: 0.15 }, 1.55);
       sceneTl.to('#s4PhoneHalo', { opacity: 0.95, duration: 0.25 }, 1.55);
@@ -470,14 +451,14 @@
       triggerAlarmPulse(sceneTl, 1.55);
       triggerAlarmPulse(sceneTl, 2.45);
 
-      // 2.65s: Groggy, half-asleep stir (z Z Z vanishes, lifts head slightly with squinty eyes)
+      // 2.65s: Groggy, half-asleep stir (leans slightly forward toward nightstand)
       sceneTl.to(['#s4Z1', '#s4Z2', '#s4Z3'], { opacity: 0, duration: 0.2 }, 2.6);
       sceneTl.set('#s4EyesClosed', { opacity: 0 }, 2.68);
       sceneTl.set('#s4EyesGroggy', { opacity: 1 }, 2.68);
       sceneTl.set('#s4Mouth', { attr: { x1: -15, y1: 7, x2: -9, y2: 7 } }, 2.68);
 
       sceneTl.to(state, {
-        bodyAngle: -32,
+        bodyAngle: -28,
         headAngle: -8,
         duration: 0.55,
         ease: 'power2.out',
@@ -487,9 +468,10 @@
         }
       }, 2.7);
 
-      // 3.3s: Reaches single clean foreground arm over to tap "Snooze" on the smartphone!
+      // 3.3s: Reaches single clean foreground arm directly onto the smartphone screen on the nightstand!
+      // At bodyAngle=-28deg, local (-118, -74) maps directly to global (152, 695) right on top of the phone screen!
       sceneTl.to('#s4ArmFront', {
-        attr: { d: 'M -1 -32 L -42 -12 L -82 14' },
+        attr: { d: 'M -2 -34 L -62 -56 L -118 -74' },
         duration: 0.42,
         ease: 'power2.out'
       }, 3.3);
