@@ -110,7 +110,7 @@
           <stop offset="100%" stop-color="#17233b"/>
         </linearGradient>
 
-        <!-- Realistic Diagonal Pre-Dawn Window Beam (Fades Smoothly Downward) -->
+        <!-- Realistic Diagonal Pre-Dawn Window Beam -->
         <linearGradient id="s2WindowBeam" x1="0.8" y1="0" x2="0.2" y2="1">
           <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.15"/>
           <stop offset="55%" stop-color="#60a5fa" stop-opacity="0.06"/>
@@ -131,7 +131,7 @@
           <stop offset="100%" stop-color="#050609"/>
         </linearGradient>
 
-        <!-- Strict Clip Path Inside Window Glass (Prevents Bamboo Pole Bleeding Below Sill) -->
+        <!-- Strict Clip Path Inside Window Glass -->
         <clipPath id="s2GlassClip">
           <rect x="0" y="0" width="136" height="205"/>
         </clipPath>
@@ -139,19 +139,17 @@
 
       <!-- Camera Group -->
       <g id="s2Camera">
-        <!-- Bedroom Wall & Floor -->
+        <!-- Bedroom Wall & Floor (Floor line at y=775) -->
         <rect width="540" height="775" fill="url(#s2WallGrad)"/>
-        <rect x="0" y="545" width="540" height="5" fill="#141927"/>
+        <rect x="0" y="555" width="540" height="5" fill="#141927"/>
         <rect x="0" y="775" width="540" height="185" fill="url(#s2FloorGrad)"/>
 
         <!-- Warm Candle Ambient Room Wash -->
-        <circle id="s2RoomWarmWash" cx="152" cy="545" r="340" fill="url(#s2CandleGlow)" opacity="0"/>
+        <circle id="s2RoomWarmWash" cx="152" cy="605" r="340" fill="url(#s2CandleGlow)" opacity="0"/>
 
-        <!-- BEDROOM WINDOW (Right Side — Showing Outside Bamboo Pole Strictly Clipped Inside Glass) -->
+        <!-- BEDROOM WINDOW (Right Side) -->
         <g transform="translate(330, 195)">
-          <!-- Window Frame -->
           <rect x="-10" y="-10" width="156" height="225" rx="3" fill="#181f30"/>
-          <!-- Outside Pre-Dawn Sky -->
           <rect x="0" y="0" width="136" height="205" fill="url(#s2OutsideSky)"/>
 
           <!-- Clipped Glass Interior for Bamboo Pole -->
@@ -164,10 +162,9 @@
             </g>
           </g>
 
-          <!-- Wooden Window Panes / Mullions -->
+          <!-- Window Panes & Sill -->
           <rect x="65" y="0" width="6" height="205" fill="#0d1018"/>
           <rect x="0" y="100" width="136" height="6" fill="#0d1018"/>
-          <!-- Stone/Wood Window Sill -->
           <rect x="-15" y="205" width="166" height="12" rx="2" fill="#212a3f"/>
 
           <!-- Indoor Glass Tap Ripples -->
@@ -175,68 +172,67 @@
           <circle id="s2Ripple2" cx="54" cy="122" r="3" fill="none" stroke="#93c5fd" stroke-width="1.5" opacity="0"/>
         </g>
 
-        <!-- Realistic Diagonal Pre-Dawn Window Light Beam (From Entire Glass Pane Slanting Down Left) -->
+        <!-- Realistic Diagonal Pre-Dawn Window Light Beam -->
         <polygon points="330,195 466,195 466,400 325,775 95,775 330,400" fill="url(#s2WindowBeam)" pointer-events="none"/>
 
-        <!-- PROPORTIONAL WOODEN NIGHTSTAND & CANDLE (Positioned Close Beside Bed) -->
-        <g transform="translate(112, 592)">
-          <ellipse cx="40" cy="186" rx="46" ry="5.5" fill="#020305" opacity="0.9"/>
-          <!-- Nightstand Legs & Cabinet -->
-          <rect x="8" y="32" width="6.5" height="150" fill="#0c0a0d"/>
-          <rect x="65.5" y="32" width="6.5" height="150" fill="#0c0a0d"/>
-          <rect x="6" y="8" width="68" height="54" rx="2" fill="var(--wood)"/>
-          <rect x="12" y="14" width="56" height="18" rx="1.5" fill="#211c20"/>
-          <circle cx="40" cy="23" r="2" fill="#94a3b8"/>
+        <!-- LOW-PROFILE WOODEN NIGHTSTAND & CANDLE (Height reduced to 115px, resting on floor y=775) -->
+        <g transform="translate(112, 660)">
+          <ellipse cx="38" cy="117" rx="44" ry="5" fill="#020305" opacity="0.9"/>
+          <!-- Short Nightstand Legs & Cabinet -->
+          <rect x="8" y="25" width="6" height="90" fill="#0c0a0d"/>
+          <rect x="62" y="25" width="6" height="90" fill="#0c0a0d"/>
+          <rect x="6" y="7" width="64" height="42" rx="2" fill="var(--wood)"/>
+          <rect x="11" y="12" width="54" height="15" rx="1.5" fill="#211c20"/>
+          <circle cx="38" cy="19.5" r="1.8" fill="#94a3b8"/>
           <!-- Table Top -->
-          <rect x="2" y="0" width="76" height="7" rx="2" fill="#262025"/>
+          <rect x="2" y="0" width="72" height="7" rx="2" fill="#262025"/>
 
           <!-- Brass Chamberstick Holder & Wax Candle -->
-          <g transform="translate(40, 0)">
-            <ellipse cx="0" cy="-1.5" rx="14" ry="2.8" fill="#b45309"/>
-            <path d="M 12 -2 Q 19 -2 19 -7.5 Q 19 -12 13 -11" fill="none" stroke="#d97706" stroke-width="1.8"/>
-            <rect x="-4" y="-32" width="8" height="30" rx="1.5" fill="#e2e8f0"/>
-            <path d="M -4 -30 Q -5.5 -22 -4 -18" fill="none" stroke="#cbd5e1" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="0" y1="-32" x2="0" y2="-37" stroke="#090b10" stroke-width="1.4"/>
+          <g transform="translate(38, 0)">
+            <ellipse cx="0" cy="-1.5" rx="13" ry="2.5" fill="#b45309"/>
+            <path d="M 11 -2 Q 18 -2 18 -7 Q 18 -11 12 -10" fill="none" stroke="#d97706" stroke-width="1.8"/>
+            <rect x="-3.8" y="-28" width="7.6" height="26" rx="1.5" fill="#e2e8f0"/>
+            <path d="M -3.8 -26 Q -5 -19 -3.8 -15" fill="none" stroke="#cbd5e1" stroke-width="1.6" stroke-linecap="round"/>
+            <line x1="0" y1="-28" x2="0" y2="-33" stroke="#090b10" stroke-width="1.4"/>
 
             <!-- CANDLE FLAME & LOCAL HALO -->
-            <g id="s2CandleFlameGroup" opacity="0" transform="translate(0, -43)">
-              <circle cx="0" cy="0" r="46" fill="url(#s2CandleGlow)"/>
-              <path id="s2FlameShape" d="M 0 -10 C 4.5 -3.5, 4.5 3.5, 0 6.5 C -4.5 3.5, -4.5 -3.5, 0 -10 Z" fill="#f59e0b"/>
-              <path d="M 0 -5.5 C 2.2 -1.8, 2.2 2.8, 0 4.5 C -2.2 2.8, -2.2 -1.8, 0 -5.5 Z" fill="#fef9c3"/>
+            <g id="s2CandleFlameGroup" opacity="0" transform="translate(0, -39)">
+              <circle cx="0" cy="0" r="44" fill="url(#s2CandleGlow)"/>
+              <path id="s2FlameShape" d="M 0 -9.5 C 4.2 -3.2, 4.2 3.2, 0 6 C -4.2 3.2, -4.2 -3.2, 0 -9.5 Z" fill="#f59e0b"/>
+              <path d="M 0 -5 C 2 -1.6, 2 2.5, 0 4.2 C -2 2.5, -2 -1.6, 0 -5 Z" fill="#fef9c3"/>
             </g>
           </g>
         </g>
 
-        <!-- PROPORTIONAL 1800s WOODEN BED & SLEEPER CHARACTER RIG (Compact 215px Width) -->
-        <g transform="translate(206, 520)">
+        <!-- LOW-PROFILE 1800s WOODEN BED & SLEEPER RIG (Compact 212px width, low height resting on floor y=775) -->
+        <g transform="translate(202, 575)">
           <!-- Bed Floor Shadow -->
-          <ellipse cx="112" cy="259" rx="124" ry="7" fill="#020305" opacity="0.95"/>
+          <ellipse cx="106" cy="202" rx="118" ry="6.5" fill="#020305" opacity="0.95"/>
 
-          <!-- Wooden Headboard (Left) & Footboard (Right) -->
-          <rect x="0" y="42" width="12" height="213" rx="3" fill="#141115"/>
-          <circle cx="6" cy="37" r="7" fill="#1e1920"/>
-          <rect x="212" y="112" width="11" height="143" rx="3" fill="#141115"/>
-          <circle cx="217.5" cy="107" r="6.5" fill="#1e1920"/>
+          <!-- Low Wooden Headboard (Left) & Footboard (Right) -->
+          <rect x="0" y="72" width="11" height="128" rx="2.5" fill="#141115"/>
+          <circle cx="5.5" cy="68" r="6" fill="#1e1920"/>
+          <rect x="202" y="114" width="10" height="86" rx="2.5" fill="#141115"/>
+          <circle cx="207" cy="110" r="5.5" fill="#1e1920"/>
 
-          <!-- Mattress & Fluffed Pillow -->
-          <rect x="12" y="162" width="200" height="34" rx="5" fill="#1e2433"/>
-          <path d="M 14 162 Q 44 141 74 163 Z" fill="#cbd5e1" opacity="0.88"/>
+          <!-- Mattress & Fluffed Pillow (Mattress top at y=144) -->
+          <rect x="11" y="144" width="191" height="26" rx="4" fill="#1e2433"/>
+          <path d="M 13 144 Q 42 126 70 145 Z" fill="#cbd5e1" opacity="0.88"/>
 
-          <!-- OUTER POSITION WRAPPER (Keeps Character Permanently Anchored in Bed at x=84, y=164) -->
-          <g transform="translate(84, 164)">
-            <!-- INNER ROTATION PIVOT (Rotates Cleanly Around Waist Pivot (0,0) Without Moving Position) -->
-            <g id="s2SleeperPivot">
-              <!-- Upper Torso (Extended Deep Beneath Blanket so Zero Clipping Occurs) -->
-              <path d="M -13 -46 L 15 -46 L 20 26 L -16 26 Z" fill="var(--shirt)"/>
-              <!-- Shirt Collar -->
-              <path d="M -7 -46 Q 1 -38 9 -46" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
+          <!-- CHARACTER ANCHORED DIRECTLY INSIDE MATTRESS (x=80, y=146) -->
+          <g transform="translate(80, 146)">
+            <!-- Inner Rotation Pivot (Uses SVG transform directly so zero floating occurs) -->
+            <g id="s2SleeperPivot" transform="rotate(-74)">
+              <!-- Upper Torso (Extended Deep Beneath Blanket) -->
+              <path d="M -13 -44 L 14 -44 L 18 24 L -16 24 Z" fill="var(--shirt)"/>
+              <path d="M -7 -44 Q 0.5 -36 8 -44" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
 
               <!-- Back Arm -->
-              <path id="s2ArmBack" d="M -4 -34 L 12 -18 L 26 -16" fill="none" stroke="#1e2533" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path id="s2ArmBack" d="M -4 -32 L 11 -16 L 24 -14" fill="none" stroke="#1e2533" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
 
               <!-- Zenspiris Signature Head (Exact r=22) -->
-              <g transform="translate(2, -70)">
-                <g id="s2Head">
+              <g transform="translate(1, -67)">
+                <g id="s2Head" transform="rotate(14)">
                   <!-- Cool Window Rim (Right) -->
                   <circle cx="1.6" cy="0" r="22" fill="var(--rim-cool)" opacity="0.45"/>
                   <!-- Warm Candle Rim (Left) -->
@@ -260,25 +256,25 @@
                 </g>
               </g>
 
-              <!-- Front Arm (Reaches Left Toward Candle on Adjacent Nightstand) -->
-              <path id="s2ArmFront" d="M 2 -34 L 16 -14 L 30 -12" fill="none" stroke="var(--head)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Front Arm (Reaches Left Toward Candle) -->
+              <path id="s2ArmFront" d="M 2 -32 L 15 -13 L 28 -11" fill="none" stroke="var(--head)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
             </g>
           </g>
 
           <!-- Floating Sleeping "z Z Z" Indicators Above Pillow -->
           <g id="s2ZzzGroup" fill="#94a3b8" font-family="sans-serif" font-weight="700">
-            <text id="s2Z1" x="28" y="130" font-size="13" opacity="0">z</text>
-            <text id="s2Z2" x="40" y="112" font-size="16" opacity="0">Z</text>
-            <text id="s2Z3" x="55" y="92" font-size="19" opacity="0">Z</text>
+            <text id="s2Z1" x="26" y="114" font-size="13" opacity="0">z</text>
+            <text id="s2Z2" x="38" y="96" font-size="16" opacity="0">Z</text>
+            <text id="s2Z3" x="52" y="76" font-size="19" opacity="0">Z</text>
           </g>
 
           <!-- HEAVY WOOL BLANKET FOREGROUND LAYER (Covers Lower Torso Cleanly) -->
-          <path d="M 60 161 Q 136 150 212 163 L 212 197 L 60 197 Z" fill="var(--blanket)"/>
+          <path d="M 58 143 Q 130 134 202 145 L 202 170 L 58 170 Z" fill="var(--blanket)"/>
           <!-- Blanket Folded Cuff -->
-          <path d="M 56 159 Q 72 155 82 161 L 78 194 L 56 194 Z" fill="var(--blanket-fold)"/>
+          <path d="M 54 141 Q 70 138 79 143 L 76 168 L 54 168 Z" fill="var(--blanket-fold)"/>
 
-          <!-- Wooden Bed Frame Rail -->
-          <rect x="12" y="194" width="200" height="20" fill="#1c171d"/>
+          <!-- Low Wooden Bed Frame Rail -->
+          <rect x="11" y="168" width="191" height="16" fill="#1c171d"/>
         </g>
       </g>
     </svg>
@@ -402,6 +398,8 @@
     }
 
     let sceneTl = null;
+    const pivotEl = document.getElementById('s2SleeperPivot');
+    const headEl = document.getElementById('s2Head');
 
     function triggerIndoorRipple(tl, time) {
       tl.call(() => playIndoorGlassTap(), null, time);
@@ -420,10 +418,12 @@
     function playScene2() {
       if (sceneTl) sceneTl.kill();
 
-      // Clean Reset to 0.0s (Inner rotation group rotates cleanly around 0,0 inside bed)
+      // Explicit Native SVG Transform Reset (Zero Floating Guaranteed)
+      pivotEl.setAttribute('transform', 'rotate(-74)');
+      headEl.setAttribute('transform', 'rotate(14)');
+      const state = { bodyAngle: -74, headAngle: 14 };
+
       gsap.set('#s2Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s2SleeperPivot', { rotation: -74, transformOrigin: '0px 0px' });
-      gsap.set('#s2Head', { rotation: 16, transformOrigin: '0px 22px' });
       gsap.set('#s2EyesClosed', { opacity: 1 });
       gsap.set('#s2EyesOpen', { opacity: 0 });
       gsap.set('#s2EyeL', { attr: { cx: 8 } });
@@ -431,7 +431,7 @@
       gsap.set('#s2Mouth', { attr: { x1: 9, x2: 15 } });
       gsap.set('#s2HeadWarmRim', { opacity: 0 });
       gsap.set('#s2OutsidePole', { rotation: -7, transformOrigin: '126px 210px', opacity: 1 });
-      gsap.set('#s2ArmFront', { attr: { d: 'M 2 -34 L 16 -14 L 30 -12' } });
+      gsap.set('#s2ArmFront', { attr: { d: 'M 2 -32 L 15 -13 L 28 -11' } });
       gsap.set('#s2CandleFlameGroup', { opacity: 0, scale: 0.4, transformOrigin: '0px 0px' });
       gsap.set('#s2RoomWarmWash', { opacity: 0 });
       gsap.set(['#s2Ripple1', '#s2Ripple2'], { opacity: 0, attr: { r: 3 } });
@@ -442,7 +442,7 @@
       // Gentle camera drift
       sceneTl.to('#s2Camera', {
         scale: 1.06,
-        transformOrigin: '260px 470px',
+        transformOrigin: '260px 490px',
         duration: 6.0,
         ease: 'power1.inOut'
       }, 0);
@@ -473,23 +473,22 @@
         }, t + 0.02);
       });
 
-      // 1.75s: Startled awake — z Z Z vanishes, eyes open, sits upright in bed
+      // 1.75s: Startled awake — z Z Z vanishes, eyes open, sits upright cleanly inside bed
       sceneTl.to(['#s2Z1', '#s2Z2', '#s2Z3'], { opacity: 0, duration: 0.2 }, 1.72);
       sceneTl.set('#s2EyesClosed', { opacity: 0 }, 1.78);
       sceneTl.set('#s2EyesOpen', { opacity: 1 }, 1.78);
       sceneTl.call(() => playBedRustle(), null, 1.8);
 
-      sceneTl.to('#s2SleeperPivot', {
-        rotation: 0,
+      sceneTl.to(state, {
+        bodyAngle: 0,
+        headAngle: 0,
         duration: 0.72,
-        ease: 'back.out(1.15)'
+        ease: 'back.out(1.15)',
+        onUpdate: () => {
+          pivotEl.setAttribute('transform', `rotate(${state.bodyAngle.toFixed(2)})`);
+          headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
+        }
       }, 1.8);
-
-      sceneTl.to('#s2Head', {
-        rotation: 0,
-        duration: 0.65,
-        ease: 'power2.out'
-      }, 1.85);
 
       // 2.65s: Outside bamboo pole lowers away
       sceneTl.to('#s2OutsidePole', {
@@ -499,14 +498,22 @@
         ease: 'power2.in'
       }, 2.65);
 
-      // 3.15s: Looks left toward the adjacent nightstand & reaches hand out to light candle
-      sceneTl.to('#s2Head', { rotation: -12, duration: 0.35, ease: 'power2.out' }, 3.15);
+      // 3.15s: Looks left toward adjacent nightstand & reaches hand out to light candle
+      sceneTl.to(state, {
+        headAngle: -10,
+        duration: 0.35,
+        ease: 'power2.out',
+        onUpdate: () => {
+          headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
+        }
+      }, 3.15);
+
       sceneTl.to('#s2EyeL', { attr: { cx: -16 }, duration: 0.28, ease: 'power2.out' }, 3.15);
       sceneTl.to('#s2EyeR', { attr: { cx: -8 }, duration: 0.28, ease: 'power2.out' }, 3.15);
       sceneTl.to('#s2Mouth', { attr: { x1: -15, x2: -9 }, duration: 0.28, ease: 'power2.out' }, 3.15);
 
       sceneTl.to('#s2ArmFront', {
-        attr: { d: 'M -2 -34 L -48 -36 L -96 -42' },
+        attr: { d: 'M -2 -32 L -46 -30 L -92 -24' },
         duration: 0.45,
         ease: 'power2.out'
       }, 3.35);
@@ -535,12 +542,19 @@
 
       // Arm returns to resting position while candle flickers gently
       sceneTl.to('#s2ArmFront', {
-        attr: { d: 'M -2 -34 L -14 -14 L -26 -10' },
+        attr: { d: 'M -2 -32 L -14 -14 L -26 -10' },
         duration: 0.5,
         ease: 'power2.inOut'
       }, 4.35);
 
-      sceneTl.to('#s2Head', { rotation: -5, duration: 0.5, ease: 'power1.inOut' }, 4.35);
+      sceneTl.to(state, {
+        headAngle: -4,
+        duration: 0.5,
+        ease: 'power1.inOut',
+        onUpdate: () => {
+          headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
+        }
+      }, 4.35);
 
       sceneTl.to('#s2FlameShape', {
         scaleX: 0.88,
