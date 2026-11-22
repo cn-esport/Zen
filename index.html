@@ -475,6 +475,7 @@
       });
 
       // 1.75s: Startled awake — z Z Z vanishes, eyes open, sits upright cleanly inside bed
+      // Note: Bamboo pole stays waiting outside window until the candle is lit!
       sceneTl.to(['#s2Z1', '#s2Z2', '#s2Z3'], { opacity: 0, duration: 0.2 }, 1.72);
       sceneTl.set('#s2EyesClosed', { opacity: 0 }, 1.78);
       sceneTl.set('#s2EyesOpen', { opacity: 1 }, 1.78);
@@ -490,14 +491,6 @@
           headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
         }
       }, 1.8);
-
-      // 2.65s: Outside bamboo pole lowers away
-      sceneTl.to('#s2OutsidePole', {
-        rotation: -28,
-        opacity: 0.25,
-        duration: 0.9,
-        ease: 'power2.in'
-      }, 2.65);
 
       // 3.15s: Looks left toward bedside cabinet & reaches front hand out to light candle
       sceneTl.to(state, {
@@ -542,14 +535,21 @@
         ease: 'power2.out'
       }, 3.9);
 
-      // 4.35s: Arm returns cleanly to rest on blanket
+      // 4.05s: ONLY AFTER the candle lights up does the Knocker-Upper lower the bamboo pole away!
+      sceneTl.to('#s2OutsidePole', {
+        rotation: -32,
+        opacity: 0.15,
+        duration: 0.95,
+        ease: 'power2.in'
+      }, 4.05);
+
+      // 4.35s: Arm returns cleanly to rest on blanket while head & eyes turn back right toward the window
       sceneTl.to('#s2ArmFront', {
         attr: { d: 'M 1 -32 L 13 -13 L 26 -10' },
         duration: 0.5,
         ease: 'power2.inOut'
       }, 4.35);
 
-      // 4.5s: Turns head & eyes back right, looking straight up toward the bedroom window!
       sceneTl.to(state, {
         headAngle: -14,
         duration: 0.45,
@@ -557,11 +557,11 @@
         onUpdate: () => {
           headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
         }
-      }, 4.5);
+      }, 4.4);
 
-      sceneTl.to('#s2EyeL', { attr: { cx: 10, cy: -4 }, duration: 0.35, ease: 'power2.out' }, 4.5);
-      sceneTl.to('#s2EyeR', { attr: { cx: 18, cy: -4 }, duration: 0.35, ease: 'power2.out' }, 4.5);
-      sceneTl.to('#s2Mouth', { attr: { x1: 11, y1: 6, x2: 17, y2: 5 }, duration: 0.35, ease: 'power2.out' }, 4.5);
+      sceneTl.to('#s2EyeL', { attr: { cx: 10, cy: -4 }, duration: 0.35, ease: 'power2.out' }, 4.4);
+      sceneTl.to('#s2EyeR', { attr: { cx: 18, cy: -4 }, duration: 0.35, ease: 'power2.out' }, 4.4);
+      sceneTl.to('#s2Mouth', { attr: { x1: 11, y1: 6, x2: 17, y2: 5 }, duration: 0.35, ease: 'power2.out' }, 4.4);
 
       // Gentle candle flame flicker through the end of the scene
       sceneTl.to('#s2FlameShape', {
