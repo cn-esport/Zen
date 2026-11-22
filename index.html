@@ -24,33 +24,18 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
-  /* 9:16 Stage with Crisp Crop Guide Border */
-  #stage-wrapper {
+  /* Full-Width 9:16 Stage with Top & Bottom Crop Lines Only */
+  #stage {
     position: relative;
-    width: 92vw;
-    height: 163.55vw; /* Exact 9:16 Ratio */
-    max-width: 46vh;
-    max-height: 81.77vh;
-    border: 2px solid #f5b041; /* Crisp Golden Crop Guide Line */
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+    width: 100vw;
+    height: 177.78vw; /* Exact 9:16 Aspect Ratio */
+    max-width: 56.25vh;
+    max-height: 100vh;
     background: #080c16;
+    border-top: 2px solid #f5b041;    /* Top Crop Guide Line */
+    border-bottom: 2px solid #f5b041; /* Bottom Crop Guide Line */
     overflow: hidden;
   }
-
-  /* Corner Crop Markers for Extra Precision */
-  .crop-corner {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border-color: #ffffff;
-    border-style: solid;
-    z-index: 20;
-    pointer-events: none;
-  }
-  .tl { top: 0; left: 0; border-width: 3px 0 0 3px; }
-  .tr { top: 0; right: 0; border-width: 3px 3px 0 0; }
-  .bl { bottom: 0; left: 0; border-width: 0 0 3px 3px; }
-  .br { bottom: 0; right: 0; border-width: 0 3px 3px 0; }
 
   svg {
     width: 100%;
@@ -60,12 +45,12 @@
 
   /* Playback Controls Outside the 9:16 Frame */
   #controls {
-    margin-top: 14px;
+    margin-top: 12px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     background: #111827;
-    padding: 8px 14px;
+    padding: 7px 14px;
     border-radius: 999px;
     border: 1px solid #1f2937;
     z-index: 30;
@@ -74,15 +59,15 @@
     background: #1f2937;
     color: #f8fafc;
     border: 1px solid #374151;
-    padding: 6px 14px;
+    padding: 6px 13px;
     border-radius: 999px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.15s;
+    touch-action: manipulation;
   }
   button:active {
-    background: #374151;
+    opacity: 0.8;
   }
   button.primary {
     background: #f5b041;
@@ -90,107 +75,18 @@
     border-color: #f5b041;
   }
   #timer {
-    color: #94a3b8;
+    color: #cbd5e1;
     font-size: 12px;
     font-variant-numeric: tabular-nums;
-    min-width: 68px;
+    min-width: 72px;
     text-align: center;
-  }
-
-  /* Animations */
-  @keyframes fogDrift {
-    0% { transform: translateX(-4%); }
-    50% { transform: translateX(4%); }
-    100% { transform: translateX(-4%); }
-  }
-  @keyframes lampFlicker {
-    0%, 100% { opacity: 0.9; }
-    45% { opacity: 0.96; }
-    50% { opacity: 0.8; }
-    55% { opacity: 0.94; }
-  }
-  /* 3 Rhythmic Taps over 5.0s ("Every. Single. Morning.") */
-  @keyframes poleTap {
-    0%, 12% { transform: rotate(0deg); }
-    /* Tap 1 */
-    18% { transform: rotate(5.2deg); }
-    24% { transform: rotate(-1deg); }
-    32% { transform: rotate(0deg); }
-    /* Tap 2 */
-    42% { transform: rotate(5.2deg); }
-    48% { transform: rotate(-1deg); }
-    56% { transform: rotate(0deg); }
-    /* Tap 3 */
-    66% { transform: rotate(5.2deg); }
-    72% { transform: rotate(-1deg); }
-    82%, 100% { transform: rotate(0deg); }
-  }
-  @keyframes bodyMotion {
-    0%, 12% { transform: translateY(0px) rotate(0deg); }
-    18% { transform: translateY(-4px) rotate(1.5deg); }
-    24% { transform: translateY(0px) rotate(0deg); }
-    42% { transform: translateY(-4px) rotate(1.5deg); }
-    48% { transform: translateY(0px) rotate(0deg); }
-    66% { transform: translateY(-4px) rotate(1.5deg); }
-    72% { transform: translateY(0px) rotate(0deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
-  }
-  @keyframes tapRipple {
-    0%, 17% { opacity: 0; transform: scale(0.3); }
-    18.5% { opacity: 0.9; transform: scale(1); }
-    28% { opacity: 0; transform: scale(1.9); }
-
-    41% { opacity: 0; transform: scale(0.3); }
-    42.5% { opacity: 0.9; transform: scale(1); }
-    52% { opacity: 0; transform: scale(1.9); }
-
-    65% { opacity: 0; transform: scale(0.3); }
-    66.5% { opacity: 0.9; transform: scale(1); }
-    78% { opacity: 0; transform: scale(1.9); }
-    100% { opacity: 0; transform: scale(0.3); }
-  }
-  @keyframes windowShake {
-    0%, 17.5%, 23%, 41.5%, 47%, 65.5%, 71%, 100% { transform: translateX(0); }
-    18.5%, 42.5%, 66.5% { transform: translateX(2.5px); }
-    20%, 44%, 68% { transform: translateX(-1.5px); }
-  }
-
-  .anim-target {
-    animation-play-state: paused;
-  }
-  .playing .anim-target {
-    animation-play-state: running;
-  }
-
-  .fog-layer { animation: fogDrift 9s ease-in-out infinite; }
-  .lamp-glow { animation: lampFlicker 4s ease-in-out infinite; }
-  .pole-arm-group {
-    transform-origin: 410px 1410px;
-    animation: poleTap 5s ease-in-out forwards;
-  }
-  .character-body {
-    transform-origin: 410px 1680px;
-    animation: bodyMotion 5s ease-in-out forwards;
-  }
-  .ripple-ring {
-    transform-origin: 735px 535px;
-    animation: tapRipple 5s ease-out forwards;
-  }
-  .window-glass-group {
-    animation: windowShake 5s ease-out forwards;
   }
 </style>
 </head>
 <body>
 
-<div id="stage-wrapper">
-  <!-- Precision Crop Corner Markers -->
-  <div class="crop-corner tl"></div>
-  <div class="crop-corner tr"></div>
-  <div class="crop-corner bl"></div>
-  <div class="crop-corner br"></div>
-
-  <svg id="sceneSvg" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+<div id="stage">
+  <svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <!-- Nocturne Sky Gradient -->
       <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -221,13 +117,6 @@
         <stop offset="50%" stop-color="#94a3b8" stop-opacity="0.14"/>
         <stop offset="100%" stop-color="#475569" stop-opacity="0.25"/>
       </linearGradient>
-
-      <!-- Paper Grain Texture Filter -->
-      <filter id="grain" x="0%" y="0%" width="100%" height="100%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" result="noise"/>
-        <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.04 0"/>
-        <feComposite in2="SourceGraphic" operator="in"/>
-      </filter>
     </defs>
 
     <!-- 1. Sky Background -->
@@ -244,11 +133,11 @@
 
     <!-- 3. Victorian Gas Streetlamp (Key Light Source on Left) -->
     <g id="streetlamp">
-      <circle class="lamp-glow anim-target" cx="215" cy="965" r="460" fill="url(#lampHalo)"/>
+      <circle id="lampHaloCircle" cx="215" cy="965" r="460" fill="url(#lampHalo)" opacity="0.9"/>
       <rect x="208" y="1010" width="14" height="680" fill="#070a10"/>
       <path d="M196 1690 L234 1690 L226 1560 L204 1560 Z" fill="#070a10"/>
       <rect x="195" y="1005" width="40" height="10" rx="3" fill="#070a10"/>
-      <path d="M192 940 L238 940 L230 1005 L200 1005 Z" fill="#ffe8b3" class="lamp-glow anim-target"/>
+      <path id="lampGlass" d="M192 940 L238 940 L230 1005 L200 1005 Z" fill="#ffe8b3" opacity="0.92"/>
       <path d="M192 940 L238 940 L230 1005 L200 1005 Z" fill="none" stroke="#070a10" stroke-width="5"/>
       <line x1="215" y1="940" x2="215" y2="1005" stroke="#070a10" stroke-width="3"/>
       <path d="M182 940 L215 908 L248 940 Z" fill="#070a10"/>
@@ -256,8 +145,8 @@
     </g>
 
     <!-- 4. Atmospheric Drifting Fog -->
-    <g class="fog-layer anim-target">
-      <rect x="-100" y="950" width="1280" height="750" fill="url(#fogGrad)"/>
+    <g id="fogGroup">
+      <rect x="-120" y="950" width="1320" height="750" fill="url(#fogGrad)"/>
     </g>
 
     <!-- 5. Brick Townhouse Building (Right Side) -->
@@ -268,7 +157,7 @@
       <rect x="572" y="198" width="508" height="14" fill="#0d1322"/>
 
       <!-- Second Floor Bedroom Window -->
-      <g class="window-glass-group anim-target">
+      <g id="targetWindow">
         <rect x="680" y="390" width="230" height="310" rx="4" fill="#05070c" stroke="#1e293b" stroke-width="4"/>
         <rect x="694" y="404" width="202" height="282" fill="#172338"/>
         <polygon points="694,404 775,404 694,550" fill="#334155" opacity="0.28"/>
@@ -286,150 +175,223 @@
     </g>
 
     <!-- 6. Glass Tap Visual Ripple Effect -->
-    <circle class="ripple-ring anim-target" cx="735" cy="535" r="26" fill="none" stroke="#e2e8f0" stroke-width="3"/>
+    <circle id="tapRipple" cx="732" cy="538" r="24" fill="none" stroke="#e2e8f0" stroke-width="3" opacity="0"/>
 
-    <!-- 7. Zenspiris Signature Silhouette Character (1800s Knocker-Upper) -->
+    <!-- 7. Zenspiris Signature Human-Proportioned Character (Scaled to Building) -->
     <g id="knocker-upper">
-      <!-- Ground Shadow -->
-      <ellipse cx="410" cy="1688" rx="95" ry="14" fill="#030407" opacity="0.85"/>
+      <!-- Ground Contact Shadow -->
+      <ellipse cx="410" cy="1688" rx="85" ry="12" fill="#030407" opacity="0.85"/>
 
-      <g class="character-body anim-target">
-        <!-- Legs & Boots -->
-        <path d="M386 1545 L373 1682 L396 1682 L408 1545 Z" fill="#05070b"/>
-        <path d="M414 1545 L436 1682 L458 1682 L434 1545 Z" fill="#05070b"/>
-        <path d="M370 1675 L404 1675 L407 1688 L368 1688 Z" fill="#05070b"/>
-        <path d="M434 1675 L468 1675 L472 1688 L433 1688 Z" fill="#05070b"/>
+      <!-- Character Body (Natural Human Stance, Scaled Proportionally) -->
+      <g id="charBody">
+        <!-- Back Leg (Stepping Slightly Back for Leverage) -->
+        <path d="M394 1525 L372 1605 L364 1682 L384 1682 L396 1608 L412 1528 Z" fill="#05070b"/>
+        <!-- Back Boot -->
+        <path d="M362 1674 L394 1674 L397 1687 L360 1687 Z" fill="#05070b"/>
 
-        <!-- Tailored Victorian Overcoat & Collar -->
-        <path d="M374 1365 C362 1435, 356 1515, 354 1575 L456 1570 C450 1500, 442 1425, 434 1365 Z" fill="#05070b"/>
-        <!-- Warm Rim Light on Coat Back -->
-        <path d="M374 1368 C363 1435, 357 1510, 355 1572" fill="none" stroke="#f5b041" stroke-width="2.5" opacity="0.38"/>
+        <!-- Front Leg (Stepping Forward) -->
+        <path d="M412 1525 L432 1605 L446 1682 L466 1682 L454 1602 L430 1525 Z" fill="#05070b"/>
+        <!-- Front Boot -->
+        <path d="M444 1674 L478 1674 L482 1687 L443 1687 Z" fill="#05070b"/>
 
-        <!-- Winter Scarf Wrapped Around Neck + Trailing End -->
-        <path d="M380 1354 Q410 1368 438 1352 L442 1372 Q410 1386 376 1372 Z" fill="#0d1320"/>
-        <path d="M378 1366 L362 1432 L380 1436 L392 1370 Z" fill="#0a0f1a"/>
-        <path d="M378 1366 L362 1432" fill="none" stroke="#f5b041" stroke-width="1.5" opacity="0.25"/>
+        <!-- Human Torso & Fitted Long Overcoat (Natural Shoulders, Waist & Coat Tails) -->
+        <path d="M388 1388 
+                 C384 1430, 386 1475, 376 1558 
+                 L414 1554 
+                 L420 1515 
+                 L428 1558 
+                 L454 1552 
+                 C442 1480, 434 1430, 426 1388 Z" fill="#05070b"/>
+        <!-- Subtle Warm Rim Light on Back of Shoulders & Coat -->
+        <path d="M388 1390 C384 1430, 386 1475, 377 1555" fill="none" stroke="#f5b041" stroke-width="2.2" opacity="0.4"/>
 
-        <!-- Zenspiris Signature Smooth Head + Expressive Eyes + 1800s Flat Cap -->
-        <g transform="translate(412, 1322) rotate(-22)">
+        <!-- Neck & Scarf -->
+        <rect x="401" y="1370" width="16" height="22" rx="6" fill="#05070b"/>
+        <path d="M390 1380 Q410 1392 428 1378 L431 1394 Q410 1406 388 1394 Z" fill="#0f172a"/>
+        <!-- Scarf Trailing End -->
+        <path d="M390 1390 L376 1445 L390 1448 L400 1392 Z" fill="#0a0f1a"/>
+
+        <!-- Zenspiris Signature Head (Proper 1:6.5 Human Head-to-Body Ratio, Tilted Up) -->
+        <g transform="translate(412, 1344) rotate(-25)">
           <!-- Smooth Bald Silhouette Head -->
-          <circle cx="0" cy="0" r="27" fill="#05070b"/>
-          <!-- Subtle Rim Highlight on Back of Head -->
-          <path d="M-24 -8 A27 27 0 0 0 -14 22" fill="none" stroke="#f5b041" stroke-width="2" opacity="0.35"/>
+          <ellipse cx="0" cy="0" rx="26" ry="30" fill="#05070b"/>
+          <!-- Subtle Nose & Chin Profile -->
+          <path d="M22 -5 L29 2 L22 7" fill="#05070b"/>
+          <!-- Warm Rim Light on Back of Head -->
+          <path d="M-23 -10 A26 30 0 0 0 -13 24" fill="none" stroke="#f5b041" stroke-width="2" opacity="0.38"/>
 
-          <!-- Expressive White Eyes & Determined Eyebrows Looking Up -->
-          <ellipse cx="14" cy="-2" rx="4.2" ry="3.2" fill="#f8fafc"/>
-          <circle cx="15.5" cy="-2.5" r="1.5" fill="#05070b"/>
-          <!-- Eyebrow -->
-          <path d="M9 -9 L20 -7" stroke="#f8fafc" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- Expressive White Eye & Eyebrow Looking Up at Window -->
+          <ellipse cx="14" cy="-3" rx="4.5" ry="3.4" fill="#f8fafc"/>
+          <circle cx="15.8" cy="-3.5" r="1.6" fill="#05070b"/>
+          <path d="M8 -10 L20 -8" stroke="#f8fafc" stroke-width="2.2" stroke-linecap="round"/>
 
-          <!-- 1800s British Flat Cap (Newsboy Cap) -->
-          <path d="M-29 -10 C-27 -30, 20 -32, 30 -12 L43 -7 L-29 -5 Z" fill="#05070b"/>
-          <!-- Cap Rim Highlight -->
-          <path d="M-26 -14 C-16 -27, 8 -28, 22 -19" fill="none" stroke="#f5b041" stroke-width="2" opacity="0.35"/>
+          <!-- Fitted 1800s Flat Cap -->
+          <path d="M-27 -13 C-25 -32, 18 -34, 28 -15 L42 -10 L-27 -8 Z" fill="#05070b"/>
+          <path d="M-24 -17 C-14 -29, 8 -30, 21 -21" fill="none" stroke="#f5b041" stroke-width="2" opacity="0.35"/>
         </g>
+
+        <!-- Back Left Arm (Bent at Elbow Holding Lower Pole) -->
+        <path d="M392 1400 L378 1448 L404 1478 L414 1468 L394 1444 L406 1404 Z" fill="#05070b"/>
       </g>
 
-      <!-- Animated Arms + Long Bamboo Pole -->
-      <g class="pole-arm-group anim-target">
-        <!-- Long Bamboo Pole Reaching Second Floor Window -->
-        <line x1="395" y1="1495" x2="732" y2="538" stroke="#05070b" stroke-width="8" stroke-linecap="round"/>
-        <line x1="393" y1="1494" x2="730" y2="537" stroke="#94a3b8" stroke-width="1.8" opacity="0.45" stroke-linecap="round"/>
-        <!-- Bamboo Joints -->
-        <circle cx="480" cy="1253" r="5" fill="#05070b"/>
-        <circle cx="565" cy="1012" r="5" fill="#05070b"/>
-        <circle cx="650" cy="770" r="4.5" fill="#05070b"/>
+      <!-- Animated Front Arm + Long Bamboo Pole -->
+      <g id="poleArmGroup">
+        <!-- Long Bamboo Pole Reaching Up to Second Floor Window (732, 538) -->
+        <line x1="396" y1="1495" x2="732" y2="538" stroke="#05070b" stroke-width="7.5" stroke-linecap="round"/>
+        <!-- Subtle Highlight Along Pole Edge for Visibility -->
+        <line x1="394" y1="1494" x2="730" y2="537" stroke="#94a3b8" stroke-width="1.8" opacity="0.48" stroke-linecap="round"/>
+        <!-- Bamboo Node Rings -->
+        <circle cx="480" cy="1253" r="4.5" fill="#05070b"/>
+        <circle cx="565" cy="1012" r="4.5" fill="#05070b"/>
+        <circle cx="650" cy="770" r="4" fill="#05070b"/>
         <!-- Soft Tip -->
-        <circle cx="732" cy="538" r="7" fill="#1e293b"/>
+        <circle cx="732" cy="538" r="6.5" fill="#1e293b"/>
 
-        <!-- Arms Holding Pole -->
-        <path d="M402 1384 L438 1425 L425 1445 L390 1404 Z" fill="#05070b"/>
-        <path d="M410 1376 L452 1382 L448 1398 L406 1392 Z" fill="#05070b"/>
+        <!-- Front Right Arm (Bent at Elbow Gripping Upper Pole) -->
+        <path d="M418 1398 L446 1428 L434 1440 L408 1410 Z" fill="#05070b"/>
+        <path d="M446 1428 L428 1402 L418 1408 L434 1440 Z" fill="#05070b"/>
+        <!-- Hand Fist on Pole -->
+        <circle cx="424" cy="1404" r="7" fill="#05070b"/>
+        <circle cx="406" cy="1472" r="7" fill="#05070b"/>
       </g>
     </g>
 
     <!-- 8. Cobblestone Ground -->
     <rect x="0" y="1685" width="1080" height="235" fill="#05070b"/>
     <ellipse cx="230" cy="1715" rx="190" ry="18" fill="#f5b041" opacity="0.12"/>
-
-    <!-- Subtle Film Grain Overlay -->
-    <rect width="1080" height="1920" filter="url(#grain)" pointer-events="none"/>
   </svg>
 </div>
 
-<!-- External Playback Controls (Outside the Crop Area) -->
+<!-- External Playback Controls (Outside the Top/Bottom Crop Lines) -->
 <div id="controls">
-  <button id="playBtn" class="primary">Play</button>
-  <button id="pauseBtn">Pause</button>
-  <button id="replayBtn">Replay 0.0s</button>
+  <button id="playBtn" class="primary" type="button">Play</button>
+  <button id="pauseBtn" type="button">Pause</button>
+  <button id="replayBtn" type="button">Replay 0.0s</button>
   <span id="timer">0.0s / 5.0s</span>
 </div>
 
 <script>
-  const wrapper = document.getElementById('stage-wrapper');
   const playBtn = document.getElementById('playBtn');
   const pauseBtn = document.getElementById('pauseBtn');
   const replayBtn = document.getElementById('replayBtn');
   const timerDisplay = document.getElementById('timer');
+
+  const poleArmGroup = document.getElementById('poleArmGroup');
+  const charBody = document.getElementById('charBody');
+  const tapRipple = document.getElementById('tapRipple');
+  const targetWindow = document.getElementById('targetWindow');
+  const fogGroup = document.getElementById('fogGroup');
+  const lampHaloCircle = document.getElementById('lampHaloCircle');
 
   let isPlaying = false;
   let elapsed = 0;
   let lastTimestamp = null;
   const duration = 5.0;
 
-  function updateTimer(timestamp) {
+  // Helper to compute single tap pulse (0 to 1) around a target beat time
+  function getTapPulse(t, tapTime) {
+    const dt = t - tapTime;
+    if (dt < -0.25 || dt > 0.45) return 0;
+    if (dt < 0) {
+      // Wind-up and strike forward
+      return Math.sin(((dt + 0.25) / 0.25) * (Math.PI / 2));
+    } else {
+      // Bounce back smoothly
+      return Math.cos((dt / 0.45) * (Math.PI / 2));
+    }
+  }
+
+  function renderFrame(t) {
+    // 1. Subtle Fog & Lamp Flicker
+    const fogX = Math.sin((t / duration) * Math.PI * 2) * 35;
+    fogGroup.setAttribute('transform', `translate(${fogX.toFixed(1)}, 0)`);
+
+    const lampOp = 0.88 + Math.sin(t * 9) * 0.06;
+    lampHaloCircle.setAttribute('opacity', lampOp.toFixed(2));
+
+    // 2. Three Rhythmic Taps at 0.9s, 2.1s, 3.3s ("Every. Single. Morning.")
+    const tapTimes = [0.9, 2.1, 3.3];
+    let poleAngle = 0;
+    let bodyLift = 0;
+    let rippleOp = 0;
+    let rippleScale = 0.3;
+    let winShake = 0;
+
+    tapTimes.forEach(tapTime => {
+      const pulse = getTapPulse(t, tapTime);
+      if (pulse > 0) {
+        poleAngle = Math.max(poleAngle, pulse * 4.8);
+        bodyLift = Math.max(bodyLift, pulse * 4);
+      }
+      // Ripple & Window shake right after impact (t >= tapTime)
+      const post = t - tapTime;
+      if (post >= 0 && post <= 0.55) {
+        const pNorm = post / 0.55;
+        rippleOp = Math.max(rippleOp, (1 - pNorm) * 0.9);
+        rippleScale = Math.max(rippleScale, 0.4 + pNorm * 1.6);
+        if (post <= 0.18) {
+          winShake = Math.sin(post * 90) * 3 * (1 - post / 0.18);
+        }
+      }
+    });
+
+    poleArmGroup.setAttribute('transform', `rotate(${poleAngle.toFixed(2)}, 410, 1410)`);
+    charBody.setAttribute('transform', `translate(0, ${(-bodyLift).toFixed(1)})`);
+    targetWindow.setAttribute('transform', `translate(${winShake.toFixed(1)}, 0)`);
+
+    tapRipple.setAttribute('opacity', rippleOp.toFixed(2));
+    tapRipple.setAttribute('transform', `translate(732, 538) scale(${rippleScale.toFixed(2)}) translate(-732, -538)`);
+  }
+
+  function loop(timestamp) {
     if (!isPlaying) return;
-    if (!lastTimestamp) lastTimestamp = timestamp;
+    if (lastTimestamp === null) lastTimestamp = timestamp;
     const delta = (timestamp - lastTimestamp) / 1000;
     lastTimestamp = timestamp;
-    elapsed += delta;
 
+    elapsed += delta;
     if (elapsed >= duration) {
       elapsed = duration;
       isPlaying = false;
-      wrapper.classList.remove('playing');
+      playBtn.textContent = 'Play';
     }
+
+    renderFrame(elapsed);
     timerDisplay.textContent = `${elapsed.toFixed(1)}s / 5.0s`;
+
     if (isPlaying) {
-      requestAnimationFrame(updateTimer);
+      requestAnimationFrame(loop);
     }
   }
 
   playBtn.addEventListener('click', () => {
     if (elapsed >= duration) {
-      resetAnimations();
+      elapsed = 0;
     }
     if (!isPlaying) {
       isPlaying = true;
       lastTimestamp = null;
-      wrapper.classList.add('playing');
-      requestAnimationFrame(updateTimer);
+      playBtn.textContent = 'Playing...';
+      requestAnimationFrame(loop);
     }
   });
 
   pauseBtn.addEventListener('click', () => {
     isPlaying = false;
-    wrapper.classList.remove('playing');
+    playBtn.textContent = 'Play';
   });
 
-  function resetAnimations() {
+  replayBtn.addEventListener('click', () => {
     isPlaying = false;
     elapsed = 0;
     lastTimestamp = null;
-    wrapper.classList.remove('playing');
+    playBtn.textContent = 'Play';
+    renderFrame(0);
     timerDisplay.textContent = `0.0s / 5.0s`;
-
-    const targets = document.querySelectorAll('.anim-target');
-    targets.forEach(el => {
-      el.style.animation = 'none';
-      el.offsetHeight; // trigger reflow
-      el.style.animation = '';
-    });
-  }
-
-  replayBtn.addEventListener('click', () => {
-    resetAnimations();
   });
+
+  // Initial render at 0.0s
+  renderFrame(0);
 </script>
 
 </body>
