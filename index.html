@@ -3,14 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Knocker-Uppers Scene 1 (Period Outfit)</title>
+  <title>Zenspiris — Knocker-Uppers Scene 1 (5.0s + Foley SFX)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
       --head: #0d0b12;
       --face: #f2ede2;
       --rim: #fcd34d;
-      /* 1800s Knocker-Upper Period Outfit Palette */
       --coat: #1e2430;
       --coat-dark: #141821;
       --scarf: #7c2d12;
@@ -72,7 +71,7 @@
 
     .controls {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       margin-top: 10px;
       z-index: 20;
     }
@@ -81,9 +80,9 @@
       background: #16161f;
       color: #f2ede2;
       border: 1px solid rgba(242, 237, 226, 0.2);
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 999px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
     }
@@ -97,14 +96,12 @@
   <div class="stage-wrapper">
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <!-- Nocturne Sky Gradient -->
         <linearGradient id="s1SkyGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#060913"/>
           <stop offset="50%" stop-color="#0f172a"/>
           <stop offset="100%" stop-color="#172033"/>
         </linearGradient>
 
-        <!-- Warm Gas Streetlamp Glow -->
         <radialGradient id="s1LampHalo" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#fef08a" stop-opacity="0.88"/>
           <stop offset="25%" stop-color="#f59e0b" stop-opacity="0.35"/>
@@ -112,13 +109,11 @@
           <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Distant Moon Glow -->
         <radialGradient id="s1MoonGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#e0f2fe" stop-opacity="0.25"/>
           <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Cobblestone Ground Gradient -->
         <linearGradient id="s1GroundGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#0c0e14"/>
           <stop offset="100%" stop-color="#050608"/>
@@ -127,7 +122,6 @@
 
       <!-- Camera Group -->
       <g id="s1Camera">
-        <!-- Sky -->
         <rect width="540" height="825" fill="url(#s1SkyGrad)"/>
 
         <!-- Moon & Soft Glow -->
@@ -137,13 +131,12 @@
         <!-- Distant 1800s Rooftops -->
         <path d="M 0 560 L 0 430 L 75 410 L 75 385 L 98 385 L 98 408 L 175 392 L 210 430 L 290 430 L 290 560 Z" fill="#090d18"/>
 
-        <!-- VICTORIAN GAS STREETLAMP (Key Light Source on Left) -->
+        <!-- VICTORIAN GAS STREETLAMP -->
         <g id="s1Streetlamp">
           <circle id="s1LampGlow" cx="105" cy="485" r="210" fill="url(#s1LampHalo)"/>
           <rect x="102" y="505" width="6" height="320" fill="#07080c"/>
           <path d="M 95 825 L 115 825 L 111 775 L 99 775 Z" fill="#07080c"/>
           <rect x="95" y="502" width="20" height="5" rx="2" fill="#07080c"/>
-          <!-- Lantern Glass -->
           <polygon points="94,470 116,470 112,502 98,502" fill="#fef3c7"/>
           <polygon points="94,470 116,470 112,502 98,502" fill="none" stroke="#07080c" stroke-width="2.5"/>
           <line x1="105" y1="470" x2="105" y2="502" stroke="#07080c" stroke-width="1.5"/>
@@ -151,14 +144,14 @@
           <circle cx="105" cy="451" r="3" fill="#07080c"/>
         </g>
 
-        <!-- 1800s BRICK TOWNHOUSE (Right Side) -->
+        <!-- 1800s BRICK TOWNHOUSE -->
         <g id="s1Building">
           <rect x="295" y="95" width="245" height="730" fill="#0b0e17"/>
           <rect x="295" y="95" width="3" height="730" fill="var(--rim)" opacity="0.22"/>
           <rect x="286" y="90" width="254" height="14" fill="#06080e"/>
           <rect x="291" y="104" width="249" height="7" fill="#111625"/>
 
-          <!-- SECOND FLOOR BEDROOM WINDOW (Target Window) -->
+          <!-- SECOND FLOOR BEDROOM WINDOW -->
           <g id="s1TargetWindow">
             <rect x="342" y="195" width="116" height="155" rx="3" fill="#06080d" stroke="#1e293b" stroke-width="2.5"/>
             <rect x="349" y="202" width="102" height="141" fill="#152033"/>
@@ -183,73 +176,52 @@
         <rect x="0" y="825" width="540" height="135" fill="url(#s1GroundGrad)"/>
         <ellipse cx="115" cy="842" rx="95" ry="9" fill="#f59e0b" opacity="0.12"/>
 
-        <!-- EXACT ZENSPIRIS CHARACTER RIG + 1800s KNOCKER-UPPER OUTFIT -->
+        <!-- ZENSPIRIS CHARACTER RIG + 1800s KNOCKER-UPPER OUTFIT -->
         <g transform="translate(105, 678)">
-          <!-- Ground Shadow -->
           <ellipse cx="103" cy="148" rx="26" ry="5" fill="#030406" opacity="0.85"/>
 
           <g id="s1Char">
-            <!-- Back Leg (Dark 1800s Wool Trousers) -->
             <path d="M 98 85 L 88 116 L 84 144 L 77 144"
                   fill="none" stroke="var(--trousers-back)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-
-            <!-- Front Leg (Dark 1800s Wool Trousers) -->
             <path d="M 104 85 L 114 116 L 118 144 L 126 144"
                   fill="none" stroke="var(--trousers)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <!-- Torso Group (Exact Zenspiris Proportions Dressed in 1800s Overcoat & Scarf) -->
             <g id="s1TorsoGroup">
-              <!-- Warm Streetlamp Rim Light Along Coat Back -->
               <path d="M 91 34 Q 91 29.5 96.5 28.5 Q 101 24.5 105.5 28.5 Q 112 29.5 112.5 34 L 115 104 L 88 104 Z"
                     fill="var(--rim)" opacity="0.45"/>
-
-              <!-- 1800s Knee-Length Victorian Overcoat (Fits Exact Zenspiris Torso Rig) -->
               <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 25 105 28.5 Q 110.5 29.5 111 34 L 114 104 L 89 104 Z"
                     fill="var(--coat)"/>
-
-              <!-- Subtle Coat Lapel & Center Seam Detail -->
               <line x1="103" y1="36" x2="104" y2="104" stroke="#0d1017" stroke-width="1.2" opacity="0.75"/>
 
-              <!-- Warm Rust-Red Winter Scarf Around Collar + Trailing Tail -->
               <path d="M 91 33 L 85 52 L 91 53 L 96 35 Z" fill="#63220d"/>
               <rect x="92" y="27" width="18.5" height="6.5" rx="3" fill="var(--scarf)"/>
 
-              <!-- Back Left Arm in Dark Coat Sleeve Holding Lower Pole -->
               <path d="M 96 36 L 87 54 L 98 66"
                     fill="none" stroke="var(--head)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M 99 34 L 90 48"
                     fill="none" stroke="var(--coat-dark)" stroke-width="7.4" stroke-linecap="round"/>
 
-              <!-- Head Group (Exact Zenspiris Head r=22 + 1800s Flat Cap) -->
+              <!-- Head Group -->
               <g id="s1Head" transform="rotate(-24, 101, 4)">
-                <!-- Warm Rim Light on Back of Head -->
                 <circle cx="99.5" cy="4" r="22" fill="var(--rim)" opacity="0.55"/>
-                <!-- Main Black Head -->
                 <circle cx="101" cy="4" r="22" fill="var(--head)"/>
 
-                <!-- 1800s British Flat Cap (Newsboy Cap) Fitted Snugly on Top -->
                 <path d="M 80 -10 C 82 -22, 114 -23, 121 -11 L 130 -8 L 80 -7 Z" fill="var(--cap)"/>
-                <!-- Warm Rim Highlight on Cap Crown -->
                 <path d="M 81 -11 C 84 -20, 104 -22, 115 -16" fill="none" stroke="var(--rim)" stroke-width="1.4" opacity="0.5"/>
 
-                <!-- Exact Zenspiris Minimalist Face -->
                 <circle class="s1-eye" cx="111" cy="2.5" r="2.1" fill="var(--face)"/>
                 <circle class="s1-eye" cx="118.8" cy="2.5" r="2.1" fill="var(--face)"/>
                 <line x1="112" y1="11.5" x2="118" y2="11.5" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
               </g>
 
-              <!-- Animated Front Arm + Long Bamboo Pole -->
+              <!-- Front Arm + Long Bamboo Pole -->
               <g id="s1ArmPoleGroup">
-                <!-- Long Bamboo Pole Reaching Second Floor Window -->
                 <line x1="95" y1="72" x2="267" y2="-406" stroke="#07080c" stroke-width="4.2" stroke-linecap="round"/>
                 <line x1="94" y1="71.5" x2="266" y2="-406.5" stroke="#94a3b8" stroke-width="1" opacity="0.45" stroke-linecap="round"/>
                 <circle cx="267" cy="-406" r="3.5" fill="#1e293b"/>
 
-                <!-- Arm Rim Light -->
                 <path d="M 103 35.5 L 118 47 L 111 33" fill="none" stroke="var(--rim)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-                <!-- Sleek Black Arm -->
                 <path d="M 103 36 L 118 47 L 111 33" fill="none" stroke="var(--head)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
-                <!-- Overcoat Sleeve -->
                 <path d="M 101 34 L 113 43" fill="none" stroke="var(--coat)" stroke-width="7.6" stroke-linecap="round"/>
               </g>
             </g>
@@ -263,16 +235,109 @@
     <div class="vignette"></div>
   </div>
 
+  <!-- Unified Control Bar (Play, Reset 0.0s & Sound Toggle Together) -->
   <div class="controls">
-    <button class="primary" id="playBtn">▶ Play Scene 1 (5.0s)</button>
+    <button class="primary" id="playBtn">▶ Play (5.0s)</button>
     <button id="replayBtn">↺ 0.0s</button>
+    <button id="soundBtn">🔊 Sound: ON</button>
   </div>
 
   <script>
+    let audioCtx = null;
+    let soundEnabled = true;
+    let windSource = null;
+    let windGain = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function stopAmbientWind() {
+      if (windSource) {
+        try { windSource.stop(); } catch (e) {}
+        windSource = null;
+      }
+    }
+
+    // Subtle 1800s Night Street Breeze (5.0s)
+    function startAmbientWind() {
+      stopAmbientWind();
+      if (!soundEnabled) return;
+      initAudio();
+
+      const bufferSize = audioCtx.sampleRate * 5.2;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      let lastOut = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        data[i] = (lastOut + (0.02 * white)) / 1.02;
+        lastOut = data[i];
+        data[i] *= 2.5;
+      }
+
+      windSource = audioCtx.createBufferSource();
+      windSource.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(240, audioCtx.currentTime);
+
+      windGain = audioCtx.createGain();
+      windGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+      windGain.gain.linearRampToValueAtTime(0.035, audioCtx.currentTime + 0.6);
+      windGain.gain.setValueAtTime(0.035, audioCtx.currentTime + 4.3);
+      windGain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 5.0);
+
+      windSource.connect(filter);
+      filter.connect(windGain);
+      windGain.connect(audioCtx.destination);
+      windSource.start();
+    }
+
+    // Realistic Bamboo-on-Window-Glass Tap Foley SFX
+    function playGlassTap() {
+      if (!soundEnabled) return;
+      initAudio();
+      const now = audioCtx.currentTime;
+
+      // 1. Crisp Glass Resonance Ping (High-mid harmonic)
+      const osc1 = audioCtx.createOscillator();
+      const gain1 = audioCtx.createGain();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(1480, now);
+      osc1.frequency.exponentialRampToValueAtTime(920, now + 0.085);
+      gain1.gain.setValueAtTime(0.18, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      osc1.connect(gain1);
+      gain1.connect(audioCtx.destination);
+      osc1.start(now);
+      osc1.stop(now + 0.095);
+
+      // 2. Secondary Window Pane Vibration Thud
+      const osc2 = audioCtx.createOscillator();
+      const gain2 = audioCtx.createGain();
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(420, now);
+      osc2.frequency.exponentialRampToValueAtTime(180, now + 0.06);
+      gain2.gain.setValueAtTime(0.16, now);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
+      osc2.connect(gain2);
+      gain2.connect(audioCtx.destination);
+      osc2.start(now);
+      osc2.stop(now + 0.07);
+    }
+
     let sceneTl = null;
 
     function playScene1() {
       if (sceneTl) sceneTl.kill();
+      stopAmbientWind();
 
       gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
       gsap.set('#s1TorsoGroup', { rotation: 0, y: 0, svgOrigin: '101 86' });
@@ -281,9 +346,10 @@
       gsap.set('#s1TargetWindow', { x: 0 });
       gsap.set('#s1LampGlow', { opacity: 0.9 });
 
+      startAmbientWind();
+
       sceneTl = gsap.timeline();
 
-      // Subtle slow cinematic push-in across 5.0 seconds
       sceneTl.to('#s1Camera', {
         scale: 1.08,
         svgOrigin: '270 500',
@@ -291,7 +357,6 @@
         ease: 'none'
       }, 0);
 
-      // Gentle gas lamp flicker
       sceneTl.to('#s1LampGlow', {
         opacity: 0.78,
         duration: 0.6,
@@ -315,6 +380,9 @@
           duration: 0.16,
           ease: 'power2.in'
         }, tapTime - 0.16);
+
+        // Trigger Glass Tap Foley SFX on impact
+        sceneTl.call(() => playGlassTap(), null, tapTime);
 
         sceneTl.fromTo('#s1TapRipple',
           { opacity: 0.9, scale: 0.3, svgOrigin: '372 272' },
@@ -346,15 +414,26 @@
         }, tapTime);
       }
 
-      // 3 Taps matching "Every. Single. Morning."
+      // 3 Synchronized Glass Taps ("Every. Single. Morning.")
       addWindowTap(1.1);
       addWindowTap(2.3);
       addWindowTap(3.5);
     }
 
-    document.getElementById('playBtn').addEventListener('click', playScene1);
+    document.getElementById('playBtn').addEventListener('click', () => {
+      initAudio();
+      playScene1();
+    });
+
     document.getElementById('replayBtn').addEventListener('click', () => {
+      stopAmbientWind();
       if (sceneTl) sceneTl.pause(0);
+    });
+
+    document.getElementById('soundBtn').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundBtn').textContent = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+      if (!soundEnabled) stopAmbientWind();
     });
 
     window.addEventListener('load', () => {
