@@ -146,7 +146,7 @@
         <!-- Smartphone Ambient Blue Screen Wash -->
         <circle id="s4RoomScreenWash" cx="152" cy="675" r="310" fill="url(#s4PhoneGlow)" opacity="0"/>
 
-        <!-- MODERN BEDROOM WINDOW (Clean Glass — No Bamboo Pole) -->
+        <!-- MODERN BEDROOM WINDOW -->
         <g transform="translate(332, 340)">
           <rect x="-8" y="-8" width="148" height="206" rx="4" fill="#161d2e"/>
           <rect x="0" y="0" width="132" height="190" fill="url(#s4OutsideSky)"/>
@@ -184,17 +184,20 @@
           </g>
         </g>
 
-        <!-- LOW-PROFILE MODERN BED & SLEEPER RIG (Floor y=775) -->
+        <!-- SLEEK LOW-PROFILE MODERN PLATFORM BED & SLEEPER RIG (Floor y=775) -->
         <g transform="translate(202, 575)">
           <ellipse cx="110" cy="202" rx="122" ry="6.5" fill="#020305" opacity="0.95"/>
 
-          <!-- Low Modern Headboard & Frame -->
-          <rect x="0" y="76" width="11" height="124" rx="2.5" fill="#131620"/>
-          <rect x="210" y="118" width="10" height="82" rx="2.5" fill="#131620"/>
+          <!-- Low Modern Minimalist Headboard (Reduced Height: Just Above Pillow) -->
+          <rect x="0" y="114" width="10" height="86" rx="3" fill="#151924"/>
+          <rect x="2" y="116" width="6" height="26" rx="2" fill="#1e2433"/>
+
+          <!-- Sleek Low Platform Footboard & Legs -->
+          <rect x="210" y="158" width="9" height="42" rx="2.5" fill="#151924"/>
 
           <!-- Mattress & Fluffed Pillow -->
-          <rect x="11" y="144" width="199" height="26" rx="4" fill="#1e2433"/>
-          <path d="M 14 144 Q 48 125 82 145 Z" fill="#cbd5e1" opacity="0.88"/>
+          <rect x="10" y="144" width="200" height="26" rx="4" fill="#1e2433"/>
+          <path d="M 13 144 Q 47 125 81 145 Z" fill="#cbd5e1" opacity="0.88"/>
 
           <!-- CHARACTER ANCHORED INSIDE MATTRESS -->
           <g transform="translate(98, 146)">
@@ -230,7 +233,7 @@
                 </g>
               </g>
 
-              <!-- Single Clean Foreground Arm (Reaches Upward-Left Directly to Phone Screen!) -->
+              <!-- Single Clean Foreground Arm (Reaches Upward-Left Directly to Phone Screen) -->
               <path id="s4ArmFront" d="M 1 -32 L 13 -13 L 26 -10" fill="none" stroke="var(--head)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
             </g>
           </g>
@@ -246,8 +249,8 @@
           <path d="M 74 143 Q 142 134 210 145 L 210 170 L 74 170 Z" fill="var(--blanket)"/>
           <path d="M 70 141 Q 86 138 95 143 L 92 168 L 70 168 Z" fill="var(--blanket-fold)"/>
 
-          <!-- Low Bed Frame Rail -->
-          <rect x="11" y="168" width="199" height="16" fill="#181c28"/>
+          <!-- Low Modern Bed Frame Rail -->
+          <rect x="10" y="168" width="200" height="14" rx="2" fill="#181c28"/>
         </g>
       </g>
     </svg>
@@ -468,8 +471,7 @@
         }
       }, 2.7);
 
-      // 3.3s: Reaches single clean foreground arm directly onto the smartphone screen on the nightstand!
-      // At bodyAngle=-28deg, local (-118, -74) maps directly to global (152, 695) right on top of the phone screen!
+      // 3.3s: Reaches single clean foreground arm directly onto the smartphone screen on the nightstand
       sceneTl.to('#s4ArmFront', {
         attr: { d: 'M -2 -34 L -62 -56 L -118 -74' },
         duration: 0.42,
@@ -485,7 +487,7 @@
       sceneTl.to('#s4RoomScreenWash', { opacity: 0.12, duration: 0.4 }, 3.78);
       sceneTl.to('#s4HeadPhoneRim', { opacity: 0.12, duration: 0.4 }, 3.78);
 
-      // 4.05s: Arm retracts and worker flops straight back down onto the pillow!
+      // 4.05s: Arm retracts and worker flops straight back down onto the pillow
       sceneTl.to('#s4ArmFront', {
         attr: { d: 'M 1 -32 L 13 -13 L 26 -10' },
         duration: 0.38,
@@ -508,7 +510,7 @@
         }
       }, 4.25);
 
-      // 4.9s - 6.0s: "z Z Z" immediately floats back up as he goes right back to sleep!
+      // 4.9s - 6.0s: "z Z Z" immediately floats back up as he goes right back to sleep
       ['#s4Z1', '#s4Z2', '#s4Z3'].forEach((zId, idx) => {
         sceneTl.fromTo(zId,
           { opacity: 0, y: 4 },
