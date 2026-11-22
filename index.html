@@ -3,19 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Knocker-Uppers Scene 4: Industrial Factory Dawn (5.5s + Foley SFX)</title>
+  <title>Zenspiris — Knocker-Uppers Scene 1: The Hook & The Knock (5.5s + Foley SFX)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
       --head: #0d0b12;
       --face: #f2ede2;
-      --rim: #f59e0b;
-      --worker1-coat: #1e2430;
-      --worker1-pants: #2c2825;
-      --worker2-coat: #292524;
-      --worker2-pants: #1c1917;
-      --cap: #14171f;
-      --scarf: #7c2d12;
+      --rim: #fcd34d;
+      --coat: #151824;
+      --coat-light: #1e2334;
+      --bamboo: #b45309;
+      --bamboo-hi: #f59e0b;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,7 +35,7 @@
       width: 100vw;
       max-width: 355px;
       aspect-ratio: 9 / 16;
-      background: #090b10;
+      background: #070911;
       overflow: hidden;
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
     }
@@ -53,7 +51,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(3, 4, 8, 0.92) 100%);
+      background: radial-gradient(circle at 50% 46%, transparent 38%, rgba(3, 4, 8, 0.92) 100%);
       z-index: 10;
     }
 
@@ -96,160 +94,161 @@
   <div class="stage-wrapper">
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <!-- Pre-Dawn Industrial Sky Gradient -->
-        <linearGradient id="s4SkyGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#080b14"/>
-          <stop offset="48%" stop-color="#141c2e"/>
-          <stop offset="82%" stop-color="#292524"/>
-          <stop offset="100%" stop-color="#451a03"/>
+        <!-- Pre-Dawn 1800s Sky -->
+        <linearGradient id="s1SkyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#060811"/>
+          <stop offset="65%" stop-color="#0f1526"/>
+          <stop offset="100%" stop-color="#182035"/>
         </linearGradient>
 
-        <!-- Factory Furnace & Gate Warm Light -->
-        <radialGradient id="s4FurnaceGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.72"/>
-          <stop offset="45%" stop-color="#d97706" stop-opacity="0.22"/>
-          <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+        <!-- Gas Streetlamp Glow -->
+        <radialGradient id="s1GasGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.65"/>
+          <stop offset="35%" stop-color="#f59e0b" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Early Morning Street Mist -->
-        <linearGradient id="s4MistGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#94a3b8" stop-opacity="0"/>
-          <stop offset="50%" stop-color="#94a3b8" stop-opacity="0.12"/>
-          <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+        <!-- Gaslight Cone -->
+        <linearGradient id="s1LampCone" x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.24"/>
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+        </linearGradient>
+
+        <!-- Window Glass Reflection -->
+        <linearGradient id="s1GlassGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#1e293b"/>
+          <stop offset="55%" stop-color="#0f172a"/>
+          <stop offset="100%" stop-color="#1e293b"/>
         </linearGradient>
 
         <!-- Cobblestone Ground -->
-        <linearGradient id="s4GroundGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#0d0f14"/>
-          <stop offset="100%" stop-color="#050608"/>
+        <linearGradient id="s1GroundGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#11131c"/>
+          <stop offset="100%" stop-color="#050609"/>
         </linearGradient>
       </defs>
 
       <!-- Camera Group -->
-      <g id="s4Camera">
-        <!-- Sky -->
-        <rect width="540" height="825" fill="url(#s4SkyGrad)"/>
+      <g id="s1Camera">
+        <!-- Night Sky -->
+        <rect width="540" height="790" fill="url(#s1SkyGrad)"/>
 
-        <!-- Distant Industrial Smokestacks & Rising Smoke Plumes -->
-        <g id="s4SmokeGroup" opacity="0.28">
-          <circle class="smoke-puff" cx="312" cy="185" r="22" fill="#64748b"/>
-          <circle class="smoke-puff" cx="332" cy="152" r="28" fill="#475569"/>
-          <circle class="smoke-puff" cx="362" cy="118" r="34" fill="#334155"/>
-          <circle class="smoke-puff" cx="426" cy="215" r="18" fill="#64748b"/>
-          <circle class="smoke-puff" cx="445" cy="182" r="24" fill="#475569"/>
+        <!-- Distant Victorian Rooftops & Chimneys -->
+        <path d="M 0 560 L 0 440 L 65 415 L 65 390 L 82 390 L 82 410 L 160 395 L 220 425 L 220 560 Z" fill="#090c14"/>
+
+        <!-- Main Brick Townhouse Facade (Right Side) -->
+        <rect x="235" y="135" width="305" height="655" fill="#0d1019"/>
+        <!-- Roof Cornice -->
+        <rect x="225" y="128" width="315" height="14" rx="2" fill="#151a28"/>
+        <!-- Subtle Brick Texture Lines -->
+        <line x1="250" y1="210" x2="310" y2="210" stroke="#161b29" stroke-width="2"/>
+        <line x1="460" y1="260" x2="525" y2="260" stroke="#161b29" stroke-width="2"/>
+        <line x1="255" y1="450" x2="320" y2="450" stroke="#161b29" stroke-width="2"/>
+
+        <!-- UPSTAIRS TARGET BEDROOM WINDOW -->
+        <g transform="translate(310, 215)">
+          <!-- Stone Window Frame -->
+          <rect x="-10" y="-10" width="160" height="215" rx="3" fill="#171d2c"/>
+          <!-- Dark Interior / Glass Pane -->
+          <rect x="0" y="0" width="140" height="195" fill="url(#s1GlassGrad)"/>
+          <!-- Subtle Interior Warm Stirring Glow on Final Tap -->
+          <rect id="s1WindowStir" x="0" y="0" width="140" height="195" fill="#f59e0b" opacity="0"/>
+          <!-- Diagonal Glass Sheen -->
+          <polygon points="15,0 45,0 10,120 0,120" fill="#94a3b8" opacity="0.08"/>
+          <!-- Wooden Mullions -->
+          <rect x="67" y="0" width="6" height="195" fill="#090b10"/>
+          <rect x="0" y="95" width="140" height="6" fill="#090b10"/>
+          <!-- Stone Sill -->
+          <rect x="-16" y="195" width="172" height="12" rx="2" fill="#1f273b"/>
+
+          <!-- Glass Tap Ripple Rings (Exact Point of Pole Impact: x=42, y=135) -->
+          <circle id="s1Ripple1" cx="42" cy="135" r="4" fill="none" stroke="#fde68a" stroke-width="2" opacity="0"/>
+          <circle id="s1Ripple2" cx="42" cy="135" r="4" fill="none" stroke="#fcd34d" stroke-width="1.5" opacity="0"/>
         </g>
 
-        <!-- 1800s INDUSTRIAL MILL / FACTORY SILHOUETTE (Right Background) -->
-        <g id="s4Factory">
-          <!-- Tall Brick Smokestacks -->
-          <polygon points="300,390 306,195 318,195 324,390" fill="#090c14"/>
-          <rect x="304" y="192" width="16" height="5" fill="#1e293b"/>
-          <polygon points="416,410 421,225 431,225 436,410" fill="#090c14"/>
-          <rect x="419" y="222" width="14" height="5" fill="#1e293b"/>
-
-          <!-- Sawtooth Factory Roof & Main Brick Hall -->
-          <polygon points="240,440 240,385 285,415 285,385 330,415 330,385 375,415 375,385 455,420 455,825 240,825" fill="#0b0e17"/>
-          <rect x="240" y="385" width="2.5" height="440" fill="var(--rim)" opacity="0.18"/>
-
-          <!-- Glowing Factory Windows (Early Shift Lights) -->
-          <g fill="#f59e0b" opacity="0.38">
-            <rect x="265" y="465" width="26" height="42" rx="2"/>
-            <rect x="312" y="465" width="26" height="42" rx="2"/>
-            <rect x="359" y="465" width="26" height="42" rx="2"/>
-            <rect x="265" y="545" width="26" height="42" rx="2"/>
-            <rect x="312" y="545" width="26" height="42" rx="2"/>
-          </g>
-
-          <!-- Open Iron Factory Entrance Archway (Right Side) -->
-          <circle cx="415" cy="725" r="115" fill="url(#s4FurnaceGlow)"/>
-          <path d="M 368 825 L 368 655 Q 415 620 462 655 L 462 825 Z" fill="#451a03" stroke="#1e293b" stroke-width="3"/>
-          <!-- Steam Whistle Valve & Steam Puff on Factory Roof -->
-          <rect x="372" y="370" width="6" height="16" fill="#1e293b"/>
-          <circle id="s4WhistleSteam" cx="375" cy="364" r="8" fill="#f2ede2" opacity="0"/>
+        <!-- Downstairs Doorway -->
+        <g transform="translate(335, 575)">
+          <rect x="-8" y="-8" width="116" height="223" rx="3" fill="#151b29"/>
+          <rect x="0" y="0" width="100" height="215" fill="#080a10"/>
+          <circle cx="84" cy="112" r="3.5" fill="#d97706"/>
         </g>
 
-        <!-- Low Drifting Morning Mist -->
-        <rect x="0" y="695" width="540" height="130" fill="url(#s4MistGrad)" pointer-events="none"/>
-
-        <!-- Ground -->
-        <rect x="0" y="825" width="540" height="135" fill="url(#s4GroundGrad)"/>
-
-        <!-- WORKER 1 (Woken Up Worker from Scene 2 — Walking Right Toward Factory Gate) -->
-        <g id="s4Worker1" transform="translate(35, 678)">
-          <ellipse cx="101" cy="148" rx="25" ry="5" fill="#030406" opacity="0.85"/>
-
-          <!-- Back Leg (Aligned Right) -->
-          <g id="s4W1LegBack">
-            <path d="M 99 86 L 96 116 L 94 144 L 103 144"
-                  fill="none" stroke="#181614" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
-
-          <!-- Front Leg (Aligned Right) -->
-          <g id="s4W1LegFront">
-            <path d="M 103 86 L 106 116 L 108 144 L 117 144"
-                  fill="none" stroke="var(--worker1-pants)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
-
-          <!-- Torso & Work Jacket -->
-          <g id="s4W1Torso">
-            <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 25 105 28.5 Q 110.5 29.5 111 34 L 112 92 L 90 92 Z"
-                  fill="var(--worker1-coat)"/>
-            <!-- Warm Rim Light on Front Facing Factory Glow -->
-            <path d="M 109 34 L 112 34 L 113 92 L 110 92 Z" fill="var(--rim)" opacity="0.4"/>
-            <!-- Scarf -->
-            <rect x="92" y="27" width="18.5" height="6" rx="3" fill="var(--scarf)"/>
-
-            <!-- Head Group (Exact Zenspiris Rig r=22 + Flat Cap) -->
-            <g id="s4W1Head">
-              <circle cx="102.5" cy="4" r="22" fill="var(--rim)" opacity="0.45"/>
-              <circle cx="101" cy="4" r="22" fill="var(--head)"/>
-              <!-- Flat Cap Facing Right -->
-              <path d="M 80 -10 C 82 -22, 114 -23, 121 -11 L 130 -8 L 80 -7 Z" fill="var(--cap)"/>
-              <!-- Clean Zenspiris Face -->
-              <circle cx="111" cy="2.5" r="2.1" fill="var(--face)"/>
-              <circle cx="118.8" cy="2.5" r="2.1" fill="var(--face)"/>
-              <line x1="112" y1="11.5" x2="118" y2="11.5" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
-            </g>
-
-            <!-- Swinging Front Arm -->
-            <g id="s4W1Arm">
-              <path d="M 102 36 L 105 58 L 111 76" fill="none" stroke="var(--head)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M 101 34 L 103 48" fill="none" stroke="var(--worker1-coat)" stroke-width="7.6" stroke-linecap="round"/>
-            </g>
-          </g>
+        <!-- VINTAGE GAS STREETLAMP (Left Side Warm Rim Source) -->
+        <g transform="translate(78, 340)">
+          <!-- Lamp Post -->
+          <rect x="-4" y="42" width="8" height="408" fill="#090b10"/>
+          <rect x="-10" y="420" width="20" height="30" rx="2" fill="#090b10"/>
+          <rect x="-12" y="40" width="24" height="5" rx="2" fill="#151a26"/>
+          <!-- Lantern Housing -->
+          <polygon points="-14,40 14,40 18,12 -18,12" fill="#1e2433" stroke="#090b10" stroke-width="2"/>
+          <polygon points="-10,36 10,36 13,15 -13,15" fill="#fde68a"/>
+          <polygon points="-20,12 20,12 0,-2" fill="#090b10"/>
+          <!-- Warm Ambient Halo & Light Cone -->
+          <circle cx="0" cy="25" r="115" fill="url(#s1GasGlow)"/>
+          <polygon points="-14,40 14,40 110,450 -75,450" fill="url(#s1LampCone)" pointer-events="none"/>
         </g>
 
-        <!-- WORKER 2 (Second Factory Worker Ahead — Walking Right into Gate) -->
-        <g id="s4Worker2" transform="translate(155, 682) scale(0.95)">
-          <ellipse cx="101" cy="148" rx="24" ry="5" fill="#030406" opacity="0.85"/>
+        <!-- Cobblestone Street -->
+        <rect x="0" y="790" width="540" height="170" fill="url(#s1GroundGrad)"/>
+        <ellipse cx="145" cy="794" rx="28" ry="4" fill="#181d2b"/>
+        <ellipse cx="235" cy="798" rx="34" ry="4.5" fill="#151926"/>
+        <ellipse cx="325" cy="793" rx="26" ry="3.5" fill="#181d2b"/>
 
-          <g id="s4W2LegBack">
-            <path d="M 99 86 L 96 116 L 94 144 L 103 144"
-                  fill="none" stroke="#141210" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- KNOCKER-UPPER CHARACTER RIG (Facing Right Toward Townhouse Window) -->
+        <g id="s1Knocker" transform="translate(175, 595)">
+          <!-- Ground Shadow -->
+          <ellipse cx="12" cy="196" rx="38" ry="7" fill="#030407" opacity="0.9"/>
+
+          <!-- Back Leg & Forward-Facing Boot -->
+          <g id="s1LegBack">
+            <path d="M 8 115 L 4 155 L 0 192" fill="none" stroke="#08070c" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M -5 192 L 15 192 Q 19 192 19 196 L -5 196 Z" fill="#08070c"/>
           </g>
 
-          <g id="s4W2LegFront">
-            <path d="M 103 86 L 106 116 L 108 144 L 117 144"
-                  fill="none" stroke="var(--worker2-pants)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Front Leg & Forward-Facing Boot -->
+          <g id="s1LegFront">
+            <path d="M 16 115 L 20 155 L 22 192" fill="none" stroke="var(--head)" stroke-width="11.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 17 192 L 37 192 Q 41 192 41 196 L 17 196 Z" fill="var(--head)"/>
           </g>
 
-          <g id="s4W2Torso">
-            <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 25 105 28.5 Q 110.5 29.5 111 34 L 113 96 L 89 96 Z"
-                  fill="var(--worker2-coat)"/>
-            <path d="M 109 34 L 112 34 L 114 96 L 111 96 Z" fill="var(--rim)" opacity="0.45"/>
+          <!-- Upper Torso, Long Overcoat, Head & Bamboo Pole -->
+          <g id="s1Torso">
+            <!-- Long Victorian Overcoat (Warm Left Gaslight Rim) -->
+            <path d="M -4 34 L 26 34 L 36 138 L -14 138 Z" fill="var(--rim)" opacity="0.35"/>
+            <path d="M -2 34 L 26 34 L 36 138 L -12 138 Z" fill="var(--coat)"/>
+            <!-- Coat Collar & Scarf -->
+            <path d="M 2 32 Q 14 40 24 32 L 22 44 L 4 44 Z" fill="var(--coat-light)"/>
 
-            <g id="s4W2Head">
-              <circle cx="102.5" cy="4" r="22" fill="var(--rim)" opacity="0.5"/>
-              <circle cx="101" cy="4" r="22" fill="var(--head)"/>
-              <path d="M 80 -10 C 82 -22, 114 -23, 121 -11 L 130 -8 L 80 -7 Z" fill="#1c1917"/>
-              <circle cx="111" cy="2.5" r="2.1" fill="var(--face)"/>
-              <circle cx="118.8" cy="2.5" r="2.1" fill="var(--face)"/>
-              <line x1="112" y1="11.5" x2="118" y2="11.5" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+            <!-- Back Support Arm Holding Lower Pole -->
+            <path d="M 10 46 L 26 62 L 42 54" fill="none" stroke="#08070c" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Zenspiris Signature Head (Exact r=22, Tilted Up Looking at Upstairs Window) -->
+            <g id="s1Head" transform="translate(13, 10)">
+              <!-- Warm Left Gaslight Rim -->
+              <circle cx="-1.6" cy="0" r="22" fill="var(--rim)" opacity="0.52"/>
+              <circle cx="0" cy="0" r="22" fill="var(--head)"/>
+              <!-- Victorian Flat Cap (Aligned Forward Right) -->
+              <path d="M -21 -8 Q 0 -24 22 -10 L 31 -7 Q 22 -3 12 -5 L -20 -4 Z" fill="#161a26"/>
+              <!-- Crisp Off-White Eyes Looking Up-Right Toward Window -->
+              <circle cx="11" cy="-2" r="2.1" fill="var(--face)"/>
+              <circle cx="17.5" cy="-2" r="2.1" fill="var(--face)"/>
+              <line x1="12" y1="7" x2="16.5" y2="6.5" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
             </g>
 
-            <g id="s4W2Arm">
-              <path d="M 102 36 L 105 58 L 111 76" fill="none" stroke="var(--head)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M 101 34 L 103 48" fill="none" stroke="var(--worker2-coat)" stroke-width="7.6" stroke-linecap="round"/>
+            <!-- LONG BAMBOO POLE & FRONT TAPPING ARM -->
+            <g id="s1PoleRig">
+              <!-- Long Bamboo Pole Reaching Up to Upstairs Window (352, 350 in stage coords) -->
+              <line x1="14" y1="86" x2="177" y2="-245" stroke="var(--bamboo)" stroke-width="4.5" stroke-linecap="round"/>
+              <line x1="13" y1="86" x2="176" y2="-245" stroke="var(--bamboo-hi)" stroke-width="1.2" opacity="0.65" stroke-linecap="round"/>
+              <!-- Bamboo Segment Nodes -->
+              <circle cx="55" cy="3" r="2.6" fill="#78350f"/>
+              <circle cx="96" cy="-80" r="2.6" fill="#78350f"/>
+              <circle cx="137" cy="-163" r="2.6" fill="#78350f"/>
+              <!-- Soft Knocking Tip -->
+              <circle cx="177" cy="-245" r="3.4" fill="#fde68a"/>
+
+              <!-- Front Arm Gripping Pole -->
+              <path d="M 16 44 L 34 56 L 44 26" fill="none" stroke="var(--head)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
             </g>
           </g>
         </g>
@@ -281,165 +280,180 @@
       }
     }
 
-    // 1800s Factory Steam Shift Whistle Foley SFX
-    function playFactoryWhistle() {
+    // Subtle Pre-Dawn Street Breeze
+    function playNightWind(duration = 5.2) {
       if (!soundEnabled) return;
       initAudio();
       const now = audioCtx.currentTime;
+      const bufferSize = Math.floor(audioCtx.sampleRate * duration);
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1);
+      }
 
-      const freqs = [311.13, 392.00]; // Deep resonant brass steam chord
-      freqs.forEach((f) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(f * 0.94, now);
-        osc.frequency.linearRampToValueAtTime(f, now + 0.18);
-        osc.frequency.setValueAtTime(f, now + 1.1);
-        osc.frequency.exponentialRampToValueAtTime(f * 0.88, now + 1.45);
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
 
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(950, now);
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(260, now);
+      filter.frequency.linearRampToValueAtTime(340, now + duration * 0.5);
+      filter.frequency.linearRampToValueAtTime(240, now + duration);
+      filter.Q.setValueAtTime(2.8, now);
 
-        gain.gain.setValueAtTime(0.001, now);
-        gain.gain.linearRampToValueAtTime(0.065, now + 0.15);
-        gain.gain.setValueAtTime(0.065, now + 1.05);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.032, now + 0.8);
+      gain.gain.linearRampToValueAtTime(0.025, now + duration - 0.6);
+      gain.gain.linearRampToValueAtTime(0.001, now + duration);
 
-        osc.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 1.55);
-      });
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+      noise.start(now);
     }
 
-    function playFootstep() {
+    // Cobblestone Boot Footstep
+    function playCobblestoneStep() {
       if (!soundEnabled) return;
       initAudio();
       const now = audioCtx.currentTime;
-
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(140, now);
-      osc.frequency.exponentialRampToValueAtTime(52, now + 0.08);
+      osc.frequency.setValueAtTime(135, now);
+      osc.frequency.exponentialRampToValueAtTime(48, now + 0.08);
       gain.gain.setValueAtTime(0.11, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.085);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start(now);
-      osc.stop(now + 0.09);
+      osc.stop(now + 0.095);
+    }
+
+    // Crisp Bamboo-on-Window-Glass Tap Foley SFX
+    function playGlassTap() {
+      if (!soundEnabled) return;
+      initAudio();
+      const now = audioCtx.currentTime;
+
+      [1980, 3420].forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = i === 0 ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.82, now + 0.075);
+        gain.gain.setValueAtTime(i === 0 ? 0.16 : 0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.085);
+      });
     }
 
     let sceneTl = null;
-    let walkTl1 = null;
-    let walkTl2 = null;
 
-    function playScene4() {
+    function triggerGlassRipple(tl, time) {
+      tl.call(() => playGlassTap(), null, time);
+      tl.fromTo('#s1Ripple1',
+        { attr: { r: 3 }, opacity: 0.9 },
+        { attr: { r: 28 }, opacity: 0, duration: 0.55, ease: 'power2.out' },
+        time
+      );
+      tl.fromTo('#s1Ripple2',
+        { attr: { r: 2 }, opacity: 0.7 },
+        { attr: { r: 18 }, opacity: 0, duration: 0.45, ease: 'power2.out' },
+        time + 0.06
+      );
+    }
+
+    function playScene1() {
       if (sceneTl) sceneTl.kill();
-      if (walkTl1) walkTl1.kill();
-      if (walkTl2) walkTl2.kill();
 
       // Reset to 0.0s
-      gsap.set('#s4Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s4Worker1', { x: 35, y: 678, opacity: 1 });
-      gsap.set('#s4Worker2', { x: 155, y: 682, scale: 0.95, opacity: 1 });
-      gsap.set('#s4W1LegFront, #s4W1LegBack, #s4W2LegFront, #s4W2LegBack', { rotation: 0, y: 0 });
-      gsap.set('#s4W1Arm, #s4W2Arm', { rotation: 0 });
-      gsap.set('#s4W1Torso, #s4W2Torso', { y: 0, rotation: 0 });
-      gsap.set('#s4WhistleSteam', { opacity: 0, scale: 0.5, y: 0, svgOrigin: '375 364' });
-      gsap.set('.smoke-puff', { y: 0, x: 0, opacity: 0.85 });
+      gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
+      gsap.set('#s1Knocker', { x: 118, y: 595 });
+      gsap.set('#s1Torso', { y: 0, rotation: 0 });
+      gsap.set('#s1Head', { rotation: -12, svgOrigin: '13 10' });
+      gsap.set('#s1PoleRig', { rotation: -6, svgOrigin: '34 56' });
+      gsap.set('#s1LegFront', { rotation: 0, svgOrigin: '16 115' });
+      gsap.set('#s1LegBack', { rotation: 0, svgOrigin: '8 115' });
+      gsap.set('#s1WindowStir', { opacity: 0 });
+      gsap.set(['#s1Ripple1', '#s1Ripple2'], { opacity: 0, attr: { r: 3 } });
 
       sceneTl = gsap.timeline();
 
-      // Slow cinematic camera push toward the factory gate
-      sceneTl.to('#s4Camera', {
-        scale: 1.08,
-        x: -14,
-        svgOrigin: '300 520',
+      // Pre-dawn night wind
+      sceneTl.call(() => playNightWind(5.3), null, 0.05);
+
+      // Slow atmospheric camera push-in
+      sceneTl.to('#s1Camera', {
+        scale: 1.07,
+        svgOrigin: '270 430',
         duration: 5.5,
-        ease: 'none'
+        ease: 'power1.inOut'
       }, 0);
 
-      // Rising smokestack plumes
-      sceneTl.to('.smoke-puff', {
-        y: -35,
-        x: 18,
-        opacity: 0.35,
-        duration: 5.5,
-        stagger: 0.2,
-        ease: 'none'
+      // 0.0s - 1.2s: Knocker-Upper walks up to the townhouse
+      sceneTl.to('#s1Knocker', {
+        x: 175,
+        duration: 1.2,
+        ease: 'power1.out'
       }, 0);
 
-      // Workers walking right toward the glowing factory entrance
-      sceneTl.to('#s4Worker1', {
-        x: 275,
-        duration: 5.5,
-        ease: 'none'
-      }, 0);
+      // Natural walk cycle (3 steps)
+      [0.15, 0.55, 0.95].forEach((stepTime, idx) => {
+        sceneTl.call(() => playCobblestoneStep(), null, stepTime);
+        const dir = idx % 2 === 0 ? 1 : -1;
+        sceneTl.to('#s1LegFront', { rotation: 16 * dir, duration: 0.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, stepTime - 0.1);
+        sceneTl.to('#s1LegBack', { rotation: -16 * dir, duration: 0.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, stepTime - 0.1);
+        sceneTl.to('#s1Torso', { y: -2.5, duration: 0.18, yoyo: true, repeat: 1, ease: 'sine.inOut' }, stepTime - 0.1);
+      });
 
-      sceneTl.to('#s4Worker2', {
-        x: 325,
-        duration: 4.4,
-        ease: 'none'
-      }, 0);
-
-      // Worker 2 enters the glowing factory gate at 4.1s
-      sceneTl.to('#s4Worker2', {
-        opacity: 0,
+      // 1.15s: Tilts head up toward the upstairs bedroom window
+      sceneTl.to('#s1Head', {
+        rotation: -22,
         duration: 0.45,
-        ease: 'power1.in'
-      }, 4.0);
+        ease: 'power2.out'
+      }, 1.15);
 
-      // 2.3s: Factory Shift Steam Whistle blows + white steam puff rises from whistle
-      sceneTl.call(() => playFactoryWhistle(), null, 2.3);
-      sceneTl.fromTo('#s4WhistleSteam',
-        { opacity: 0.85, scale: 0.4, y: 0, svgOrigin: '375 364' },
-        { opacity: 0, scale: 2.8, y: -38, duration: 1.5, ease: 'power2.out' },
-        2.3
-      );
+      // Three firm bamboo taps ("Every. Single. Morning.")
+      const tapTimes = [1.65, 3.05, 4.45];
+      tapTimes.forEach((t) => {
+        // Pole swings forward to tap glass at (352, 350)
+        sceneTl.to('#s1PoleRig', {
+          rotation: 0,
+          duration: 0.14,
+          ease: 'power2.in'
+        }, t - 0.14);
 
-      // Natural Continuous Walk Cycle for Worker 1
-      walkTl1 = gsap.timeline({ repeat: 6 });
-      walkTl1.call(() => playFootstep(), null, 0.05);
-      walkTl1.to('#s4W1LegFront', { rotation: -23, y: -2, svgOrigin: '103 86', duration: 0.22, ease: 'power1.out' }, 0);
-      walkTl1.to('#s4W1LegFront', { rotation: -21, y: 0, svgOrigin: '103 86', duration: 0.22, ease: 'power1.in' }, 0.22);
-      walkTl1.to('#s4W1LegBack', { rotation: 21, y: 0, svgOrigin: '99 86', duration: 0.44, ease: 'sine.inOut' }, 0);
-      walkTl1.to('#s4W1Arm', { rotation: 18, svgOrigin: '102 36', duration: 0.44, ease: 'sine.inOut' }, 0);
-      walkTl1.to('#s4W1Torso', { y: -2.5, rotation: 1.8, svgOrigin: '101 86', duration: 0.22, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 0);
+        triggerGlassRipple(sceneTl, t);
 
-      walkTl1.call(() => playFootstep(), null, 0.49);
-      walkTl1.to('#s4W1LegBack', { rotation: -23, y: -2, svgOrigin: '99 86', duration: 0.22, ease: 'power1.out' }, 0.44);
-      walkTl1.to('#s4W1LegBack', { rotation: -21, y: 0, svgOrigin: '99 86', duration: 0.22, ease: 'power1.in' }, 0.66);
-      walkTl1.to('#s4W1LegFront', { rotation: 21, y: 0, svgOrigin: '103 86', duration: 0.44, ease: 'sine.inOut' }, 0.44);
-      walkTl1.to('#s4W1Arm', { rotation: -16, svgOrigin: '102 36', duration: 0.44, ease: 'sine.inOut' }, 0.44);
-      walkTl1.to('#s4W1Torso', { y: -2.5, rotation: 1.8, svgOrigin: '101 86', duration: 0.22, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 0.44);
+        // Slight recoil after tap
+        sceneTl.to('#s1PoleRig', {
+          rotation: -3.2,
+          duration: 0.35,
+          ease: 'power2.out'
+        }, t + 0.02);
+      });
 
-      // Offset Walk Cycle for Worker 2 (So they don't look like robotic clones)
-      walkTl2 = gsap.timeline({ repeat: 5 });
-      walkTl2.to('#s4W2LegBack', { rotation: -22, y: -2, svgOrigin: '99 86', duration: 0.21, ease: 'power1.out' }, 0);
-      walkTl2.to('#s4W2LegBack', { rotation: -20, y: 0, svgOrigin: '99 86', duration: 0.21, ease: 'power1.in' }, 0.21);
-      walkTl2.to('#s4W2LegFront', { rotation: 20, y: 0, svgOrigin: '103 86', duration: 0.42, ease: 'sine.inOut' }, 0);
-      walkTl2.to('#s4W2Arm', { rotation: -16, svgOrigin: '102 36', duration: 0.42, ease: 'sine.inOut' }, 0);
-      walkTl2.to('#s4W2Torso', { y: -2.2, rotation: 1.5, svgOrigin: '101 86', duration: 0.21, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 0);
-
-      walkTl2.to('#s4W2LegFront', { rotation: -22, y: -2, svgOrigin: '103 86', duration: 0.21, ease: 'power1.out' }, 0.42);
-      walkTl2.to('#s4W2LegFront', { rotation: -20, y: 0, svgOrigin: '103 86', duration: 0.21, ease: 'power1.in' }, 0.63);
-      walkTl2.to('#s4W2LegBack', { rotation: 20, y: 0, svgOrigin: '99 86', duration: 0.42, ease: 'sine.inOut' }, 0.42);
-      walkTl2.to('#s4W2Arm', { rotation: 16, svgOrigin: '102 36', duration: 0.42, ease: 'sine.inOut' }, 0.42);
-      walkTl2.to('#s4W2Torso', { y: -2.2, rotation: 1.5, svgOrigin: '101 86', duration: 0.21, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 0.42);
+      // Subtle warm flicker inside the bedroom on the final tap
+      sceneTl.to('#s1WindowStir', {
+        opacity: 0.22,
+        duration: 0.65,
+        ease: 'power1.out'
+      }, 4.65);
     }
 
     document.getElementById('playBtn').addEventListener('click', () => {
       initAudio();
-      playScene4();
+      playScene1();
     });
 
     document.getElementById('replayBtn').addEventListener('click', () => {
       if (sceneTl) sceneTl.pause(0);
-      if (walkTl1) walkTl1.kill();
-      if (walkTl2) walkTl2.kill();
     });
 
     document.getElementById('soundBtn').addEventListener('click', () => {
@@ -448,7 +462,7 @@
     });
 
     window.addEventListener('load', () => {
-      setTimeout(playScene4, 250);
+      setTimeout(playScene1, 250);
     });
   </script>
 </body>
