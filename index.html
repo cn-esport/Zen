@@ -35,7 +35,7 @@
     .stage-wrapper {
       position: relative;
       width: 100vw;
-      max-width: 390px;
+      max-width: 355px; /* Scaled slightly so bottom controls stay 100% visible */
       aspect-ratio: 9 / 16;
       background: #080a10;
       overflow: hidden;
@@ -122,6 +122,11 @@
           <stop offset="0%" stop-color="#120f0d"/>
           <stop offset="100%" stop-color="#070605"/>
         </linearGradient>
+
+        <!-- Clip Path so Bamboo Pole Stays Strictly Outside the Window Glass -->
+        <clipPath id="windowGlassClip">
+          <rect x="0" y="0" width="200" height="280"/>
+        </clipPath>
       </defs>
 
       <!-- Camera Group -->
@@ -137,21 +142,24 @@
         <g id="s2WindowGroup" transform="translate(275, 165)">
           <rect x="-8" y="-8" width="216" height="296" rx="4" fill="#07090e"/>
           <rect x="0" y="0" width="200" height="280" fill="url(#s2WindowSky)"/>
-          <!-- Faint Pre-Dawn Moon & Distant Chimneys -->
-          <circle cx="148" cy="58" r="14" fill="#e2e8f0" opacity="0.25"/>
-          <path d="M 0 280 L 0 225 L 55 212 L 55 195 L 72 195 L 72 210 L 140 200 L 200 222 L 200 280 Z" fill="#0a0f1c"/>
 
-          <!-- Bamboo Pole Tip Tapping Outside Left Pane! -->
-          <g id="s2OutsidePole">
-            <line x1="-22" y1="295" x2="48" y2="132" stroke="#05070b" stroke-width="5.5" stroke-linecap="round"/>
-            <line x1="-21" y1="295" x2="49" y2="132" stroke="#94a3b8" stroke-width="1.2" opacity="0.4" stroke-linecap="round"/>
-            <circle cx="48" cy="132" r="5" fill="#1e293b"/>
+          <!-- Clipped Exterior Elements (Moon, Rooftops, and Bamboo Pole Outside!) -->
+          <g clip-path="url(#windowGlassClip)">
+            <circle cx="148" cy="58" r="14" fill="#e2e8f0" opacity="0.25"/>
+            <path d="M 0 280 L 0 225 L 55 212 L 55 195 L 72 195 L 72 210 L 140 200 L 200 222 L 200 280 Z" fill="#0a0f1c"/>
+
+            <!-- Bamboo Pole Tip Strictly Outside Window Glass -->
+            <g id="s2OutsidePole">
+              <line x1="-18" y1="285" x2="48" y2="132" stroke="#05070b" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="-17" y1="285" x2="49" y2="132" stroke="#94a3b8" stroke-width="1.2" opacity="0.4" stroke-linecap="round"/>
+              <circle cx="48" cy="132" r="5" fill="#1e293b"/>
+            </g>
           </g>
 
-          <!-- Glass Tap Ripple Inside Window -->
+          <!-- Glass Tap Ripple on Pane -->
           <circle id="s2GlassRipple" cx="48" cy="132" r="14" fill="none" stroke="#f2ede2" stroke-width="2" opacity="0"/>
 
-          <!-- Window Frame Crossbars -->
+          <!-- Window Frame Crossbars (In front of outside pole) -->
           <rect x="97" y="0" width="6" height="280" fill="#07090e"/>
           <rect x="0" y="138" width="200" height="6" fill="#07090e"/>
           <rect x="-14" y="280" width="228" height="10" rx="2" fill="#181c26"/>
@@ -160,7 +168,7 @@
         <!-- Diagonal Moonlight Shaft Entering Room -->
         <polygon points="275,165 475,165 360,725 80,725" fill="url(#s2WindowBeam)" pointer-events="none"/>
 
-        <!-- 1800s NIGHTSTAND WITH UNLIT CANDLESTICK & POCKET WATCH (No Digital Clocks!) -->
+        <!-- 1800s NIGHTSTAND WITH CANDLESTICK & POCKET WATCH -->
         <g transform="translate(32, 520)">
           <rect x="8" y="105" width="90" height="100" rx="3" fill="var(--wood)"/>
           <rect x="4" y="101" width="98" height="8" rx="2" fill="var(--wood-light)"/>
@@ -178,7 +186,7 @@
           <circle cx="74" cy="97" r="6" fill="#e7e0d0"/>
         </g>
 
-        <!-- 1800s WOODEN BED & SLEEPING WORKER (Waking Up When Window Taps!) -->
+        <!-- 1800s WOODEN BED & SLEEPING WORKER -->
         <g transform="translate(132, 560)">
           <!-- Floor Shadow -->
           <ellipse cx="165" cy="166" rx="175" ry="12" fill="#040406" opacity="0.9"/>
@@ -193,52 +201,50 @@
           <rect x="10" y="122" width="308" height="22" rx="3" fill="var(--wood)"/>
           <rect x="14" y="102" width="300" height="24" rx="8" fill="#1e222d"/>
           <!-- Feather Pillow -->
-          <rect x="20" y="82" width="68" height="24" rx="11" fill="#333b4d"/>
+          <rect x="20" y="80" width="68" height="24" rx="11" fill="#333b4d"/>
 
-          <!-- ZENSPIRIS CHARACTER RIG (1800s Worker Waking Up in Bed) -->
+          <!-- ZENSPIRIS CHARACTER RIG (1800s Worker Waking Up Cleanly on Pillow) -->
           <g id="s2Char">
-            <!-- Character Upper Body (Starts Lying Down on Pillow -> Sits Up Startled at 1.5s!) -->
+            <!-- Upper Body Group (Pivots cleanly from hip at 118, 88 so head rests right on pillow at 0.0s) -->
             <g id="s2UpperBody">
               <!-- Period Cotton Nightshirt Torso (Exact Zenspiris Slim & Short Proportions) -->
-              <path d="M 91 34 Q 91 29.5 96.5 28.5 Q 101 24.5 105.5 28.5 Q 112 29.5 112.5 34 L 113 92 L 90 92 Z"
+              <path d="M 108 34 Q 108 29.5 113.5 28.5 Q 118 24.5 122.5 28.5 Q 129 29.5 129.5 34 L 130 92 L 107 92 Z"
                     fill="var(--rim)" opacity="0.35"/>
-              <path d="M 92 34 Q 92 29.5 97 28.5 Q 101 25 105 28.5 Q 110.5 29.5 111 34 L 111 92 L 92 92 Z"
+              <path d="M 109 34 Q 109 29.5 114 28.5 Q 118 25 122 28.5 Q 127.5 29.5 128 34 L 128 92 L 109 92 Z"
                     fill="var(--nightshirt)"/>
               <!-- Nightshirt Collar Placket -->
-              <line x1="104" y1="31" x2="104" y2="54" stroke="var(--nightshirt-shadow)" stroke-width="1.5"/>
+              <line x1="121" y1="31" x2="121" y2="54" stroke="var(--nightshirt-shadow)" stroke-width="1.5"/>
 
               <!-- Zenspiris Signature Head (Exact r=22) -->
               <g id="s2Head">
-                <!-- Cool Pre-Dawn Rim Light from Window -->
-                <circle cx="102.5" cy="4" r="22" fill="var(--rim)" opacity="0.5"/>
-                <circle cx="101" cy="4" r="22" fill="var(--head)"/>
+                <circle cx="119.5" cy="4" r="22" fill="var(--rim)" opacity="0.5"/>
+                <circle cx="118" cy="4" r="22" fill="var(--head)"/>
 
                 <!-- Closed Sleeping Eyes (Phase 1: 0.0s - 1.35s) -->
                 <g id="s2EyesClosed">
-                  <line x1="109" y1="3" x2="113.5" y2="3" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
-                  <line x1="117" y1="3" x2="121.5" y2="3" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
-                  <line x1="112" y1="11.5" x2="117" y2="11.5" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
+                  <line x1="126" y1="3" x2="130.5" y2="3" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+                  <line x1="134" y1="3" x2="138.5" y2="3" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+                  <line x1="129" y1="11.5" x2="134" y2="11.5" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
                 </g>
 
                 <!-- Awake Dot Eyes Looking Toward Window (Phase 2: 1.35s - 5.0s) -->
                 <g id="s2EyesAwake" opacity="0">
-                  <circle cx="111" cy="2.5" r="2.2" fill="var(--face)"/>
-                  <circle cx="118.8" cy="2.5" r="2.2" fill="var(--face)"/>
-                  <!-- Slightly Surprised Open Mouth Dot -->
-                  <circle cx="115" cy="11.5" r="2" fill="var(--face)"/>
+                  <circle cx="128" cy="2.5" r="2.2" fill="var(--face)"/>
+                  <circle cx="135.8" cy="2.5" r="2.2" fill="var(--face)"/>
+                  <circle cx="132" cy="11.5" r="2" fill="var(--face)"/>
                 </g>
               </g>
 
-              <!-- Sleek Black Arm & Nightshirt Sleeve (Rubs Eye / Props Up on Bed) -->
+              <!-- Sleek Black Arm & Nightshirt Sleeve -->
               <g id="s2Arm">
-                <path d="M 102 36 L 118 56 L 132 76" fill="none" stroke="var(--head)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M 101 34 L 111 47" fill="none" stroke="var(--nightshirt)" stroke-width="7.6" stroke-linecap="round"/>
+                <path d="M 119 36 L 135 56 L 149 76" fill="none" stroke="var(--head)" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M 118 34 L 128 47" fill="none" stroke="var(--nightshirt)" stroke-width="7.6" stroke-linecap="round"/>
               </g>
             </g>
 
-            <!-- Heavy Wool Blanket Covering Legs -->
-            <path d="M 86 86 Q 155 78 235 86 L 308 94 L 308 118 L 86 118 Z" fill="var(--blanket)"/>
-            <path d="M 86 86 Q 112 83 136 86 L 136 118 L 86 118 Z" fill="var(--blanket-dark)"/>
+            <!-- Heavy Wool Blanket Covering Legs (Rendered on top of lower torso) -->
+            <path d="M 104 86 Q 170 78 242 86 L 308 94 L 308 118 L 104 118 Z" fill="var(--blanket)"/>
+            <path d="M 104 86 Q 128 83 150 86 L 150 118 L 104 118 Z" fill="var(--blanket-dark)"/>
           </g>
         </g>
       </g>
@@ -249,7 +255,7 @@
     <div class="vignette"></div>
   </div>
 
-  <!-- Unified Control Bar -->
+  <!-- Unified Control Bar (Fully Visible Below Stage) -->
   <div class="controls">
     <button class="primary" id="playBtn">▶ Play (5.0s)</button>
     <button id="replayBtn">↺ 0.0s</button>
@@ -269,7 +275,6 @@
       }
     }
 
-    // Muffled Indoor Glass Tap (Heard from inside the bedroom)
     function playIndoorGlassTap() {
       if (!soundEnabled) return;
       initAudio();
@@ -300,7 +305,6 @@
       osc2.stop(now + 0.08);
     }
 
-    // Soft Bed Sheets / Blanket Rustle When Sitting Up
     function playBedRustle() {
       if (!soundEnabled) return;
       initAudio();
@@ -335,20 +339,19 @@
     function playScene2() {
       if (sceneTl) sceneTl.kill();
 
-      // Reset to 0.0s: Sleeping lying flat on pillow
+      // Reset to 0.0s: Head rests cleanly on top of the pillow (rotation: -72 around hip 118, 88)
       gsap.set('#s2Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s2UpperBody', { rotation: -74, x: -16, y: 12, svgOrigin: '101 88' });
-      gsap.set('#s2Head', { rotation: 0, svgOrigin: '101 4' });
-      gsap.set('#s2Arm', { rotation: -25, svgOrigin: '102 36' });
+      gsap.set('#s2UpperBody', { rotation: -72, x: 0, y: 0, svgOrigin: '118 88' });
+      gsap.set('#s2Head', { rotation: 0, svgOrigin: '118 4' });
+      gsap.set('#s2Arm', { rotation: -18, svgOrigin: '119 36' });
       gsap.set('#s2EyesClosed', { opacity: 1 });
       gsap.set('#s2EyesAwake', { opacity: 0 });
-      gsap.set('#s2OutsidePole', { rotation: -6, svgOrigin: '-22 295' });
+      gsap.set('#s2OutsidePole', { rotation: -6, svgOrigin: '-18 285' });
       gsap.set('#s2GlassRipple', { opacity: 0, scale: 0.3, svgOrigin: '48 132' });
       gsap.set('#s2WindowGroup', { x: 275, y: 165 });
 
       sceneTl = gsap.timeline();
 
-      // Slow cinematic push-in across 5.0 seconds
       sceneTl.to('#s2Camera', {
         scale: 1.09,
         svgOrigin: '290 500',
@@ -356,11 +359,10 @@
         ease: 'none'
       }, 0);
 
-      // Helper for Bamboo Pole tapping the bedroom window from outside
       function addOutsideTap(tapTime) {
         sceneTl.to('#s2OutsidePole', {
           rotation: 0,
-          svgOrigin: '-22 295',
+          svgOrigin: '-18 285',
           duration: 0.14,
           ease: 'power2.in'
         }, tapTime - 0.14);
@@ -383,50 +385,46 @@
 
         sceneTl.to('#s2OutsidePole', {
           rotation: -6,
-          svgOrigin: '-22 295',
+          svgOrigin: '-18 285',
           duration: 0.25,
           ease: 'power2.out'
         }, tapTime);
       }
 
-      // Tap 1 at 0.8s (Wakes sleeper) & Tap 2 at 2.2s (Confirms wake-up)
       addOutsideTap(0.8);
       addOutsideTap(2.2);
 
-      // 1.15s: Eyes snap open!
+      // 1.15s: Eyes open cleanly
       sceneTl.to('#s2EyesClosed', { opacity: 0, duration: 0.08 }, 1.15);
       sceneTl.to('#s2EyesAwake', { opacity: 1, duration: 0.12 }, 1.18);
 
-      // 1.3s: Worker sits up startled in bed looking toward the window
+      // 1.3s: Worker sits up smoothly from the pillow
       sceneTl.call(() => playBedRustle(), null, 1.3);
       sceneTl.to('#s2UpperBody', {
         rotation: 4,
-        x: 0,
-        y: 0,
-        svgOrigin: '101 88',
+        svgOrigin: '118 88',
         duration: 0.85,
         ease: 'back.out(1.2)'
       }, 1.3);
 
       sceneTl.to('#s2Arm', {
         rotation: 0,
-        svgOrigin: '102 36',
+        svgOrigin: '119 36',
         duration: 0.75,
         ease: 'power2.out'
       }, 1.35);
 
-      // 2.3s: Slight head tilt toward the window on the second tap
+      // 2.25s: Looks up slightly toward the window on the second tap
       sceneTl.to('#s2Head', {
-        rotation: -8,
-        svgOrigin: '101 4',
+        rotation: -10,
+        svgOrigin: '118 4',
         duration: 0.4,
         ease: 'power2.out'
       }, 2.25);
 
-      // 3.5s: Settles upright ready to get out of bed
       sceneTl.to('#s2UpperBody', {
         rotation: 0,
-        svgOrigin: '101 88',
+        svgOrigin: '118 88',
         duration: 0.8,
         ease: 'power2.inOut'
       }, 3.4);
