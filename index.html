@@ -111,14 +111,14 @@
         </linearGradient>
 
         <!-- Cool Pre-Dawn Window Light Beam -->
-        <linearGradient id="s2WindowBeam" x1="1" y1="0" x2="0" y2="1">
+        <linearGradient id="s2WindowBeam" x1="0.85" y1="0" x2="0.15" y2="1">
           <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.16"/>
           <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
         </linearGradient>
 
         <!-- Warm Candlelight Radial Glow -->
         <radialGradient id="s2CandleGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.85"/>
+          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.88"/>
           <stop offset="28%" stop-color="#f59e0b" stop-opacity="0.38"/>
           <stop offset="65%" stop-color="#d97706" stop-opacity="0.12"/>
           <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
@@ -135,25 +135,21 @@
       <g id="s2Camera">
         <!-- Bedroom Wall & Floor -->
         <rect width="540" height="775" fill="url(#s2WallGrad)"/>
-        <!-- Subtle Wainscoting Wall Trim -->
         <rect x="0" y="545" width="540" height="6" fill="#161c2c"/>
         <rect x="0" y="775" width="540" height="185" fill="url(#s2FloorGrad)"/>
 
-        <!-- Warm Candle Ambient Room Wash (Fades In When Candle Lights Up) -->
-        <circle id="s2RoomWarmWash" cx="122" cy="545" r="340" fill="url(#s2CandleGlow)" opacity="0"/>
+        <!-- Warm Candle Ambient Room Wash -->
+        <circle id="s2RoomWarmWash" cx="122" cy="545" r="350" fill="url(#s2CandleGlow)" opacity="0"/>
 
         <!-- BEDROOM WINDOW (Right Side — Showing Outside Bamboo Pole Tapping) -->
         <g transform="translate(335, 195)">
-          <!-- Window Frame -->
           <rect x="-10" y="-10" width="160" height="235" rx="3" fill="#181f30"/>
-          <!-- Outside Pre-Dawn Sky -->
           <rect x="0" y="0" width="140" height="215" fill="url(#s2OutsideSky)"/>
 
           <!-- Outside Bamboo Pole Reaching Up From Bottom-Right -->
           <g id="s2OutsidePole">
             <line x1="128" y1="225" x2="56" y2="128" stroke="var(--bamboo)" stroke-width="5.5" stroke-linecap="round"/>
             <line x1="127" y1="225" x2="55" y2="128" stroke="var(--bamboo-hi)" stroke-width="1.4" opacity="0.7" stroke-linecap="round"/>
-            <!-- Bamboo Node & Soft Tip -->
             <circle cx="92" cy="176" r="3" fill="#78350f"/>
             <circle cx="56" cy="128" r="3.8" fill="#fde68a"/>
           </g>
@@ -161,45 +157,38 @@
           <!-- Wooden Window Panes / Mullions -->
           <rect x="67" y="0" width="6" height="215" fill="#0d1018"/>
           <rect x="0" y="105" width="140" height="6" fill="#0d1018"/>
-          <!-- Stone/Wood Window Sill -->
+          <!-- Window Sill -->
           <rect x="-15" y="215" width="170" height="12" rx="2" fill="#212a3f"/>
 
-          <!-- Indoor Glass Tap Ripples (Hidden at 0.0s) -->
+          <!-- Indoor Glass Tap Ripples -->
           <circle id="s2Ripple1" cx="56" cy="128" r="3" fill="none" stroke="#fde68a" stroke-width="2" opacity="0"/>
           <circle id="s2Ripple2" cx="56" cy="128" r="3" fill="none" stroke="#93c5fd" stroke-width="1.5" opacity="0"/>
         </g>
 
-        <!-- Soft Pre-Dawn Light Cone Entering Room -->
-        <polygon points="335,205 475,205 310,775 95,775" fill="url(#s2WindowBeam)" pointer-events="none"/>
+        <!-- Full Window Light Beam Covering Entire Window Width (Top-Left to Bottom-Right Corner) -->
+        <polygon points="335,195 475,195 475,410 345,775 110,775 335,410" fill="url(#s2WindowBeam)" pointer-events="none"/>
 
         <!-- VINTAGE WOODEN NIGHTSTAND & CANDLE (Left Side) -->
         <g transform="translate(76, 588)">
-          <!-- Nightstand Shadow -->
           <ellipse cx="46" cy="190" rx="52" ry="6" fill="#020305" opacity="0.9"/>
-          <!-- Nightstand Legs & Cabinet -->
           <rect x="10" y="35" width="7" height="152" fill="#0c0a0d"/>
           <rect x="75" y="35" width="7" height="152" fill="#0c0a0d"/>
           <rect x="8" y="8" width="76" height="58" rx="2" fill="var(--wood)"/>
           <rect x="14" y="15" width="64" height="20" rx="1.5" fill="#211c20"/>
           <circle cx="46" cy="25" r="2.2" fill="#94a3b8"/>
-          <!-- Table Top -->
           <rect x="2" y="0" width="88" height="8" rx="2" fill="#262025"/>
 
           <!-- Brass Chamberstick Holder & Wax Candle -->
           <g transform="translate(46, 0)">
-            <!-- Brass Dish & Ring Handle -->
             <ellipse cx="0" cy="-1.5" rx="15" ry="3" fill="#b45309"/>
             <path d="M 13 -2 Q 21 -2 21 -8 Q 21 -13 14 -12" fill="none" stroke="#d97706" stroke-width="2"/>
-            <!-- Wax Candle Body -->
             <rect x="-4.5" y="-34" width="9" height="32" rx="1.5" fill="#e2e8f0"/>
-            <!-- Melted Wax Drip -->
             <path d="M -4.5 -32 Q -6 -24 -4.5 -20" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/>
-            <!-- Wick -->
             <line x1="0" y1="-34" x2="0" y2="-39" stroke="#090b10" stroke-width="1.5"/>
 
-            <!-- CANDLE FLAME & LOCAL HALO (Hidden Until Worker Lights It) -->
+            <!-- CANDLE FLAME & LOCAL HALO -->
             <g id="s2CandleFlameGroup" opacity="0" transform="translate(0, -45)">
-              <circle cx="0" cy="0" r="46" fill="url(#s2CandleGlow)"/>
+              <circle cx="0" cy="0" r="48" fill="url(#s2CandleGlow)"/>
               <path id="s2FlameShape" d="M 0 -11 C 5 -4, 5 4, 0 7 C -5 4, -5 -4, 0 -11 Z" fill="#f59e0b"/>
               <path d="M 0 -6 C 2.5 -2, 2.5 3, 0 5 C -2.5 3, -2.5 -2, 0 -6 Z" fill="#fef9c3"/>
             </g>
@@ -221,8 +210,8 @@
           <rect x="14" y="165" width="261" height="36" rx="6" fill="#1e2433"/>
           <path d="M 16 165 Q 52 142 88 166 Z" fill="#cbd5e1" opacity="0.88"/>
 
-          <!-- WORKER CHARACTER (Starts Lying Down Asleep, Sits Upright When Knocked) -->
-          <g id="s2SleeperPivot" transform="translate(86, 168)">
+          <!-- WORKER CHARACTER (Pivot Anchored Directly Inside Mattress at x=104, y=166) -->
+          <g id="s2SleeperPivot" transform="translate(104, 166)">
             <!-- Upper Torso (Extended Deep Beneath Blanket so Zero Clipping Occurs) -->
             <path d="M -14 -48 L 16 -48 L 22 28 L -18 28 Z" fill="var(--shirt)"/>
             <!-- Shirt Collar -->
@@ -235,7 +224,7 @@
             <g id="s2Head" transform="translate(2, -72)">
               <!-- Cool Window Rim (Right) -->
               <circle cx="1.6" cy="0" r="22" fill="var(--rim-cool)" opacity="0.45"/>
-              <!-- Warm Candle Rim (Left — Fades In When Candle Lights) -->
+              <!-- Warm Candle Rim (Left) -->
               <circle id="s2HeadWarmRim" cx="-1.8" cy="0" r="22" fill="var(--rim-warm)" opacity="0"/>
               <circle cx="0" cy="0" r="22" fill="var(--head)"/>
 
@@ -245,31 +234,31 @@
                 <path d="M 13 -2 Q 16 1.5 19 -2" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
               </g>
 
-              <!-- Awake Open Eyes (Crisp Off-White Dots) -->
+              <!-- Awake Open Eyes (Shifts Left When Reaching For Candle) -->
               <g id="s2EyesOpen" opacity="0">
-                <circle cx="8" cy="-2" r="2.2" fill="var(--face)"/>
-                <circle cx="16" cy="-2" r="2.2" fill="var(--face)"/>
+                <circle id="s2EyeL" cx="8" cy="-2" r="2.2" fill="var(--face)"/>
+                <circle id="s2EyeR" cx="16" cy="-2" r="2.2" fill="var(--face)"/>
               </g>
 
               <!-- Mouth -->
               <line id="s2Mouth" x1="9" y1="7" x2="15" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
             </g>
 
-            <!-- Front Arm (Reaches Left Toward Candle at 3.5s) -->
+            <!-- Front Arm (Reaches Left Toward Candle at 3.35s) -->
             <path id="s2ArmFront" d="M 2 -36 L 18 -14 L 34 -12" fill="none" stroke="var(--head)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
           </g>
 
-          <!-- Floating Sleeping "z Z Z" Indicators -->
+          <!-- Floating Sleeping "z Z Z" Indicators Above Pillow -->
           <g id="s2ZzzGroup" fill="#94a3b8" font-family="sans-serif" font-weight="700">
-            <text id="s2Z1" x="62" y="102" font-size="13" opacity="0">z</text>
-            <text id="s2Z2" x="74" y="84" font-size="16" opacity="0">Z</text>
-            <text id="s2Z3" x="90" y="64" font-size="19" opacity="0">Z</text>
+            <text id="s2Z1" x="34" y="132" font-size="13" opacity="0">z</text>
+            <text id="s2Z2" x="46" y="114" font-size="16" opacity="0">Z</text>
+            <text id="s2Z3" x="62" y="94" font-size="19" opacity="0">Z</text>
           </g>
 
           <!-- HEAVY WOOL BLANKET FOREGROUND LAYER (Covers Lower Torso Cleanly) -->
-          <path d="M 58 164 Q 165 152 275 166 L 275 202 L 58 202 Z" fill="var(--blanket)"/>
+          <path d="M 74 164 Q 175 152 275 166 L 275 202 L 74 202 Z" fill="var(--blanket)"/>
           <!-- Blanket Folded Cuff -->
-          <path d="M 54 162 Q 72 158 84 164 L 80 198 L 54 198 Z" fill="var(--blanket-fold)"/>
+          <path d="M 70 162 Q 88 158 100 164 L 96 198 L 70 198 Z" fill="var(--blanket-fold)"/>
 
           <!-- Wooden Bed Frame Rail -->
           <rect x="14" y="198" width="261" height="22" fill="#1c171d"/>
@@ -302,7 +291,6 @@
       }
     }
 
-    // Muffled Indoor Glass Tap (Heard From Inside Bedroom)
     function playIndoorGlassTap() {
       if (!soundEnabled) return;
       initAudio();
@@ -322,7 +310,6 @@
       });
     }
 
-    // Soft Wool Blanket / Bed Sheet Rustle
     function playBedRustle() {
       if (!soundEnabled) return;
       initAudio();
@@ -354,7 +341,6 @@
       noise.start(now);
     }
 
-    // Match Strike & Candle Spark Ignition Foley
     function playCandleSpark() {
       if (!soundEnabled) return;
       initAudio();
@@ -384,7 +370,6 @@
       gain.connect(audioCtx.destination);
       noise.start(now);
 
-      // Warm Soft Flame Bloom Tone
       const osc = audioCtx.createOscillator();
       const oscGain = audioCtx.createGain();
       osc.type = 'sine';
@@ -418,16 +403,19 @@
     function playScene2() {
       if (sceneTl) sceneTl.kill();
 
-      // Clean Reset to 0.0s
+      // Clean Reset to 0.0s (Using transformOrigin so character stays anchored inside bed)
       gsap.set('#s2Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s2SleeperPivot', { rotation: -78, svgOrigin: '0 0' });
-      gsap.set('#s2Head', { rotation: 14, svgOrigin: '2 -72' });
+      gsap.set('#s2SleeperPivot', { rotation: -76, transformOrigin: '0px 0px' });
+      gsap.set('#s2Head', { rotation: 16, transformOrigin: '0px 22px' });
       gsap.set('#s2EyesClosed', { opacity: 1 });
       gsap.set('#s2EyesOpen', { opacity: 0 });
+      gsap.set('#s2EyeL', { attr: { cx: 8 } });
+      gsap.set('#s2EyeR', { attr: { cx: 16 } });
+      gsap.set('#s2Mouth', { attr: { x1: 9, x2: 15 } });
       gsap.set('#s2HeadWarmRim', { opacity: 0 });
-      gsap.set('#s2OutsidePole', { rotation: -7, svgOrigin: '128 225' });
+      gsap.set('#s2OutsidePole', { rotation: -7, transformOrigin: '128px 225px', opacity: 1 });
       gsap.set('#s2ArmFront', { attr: { d: 'M 2 -36 L 18 -14 L 34 -12' } });
-      gsap.set('#s2CandleFlameGroup', { opacity: 0, scale: 0.4, svgOrigin: '0 0' });
+      gsap.set('#s2CandleFlameGroup', { opacity: 0, scale: 0.4, transformOrigin: '0px 0px' });
       gsap.set('#s2RoomWarmWash', { opacity: 0 });
       gsap.set(['#s2Ripple1', '#s2Ripple2'], { opacity: 0, attr: { r: 3 } });
       gsap.set(['#s2Z1', '#s2Z2', '#s2Z3'], { opacity: 0, y: 0 });
@@ -437,7 +425,7 @@
       // Gentle camera drift
       sceneTl.to('#s2Camera', {
         scale: 1.06,
-        svgOrigin: '260 470',
+        transformOrigin: '260px 470px',
         duration: 6.0,
         ease: 'power1.inOut'
       }, 0);
@@ -468,7 +456,7 @@
         }, t + 0.02);
       });
 
-      // 1.75s: Startled awake — z Z Z vanishes, eyes open, sits upright
+      // 1.75s: Startled awake — z Z Z vanishes, eyes open, sits upright in bed
       sceneTl.to(['#s2Z1', '#s2Z2', '#s2Z3'], { opacity: 0, duration: 0.2 }, 1.72);
       sceneTl.set('#s2EyesClosed', { opacity: 0 }, 1.78);
       sceneTl.set('#s2EyesOpen', { opacity: 1 }, 1.78);
@@ -477,7 +465,7 @@
       sceneTl.to('#s2SleeperPivot', {
         rotation: 0,
         duration: 0.72,
-        ease: 'back.out(1.2)'
+        ease: 'back.out(1.15)'
       }, 1.8);
 
       sceneTl.to('#s2Head', {
@@ -486,7 +474,7 @@
         ease: 'power2.out'
       }, 1.85);
 
-      // 2.65s: Outside bamboo pole lowers away after seeing him wake up
+      // 2.65s: Outside bamboo pole lowers away
       sceneTl.to('#s2OutsidePole', {
         rotation: -28,
         opacity: 0.25,
@@ -494,16 +482,14 @@
         ease: 'power2.in'
       }, 2.65);
 
-      // 3.2s: Turns head left toward nightstand and reaches out to light candle
-      sceneTl.to('#s2Head', {
-        scaleX: -1,
-        svgOrigin: '2 -72',
-        duration: 0.28,
-        ease: 'power1.inOut'
-      }, 3.2);
+      // 3.15s: Looks left toward the nightstand & reaches hand out to light candle
+      sceneTl.to('#s2Head', { rotation: -12, duration: 0.35, ease: 'power2.out' }, 3.15);
+      sceneTl.to('#s2EyeL', { attr: { cx: -16 }, duration: 0.28, ease: 'power2.out' }, 3.15);
+      sceneTl.to('#s2EyeR', { attr: { cx: -8 }, duration: 0.28, ease: 'power2.out' }, 3.15);
+      sceneTl.to('#s2Mouth', { attr: { x1: -15, x2: -9 }, duration: 0.28, ease: 'power2.out' }, 3.15);
 
       sceneTl.to('#s2ArmFront', {
-        attr: { d: 'M -2 -36 L -28 -32 L -56 -22' },
+        attr: { d: 'M -2 -36 L -38 -36 L -74 -28' },
         duration: 0.45,
         ease: 'power2.out'
       }, 3.35);
@@ -537,11 +523,13 @@
         ease: 'power2.inOut'
       }, 4.35);
 
+      sceneTl.to('#s2Head', { rotation: -5, duration: 0.5, ease: 'power1.inOut' }, 4.35);
+
       sceneTl.to('#s2FlameShape', {
         scaleX: 0.88,
         scaleY: 1.08,
         rotation: 3,
-        svgOrigin: '0 0',
+        transformOrigin: '0px 0px',
         duration: 0.35,
         yoyo: true,
         repeat: 4,
