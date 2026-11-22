@@ -3,21 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Knocker-Uppers Scene 3: The Comedy Twist (6.0s + Foley SFX)</title>
+  <title>Zenspiris — Knocker-Uppers Scene 4: The Modern Snooze Loop (6.0s + Foley SFX)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
       --head: #0d0b12;
       --face: #f2ede2;
-      --rim: #fcd34d;
-      --coat: #1e2330;
-      --coat-dark: #141822;
-      --scarf-red: #b91c1c;
-      --scarf-red-hi: #dc2626;
-      --scarf-green: #15803d;
-      --scarf-green-hi: #22c55e;
-      --bamboo: #b45309;
-      --bamboo-hi: #f59e0b;
+      --rim-cool: #60a5fa;
+      --rim-alarm: #38bdf8;
+      --shirt: #2d3748;
+      --blanket: #1e293b;
+      --blanket-fold: #334155;
+      --wood: #151720;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,7 +52,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(3, 4, 8, 0.92) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 36%, rgba(3, 4, 8, 0.92) 100%);
       z-index: 10;
     }
 
@@ -104,256 +101,164 @@
   <div class="stage-wrapper">
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <!-- Deep Pre-Dawn Sky -->
-        <linearGradient id="s3SkyGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#04060c"/>
-          <stop offset="65%" stop-color="#0b101d"/>
-          <stop offset="100%" stop-color="#131b2e"/>
+        <!-- Modern Pre-Dawn Bedroom Wall -->
+        <linearGradient id="s4WallGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#06080f"/>
+          <stop offset="65%" stop-color="#0b101b"/>
+          <stop offset="100%" stop-color="#111726"/>
         </linearGradient>
 
-        <!-- Pale Moon Halo -->
-        <radialGradient id="s3MoonHalo" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#cbd5e1" stop-opacity="0.16"/>
-          <stop offset="100%" stop-color="#cbd5e1" stop-opacity="0"/>
+        <!-- Early Dawn Sky Outside Modern Window -->
+        <linearGradient id="s4OutsideSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0d1629"/>
+          <stop offset="100%" stop-color="#1e2d4a"/>
+        </linearGradient>
+
+        <!-- Diagonal Dawn Window Beam -->
+        <linearGradient id="s4WindowBeam" x1="0.8" y1="0" x2="0.2" y2="1">
+          <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.14"/>
+          <stop offset="55%" stop-color="#60a5fa" stop-opacity="0.05"/>
+          <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+        </linearGradient>
+
+        <!-- Smartphone Screen Alarm Glow -->
+        <radialGradient id="s4PhoneGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#bae6fd" stop-opacity="0.9"/>
+          <stop offset="32%" stop-color="#38bdf8" stop-opacity="0.42"/>
+          <stop offset="70%" stop-color="#0284c7" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Classic Gas Streetlamp Glow -->
-        <radialGradient id="s3GasGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.72"/>
-          <stop offset="32%" stop-color="#f59e0b" stop-opacity="0.26"/>
-          <stop offset="70%" stop-color="#d97706" stop-opacity="0.08"/>
-          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
-        </radialGradient>
-
-        <!-- Warm Interior Candle Glow (Seen Through Window Panes) -->
-        <radialGradient id="s3RoomCandle" cx="50%" cy="62%" r="60%">
-          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.9"/>
-          <stop offset="45%" stop-color="#f59e0b" stop-opacity="0.45"/>
-          <stop offset="100%" stop-color="#d97706" stop-opacity="0.08"/>
-        </radialGradient>
-
-        <!-- Cobblestone Ground -->
-        <linearGradient id="s3GroundGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#10131c"/>
+        <!-- Modern Floor -->
+        <linearGradient id="s4FloorGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0b0d14"/>
           <stop offset="100%" stop-color="#050609"/>
         </linearGradient>
       </defs>
 
       <!-- Camera Group -->
-      <g id="s3Camera">
-        <!-- Night Sky -->
-        <rect width="540" height="790" fill="url(#s3SkyGrad)"/>
+      <g id="s4Camera">
+        <!-- Bedroom Wall & Floor (Floor line at y=775) -->
+        <rect width="540" height="775" fill="url(#s4WallGrad)"/>
+        <rect x="0" y="575" width="540" height="4" fill="#131927"/>
+        <rect x="0" y="775" width="540" height="185" fill="url(#s4FloorGrad)"/>
 
-        <!-- Subtle Pale Moon -->
-        <circle cx="96" cy="145" r="52" fill="url(#s3MoonHalo)"/>
-        <circle cx="96" cy="145" r="13" fill="#475569" opacity="0.45"/>
+        <!-- Smartphone Ambient Blue Screen Wash -->
+        <circle id="s4RoomScreenWash" cx="152" cy="675" r="310" fill="url(#s4PhoneGlow)" opacity="0"/>
 
-        <!-- Distant Victorian Rooftops -->
-        <path d="M 0 565 L 0 435 L 55 415 L 55 390 L 72 390 L 72 410 L 155 392 L 220 425 L 220 565 Z" fill="#0d111b"/>
-
-        <!-- KNOCKER-UPPER #1'S COTTAGE FACADE (Right Side) -->
-        <rect x="235" y="185" width="305" height="605" fill="#0c0f18"/>
-        <rect x="225" y="178" width="315" height="14" rx="2" fill="#151a28"/>
-        <line x1="255" y1="265" x2="310" y2="265" stroke="#151b29" stroke-width="2"/>
-        <line x1="465" y1="310" x2="525" y2="310" stroke="#151b29" stroke-width="2"/>
-
-        <!-- Upstairs Dark Attic Window -->
-        <g transform="translate(325, 240)">
-          <rect x="-8" y="-8" width="136" height="145" rx="3" fill="#151b29"/>
-          <rect x="0" y="0" width="120" height="129" fill="#090d16"/>
-          <rect x="57" y="0" width="6" height="129" fill="#06080d"/>
-          <rect x="0" y="62" width="120" height="5" fill="#06080d"/>
-          <rect x="-12" y="129" width="144" height="10" rx="2" fill="#1b2233"/>
-        </g>
-
-        <!-- KNOCKER-UPPER #1'S BEDROOM WINDOW (Clean Glass — Lights Up With Warm Candle Glow When Tapped) -->
-        <g transform="translate(262, 475)">
-          <rect x="-8" y="-8" width="132" height="166" rx="3" fill="#182032"/>
-          <!-- Dark Bedroom Glass -->
-          <rect x="0" y="0" width="116" height="150" fill="#0a0e18"/>
-          <!-- Warm Candlelight Glow Inside Window (Fades In After Glass Tap) -->
-          <rect id="s3IndoorLight" x="0" y="0" width="116" height="150" fill="url(#s3RoomCandle)" opacity="0"/>
-
+        <!-- MODERN BEDROOM WINDOW (Clean Glass — No Bamboo Pole!) -->
+        <g transform="translate(332, 340)">
+          <rect x="-8" y="-8" width="148" height="206" rx="4" fill="#161d2e"/>
+          <rect x="0" y="0" width="132" height="190" fill="url(#s4OutsideSky)"/>
           <!-- Subtle Glass Reflection -->
-          <polygon points="12,0 34,0 8,95 0,95" fill="#94a3b8" opacity="0.06"/>
-
-          <!-- Window Mullions & Sill -->
-          <rect x="55" y="0" width="6" height="150" fill="#07090e"/>
-          <rect x="0" y="72" width="116" height="6" fill="#07090e"/>
-          <rect x="-12" y="150" width="140" height="11" rx="2" fill="#20293d"/>
-
-          <!-- Glass Tap Ripples -->
-          <circle id="s3Ripple1" cx="34" cy="96" r="3" fill="none" stroke="#fde68a" stroke-width="2" opacity="0"/>
-          <circle id="s3Ripple2" cx="34" cy="96" r="3" fill="none" stroke="#fcd34d" stroke-width="1.5" opacity="0"/>
+          <polygon points="14,0 42,0 10,115 0,115" fill="#94a3b8" opacity="0.06"/>
+          <!-- Sleek Modern Center Mullion & Sill -->
+          <rect x="64" y="0" width="4" height="190" fill="#0d111a"/>
+          <rect x="-12" y="190" width="156" height="10" rx="2" fill="#1e263b"/>
         </g>
 
-        <!-- FRONT DOOR OF COTTAGE (Right Side, x=412) -->
-        <g transform="translate(412, 548)">
-          <rect x="-6" y="-6" width="96" height="248" rx="2" fill="#161c2b"/>
-          <rect id="s3DoorPanel" x="0" y="0" width="84" height="242" fill="#080a10"/>
-          <!-- Warm Interior Light Spill When Door Opens -->
-          <rect id="s3DoorGlow" x="0" y="0" width="84" height="242" fill="#f59e0b" opacity="0"/>
-          <!-- Brass Doorknob -->
-          <circle cx="14" cy="128" r="3.5" fill="#d97706"/>
-        </g>
+        <!-- Diagonal Pre-Dawn Window Light Beam -->
+        <polygon points="332,340 464,340 464,530 355,775 155,775 332,530" fill="url(#s4WindowBeam)" pointer-events="none"/>
 
-        <!-- KNOCKER-UPPER #1'S OWN BAMBOO POLE LEANING BY HIS FRONT DOOR -->
-        <g id="s3LeaningPole" transform="translate(502, 790)">
-          <line x1="0" y1="0" x2="-18" y2="-335" stroke="var(--bamboo)" stroke-width="4.2" stroke-linecap="round"/>
-          <line x1="-1" y1="0" x2="-19" y2="-335" stroke="var(--bamboo-hi)" stroke-width="1.1" opacity="0.65" stroke-linecap="round"/>
-          <circle cx="-6" cy="-110" r="2.3" fill="#78350f"/>
-          <circle cx="-12" cy="-225" r="2.3" fill="#78350f"/>
-          <circle cx="-18" cy="-335" r="3.2" fill="#fde68a"/>
-        </g>
+        <!-- LOW MODERN BEDSIDE CABINET & SMARTPHONE (Floor y=775) -->
+        <g transform="translate(116, 709)">
+          <ellipse cx="36" cy="68" rx="42" ry="4.5" fill="#020305" opacity="0.9"/>
+          <!-- Short Stubby Feet -->
+          <rect x="9" y="54" width="6" height="12" rx="1" fill="#0a0c12"/>
+          <rect x="57" y="54" width="6" height="12" rx="1" fill="#0a0c12"/>
+          <!-- Sleek Minimalist Nightstand -->
+          <rect x="5" y="6" width="62" height="50" rx="3" fill="var(--wood)"/>
+          <rect x="10" y="12" width="52" height="16" rx="2" fill="#1c202d"/>
+          <rect x="30" y="19" width="12" height="2" rx="1" fill="#64748b"/>
+          <rect x="10" y="32" width="52" height="18" rx="2" fill="#1c202d"/>
+          <rect x="30" y="40" width="12" height="2" rx="1" fill="#64748b"/>
+          <!-- Top Surface -->
+          <rect x="2" y="0" width="68" height="6.5" rx="2" fill="#222736"/>
 
-        <!-- Cobblestone Street -->
-        <rect x="0" y="790" width="540" height="170" fill="url(#s3GroundGrad)"/>
-        <ellipse cx="95" cy="793" rx="68" ry="6" fill="#f59e0b" opacity="0.08"/>
-        <ellipse cx="245" cy="798" rx="34" ry="4.5" fill="#151926"/>
+          <!-- POCKET-SIZED GLASS SMARTPHONE ON NIGHTSTAND -->
+          <g id="s4PhoneGroup" transform="translate(36, -3)">
+            <!-- Ambient Screen Glow Halo -->
+            <circle id="s4PhoneHalo" cx="0" cy="-6" r="46" fill="url(#s4PhoneGlow)" opacity="0"/>
 
-        <!-- CLASSIC VICTORIAN GAS STREETLAMP (Clearly Visible Post & Base) -->
-        <g transform="translate(68, 365)">
-          <circle cx="0" cy="24" r="135" fill="url(#s3GasGlow)"/>
-          <ellipse cx="0" cy="426" rx="22" ry="4.5" fill="#020305" opacity="0.95"/>
-          <path d="M -14 425 L 14 425 L 10 385 L -10 385 Z" fill="#050609"/>
-          <rect x="-15" y="421" width="30" height="5" rx="2" fill="#050609"/>
-          <rect x="-6.5" y="340" width="13" height="48" rx="2" fill="#050609"/>
-          <rect x="-9" y="338" width="18" height="4" rx="1.5" fill="#141824"/>
-          <rect x="-4" y="42" width="8" height="298" fill="#050609"/>
-          <line x1="-2.2" y1="45" x2="-2.2" y2="338" stroke="#fcd34d" stroke-width="1.1" opacity="0.32"/>
-          <line x1="2.2" y1="45" x2="2.2" y2="338" stroke="#475569" stroke-width="0.9" opacity="0.38"/>
-          <rect x="-15" y="52" width="30" height="3.5" rx="1.5" fill="#050609"/>
-          <rect x="-11" y="40" width="22" height="4.5" rx="1.5" fill="#050609"/>
-          <polygon points="-9,40 9,40 13,12 -13,12" fill="#fef9c3" stroke="#050609" stroke-width="2.5"/>
-          <line x1="-3.5" y1="40" x2="-4.5" y2="12" stroke="#050609" stroke-width="1.6"/>
-          <line x1="3.5" y1="40" x2="4.5" y2="12" stroke="#050609" stroke-width="1.6"/>
-          <polygon points="-16,12 16,12 10,4 -10,4" fill="#050609"/>
-          <polygon points="-9,4 9,4 0,-6" fill="#050609"/>
-          <circle cx="0" cy="-8" r="2.2" fill="#050609"/>
-        </g>
+            <!-- Expanding Alarm Soundwave Rings -->
+            <circle id="s4Wave1" cx="0" cy="-8" r="6" fill="none" stroke="#7dd3fc" stroke-width="2" opacity="0"/>
+            <circle id="s4Wave2" cx="0" cy="-8" r="6" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0"/>
 
-        <!-- KNOCKER-UPPER #1 (MAIN HERO — Red Scarf & Flat Cap, Steps Out Front Door at 3.85s) -->
-        <g id="s3Knocker1" transform="translate(432, 595)" opacity="0">
-          <ellipse cx="12" cy="196" rx="36" ry="6.5" fill="#030407" opacity="0.9"/>
-
-          <!-- Legs -->
-          <g id="s3K1LegBack">
-            <path d="M 8 118 L 6 156 L 4 192" fill="none" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M -11 192 L 9 192 L 9 196 L -15 196 Q -15 192 -11 192 Z" fill="#08070c"/>
-          </g>
-          <g id="s3K1LegFront">
-            <path d="M 16 118 L 18 156 L 20 192" fill="none" stroke="var(--head)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M 5 192 L 25 192 L 25 196 L 1 196 Q 1 192 5 192 Z" fill="var(--head)"/>
-          </g>
-
-          <!-- Torso Facing Left Toward the Early Knocker-Upper -->
-          <g id="s3K1Torso">
-            <path d="M -1 33 L 27 33 L 35 142 L -9 142 Z" fill="var(--rim)" opacity="0.45"/>
-            <path d="M -1 33 L 25 33 L 33 142 L -9 142 Z" fill="var(--coat)"/>
-            <line x1="7" y1="45" x2="3" y2="140" stroke="var(--coat-dark)" stroke-width="1.5"/>
-            <circle cx="4" cy="64" r="1.6" fill="#475569"/>
-            <circle cx="3" cy="82" r="1.6" fill="#475569"/>
-
-            <!-- RED SCARF (Trailing Right) -->
-            <path d="M 22 39 Q 32 47 40 38 L 38 46 Q 29 54 19 45 Z" fill="var(--scarf-red)"/>
-            <path d="M -1 30 Q 12 36 26 30 L 25 38 Q 12 43 -1 38 Z" fill="var(--scarf-red)"/>
-            <path d="M 0 31 Q 12 36 24 31" fill="none" stroke="var(--scarf-red-hi)" stroke-width="1.5"/>
-
-            <!-- Zenspiris Signature Head (r=22, Looking Left at Knocker-Upper #2) -->
-            <g transform="translate(11, 9)">
-              <circle cx="1.6" cy="0" r="22" fill="var(--rim)" opacity="0.5"/>
-              <circle cx="0" cy="0" r="22" fill="var(--head)"/>
-
-              <!-- Flat Cap Facing Left -->
-              <g transform="rotate(6)">
-                <path d="M -22 -12 C -19 -26, 21 -25, 21 -11 Z" fill="var(--rim)" opacity="0.45"/>
-                <path d="M -22 -12 C -19 -25, 20 -24, 20 -11 Z" fill="#252b3b"/>
-                <path d="M 20 -11 L -22 -12 L -32 -8 Q -22 -5 -12 -8 L 20 -8 Z" fill="#141822"/>
-              </g>
-
-              <!-- Deadpan Stare Eyes Looking Left -->
-              <circle cx="-16" cy="-2" r="2.1" fill="var(--face)"/>
-              <circle cx="-9.5" cy="-2" r="2.1" fill="var(--face)"/>
-              <line x1="-15" y1="7" x2="-9.5" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
-            </g>
-
-            <!-- Arm Holding His Bamboo Pole Upright -->
-            <path d="M 8 46 L -6 62 L -14 48" fill="none" stroke="var(--coat)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="-14" cy="48" r="4" fill="var(--head)"/>
+            <!-- Angled Phone Stand / Slim Bezel Resting on Table -->
+            <rect x="-11" y="-16" width="22" height="15" rx="3" fill="#090b10" stroke="#334155" stroke-width="1.2"/>
+            <!-- Glowing Glass Screen -->
+            <rect id="s4PhoneScreen" x="-9" y="-14" width="18" height="11" rx="2" fill="#1e293b"/>
+            <!-- Minimalist Alarm Bell Icon Bars (No Text Clutter) -->
+            <circle id="s4AlarmDot" cx="0" cy="-8.5" r="2.2" fill="#38bdf8" opacity="0"/>
           </g>
         </g>
 
-        <!-- KNOCKER-UPPER #2 (THE EARLY-BIRD KNOCKER — Green Scarf, Clean Walking Legs Fixed!) -->
-        <g id="s3Knocker2" transform="translate(95, 583)">
-          <!-- Ground Shadow -->
-          <ellipse cx="12" cy="208" rx="38" ry="6.5" fill="#030407" opacity="0.9"/>
+        <!-- LOW-PROFILE MODERN BED & SLEEPER RIG (Floor y=775) -->
+        <g transform="translate(202, 575)">
+          <ellipse cx="110" cy="202" rx="122" ry="6.5" fill="#020305" opacity="0.95"/>
 
-          <!-- Straight, Grounded Legs Pivoting Smoothly From Inside Coat (y=124) -->
-          <g transform="translate(10, 124)">
-            <g id="s3K2LegBack">
-              <path d="M 0 0 L 0 42 L 0 80" fill="none" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M -5 80 L 14 80 Q 18 80 18 84 L -5 84 Z" fill="#08070c"/>
-            </g>
-          </g>
-          <g transform="translate(15, 124)">
-            <g id="s3K2LegFront">
-              <path d="M 0 0 L 0 42 L 0 80" fill="none" stroke="var(--head)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M -5 80 L 15 80 Q 19 80 19 84 L -5 84 Z" fill="var(--head)"/>
-            </g>
-          </g>
+          <!-- Low Modern Headboard & Frame -->
+          <rect x="0" y="76" width="11" height="124" rx="2.5" fill="#131620"/>
+          <rect x="210" y="118" width="10" height="82" rx="2.5" fill="#131620"/>
 
-          <!-- Upper Torso, Long Trench Coat & Emerald Green Scarf -->
-          <g id="s3K2Torso">
-            <path d="M -3 33 L 25 33 L 34 150 L -11 150 Z" fill="var(--rim)" opacity="0.52"/>
-            <path d="M -1 33 L 25 33 L 34 150 L -9 150 Z" fill="#18222f"/>
-            <line x1="17" y1="45" x2="21" y2="148" stroke="#0f151e" stroke-width="1.5"/>
-            <circle cx="20" cy="64" r="1.6" fill="#64748b"/>
-            <circle cx="21" cy="84" r="1.6" fill="#64748b"/>
-            <circle cx="22" cy="104" r="1.6" fill="#64748b"/>
+          <!-- Mattress & Fluffed Pillow -->
+          <rect x="11" y="144" width="199" height="26" rx="4" fill="#1e2433"/>
+          <path d="M 14 144 Q 48 125 82 145 Z" fill="#cbd5e1" opacity="0.88"/>
 
-            <!-- EMERALD GREEN SCARF -->
-            <path d="M -16 39 Q -6 47 2 38 L 0 46 Q -9 54 -19 45 Z" fill="var(--scarf-green)"/>
-            <path d="M -2 30 Q 12 36 25 30 L 24 38 Q 12 43 -2 38 Z" fill="var(--scarf-green)"/>
-            <path d="M 0 31 Q 12 36 24 31" fill="none" stroke="var(--scarf-green-hi)" stroke-width="1.5"/>
+          <!-- CHARACTER ANCHORED INSIDE MATTRESS -->
+          <g transform="translate(98, 146)">
+            <g id="s4SleeperPivot" transform="rotate(-74)">
+              <!-- Far Arm Tucked Behind Torso -->
+              <path d="M -6 -32 L -10 -12" fill="none" stroke="#18202c" stroke-width="6.5" stroke-linecap="round"/>
 
-            <!-- Back Support Arm -->
-            <path d="M 10 46 L 26 62 L 42 54" fill="none" stroke="#111822" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Upper Torso -->
+              <path d="M -13 -44 L 14 -44 L 18 24 L -16 24 Z" fill="var(--shirt)"/>
+              <path d="M -7 -44 Q 0.5 -36 8 -44" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
 
-            <!-- Zenspiris Signature Head (r=22) + Classic Victorian Bowler Hat -->
-            <g transform="translate(13, 9)">
-              <g id="s3K2Head">
-                <circle cx="-1.6" cy="0" r="22" fill="var(--rim)" opacity="0.58"/>
-                <circle cx="0" cy="0" r="22" fill="var(--head)"/>
+              <!-- Zenspiris Signature Head (Exact r=22) -->
+              <g transform="translate(1, -67)">
+                <g id="s4Head" transform="rotate(14)">
+                  <!-- Cool Window Rim (Right) -->
+                  <circle cx="1.6" cy="0" r="22" fill="var(--rim-cool)" opacity="0.45"/>
+                  <!-- Phone Screen Blue Rim (Left — Lights Up When Alarm Rings) -->
+                  <circle id="s4HeadPhoneRim" cx="-1.8" cy="0" r="22" fill="var(--rim-alarm)" opacity="0"/>
+                  <circle cx="0" cy="0" r="22" fill="var(--head)"/>
 
-                <!-- Tall Bowler Hat -->
-                <g transform="rotate(-5)">
-                  <path d="M -17 -12 C -17 -32, 17 -32, 17 -12 Z" fill="var(--rim)" opacity="0.45"/>
-                  <path d="M -16 -12 C -16 -31, 17 -31, 17 -12 Z" fill="#1e2536"/>
-                  <rect x="-24" y="-13" width="48" height="4.5" rx="2.2" fill="#0e121b"/>
+                  <!-- Sleeping Closed Eyes (Downward Curved ◡ ◡) -->
+                  <g id="s4EyesClosed">
+                    <path d="M 5 -2 Q 8 1.5 11 -2" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+                    <path d="M 13 -2 Q 16 1.5 19 -2" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- Groggy Half-Open Eyes (Looking Left at Phone) -->
+                  <g id="s4EyesGroggy" opacity="0">
+                    <line x1="-18" y1="-2" x2="-13" y2="-2" stroke="var(--face)" stroke-width="2.1" stroke-linecap="round"/>
+                    <line x1="-10" y1="-2" x2="-5" y2="-2" stroke="var(--face)" stroke-width="2.1" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- Mouth -->
+                  <line id="s4Mouth" x1="9" y1="7" x2="15" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
                 </g>
-
-                <!-- Crisp Off-White Eyes -->
-                <circle cx="11" cy="-2" r="2.1" fill="var(--face)"/>
-                <circle cx="17.5" cy="-2" r="2.1" fill="var(--face)"/>
-                <line x1="12" y1="7" x2="17" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
               </g>
-            </g>
 
-            <!-- BAMBOO POLE & FRONT TAPPING ARM -->
-            <g transform="translate(34, 56)">
-              <g id="s3K2PoleRig">
-                <line x1="-18" y1="36" x2="90" y2="-68" stroke="var(--bamboo)" stroke-width="4.2" stroke-linecap="round"/>
-                <line x1="-19" y1="36" x2="89" y2="-68" stroke="var(--bamboo-hi)" stroke-width="1.1" opacity="0.65" stroke-linecap="round"/>
-                <circle cx="18" cy="1" r="2.4" fill="#78350f"/>
-                <circle cx="54" cy="-34" r="2.4" fill="#78350f"/>
-                <circle cx="90" cy="-68" r="3.2" fill="#fde68a"/>
-
-                <!-- Front Coat Sleeve & Hand Gripping Pole -->
-                <path d="M -18 -12 L 0 0 L 10 -18" fill="none" stroke="#18222f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="10" cy="-18" r="4.2" fill="var(--head)"/>
-              </g>
+              <!-- Single Clean Foreground Arm (Reaches Left to Hit Snooze on Phone) -->
+              <path id="s4ArmFront" d="M 1 -32 L 13 -13 L 26 -10" fill="none" stroke="var(--head)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
             </g>
           </g>
+
+          <!-- Floating Sleeping "z Z Z" Indicators Above Pillow -->
+          <g id="s4ZzzGroup" fill="#94a3b8" font-family="sans-serif" font-weight="700">
+            <text id="s4Z1" x="42" y="114" font-size="13" opacity="0">z</text>
+            <text id="s4Z2" x="54" y="96" font-size="16" opacity="0">Z</text>
+            <text id="s4Z3" x="68" y="76" font-size="19" opacity="0">Z</text>
+          </g>
+
+          <!-- HEAVY BLANKET FOREGROUND LAYER -->
+          <path d="M 74 143 Q 142 134 210 145 L 210 170 L 74 170 Z" fill="var(--blanket)"/>
+          <path d="M 70 141 Q 86 138 95 143 L 92 168 L 70 168 Z" fill="var(--blanket-fold)"/>
+
+          <!-- Low Bed Frame Rail -->
+          <rect x="11" y="168" width="199" height="16" fill="#181c28"/>
         </g>
       </g>
     </svg>
@@ -383,10 +288,66 @@
       }
     }
 
-    function playNightWind(duration = 5.8) {
+    // Modern Smartphone Digital Marimba/Chime + Buzz Foley
+    function playPhoneAlarmPulse() {
       if (!soundEnabled) return;
       initAudio();
       const now = audioCtx.currentTime;
+
+      // Two-note gentle digital chime (E5 -> B5)
+      [659.25, 987.77].forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        const start = now + idx * 0.11;
+        osc.frequency.setValueAtTime(freq, start);
+        gain.gain.setValueAtTime(0.001, start);
+        gain.gain.linearRampToValueAtTime(0.09, start + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.24);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(start);
+        osc.stop(start + 0.26);
+      });
+
+      // Subtle table vibration hum
+      const buzz = audioCtx.createOscillator();
+      const buzzGain = audioCtx.createGain();
+      buzz.type = 'triangle';
+      buzz.frequency.setValueAtTime(145, now);
+      buzzGain.gain.setValueAtTime(0.001, now);
+      buzzGain.gain.linearRampToValueAtTime(0.055, now + 0.02);
+      buzzGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      buzz.connect(buzzGain);
+      buzzGain.connect(audioCtx.destination);
+      buzz.start(now);
+      buzz.stop(now + 0.24);
+    }
+
+    // Crisp Glass Screen Tap (Snooze Button)
+    function playSnoozeTap() {
+      if (!soundEnabled) return;
+      initAudio();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1150, now);
+      osc.frequency.exponentialRampToValueAtTime(520, now + 0.055);
+      gain.gain.setValueAtTime(0.14, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.065);
+    }
+
+    // Soft Pillow Flop Sound
+    function playPillowFlop() {
+      if (!soundEnabled) return;
+      initAudio();
+      const now = audioCtx.currentTime;
+      const duration = 0.35;
       const bufferSize = Math.floor(audioCtx.sampleRate * duration);
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
@@ -398,15 +359,13 @@
       noise.buffer = buffer;
 
       const filter = audioCtx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(250, now);
-      filter.frequency.linearRampToValueAtTime(320, now + duration * 0.5);
-      filter.Q.setValueAtTime(2.6, now);
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(480, now);
 
       const gain = audioCtx.createGain();
       gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.028, now + 0.8);
-      gain.gain.linearRampToValueAtTime(0.001, now + duration);
+      gain.gain.linearRampToValueAtTime(0.08, now + 0.06);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
       noise.connect(filter);
       filter.connect(gain);
@@ -414,115 +373,66 @@
       noise.start(now);
     }
 
-    function playCobblestoneStep() {
-      if (!soundEnabled) return;
-      initAudio();
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(130, now);
-      osc.frequency.exponentialRampToValueAtTime(46, now + 0.08);
-      gain.gain.setValueAtTime(0.11, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.095);
-    }
-
-    function playGlassTap() {
-      if (!soundEnabled) return;
-      initAudio();
-      const now = audioCtx.currentTime;
-      [1960, 3380].forEach((freq, i) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = i === 0 ? 'sine' : 'triangle';
-        osc.frequency.setValueAtTime(freq, now);
-        osc.frequency.exponentialRampToValueAtTime(freq * 0.82, now + 0.075);
-        gain.gain.setValueAtTime(i === 0 ? 0.16 : 0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.085);
-      });
-    }
-
-    function playDoorCreakOpen() {
-      if (!soundEnabled) return;
-      initAudio();
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(185, now);
-      osc.frequency.linearRampToValueAtTime(235, now + 0.18);
-      osc.frequency.linearRampToValueAtTime(165, now + 0.35);
-
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(520, now);
-      filter.Q.setValueAtTime(4, now);
-
-      gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.045, now + 0.06);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
-
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.38);
-    }
-
     let sceneTl = null;
+    const pivotEl = document.getElementById('s4SleeperPivot');
+    const headEl = document.getElementById('s4Head');
     const replayBtn = document.getElementById('replayBtn');
-    const legFrontEl = document.getElementById('s3K2LegFront');
-    const legBackEl = document.getElementById('s3K2LegBack');
-    const headK2El = document.getElementById('s3K2Head');
-    const poleK2El = document.getElementById('s3K2PoleRig');
 
-    function resetScene3ToStart() {
+    function resetScene4ToStart() {
       if (sceneTl) {
         sceneTl.kill();
         sceneTl = null;
       }
-      gsap.set('#s3Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s3Knocker2', { x: 95, y: 583 });
-      gsap.set('#s3K2Torso', { y: 0 });
-      legFrontEl.setAttribute('transform', 'rotate(0)');
-      legBackEl.setAttribute('transform', 'rotate(0)');
-      headK2El.setAttribute('transform', 'rotate(-4)');
-      poleK2El.setAttribute('transform', 'rotate(-12)');
+      pivotEl.setAttribute('transform', 'rotate(-74)');
+      headEl.setAttribute('transform', 'rotate(14)');
+      gsap.set('#s4Camera', { scale: 1, x: 0, y: 0 });
+      gsap.set('#s4EyesClosed', { opacity: 1 });
+      gsap.set('#s4EyesGroggy', { opacity: 0 });
+      gsap.set('#s4Mouth', { attr: { x1: 9, y1: 7, x2: 15, y2: 7 } });
+      gsap.set('#s4HeadPhoneRim', { opacity: 0 });
+      gsap.set('#s4ArmFront', { attr: { d: 'M 1 -32 L 13 -13 L 26 -10' } });
 
-      gsap.set('#s3IndoorLight', { opacity: 0 });
-      gsap.set(['#s3Ripple1', '#s3Ripple2'], { opacity: 0, attr: { r: 3 } });
-
-      gsap.set('#s3DoorGlow', { opacity: 0 });
-      gsap.set('#s3Knocker1', { x: 432, y: 595, opacity: 0 });
-      gsap.set('#s3LeaningPole', { x: 502, y: 790, rotation: 0, transformOrigin: '0px 0px' });
+      gsap.set('#s4PhoneGroup', { x: 36, y: -3, rotation: 0 });
+      gsap.set('#s4PhoneScreen', { attr: { fill: '#1e293b' } });
+      gsap.set('#s4AlarmDot', { opacity: 0 });
+      gsap.set('#s4PhoneHalo', { opacity: 0 });
+      gsap.set('#s4RoomScreenWash', { opacity: 0 });
+      gsap.set(['#s4Wave1', '#s4Wave2'], { opacity: 0, attr: { r: 6 } });
+      gsap.set(['#s4Z1', '#s4Z2', '#s4Z3'], { opacity: 0, y: 0 });
       replayBtn.textContent = '↺ 0.0s';
     }
 
-    function triggerGlassRipple(tl, time) {
-      tl.call(() => playGlassTap(), null, time);
-      tl.fromTo('#s3Ripple1',
-        { attr: { r: 3 }, opacity: 0.9 },
-        { attr: { r: 26 }, opacity: 0, duration: 0.5, ease: 'power2.out', immediateRender: false },
+    function triggerAlarmPulse(tl, time) {
+      tl.call(() => playPhoneAlarmPulse(), null, time);
+
+      // Phone vibrates rapidly on nightstand
+      tl.to('#s4PhoneGroup', {
+        x: 38.5,
+        rotation: 4,
+        duration: 0.045,
+        yoyo: true,
+        repeat: 7,
+        ease: 'sine.inOut'
+      }, time);
+
+      tl.set('#s4PhoneGroup', { x: 36, rotation: 0 }, time + 0.38);
+
+      // Soundwave rings expand out from glass screen
+      tl.fromTo('#s4Wave1',
+        { attr: { r: 6 }, opacity: 0.9 },
+        { attr: { r: 34 }, opacity: 0, duration: 0.55, ease: 'power2.out', immediateRender: false },
         time
       );
-      tl.fromTo('#s3Ripple2',
-        { attr: { r: 2 }, opacity: 0.7 },
-        { attr: { r: 16 }, opacity: 0, duration: 0.4, ease: 'power2.out', immediateRender: false },
-        time + 0.05
+      tl.fromTo('#s4Wave2',
+        { attr: { r: 6 }, opacity: 0.7 },
+        { attr: { r: 22 }, opacity: 0, duration: 0.45, ease: 'power2.out', immediateRender: false },
+        time + 0.07
       );
     }
 
-    function playScene3() {
-      resetScene3ToStart();
-      const walkState = { stride: 0, poleAngle: -12, headAngle: -4 };
+    function playScene4() {
+      resetScene4ToStart();
+      const state = { bodyAngle: -74, headAngle: 14 };
 
       sceneTl = gsap.timeline({
         onUpdate: () => {
@@ -533,112 +443,106 @@
         }
       });
 
-      sceneTl.call(() => playNightWind(5.8), null, 0.05);
-
-      // Slow atmospheric camera push
-      sceneTl.to('#s3Camera', {
+      // Slow camera push
+      sceneTl.to('#s4Camera', {
         scale: 1.06,
-        transformOrigin: '270px 490px',
+        transformOrigin: '260px 530px',
         duration: 6.0,
         ease: 'power1.inOut'
       }, 0);
 
-      // 0.3s - 1.6s: Early-Bird Knocker-Upper #2 (Green Scarf) walks smoothly up to cottage window
-      sceneTl.to('#s3Knocker2', {
-        x: 172,
-        duration: 1.3,
-        ease: 'power1.out'
-      }, 0.3);
-
-      // Subtle, natural coat-hem stride (Max ±10 deg so legs never poke outside coat)
-      [0.45, 0.85, 1.25].forEach((stepTime, idx) => {
-        sceneTl.call(() => playCobblestoneStep(), null, stepTime);
-        const dir = idx % 2 === 0 ? 1 : -1;
-        sceneTl.to(walkState, {
-          stride: 10 * dir,
-          duration: 0.18,
-          yoyo: true,
-          repeat: 1,
-          ease: 'sine.inOut',
-          onUpdate: () => {
-            legFrontEl.setAttribute('transform', `rotate(${walkState.stride.toFixed(1)})`);
-            legBackEl.setAttribute('transform', `rotate(${(-walkState.stride).toFixed(1)})`);
-          }
-        }, stepTime - 0.1);
-        sceneTl.to('#s3K2Torso', { y: -2, duration: 0.18, yoyo: true, repeat: 1, ease: 'sine.inOut' }, stepTime - 0.1);
+      // 0.0s - 1.5s: Peaceful sleep (z Z Z)
+      ['#s4Z1', '#s4Z2', '#s4Z3'].forEach((zId, idx) => {
+        sceneTl.fromTo(zId,
+          { opacity: 0, y: 4 },
+          { opacity: 0.75, y: -12, duration: 0.85, ease: 'sine.out', immediateRender: false },
+          idx * 0.32
+        );
       });
 
-      // Ensure legs settle cleanly to 0 deg once stopped
-      sceneTl.call(() => {
-        legFrontEl.setAttribute('transform', 'rotate(0)');
-        legBackEl.setAttribute('transform', 'rotate(0)');
-      }, null, 1.62);
+      // 1.55s: Smartphone screen lights up brightly & alarm pulses twice (1.55s & 2.45s)
+      sceneTl.to('#s4PhoneScreen', { attr: { fill: '#e0f2fe' }, duration: 0.15 }, 1.55);
+      sceneTl.to('#s4AlarmDot', { opacity: 1, duration: 0.15 }, 1.55);
+      sceneTl.to('#s4PhoneHalo', { opacity: 0.95, duration: 0.25 }, 1.55);
+      sceneTl.to('#s4RoomScreenWash', { opacity: 0.85, duration: 0.35 }, 1.55);
+      sceneTl.to('#s4HeadPhoneRim', { opacity: 0.65, duration: 0.35 }, 1.55);
 
-      // 1.95s & 2.75s: Knocker-Upper #2 taps on Knocker-Upper #1's bedroom window
-      [1.95, 2.75].forEach((t) => {
-        sceneTl.to(walkState, {
-          poleAngle: 0,
-          duration: 0.14,
-          ease: 'power2.in',
-          onUpdate: () => { poleK2El.setAttribute('transform', `rotate(${walkState.poleAngle.toFixed(1)})`); }
-        }, t - 0.14);
+      triggerAlarmPulse(sceneTl, 1.55);
+      triggerAlarmPulse(sceneTl, 2.45);
 
-        triggerGlassRipple(sceneTl, t);
+      // 2.65s: Groggy, half-asleep stir (z Z Z vanishes, lifts head slightly with squinty eyes)
+      sceneTl.to(['#s4Z1', '#s4Z2', '#s4Z3'], { opacity: 0, duration: 0.2 }, 2.6);
+      sceneTl.set('#s4EyesClosed', { opacity: 0 }, 2.68);
+      sceneTl.set('#s4EyesGroggy', { opacity: 1 }, 2.68);
+      sceneTl.set('#s4Mouth', { attr: { x1: -15, y1: 7, x2: -9, y2: 7 } }, 2.68);
 
-        sceneTl.to(walkState, {
-          poleAngle: -5,
-          duration: 0.32,
-          ease: 'power2.out',
-          onUpdate: () => { poleK2El.setAttribute('transform', `rotate(${walkState.poleAngle.toFixed(1)})`); }
-        }, t + 0.02);
-      });
-
-      // 3.05s: Warm candlelight glows inside the window (No floating head inside!)
-      sceneTl.to('#s3IndoorLight', { opacity: 0.9, duration: 0.5, ease: 'power2.out' }, 3.05);
-
-      // 3.35s: Knocker-Upper #2 lowers his pole after seeing the candle glow
-      sceneTl.to(walkState, {
-        poleAngle: -18,
+      sceneTl.to(state, {
+        bodyAngle: -32,
+        headAngle: -8,
         duration: 0.55,
-        ease: 'power2.inOut',
-        onUpdate: () => { poleK2El.setAttribute('transform', `rotate(${walkState.poleAngle.toFixed(1)})`); }
-      }, 3.35);
+        ease: 'power2.out',
+        onUpdate: () => {
+          pivotEl.setAttribute('transform', `rotate(${state.bodyAngle.toFixed(2)})`);
+          headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
+        }
+      }, 2.7);
 
-      // 3.85s: Cottage front door opens, our Red-Scarf hero steps out & grabs his own bamboo pole!
-      sceneTl.call(() => playDoorCreakOpen(), null, 3.85);
-      sceneTl.to('#s3DoorGlow', { opacity: 0.35, duration: 0.3 }, 3.85);
-
-      sceneTl.to('#s3Knocker1', {
-        opacity: 1,
-        x: 392,
-        duration: 0.55,
+      // 3.3s: Reaches single clean foreground arm over to tap "Snooze" on the smartphone!
+      sceneTl.to('#s4ArmFront', {
+        attr: { d: 'M -1 -32 L -42 -12 L -82 14' },
+        duration: 0.42,
         ease: 'power2.out'
-      }, 3.95);
+      }, 3.3);
 
-      // His leaning bamboo pole snaps upright into his hand
-      sceneTl.to('#s3LeaningPole', {
-        x: 378,
-        rotation: -2,
-        duration: 0.5,
-        ease: 'back.out(1.2)'
+      // 3.75s: Taps the glass screen — alarm stops & screen dims into Snooze standby
+      sceneTl.call(() => playSnoozeTap(), null, 3.75);
+      sceneTl.to('#s4PhoneGroup', { y: -1.5, duration: 0.08, yoyo: true, repeat: 1 }, 3.75);
+      sceneTl.to('#s4PhoneScreen', { attr: { fill: '#334155' }, duration: 0.25 }, 3.78);
+      sceneTl.to('#s4AlarmDot', { opacity: 0.25, duration: 0.25 }, 3.78);
+      sceneTl.to('#s4PhoneHalo', { opacity: 0.15, duration: 0.35 }, 3.78);
+      sceneTl.to('#s4RoomScreenWash', { opacity: 0.12, duration: 0.4 }, 3.78);
+      sceneTl.to('#s4HeadPhoneRim', { opacity: 0.12, duration: 0.4 }, 3.78);
+
+      // 4.05s: Arm retracts and worker flops straight back down onto the pillow!
+      sceneTl.to('#s4ArmFront', {
+        attr: { d: 'M 1 -32 L 13 -13 L 26 -10' },
+        duration: 0.38,
+        ease: 'power2.inOut'
       }, 4.05);
 
-      // 4.55s - 6.0s: Both Knocker-Uppers stand face-to-face with bamboo poles in hand
-      sceneTl.to(walkState, {
-        headAngle: 2,
-        duration: 0.35,
-        ease: 'power1.out',
-        onUpdate: () => { headK2El.setAttribute('transform', `rotate(${walkState.headAngle.toFixed(1)})`); }
-      }, 4.55);
+      sceneTl.call(() => playPillowFlop(), null, 4.35);
+      sceneTl.set('#s4EyesGroggy', { opacity: 0 }, 4.32);
+      sceneTl.set('#s4EyesClosed', { opacity: 1 }, 4.32);
+      sceneTl.set('#s4Mouth', { attr: { x1: 9, y1: 7, x2: 15, y2: 7 } }, 4.32);
+
+      sceneTl.to(state, {
+        bodyAngle: -74,
+        headAngle: 14,
+        duration: 0.52,
+        ease: 'bounce.out',
+        onUpdate: () => {
+          pivotEl.setAttribute('transform', `rotate(${state.bodyAngle.toFixed(2)})`);
+          headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
+        }
+      }, 4.25);
+
+      // 4.9s - 6.0s: "z Z Z" immediately floats back up as he goes right back to sleep!
+      ['#s4Z1', '#s4Z2', '#s4Z3'].forEach((zId, idx) => {
+        sceneTl.fromTo(zId,
+          { opacity: 0, y: 4 },
+          { opacity: 0.8, y: -14, duration: 0.75, ease: 'sine.out', immediateRender: false },
+          4.9 + idx * 0.22
+        );
+      });
     }
 
     document.getElementById('playBtn').addEventListener('click', () => {
       initAudio();
-      playScene3();
+      playScene4();
     });
 
     replayBtn.addEventListener('click', () => {
-      resetScene3ToStart();
+      resetScene4ToStart();
     });
 
     document.getElementById('soundBtn').addEventListener('click', () => {
@@ -647,7 +551,7 @@
     });
 
     window.addEventListener('load', () => {
-      setTimeout(playScene3, 250);
+      setTimeout(playScene4, 250);
     });
   </script>
 </body>
