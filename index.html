@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zenspiris — Knocker-Uppers Scene 2: Waking Up & The Candle (6.0s + Foley SFX)</title>
+  <title>Zenspiris — Knocker-Uppers Scene 3: The Comedy Twist (6.0s + Foley SFX)</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     :root {
       --head: #0d0b12;
       --face: #f2ede2;
-      --rim-cool: #60a5fa;
-      --rim-warm: #fcd34d;
-      --shirt: #2d3748;
-      --blanket: #1e293b;
-      --blanket-fold: #334155;
-      --wood: #171316;
+      --rim: #fcd34d;
+      --coat: #1e2330;
+      --coat-dark: #141822;
+      --scarf-red: #b91c1c;
+      --scarf-red-hi: #dc2626;
+      --scarf-green: #15803d;
+      --scarf-green-hi: #22c55e;
       --bamboo: #b45309;
       --bamboo-hi: #f59e0b;
     }
@@ -54,7 +55,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 48%, transparent 36%, rgba(3, 4, 8, 0.92) 100%);
+      background: radial-gradient(circle at 50% 48%, transparent 38%, rgba(3, 4, 8, 0.92) 100%);
       z-index: 10;
     }
 
@@ -103,175 +104,275 @@
   <div class="stage-wrapper">
     <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <!-- Dark 1800s Interior Wall -->
-        <linearGradient id="s2WallGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#070911"/>
-          <stop offset="65%" stop-color="#0d111d"/>
-          <stop offset="100%" stop-color="#131826"/>
+        <!-- Deep 3:30 AM Pre-Dawn Sky -->
+        <linearGradient id="s3SkyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#04060c"/>
+          <stop offset="65%" stop-color="#0b101d"/>
+          <stop offset="100%" stop-color="#131b2e"/>
         </linearGradient>
 
-        <!-- Pre-Dawn Window Sky Outside -->
-        <linearGradient id="s2OutsideSky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#09101f"/>
-          <stop offset="100%" stop-color="#17233b"/>
-        </linearGradient>
+        <!-- Pale Moon Halo -->
+        <radialGradient id="s3MoonHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#cbd5e1" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#cbd5e1" stop-opacity="0"/>
+        </radialGradient>
 
-        <!-- Realistic Diagonal Pre-Dawn Window Beam -->
-        <linearGradient id="s2WindowBeam" x1="0.8" y1="0" x2="0.2" y2="1">
-          <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.15"/>
-          <stop offset="55%" stop-color="#60a5fa" stop-opacity="0.06"/>
-          <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
-        </linearGradient>
-
-        <!-- Warm Candlelight Radial Glow -->
-        <radialGradient id="s2CandleGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.88"/>
-          <stop offset="28%" stop-color="#f59e0b" stop-opacity="0.38"/>
-          <stop offset="65%" stop-color="#d97706" stop-opacity="0.12"/>
+        <!-- Classic Gas Streetlamp Glow -->
+        <radialGradient id="s3GasGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.72"/>
+          <stop offset="32%" stop-color="#f59e0b" stop-opacity="0.26"/>
+          <stop offset="70%" stop-color="#d97706" stop-opacity="0.08"/>
           <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
         </radialGradient>
 
-        <!-- Wooden Floor -->
-        <linearGradient id="s2FloorGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#0c0e14"/>
+        <!-- Warm Interior Candle Glow -->
+        <radialGradient id="s3RoomCandle" cx="50%" cy="60%" r="55%">
+          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.75"/>
+          <stop offset="55%" stop-color="#f59e0b" stop-opacity="0.32"/>
+          <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
+        </radialGradient>
+
+        <!-- Cobblestone Ground -->
+        <linearGradient id="s3GroundGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#10131c"/>
           <stop offset="100%" stop-color="#050609"/>
         </linearGradient>
-
-        <!-- Strict Clip Path Inside Window Glass -->
-        <clipPath id="s2GlassClip">
-          <rect x="0" y="0" width="132" height="190"/>
-        </clipPath>
       </defs>
 
       <!-- Camera Group -->
-      <g id="s2Camera">
-        <!-- Bedroom Wall & Floor (Floor line at y=775) -->
-        <rect width="540" height="775" fill="url(#s2WallGrad)"/>
-        <rect x="0" y="575" width="540" height="5" fill="#141927"/>
-        <rect x="0" y="775" width="540" height="185" fill="url(#s2FloorGrad)"/>
+      <g id="s3Camera">
+        <!-- Night Sky -->
+        <rect width="540" height="790" fill="url(#s3SkyGrad)"/>
 
-        <!-- Warm Candle Ambient Room Wash -->
-        <circle id="s2RoomWarmWash" cx="152" cy="645" r="340" fill="url(#s2CandleGlow)" opacity="0"/>
+        <!-- Subtle Pale Moon -->
+        <circle cx="96" cy="145" r="52" fill="url(#s3MoonHalo)"/>
+        <circle cx="96" cy="145" r="13" fill="#475569" opacity="0.45"/>
 
-        <!-- BEDROOM WINDOW -->
-        <g transform="translate(332, 340)">
-          <rect x="-10" y="-10" width="152" height="210" rx="3" fill="#181f30"/>
-          <rect x="0" y="0" width="132" height="190" fill="url(#s2OutsideSky)"/>
+        <!-- Distant Victorian Rooftops -->
+        <path d="M 0 565 L 0 435 L 55 415 L 55 390 L 72 390 L 72 410 L 155 392 L 220 425 L 220 565 Z" fill="#0d111b"/>
 
-          <!-- Clipped Glass Interior for Bamboo Pole -->
-          <g clip-path="url(#s2GlassClip)">
-            <g id="s2OutsidePole">
-              <line x1="122" y1="196" x2="52" y2="112" stroke="var(--bamboo)" stroke-width="5" stroke-linecap="round"/>
-              <line x1="121" y1="196" x2="51" y2="112" stroke="var(--bamboo-hi)" stroke-width="1.3" opacity="0.7" stroke-linecap="round"/>
-              <circle cx="87" cy="154" r="2.8" fill="#78350f"/>
-              <circle cx="52" cy="112" r="3.5" fill="#fde68a"/>
+        <!-- KNOCKER-UPPER #1'S COTTAGE FACADE (Right Side) -->
+        <rect x="235" y="185" width="305" height="605" fill="#0c0f18"/>
+        <!-- Roof Cornice -->
+        <rect x="225" y="178" width="315" height="14" rx="2" fill="#151a28"/>
+        <!-- Subtle Brick Lines -->
+        <line x1="255" y1="265" x2="310" y2="265" stroke="#151b29" stroke-width="2"/>
+        <line x1="465" y1="310" x2="525" y2="310" stroke="#151b29" stroke-width="2"/>
+
+        <!-- Upstairs Dark Attic Window -->
+        <g transform="translate(325, 240)">
+          <rect x="-8" y="-8" width="136" height="145" rx="3" fill="#151b29"/>
+          <rect x="0" y="0" width="120" height="129" fill="#090d16"/>
+          <rect x="57" y="0" width="6" height="129" fill="#06080d"/>
+          <rect x="0" y="62" width="120" height="5" fill="#06080d"/>
+          <rect x="-12" y="129" width="144" height="10" rx="2" fill="#1b2233"/>
+        </g>
+
+        <!-- KNOCKER-UPPER #1'S BEDROOM WINDOW (Ground Floor Left of Door — Shows Him Sleeping Inside!) -->
+        <g transform="translate(262, 475)">
+          <!-- Stone Frame -->
+          <rect x="-8" y="-8" width="132" height="166" rx="3" fill="#182032"/>
+          <!-- Dark Bedroom Interior -->
+          <rect x="0" y="0" width="116" height="150" fill="#0a0e18"/>
+          <!-- Warm Candlelight Glow Inside Window (Fades In When He Wakes) -->
+          <rect id="s3IndoorLight" x="0" y="0" width="116" height="150" fill="url(#s3RoomCandle)" opacity="0"/>
+
+          <!-- Silhouette of Knocker-Upper #1 Sleeping Inside Window -->
+          <g id="s3IndoorSleeper" transform="translate(56, 112)">
+            <!-- Blanket / Bed Mound -->
+            <path d="M -46 38 Q 0 18 46 38 Z" fill="#171e2e"/>
+            <!-- Head (r=20) with Closed Sleeping Eyes -->
+            <g id="s3IndoorHead">
+              <circle cx="0" cy="4" r="19" fill="var(--head)"/>
+              <!-- Sleeping Eyes (◡ ◡) -->
+              <g id="s3IndoorClosed">
+                <path d="M -10 2 Q -7 5.5 -4 2" fill="none" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M 2 2 Q 5 5.5 8 2" fill="none" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
+              </g>
+              <!-- Startled Awake Eyes (o o) -->
+              <g id="s3IndoorOpen" opacity="0">
+                <circle cx="-8" cy="2" r="2.2" fill="var(--face)"/>
+                <circle cx="4" cy="2" r="2.2" fill="var(--face)"/>
+              </g>
             </g>
           </g>
 
-          <!-- Window Panes & Sill -->
-          <rect x="63" y="0" width="6" height="190" fill="#0d1018"/>
-          <rect x="0" y="92" width="132" height="6" fill="#0d1018"/>
-          <rect x="-15" y="190" width="162" height="12" rx="2" fill="#212a3f"/>
-
-          <!-- Indoor Glass Tap Ripples -->
-          <circle id="s2Ripple1" cx="52" cy="112" r="3" fill="none" stroke="#fde68a" stroke-width="2" opacity="0"/>
-          <circle id="s2Ripple2" cx="52" cy="112" r="3" fill="none" stroke="#93c5fd" stroke-width="1.5" opacity="0"/>
-        </g>
-
-        <!-- Realistic Diagonal Pre-Dawn Window Light Beam -->
-        <polygon points="332,340 464,340 464,530 355,775 155,775 332,530" fill="url(#s2WindowBeam)" pointer-events="none"/>
-
-        <!-- LOW BEDSIDE CABINET WITH SHORT STUBBY FEET -->
-        <g transform="translate(116, 709)">
-          <ellipse cx="36" cy="68" rx="42" ry="4.5" fill="#020305" opacity="0.9"/>
-          <rect x="9" y="54" width="6" height="12" rx="1" fill="#0c0a0d"/>
-          <rect x="57" y="54" width="6" height="12" rx="1" fill="#0c0a0d"/>
-          <rect x="5" y="6" width="62" height="50" rx="2" fill="var(--wood)"/>
-          <rect x="10" y="11" width="52" height="17" rx="1.5" fill="#211c20"/>
-          <circle cx="36" cy="19.5" r="1.7" fill="#94a3b8"/>
-          <rect x="10" y="32" width="52" height="18" rx="1.5" fill="#211c20"/>
-          <circle cx="36" cy="41" r="1.7" fill="#94a3b8"/>
-          <rect x="2" y="0" width="68" height="6.5" rx="2" fill="#262025"/>
-
-          <!-- Brass Chamberstick Holder & Wax Candle -->
-          <g transform="translate(36, 0)">
-            <ellipse cx="0" cy="-1.5" rx="13" ry="2.5" fill="#b45309"/>
-            <path d="M 11 -2 Q 18 -2 18 -7 Q 18 -11 12 -10" fill="none" stroke="#d97706" stroke-width="1.8"/>
-            <rect x="-3.8" y="-28" width="7.6" height="26" rx="1.5" fill="#e2e8f0"/>
-            <path d="M -3.8 -26 Q -5 -19 -3.8 -15" fill="none" stroke="#cbd5e1" stroke-width="1.6" stroke-linecap="round"/>
-            <line x1="0" y1="-28" x2="0" y2="-33" stroke="#090b10" stroke-width="1.4"/>
-
-            <!-- CANDLE FLAME & LOCAL HALO -->
-            <g id="s2CandleFlameGroup" opacity="0" transform="translate(0, -39)">
-              <circle cx="0" cy="0" r="44" fill="url(#s2CandleGlow)"/>
-              <path id="s2FlameShape" d="M 0 -9.5 C 4.2 -3.2, 4.2 3.2, 0 6 C -4.2 3.2, -4.2 -3.2, 0 -9.5 Z" fill="#f59e0b"/>
-              <path d="M 0 -5 C 2 -1.6, 2 2.5, 0 4.2 C -2 2.5, -2 -1.6, 0 -5 Z" fill="#fef9c3"/>
-            </g>
+          <!-- Floating "z Z Z" Inside Window -->
+          <g fill="#94a3b8" font-family="sans-serif" font-weight="700">
+            <text id="s3Z1" x="62" y="84" font-size="12" opacity="0">z</text>
+            <text id="s3Z2" x="74" y="68" font-size="15" opacity="0">Z</text>
+            <text id="s3Z3" x="88" y="50" font-size="17" opacity="0">Z</text>
           </g>
+
+          <!-- Window Mullions & Sill -->
+          <rect x="55" y="0" width="6" height="150" fill="#07090e"/>
+          <rect x="0" y="72" width="116" height="6" fill="#07090e"/>
+          <rect x="-12" y="150" width="140" height="11" rx="2" fill="#20293d"/>
+
+          <!-- Glass Tap Ripples -->
+          <circle id="s3Ripple1" cx="34" cy="96" r="3" fill="none" stroke="#fde68a" stroke-width="2" opacity="0"/>
+          <circle id="s3Ripple2" cx="34" cy="96" r="3" fill="none" stroke="#fcd34d" stroke-width="1.5" opacity="0"/>
         </g>
 
-        <!-- LOW-PROFILE 1800s WOODEN BED & SLEEPER RIG -->
-        <g transform="translate(202, 575)">
-          <ellipse cx="110" cy="202" rx="122" ry="6.5" fill="#020305" opacity="0.95"/>
+        <!-- FRONT DOOR OF COTTAGE (Right Side, x=412) -->
+        <g transform="translate(412, 548)">
+          <rect x="-6" y="-6" width="96" height="248" rx="2" fill="#161c2b"/>
+          <rect id="s3DoorPanel" x="0" y="0" width="84" height="242" fill="#080a10"/>
+          <!-- Warm Interior Light Spill When Door Opens -->
+          <rect id="s3DoorGlow" x="0" y="0" width="84" height="242" fill="#f59e0b" opacity="0"/>
+          <!-- Brass Doorknob -->
+          <circle cx="14" cy="128" r="3.5" fill="#d97706"/>
+        </g>
 
-          <rect x="0" y="72" width="11" height="128" rx="2.5" fill="#141115"/>
-          <circle cx="5.5" cy="68" r="6" fill="#1e1920"/>
-          <rect x="210" y="114" width="10" height="86" rx="2.5" fill="#141115"/>
-          <circle cx="215" cy="110" r="5.5" fill="#1e1920"/>
+        <!-- KNOCKER-UPPER #1'S OWN BAMBOO POLE LEANING BY HIS FRONT DOOR (Waiting to be Grabbed!) -->
+        <g id="s3LeaningPole" transform="translate(502, 790)">
+          <line x1="0" y1="0" x2="-18" y2="-335" stroke="var(--bamboo)" stroke-width="4.2" stroke-linecap="round"/>
+          <line x1="-1" y1="0" x2="-19" y2="-335" stroke="var(--bamboo-hi)" stroke-width="1.1" opacity="0.65" stroke-linecap="round"/>
+          <circle cx="-6" cy="-110" r="2.3" fill="#78350f"/>
+          <circle cx="-12" cy="-225" r="2.3" fill="#78350f"/>
+          <circle cx="-18" cy="-335" r="3.2" fill="#fde68a"/>
+        </g>
 
-          <rect x="11" y="144" width="199" height="26" rx="4" fill="#1e2433"/>
-          <path d="M 14 144 Q 48 125 82 145 Z" fill="#cbd5e1" opacity="0.88"/>
+        <!-- Cobblestone Street -->
+        <rect x="0" y="790" width="540" height="170" fill="url(#s3GroundGrad)"/>
+        <ellipse cx="95" cy="793" rx="68" ry="6" fill="#f59e0b" opacity="0.08"/>
+        <ellipse cx="245" cy="798" rx="34" ry="4.5" fill="#151926"/>
 
-          <!-- CHARACTER ANCHORED INSIDE MATTRESS -->
-          <g transform="translate(98, 146)">
-            <g id="s2SleeperPivot" transform="rotate(-74)">
-              <path d="M -6 -32 L -10 -12" fill="none" stroke="#18202c" stroke-width="6.5" stroke-linecap="round"/>
+        <!-- CLASSIC VICTORIAN GAS STREETLAMP (Clearly Visible Post & Base) -->
+        <g transform="translate(68, 365)">
+          <circle cx="0" cy="24" r="135" fill="url(#s3GasGlow)"/>
+          <ellipse cx="0" cy="426" rx="22" ry="4.5" fill="#020305" opacity="0.95"/>
+          <path d="M -14 425 L 14 425 L 10 385 L -10 385 Z" fill="#050609"/>
+          <rect x="-15" y="421" width="30" height="5" rx="2" fill="#050609"/>
+          <rect x="-6.5" y="340" width="13" height="48" rx="2" fill="#050609"/>
+          <rect x="-9" y="338" width="18" height="4" rx="1.5" fill="#141824"/>
+          <rect x="-4" y="42" width="8" height="298" fill="#050609"/>
+          <line x1="-2.2" y1="45" x2="-2.2" y2="338" stroke="#fcd34d" stroke-width="1.1" opacity="0.32"/>
+          <line x1="2.2" y1="45" x2="2.2" y2="338" stroke="#475569" stroke-width="0.9" opacity="0.38"/>
+          <rect x="-15" y="52" width="30" height="3.5" rx="1.5" fill="#050609"/>
+          <rect x="-11" y="40" width="22" height="4.5" rx="1.5" fill="#050609"/>
+          <polygon points="-9,40 9,40 13,12 -13,12" fill="#fef9c3" stroke="#050609" stroke-width="2.5"/>
+          <line x1="-3.5" y1="40" x2="-4.5" y2="12" stroke="#050609" stroke-width="1.6"/>
+          <line x1="3.5" y1="40" x2="4.5" y2="12" stroke="#050609" stroke-width="1.6"/>
+          <polygon points="-16,12 16,12 10,4 -10,4" fill="#050609"/>
+          <polygon points="-9,4 9,4 0,-6" fill="#050609"/>
+          <circle cx="0" cy="-8" r="2.2" fill="#050609"/>
+        </g>
 
-              <!-- Upper Torso -->
-              <path d="M -13 -44 L 14 -44 L 18 24 L -16 24 Z" fill="var(--shirt)"/>
-              <path d="M -7 -44 Q 0.5 -36 8 -44" fill="none" stroke="#94a3b8" stroke-width="1.8"/>
+        <!-- KNOCKER-UPPER #1 (MAIN CHARACTER — Steps Out Front Door at 3.85s, Red Scarf & Flat Cap) -->
+        <g id="s3Knocker1" transform="translate(432, 595)" opacity="0">
+          <ellipse cx="12" cy="196" rx="36" ry="6.5" fill="#030407" opacity="0.9"/>
 
-              <!-- Zenspiris Signature Head -->
-              <g transform="translate(1, -67)">
-                <g id="s2Head" transform="rotate(14)">
-                  <circle cx="1.6" cy="0" r="22" fill="var(--rim-cool)" opacity="0.45"/>
-                  <circle id="s2HeadWarmRim" cx="-1.8" cy="0" r="22" fill="var(--rim-warm)" opacity="0"/>
-                  <circle cx="0" cy="0" r="22" fill="var(--head)"/>
+          <!-- Legs -->
+          <g id="s3K1LegBack">
+            <path d="M 8 118 L 6 156 L 4 192" fill="none" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M -11 192 L 9 192 L 9 196 L -15 196 Q -15 192 -11 192 Z" fill="#08070c"/>
+          </g>
+          <g id="s3K1LegFront">
+            <path d="M 16 118 L 18 156 L 20 192" fill="none" stroke="var(--head)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 5 192 L 25 192 L 25 196 L 1 196 Q 1 192 5 192 Z" fill="var(--head)"/>
+          </g>
 
-                  <!-- Sleeping Closed Eyes -->
-                  <g id="s2EyesClosed">
-                    <path d="M 5 -2 Q 8 1.5 11 -2" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
-                    <path d="M 13 -2 Q 16 1.5 19 -2" fill="none" stroke="var(--face)" stroke-width="1.9" stroke-linecap="round"/>
-                  </g>
+          <!-- Torso Facing Left Toward the Early Knocker-Upper -->
+          <g id="s3K1Torso">
+            <path d="M -1 33 L 27 33 L 35 142 L -9 142 Z" fill="var(--rim)" opacity="0.45"/>
+            <path d="M -1 33 L 25 33 L 33 142 L -9 142 Z" fill="var(--coat)"/>
+            <line x1="7" y1="45" x2="3" y2="140" stroke="var(--coat-dark)" stroke-width="1.5"/>
+            <circle cx="4" cy="64" r="1.6" fill="#475569"/>
+            <circle cx="3" cy="82" r="1.6" fill="#475569"/>
 
-                  <!-- Awake Open Eyes -->
-                  <g id="s2EyesOpen" opacity="0">
-                    <circle id="s2EyeL" cx="8" cy="-2" r="2.2" fill="var(--face)"/>
-                    <circle id="s2EyeR" cx="16" cy="-2" r="2.2" fill="var(--face)"/>
-                  </g>
+            <!-- RED SCARF (Trailing Right) -->
+            <path d="M 22 39 Q 32 47 40 38 L 38 46 Q 29 54 19 45 Z" fill="var(--scarf-red)"/>
+            <path d="M -1 30 Q 12 36 26 30 L 25 38 Q 12 43 -1 38 Z" fill="var(--scarf-red)"/>
+            <path d="M 0 31 Q 12 36 24 31" fill="none" stroke="var(--scarf-red-hi)" stroke-width="1.5"/>
 
-                  <!-- Mouth -->
-                  <line id="s2Mouth" x1="9" y1="7" x2="15" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
-                </g>
+            <!-- Zenspiris Signature Head (r=22, Looking Left at Knocker-Upper #2) -->
+            <g transform="translate(11, 9)">
+              <circle cx="1.6" cy="0" r="22" fill="var(--rim)" opacity="0.5"/>
+              <circle cx="0" cy="0" r="22" fill="var(--head)"/>
+
+              <!-- Flat Cap Facing Left -->
+              <g transform="rotate(6)">
+                <path d="M -22 -12 C -19 -26, 21 -25, 21 -11 Z" fill="var(--rim)" opacity="0.45"/>
+                <path d="M -22 -12 C -19 -25, 20 -24, 20 -11 Z" fill="#252b3b"/>
+                <path d="M 20 -11 L -22 -12 L -32 -8 Q -22 -5 -12 -8 L 20 -8 Z" fill="#141822"/>
               </g>
 
-              <!-- Single Clean Foreground Arm -->
-              <path id="s2ArmFront" d="M 1 -32 L 13 -13 L 26 -10" fill="none" stroke="var(--head)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Deadpan Stare Eyes Looking Left -->
+              <circle cx="-16" cy="-2" r="2.1" fill="var(--face)"/>
+              <circle cx="-9.5" cy="-2" r="2.1" fill="var(--face)"/>
+              <line x1="-15" y1="7" x2="-9.5" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
+            </g>
+
+            <!-- Arm Holding His Bamboo Pole Upright -->
+            <path d="M 8 46 L -6 62 L -14 48" fill="none" stroke="var(--coat)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="-14" cy="48" r="4" fill="var(--head)"/>
+          </g>
+        </g>
+
+        <!-- KNOCKER-UPPER #2 (THE EARLY-BIRD KNOCKER — Walks In From Left With Green Scarf & Longer Pole!) -->
+        <g id="s3Knocker2" transform="translate(80, 583)">
+          <!-- Ground Shadow -->
+          <ellipse cx="12" cy="208" rx="38" ry="6.5" fill="#030407" opacity="0.9"/>
+
+          <!-- Slightly Taller Legs (y=124..204) -->
+          <g id="s3K2LegBack">
+            <path d="M 8 124 L 4 164 L 0 204" fill="none" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M -5 204 L 15 204 Q 19 204 19 208 L -5 208 Z" fill="#08070c"/>
+          </g>
+          <g id="s3K2LegFront">
+            <path d="M 16 124 L 20 164 L 22 204" fill="none" stroke="var(--head)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 17 204 L 37 204 Q 41 204 41 208 L 17 208 Z" fill="var(--head)"/>
+          </g>
+
+          <!-- Upper Torso, Long Trench Coat & Emerald Green Scarf -->
+          <g id="s3K2Torso">
+            <path d="M -3 33 L 25 33 L 34 150 L -11 150 Z" fill="var(--rim)" opacity="0.52"/>
+            <path d="M -1 33 L 25 33 L 34 150 L -9 150 Z" fill="#18222f"/>
+            <line x1="17" y1="45" x2="21" y2="148" stroke="#0f151e" stroke-width="1.5"/>
+            <circle cx="20" cy="64" r="1.6" fill="#64748b"/>
+            <circle cx="21" cy="84" r="1.6" fill="#64748b"/>
+            <circle cx="22" cy="104" r="1.6" fill="#64748b"/>
+
+            <!-- EMERALD GREEN SCARF (Distinguishes Him Visually From Main Knocker-Upper) -->
+            <path d="M -16 39 Q -6 47 2 38 L 0 46 Q -9 54 -19 45 Z" fill="var(--scarf-green)"/>
+            <path d="M -2 30 Q 12 36 25 30 L 24 38 Q 12 43 -2 38 Z" fill="var(--scarf-green)"/>
+            <path d="M 0 31 Q 12 36 24 31" fill="none" stroke="var(--scarf-green-hi)" stroke-width="1.5"/>
+
+            <!-- Back Support Arm -->
+            <path d="M 10 46 L 26 62 L 42 54" fill="none" stroke="#111822" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Zenspiris Signature Head (r=22) + Classic Victorian Bowler Hat -->
+            <g id="s3K2Head" transform="translate(13, 9)">
+              <circle cx="-1.6" cy="0" r="22" fill="var(--rim)" opacity="0.58"/>
+              <circle cx="0" cy="0" r="22" fill="var(--head)"/>
+
+              <!-- Tall Bowler Hat (Distinct Silhouette From #1's Flat Cap) -->
+              <g transform="rotate(-5)">
+                <path d="M -17 -12 C -17 -32, 17 -32, 17 -12 Z" fill="var(--rim)" opacity="0.45"/>
+                <path d="M -16 -12 C -16 -31, 17 -31, 17 -12 Z" fill="#1e2536"/>
+                <rect x="-24" y="-13" width="48" height="4.5" rx="2.2" fill="#0e121b"/>
+              </g>
+
+              <!-- Crisp Off-White Eyes -->
+              <circle cx="11" cy="-2" r="2.1" fill="var(--face)"/>
+              <circle cx="17.5" cy="-2" r="2.1" fill="var(--face)"/>
+              <line x1="12" y1="7" x2="17" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round"/>
+            </g>
+
+            <!-- BAMBOO POLE & FRONT TAPPING ARM (Reaches Ground-Floor Window at x=296, y=571) -->
+            <g id="s3K2PoleRig">
+              <line x1="16" y1="92" x2="124" y2="-12" stroke="var(--bamboo)" stroke-width="4.2" stroke-linecap="round"/>
+              <line x1="15" y1="92" x2="123" y2="-12" stroke="var(--bamboo-hi)" stroke-width="1.1" opacity="0.65" stroke-linecap="round"/>
+              <circle cx="52" cy="57" r="2.4" fill="#78350f"/>
+              <circle cx="88" cy="22" r="2.4" fill="#78350f"/>
+              <circle cx="124" cy="-12" r="3.2" fill="#fde68a"/>
+
+              <!-- Front Coat Sleeve & Hand Gripping Pole -->
+              <path d="M 16 44 L 34 56 L 44 38" fill="none" stroke="#18222f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="44" cy="38" r="4.2" fill="var(--head)"/>
             </g>
           </g>
-
-          <!-- Floating Sleeping "z Z Z" Indicators -->
-          <g id="s2ZzzGroup" fill="#94a3b8" font-family="sans-serif" font-weight="700">
-            <text id="s2Z1" x="42" y="114" font-size="13" opacity="0">z</text>
-            <text id="s2Z2" x="54" y="96" font-size="16" opacity="0">Z</text>
-            <text id="s2Z3" x="68" y="76" font-size="19" opacity="0">Z</text>
-          </g>
-
-          <!-- HEAVY WOOL BLANKET FOREGROUND LAYER -->
-          <path d="M 74 143 Q 142 134 210 145 L 210 170 L 74 170 Z" fill="var(--blanket)"/>
-          <path d="M 70 141 Q 86 138 95 143 L 92 168 L 70 168 Z" fill="var(--blanket-fold)"/>
-
-          <rect x="11" y="168" width="199" height="16" fill="#1c171d"/>
         </g>
       </g>
     </svg>
@@ -301,30 +402,10 @@
       }
     }
 
-    function playIndoorGlassTap() {
+    function playNightWind(duration = 5.8) {
       if (!soundEnabled) return;
       initAudio();
       const now = audioCtx.currentTime;
-      [1420, 2450].forEach((freq, i) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = i === 0 ? 'sine' : 'triangle';
-        osc.frequency.setValueAtTime(freq, now);
-        osc.frequency.exponentialRampToValueAtTime(freq * 0.78, now + 0.07);
-        gain.gain.setValueAtTime(i === 0 ? 0.14 : 0.06, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.085);
-      });
-    }
-
-    function playBedRustle() {
-      if (!soundEnabled) return;
-      initAudio();
-      const now = audioCtx.currentTime;
-      const duration = 0.42;
       const bufferSize = Math.floor(audioCtx.sampleRate * duration);
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
@@ -337,13 +418,14 @@
 
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(750, now);
-      filter.Q.setValueAtTime(1.4, now);
+      filter.frequency.setValueAtTime(250, now);
+      filter.frequency.linearRampToValueAtTime(320, now + duration * 0.5);
+      filter.Q.setValueAtTime(2.6, now);
 
       const gain = audioCtx.createGain();
       gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.075, now + 0.08);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+      gain.gain.linearRampToValueAtTime(0.028, now + 0.8);
+      gain.gain.linearRampToValueAtTime(0.001, now + duration);
 
       noise.connect(filter);
       filter.connect(gain);
@@ -351,94 +433,114 @@
       noise.start(now);
     }
 
-    function playCandleSpark() {
+    function playCobblestoneStep() {
       if (!soundEnabled) return;
       initAudio();
       const now = audioCtx.currentTime;
-      const duration = 0.35;
-      const bufferSize = Math.floor(audioCtx.sampleRate * duration);
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = (Math.random() * 2 - 1);
-      }
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(130, now);
+      osc.frequency.exponentialRampToValueAtTime(46, now + 0.08);
+      gain.gain.setValueAtTime(0.11, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.095);
+    }
 
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
+    function playGlassTap() {
+      if (!soundEnabled) return;
+      initAudio();
+      const now = audioCtx.currentTime;
+      [1960, 3380].forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = i === 0 ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.82, now + 0.075);
+        gain.gain.setValueAtTime(i === 0 ? 0.16 : 0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.085);
+      });
+    }
+
+    function playDoorCreakOpen() {
+      if (!soundEnabled) return;
+      initAudio();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(185, now);
+      osc.frequency.linearRampToValueAtTime(235, now + 0.18);
+      osc.frequency.linearRampToValueAtTime(165, now + 0.35);
 
       const filter = audioCtx.createBiquadFilter();
-      filter.type = 'highpass';
-      filter.frequency.setValueAtTime(2200, now);
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(520, now);
+      filter.Q.setValueAtTime(4, now);
 
-      const gain = audioCtx.createGain();
       gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.09, now + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+      gain.gain.linearRampToValueAtTime(0.045, now + 0.06);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
 
-      noise.connect(filter);
+      osc.connect(filter);
       filter.connect(gain);
       gain.connect(audioCtx.destination);
-      noise.start(now);
-
-      const osc = audioCtx.createOscillator();
-      const oscGain = audioCtx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(240, now + 0.05);
-      osc.frequency.exponentialRampToValueAtTime(380, now + 0.32);
-      oscGain.gain.setValueAtTime(0.001, now + 0.05);
-      oscGain.gain.linearRampToValueAtTime(0.045, now + 0.14);
-      oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
-      osc.connect(oscGain);
-      oscGain.connect(audioCtx.destination);
-      osc.start(now + 0.05);
-      osc.stop(now + 0.4);
+      osc.start(now);
+      osc.stop(now + 0.38);
     }
 
     let sceneTl = null;
-    const pivotEl = document.getElementById('s2SleeperPivot');
-    const headEl = document.getElementById('s2Head');
     const replayBtn = document.getElementById('replayBtn');
 
-    function resetScene2ToStart() {
+    function resetScene3ToStart() {
       if (sceneTl) {
         sceneTl.kill();
         sceneTl = null;
       }
-      pivotEl.setAttribute('transform', 'rotate(-74)');
-      headEl.setAttribute('transform', 'rotate(14)');
-      gsap.set('#s2Camera', { scale: 1, x: 0, y: 0 });
-      gsap.set('#s2EyesClosed', { opacity: 1 });
-      gsap.set('#s2EyesOpen', { opacity: 0 });
-      gsap.set('#s2EyeL', { attr: { cx: 8, cy: -2 } });
-      gsap.set('#s2EyeR', { attr: { cx: 16, cy: -2 } });
-      gsap.set('#s2Mouth', { attr: { x1: 9, y1: 7, x2: 15, y2: 7 } });
-      gsap.set('#s2HeadWarmRim', { opacity: 0 });
-      gsap.set('#s2OutsidePole', { rotation: -7, transformOrigin: '122px 196px', opacity: 1 });
-      gsap.set('#s2ArmFront', { attr: { d: 'M 1 -32 L 13 -13 L 26 -10' } });
-      gsap.set('#s2CandleFlameGroup', { opacity: 0, scale: 0.4, transformOrigin: '0px 0px' });
-      gsap.set('#s2RoomWarmWash', { opacity: 0 });
-      gsap.set(['#s2Ripple1', '#s2Ripple2'], { opacity: 0, attr: { r: 3 } });
-      gsap.set(['#s2Z1', '#s2Z2', '#s2Z3'], { opacity: 0, y: 0 });
+      gsap.set('#s3Camera', { scale: 1, x: 0, y: 0 });
+      gsap.set('#s3Knocker2', { x: 95, y: 583 });
+      gsap.set('#s3K2Torso', { y: 0, rotation: 0 });
+      gsap.set('#s3K2Head', { rotation: -4, transformOrigin: '13px 9px' });
+      gsap.set('#s3K2PoleRig', { rotation: -12, transformOrigin: '34px 56px' });
+      gsap.set('#s3K2LegFront', { rotation: 0, transformOrigin: '16px 124px' });
+      gsap.set('#s3K2LegBack', { rotation: 0, transformOrigin: '8px 124px' });
+
+      gsap.set('#s3IndoorLight', { opacity: 0 });
+      gsap.set('#s3IndoorClosed', { opacity: 1 });
+      gsap.set('#s3IndoorOpen', { opacity: 0 });
+      gsap.set('#s3IndoorHead', { y: 0 });
+      gsap.set(['#s3Z1', '#s3Z2', '#s3Z3'], { opacity: 0, y: 0 });
+      gsap.set(['#s3Ripple1', '#s3Ripple2'], { opacity: 0, attr: { r: 3 } });
+
+      gsap.set('#s3DoorGlow', { opacity: 0 });
+      gsap.set('#s3Knocker1', { x: 432, y: 595, opacity: 0 });
+      gsap.set('#s3LeaningPole', { x: 502, y: 790, rotation: 0, transformOrigin: '0px 0px' });
       replayBtn.textContent = '↺ 0.0s';
     }
 
-    function triggerIndoorRipple(tl, time) {
-      tl.call(() => playIndoorGlassTap(), null, time);
-      tl.fromTo('#s2Ripple1',
-        { attr: { r: 3 }, opacity: 0.85 },
+    function triggerGlassRipple(tl, time) {
+      tl.call(() => playGlassTap(), null, time);
+      tl.fromTo('#s3Ripple1',
+        { attr: { r: 3 }, opacity: 0.9 },
         { attr: { r: 26 }, opacity: 0, duration: 0.5, ease: 'power2.out', immediateRender: false },
         time
       );
-      tl.fromTo('#s2Ripple2',
-        { attr: { r: 2 }, opacity: 0.65 },
+      tl.fromTo('#s3Ripple2',
+        { attr: { r: 2 }, opacity: 0.7 },
         { attr: { r: 16 }, opacity: 0, duration: 0.4, ease: 'power2.out', immediateRender: false },
         time + 0.05
       );
     }
 
-    function playScene2() {
-      resetScene2ToStart();
-      const state = { bodyAngle: -74, headAngle: 14 };
+    function playScene3() {
+      resetScene3ToStart();
 
       sceneTl = gsap.timeline({
         onUpdate: () => {
@@ -449,16 +551,18 @@
         }
       });
 
-      // Gentle camera drift
-      sceneTl.to('#s2Camera', {
+      sceneTl.call(() => playNightWind(5.8), null, 0.05);
+
+      // Slow atmospheric camera push
+      sceneTl.to('#s3Camera', {
         scale: 1.06,
-        transformOrigin: '260px 530px',
+        transformOrigin: '270px 490px',
         duration: 6.0,
         ease: 'power1.inOut'
       }, 0);
 
-      // 0.0s - 1.6s: Floating z Z Z while sleeping
-      ['#s2Z1', '#s2Z2', '#s2Z3'].forEach((zId, idx) => {
+      // 0.0s - 1.8s: Knocker-Upper #1 sleeps inside cottage window (z Z Z)
+      ['#s3Z1', '#s3Z2', '#s3Z3'].forEach((zId, idx) => {
         sceneTl.fromTo(zId,
           { opacity: 0, y: 4 },
           { opacity: 0.75, y: -12, duration: 0.9, ease: 'sine.out', immediateRender: false },
@@ -466,130 +570,86 @@
         );
       });
 
-      // Two muffled glass taps outside window (0.75s & 1.55s)
-      [0.75, 1.55].forEach((t) => {
-        sceneTl.to('#s2OutsidePole', {
+      // 0.3s - 1.6s: Early-Bird Knocker-Upper #2 (Green Scarf) walks up to cottage window
+      sceneTl.to('#s3Knocker2', {
+        x: 172,
+        duration: 1.3,
+        ease: 'power1.out'
+      }, 0.3);
+
+      [0.45, 0.85, 1.25].forEach((stepTime, idx) => {
+        sceneTl.call(() => playCobblestoneStep(), null, stepTime);
+        const dir = idx % 2 === 0 ? 1 : -1;
+        sceneTl.to('#s3K2LegFront', { rotation: 16 * dir, duration: 0.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, stepTime - 0.1);
+        sceneTl.to('#s3K2LegBack', { rotation: -16 * dir, duration: 0.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, stepTime - 0.1);
+        sceneTl.to('#s3K2Torso', { y: -2.5, duration: 0.18, yoyo: true, repeat: 1, ease: 'sine.inOut' }, stepTime - 0.1);
+      });
+
+      // 1.95s & 2.75s: Knocker-Upper #2 taps on Knocker-Upper #1's bedroom window!
+      [1.95, 2.75].forEach((t) => {
+        sceneTl.to('#s3K2PoleRig', {
           rotation: 0,
-          duration: 0.13,
+          duration: 0.14,
           ease: 'power2.in'
-        }, t - 0.13);
+        }, t - 0.14);
 
-        triggerIndoorRipple(sceneTl, t);
+        triggerGlassRipple(sceneTl, t);
 
-        sceneTl.to('#s2OutsidePole', {
-          rotation: -4,
-          duration: 0.3,
+        sceneTl.to('#s3K2PoleRig', {
+          rotation: -5,
+          duration: 0.32,
           ease: 'power2.out'
         }, t + 0.02);
       });
 
-      // 1.75s: Startled awake — z Z Z vanishes, eyes open, sits upright cleanly inside bed
-      sceneTl.to(['#s2Z1', '#s2Z2', '#s2Z3'], { opacity: 0, duration: 0.2 }, 1.72);
-      sceneTl.set('#s2EyesClosed', { opacity: 0 }, 1.78);
-      sceneTl.set('#s2EyesOpen', { opacity: 1 }, 1.78);
-      sceneTl.call(() => playBedRustle(), null, 1.8);
+      // 2.9s: Knocker-Upper #1 jolts awake inside window & lights candle!
+      sceneTl.to(['#s3Z1', '#s3Z2', '#s3Z3'], { opacity: 0, duration: 0.18 }, 2.85);
+      sceneTl.set('#s3IndoorClosed', { opacity: 0 }, 2.92);
+      sceneTl.set('#s3IndoorOpen', { opacity: 1 }, 2.92);
+      sceneTl.to('#s3IndoorHead', { y: -8, duration: 0.35, ease: 'back.out(1.5)' }, 2.92);
+      sceneTl.to('#s3IndoorLight', { opacity: 0.85, duration: 0.45, ease: 'power2.out' }, 3.15);
 
-      sceneTl.to(state, {
-        bodyAngle: 0,
-        headAngle: 0,
-        duration: 0.72,
-        ease: 'back.out(1.15)',
-        onUpdate: () => {
-          pivotEl.setAttribute('transform', `rotate(${state.bodyAngle.toFixed(2)})`);
-          headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
-        }
-      }, 1.8);
-
-      // 3.15s: Looks left toward bedside cabinet & reaches front hand out to light candle
-      sceneTl.to(state, {
-        headAngle: -10,
-        duration: 0.35,
-        ease: 'power2.out',
-        onUpdate: () => {
-          headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
-        }
-      }, 3.15);
-
-      sceneTl.to('#s2EyeL', { attr: { cx: -16 }, duration: 0.28, ease: 'power2.out' }, 3.15);
-      sceneTl.to('#s2EyeR', { attr: { cx: -8 }, duration: 0.28, ease: 'power2.out' }, 3.15);
-      sceneTl.to('#s2Mouth', { attr: { x1: -15, x2: -9 }, duration: 0.28, ease: 'power2.out' }, 3.15);
-
-      sceneTl.to('#s2ArmFront', {
-        attr: { d: 'M -1 -32 L -54 -22 L -110 -14' },
-        duration: 0.45,
-        ease: 'power2.out'
+      // Knocker-Upper #2 lowers his pole after seeing the candle inside
+      sceneTl.to('#s3K2PoleRig', {
+        rotation: -18,
+        duration: 0.55,
+        ease: 'power2.inOut'
       }, 3.35);
 
-      // 3.85s: Candle lights up & warm golden glow fills the room
-      sceneTl.call(() => playCandleSpark(), null, 3.85);
+      // 3.85s: Cottage front door opens, Knocker-Upper #1 steps out & grabs his own bamboo pole!
+      sceneTl.call(() => playDoorCreakOpen(), null, 3.85);
+      sceneTl.to('#s3DoorGlow', { opacity: 0.35, duration: 0.3 }, 3.85);
 
-      sceneTl.to('#s2CandleFlameGroup', {
+      sceneTl.to('#s3Knocker1', {
         opacity: 1,
-        scale: 1,
-        duration: 0.4,
-        ease: 'back.out(1.6)'
-      }, 3.85);
-
-      sceneTl.to('#s2RoomWarmWash', {
-        opacity: 0.95,
-        duration: 0.85,
+        x: 392,
+        duration: 0.55,
         ease: 'power2.out'
-      }, 3.88);
+      }, 3.95);
 
-      sceneTl.to('#s2HeadWarmRim', {
-        opacity: 0.65,
-        duration: 0.75,
-        ease: 'power2.out'
-      }, 3.9);
-
-      // 4.05s: Bamboo pole lowers away ONLY after candle lights up
-      sceneTl.to('#s2OutsidePole', {
-        rotation: -32,
-        opacity: 0.15,
-        duration: 0.95,
-        ease: 'power2.in'
+      // His leaning bamboo pole snaps upright into his hand!
+      sceneTl.to('#s3LeaningPole', {
+        x: 378,
+        rotation: -2,
+        duration: 0.5,
+        ease: 'back.out(1.2)'
       }, 4.05);
 
-      // 4.35s: Arm returns cleanly to rest on blanket while head & eyes turn back right toward window
-      sceneTl.to('#s2ArmFront', {
-        attr: { d: 'M 1 -32 L 13 -13 L 26 -10' },
-        duration: 0.5,
-        ease: 'power2.inOut'
-      }, 4.35);
-
-      sceneTl.to(state, {
-        headAngle: -14,
-        duration: 0.45,
-        ease: 'power2.out',
-        onUpdate: () => {
-          headEl.setAttribute('transform', `rotate(${state.headAngle.toFixed(2)})`);
-        }
-      }, 4.4);
-
-      sceneTl.to('#s2EyeL', { attr: { cx: 10, cy: -4 }, duration: 0.35, ease: 'power2.out' }, 4.4);
-      sceneTl.to('#s2EyeR', { attr: { cx: 18, cy: -4 }, duration: 0.35, ease: 'power2.out' }, 4.4);
-      sceneTl.to('#s2Mouth', { attr: { x1: 11, y1: 6, x2: 17, y2: 5 }, duration: 0.35, ease: 'power2.out' }, 4.4);
-
-      // Gentle candle flame flicker
-      sceneTl.to('#s2FlameShape', {
-        scaleX: 0.88,
-        scaleY: 1.08,
-        rotation: 3,
-        transformOrigin: '0px 0px',
+      // 4.55s - 6.0s: Both Knocker-Uppers stand face-to-face with bamboo poles in hand (Deadpan Comedy Beat!)
+      sceneTl.to('#s3K2Head', {
+        rotation: 2,
         duration: 0.35,
-        yoyo: true,
-        repeat: 4,
-        ease: 'sine.inOut'
-      }, 4.25);
+        ease: 'power1.out'
+      }, 4.55);
     }
 
     document.getElementById('playBtn').addEventListener('click', () => {
       initAudio();
-      playScene2();
+      playScene3();
     });
 
     replayBtn.addEventListener('click', () => {
-      resetScene2ToStart();
+      resetScene3ToStart();
     });
 
     document.getElementById('soundBtn').addEventListener('click', () => {
@@ -598,7 +658,7 @@
     });
 
     window.addEventListener('load', () => {
-      setTimeout(playScene2, 250);
+      setTimeout(playScene3, 250);
     });
   </script>
 </body>
