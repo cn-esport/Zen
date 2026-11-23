@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — Okage Mairi Scene 3: Roadside Kindness (12.0s + Foley SFX)</title>
+<title>Zenspiris — Okage Mairi Scene 4: The Crossroads (14.0s + Foley SFX)</title>
 <style>
 :root{--head:#0d0b12;--face:#f2ede2;--rim:#fcd34d;--rim-cool:#60a5fa}
 *{box-sizing:border-box;margin:0}
@@ -25,185 +25,140 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
 <div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
 <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 <defs>
-  <!-- Night sky with subtle teal & warm ember horizon continuity -->
-  <linearGradient id="s3Sky" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#04060c"/>
-    <stop offset=".55" stop-color="#0b1522"/>
-    <stop offset=".85" stop-color="#17242c"/>
-    <stop offset="1" stop-color="#2b1e19"/>
+  <!-- Cold night sky with deep teal horizon fog -->
+  <linearGradient id="s4Sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#03050a"/>
+    <stop offset=".5" stop-color="#08121c"/>
+    <stop offset=".82" stop-color="#0e2a33"/>
+    <stop offset="1" stop-color="#133840"/>
   </linearGradient>
-  <linearGradient id="s3Ground" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#0c111c"/>
-    <stop offset="1" stop-color="#04060a"/>
+  <!-- Dark crossroads earth -->
+  <linearGradient id="s4Ground" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#091018"/>
+    <stop offset="1" stop-color="#030509"/>
   </linearGradient>
-  <!-- Warm lantern glow -->
-  <radialGradient id="s3LanternGlow">
+  <!-- Teal fog layers -->
+  <linearGradient id="s4TealFog" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#14b8a6" stop-opacity="0"/>
+    <stop offset=".5" stop-color="#0d9488" stop-opacity=".28"/>
+    <stop offset="1" stop-color="#042f2e" stop-opacity="0"/>
+  </linearGradient>
+  <!-- Single lone ember glow on the road -->
+  <radialGradient id="s4RoadEmber">
     <stop offset="0" stop-color="#fef08a" stop-opacity=".95"/>
-    <stop offset=".28" stop-color="#f59e0b" stop-opacity=".55"/>
-    <stop offset=".65" stop-color="#d97706" stop-opacity=".18"/>
+    <stop offset=".25" stop-color="#f59e0b" stop-opacity=".5"/>
+    <stop offset=".6" stop-color="#b45309" stop-opacity=".16"/>
     <stop offset="1" stop-color="#78350f" stop-opacity="0"/>
   </radialGradient>
-  <!-- Warm shelter doorway spill on right -->
-  <linearGradient id="s3EavesSpill" x1="1" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#f59e0b" stop-opacity=".22"/>
-    <stop offset="1" stop-color="#f59e0b" stop-opacity="0"/>
-  </linearGradient>
-  <!-- Steam gradient -->
-  <radialGradient id="s3SteamG">
-    <stop offset="0" stop-color="#fef3c7" stop-opacity=".35"/>
-    <stop offset="1" stop-color="#fef3c7" stop-opacity="0"/>
+  <!-- Cool moonlight wash from above -->
+  <radialGradient id="s4MoonWash">
+    <stop offset="0" stop-color="#60a5fa" stop-opacity=".16"/>
+    <stop offset="1" stop-color="#60a5fa" stop-opacity="0"/>
   </radialGradient>
 </defs>
 
-<g id="s3Camera">
-  <!-- Sky & distant hills -->
-  <rect x="0" y="0" width="540" height="790" fill="url(#s3Sky)"/>
-  <path d="M -20 630 Q 130 580 280 615 Q 420 585 560 610 L 560 790 L -20 790 Z" fill="#070d16"/>
+<g id="s4Camera">
+  <!-- Sky & distant cold hills -->
+  <rect x="0" y="0" width="540" height="790" fill="url(#s4Sky)"/>
+  <path d="M -20 620 Q 150 570 300 605 Q 430 575 560 600 L 560 790 L -20 790 Z" fill="#060d15"/>
 
-  <!-- Pale moon (cool secondary light) -->
-  <circle cx="96" cy="245" r="44" fill="#60a5fa" opacity=".06"/>
-  <circle cx="96" cy="245" r="11" fill="#bae6fd" opacity=".42"/>
+  <!-- Pale cold moon -->
+  <circle cx="130" cy="220" r="65" fill="url(#s4MoonWash)"/>
+  <circle cx="130" cy="220" r="12" fill="#bae6fd" opacity=".48"/>
 
-  <!-- Distant background pilgrims passing quietly along the road -->
-  <g id="s3BgPilgrims" opacity=".55">
-    <g id="s3BgP1" transform="translate(60, 745) scale(0.42)">
-      <circle cx="1.5" cy="-128" r="21" fill="#fcd34d" opacity=".3"/>
-      <circle cx="0" cy="-128" r="21" fill="#090c14"/>
-      <path d="M -12 -106 L 13 -106 L 17 -24 L -15 -24 Z" fill="#090c14"/>
-      <path d="M -4 -26 L -6 0 M 5 -26 L 7 0" stroke="#090c14" stroke-width="9" stroke-linecap="round"/>
-    </g>
-    <g id="s3BgP2" transform="translate(15, 748) scale(0.36)">
-      <circle cx="1.5" cy="-128" r="21" fill="#fcd34d" opacity=".3"/>
-      <circle cx="0" cy="-128" r="21" fill="#090c14"/>
-      <path d="M -12 -106 L 13 -106 L 17 -24 L -15 -24 Z" fill="#090c14"/>
-      <path d="M -4 -26 L -6 0 M 5 -26 L 7 0" stroke="#090c14" stroke-width="9" stroke-linecap="round"/>
-    </g>
+  <!-- Background teal fog bank -->
+  <rect id="s4FogBack" x="-60" y="520" width="660" height="220" fill="url(#s4TealFog)" opacity=".85"/>
+
+  <!-- Wooden Crossroads Signpost (left of center, marking the junction) -->
+  <g id="s4Signpost" transform="translate(178, 785)">
+    <!-- cool rim edge on post -->
+    <rect x="-3" y="-215" width="8" height="215" fill="#60a5fa" opacity=".2"/>
+    <!-- main wooden post -->
+    <rect x="-4" y="-215" width="8" height="215" fill="#0b1019"/>
+    <!-- top directional sign pointing right -->
+    <path d="M -6 -196 L 44 -196 L 54 -188 L 44 -180 L -6 -180 Z" fill="#0e1522"/>
+    <path d="M -6 -196 L 44 -196 L 54 -188" stroke="#60a5fa" stroke-width="1.2" fill="none" opacity=".3"/>
+    <!-- lower directional sign pointing left -->
+    <path d="M 6 -166 L -38 -166 L -47 -158 L -38 -150 L 6 -150 Z" fill="#090e17"/>
   </g>
 
-  <!-- Roadside wooden shelter / village house eaves on the right -->
-  <g id="s3Shelter">
-    <polygon points="365,530 540,480 540,785 270,785" fill="url(#s3EavesSpill)"/>
-    <rect x="375" y="455" width="175" height="330" fill="#101522"/>
-    <rect x="415" y="515" width="110" height="145" fill="#78350f" opacity=".55"/>
-    <rect x="421" y="521" width="98" height="133" fill="#f59e0b" opacity=".28"/>
-    <g stroke="#161c2c" stroke-width="3">
-      <line x1="454" y1="521" x2="454" y2="654"/>
-      <line x1="487" y1="521" x2="487" y2="654"/>
-      <line x1="421" y1="565" x2="519" y2="565"/>
-      <line x1="421" y1="610" x2="519" y2="610"/>
-    </g>
-    <path d="M 330 462 Q 430 442 555 415 L 555 468 L 325 474 Z" fill="#080b12"/>
-    <path d="M 330 462 Q 430 442 555 415" stroke="#fcd34d" stroke-width="1.4" fill="none" opacity=".25"/>
-    <rect x="368" y="468" width="12" height="317" fill="#0b0f19"/>
-    <rect x="352" y="756" width="188" height="10" fill="#182030"/>
-    <rect x="364" y="766" width="8" height="19" fill="#0b0f19"/>
+  <!-- Crossroads Ground & Intersecting Paths -->
+  <rect x="0" y="785" width="540" height="175" fill="url(#s4Ground)"/>
+  <!-- Perspective crossroads path diverging toward foreground -->
+  <polygon points="215,785 325,785 450,960 90,960" fill="#0d1622" opacity=".85"/>
+  <g stroke="#132030" stroke-width="1.8">
+    <line x1="0" y1="785" x2="540" y2="785"/>
+    <line x1="215" y1="785" x2="90" y2="960"/>
+    <line x1="325" y1="785" x2="450" y2="960"/>
   </g>
 
-  <!-- Dirt road / ground -->
-  <rect x="0" y="785" width="540" height="175" fill="url(#s3Ground)"/>
-  <g stroke="#121a28" stroke-width="1.8">
-    <line x1="0" y1="812" x2="540" y2="812"/>
-    <line x1="20" y1="848" x2="510" y2="848"/>
-    <line x1="0" y1="895" x2="540" y2="895"/>
+  <!-- One Lone Ember Glow on the Road (dropped ember / small roadside marker at x=348, y=792) -->
+  <g id="s4EmberMarker">
+    <circle id="s4EmberHalo" cx="348" cy="788" r="145" fill="url(#s4RoadEmber)" opacity=".85"/>
+    <ellipse cx="348" cy="792" rx="52" ry="8" fill="#f59e0b" opacity=".25"/>
+    <!-- tiny glowing coal/ember stone on road -->
+    <ellipse cx="348" cy="792" rx="7" ry="3.2" fill="#d97706"/>
+    <ellipse id="s4EmberCore" cx="348" cy="791.5" rx="3.8" ry="1.8" fill="#fef08a"/>
   </g>
 
-  <!-- Small Ember Lantern placed on the ground between them (x=272, y=785) -->
-  <g id="s3LanternGroup">
-    <!-- wide warm radial light pool -->
-    <circle id="s3LanternHalo" cx="272" cy="758" r="195" fill="url(#s3LanternGlow)" opacity=".85"/>
-    <!-- ground warm reflection under lantern -->
-    <ellipse id="s3LanternPool" cx="272" cy="788" rx="95" ry="14" fill="#f59e0b" opacity=".28"/>
-    <!-- stone base -->
-    <rect x="256" y="779" width="32" height="6" rx="2" fill="#181f2e"/>
-    <!-- wooden lantern frame -->
-    <rect x="260" y="746" width="24" height="33" rx="3" fill="#141824" stroke="#29221c" stroke-width="2"/>
-    <!-- glowing ember paper core -->
-    <rect id="s3LanternCore" x="263" y="750" width="18" height="25" rx="2" fill="#f59e0b"/>
-    <!-- inner flame centered properly inside the lantern -->
-    <g transform="translate(272, 766)">
-      <ellipse id="s3LanternFlame" cx="0" cy="-2" rx="4.5" ry="6.5" fill="#fef08a"/>
-    </g>
-    <!-- lantern roof cap & handle -->
-    <path d="M 254 747 L 272 737 L 290 747 Z" fill="#0d0b12"/>
-    <path d="M 267 737 Q 272 730 277 737" stroke="#d97706" stroke-width="1.8" fill="none"/>
-    <!-- tiny rising ember sparks -->
-    <circle class="s3Spark" cx="270" cy="742" r="1.3" fill="#fef08a" opacity="0"/>
-    <circle class="s3Spark" cx="275" cy="740" r="1.1" fill="#fcd34d" opacity="0"/>
-  </g>
+  <!-- BACKGROUND STREAMING SHADOWS (Left to Right, behind standing figure) -->
+  <g id="s4ShadowsLR"></g>
 
-  <!-- TRAVELER (Hero from Scenes 1 & 2, walking in from left, facing right) -->
-  <g id="s3Traveler" transform="translate(120, 785)">
-    <ellipse cx="0" cy="2" rx="28" ry="5.5" fill="#000" opacity=".9"/>
-    <g id="s3TravLegB" transform="translate(-4,-50)">
-      <path d="M 0 0 L -1 26 L -3 47" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <path d="M -6 44 L 10 44 L 11 50 L -8 50 Z" fill="#08070c"/>
+  <!-- LONE FIGURE STANDING STILL AT THE CROSSROADS (Hero from Scenes 1–3, stationary) -->
+  <g id="s4Hero" transform="translate(262, 785)">
+    <ellipse cx="0" cy="2" rx="30" ry="6" fill="#000" opacity=".92"/>
+    <!-- back leg (planted still) -->
+    <g transform="translate(-5,-50)">
+      <path d="M 0 0 L -1 26 L -2 47" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M -7 44 L 9 44 L 10 50 L -9 50 Z" fill="#08070c"/>
     </g>
-    <g id="s3TravLegF" transform="translate(4,-50)">
-      <path d="M 0 0 L 1 26 L 4 47" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <path d="M 0 44 L 14 44 L 15 50 L -2 50 Z" class="hd"/>
+    <!-- front leg (planted still) -->
+    <g transform="translate(5,-50)">
+      <path d="M 0 0 L 1 26 L 2 47" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M -2 44 L 13 44 L 14 50 L -4 50 Z" class="hd"/>
     </g>
-    <path id="s3TravArmB" d="M -7 -100 L -11 -78 L -8 -58" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <path d="M -11.5 -108 L 15.5 -108 L 19.5 -26 L -14.5 -26 Z" fill="#fcd34d" opacity=".46"/>
+    <!-- far arm -->
+    <path d="M -7 -100 L -11 -77 L -10 -56" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- cool moonlight rim on left side of torso -->
+    <path d="M -14.8 -108 L 12 -108 L 16 -26 L -17.8 -26 Z" fill="#60a5fa" opacity=".32"/>
+    <!-- warm road-ember rim on right lower edge of torso -->
+    <path d="M -11.5 -108 L 15.5 -108 L 19.5 -26 L -14.5 -26 Z" fill="#fcd34d" opacity=".26"/>
+    <!-- torso trapezoid -->
     <path d="M -13 -108 L 14 -108 L 18 -26 L -16 -26 Z" fill="#1e2330"/>
+    <!-- same muted slate scarf from Scenes 1–3 -->
     <path d="M -13 -108 L 14 -108 L 15 -97 L -14 -97 Z" fill="#2d3748"/>
     <path d="M 2 -98 L 11 -98 L 12 -74 L 3 -76 Z" fill="#242c3a"/>
-    <path id="s3TravArmF" d="M 3 -100 L 10 -78 L 13 -57" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <g id="s3TravHead" transform="translate(1,-130) rotate(2)">
-      <circle cx="1.6" cy="0" r="22" fill="#fcd34d" opacity=".52"/>
+    <!-- front arm hanging still at side -->
+    <path d="M 3 -100 L 8 -77 L 10 -56" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- head group (watches passing shadows left-to-right, then right-to-left) -->
+    <g id="s4HeroHead" transform="translate(0,-130) rotate(0)">
+      <!-- dual rim lights: cool moonlight left, faint ember right -->
+      <circle cx="-1.5" cy="0" r="22" fill="#60a5fa" opacity=".36"/>
+      <circle cx="1.5" cy="0" r="22" fill="#fcd34d" opacity=".28"/>
       <circle cx="0" cy="0" r="22" class="hd"/>
-      <circle class="fc" cx="10.5" cy="-2" r="2.1"/>
-      <circle class="fc" cx="17.5" cy="-2" r="2.1"/>
-      <line class="fs" x1="9" y1="7" x2="15" y2="7" stroke-width="1.8"/>
+      <!-- eyes group shifts subtly as head tracks passersby -->
+      <g id="s4HeroFace">
+        <circle id="s4EyeL" class="fc" cx="5" cy="-2" r="2.1"/>
+        <circle id="s4EyeR" class="fc" cx="12.5" cy="-2" r="2.1"/>
+        <line id="s4Mouth" class="fs" x1="5.5" y1="7" x2="11.5" y2="7" stroke-width="1.8"/>
+      </g>
     </g>
   </g>
 
-  <!-- VILLAGER (Side character on right, facing left, holding out ceramic bowl) -->
-  <g id="s3Villager" transform="translate(338, 785)">
-    <ellipse cx="0" cy="2" rx="29" ry="5.5" fill="#000" opacity=".9"/>
-    <g transform="translate(4,-50)">
-      <path d="M 0 0 L 1 26 L 3 47" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <path d="M -10 44 L 6 44 L 8 50 L -11 50 Z" fill="#08070c"/>
-    </g>
-    <g transform="translate(-4,-50)">
-      <path d="M 0 0 L -1 26 L -4 47" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <path d="M -14 44 L 0 44 L 2 50 L -15 50 Z" class="hd"/>
-    </g>
-    <path id="s3VilArmB" d="M 6 -100 L -12 -85 L -32 -84" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <path d="M -15.5 -108 L 11.5 -108 L 14.5 -26 L -19.5 -26 Z" fill="#fcd34d" opacity=".46"/>
-    <path d="M -14 -108 L 13 -108 L 16 -26 L -18 -26 Z" fill="#231e24"/>
-    <path d="M -14 -108 L 13 -108 L 14 -97 L -15 -97 Z" fill="#78350f"/>
-    <path d="M -11 -98 L -2 -98 L -3 -76 L -12 -74 Z" fill="#92400e"/>
-    <path id="s3VilArmF" d="M -3 -100 L -18 -84 L -36 -83" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <g id="s3VilHead" transform="translate(-1,-130) rotate(-3)">
-      <circle cx="-1.6" cy="0" r="22" fill="#fcd34d" opacity=".52"/>
-      <circle cx="0" cy="0" r="22" class="hd"/>
-      <path d="M -19 -10 Q 0 -16 19 -10 L 18 -6 Q 0 -12 -18 -6 Z" fill="#92400e"/>
-      <circle cx="21" cy="-8" r="3.5" fill="#78350f"/>
-      <circle class="fc" cx="-10.5" cy="-2" r="2.1"/>
-      <circle class="fc" cx="-17.5" cy="-2" r="2.1"/>
-      <line class="fs" x1="-15" y1="7" x2="-9" y2="7" stroke-width="1.8"/>
-    </g>
-  </g>
+  <!-- FOREGROUND STREAMING SHADOWS (Right to Left, passing in front of standing figure) -->
+  <g id="s4ShadowsRL"></g>
 
-  <!-- CERAMIC BOWL + WARM STEAM + CLINK RIPPLE -->
-  <g id="s3Bowl" transform="translate(298, 702)">
-    <path d="M -13 0 Q 0 13 13 0 Z" fill="#fcd34d" opacity=".45" transform="translate(0,1.5)"/>
-    <path d="M -13 0 Q 0 13 13 0 Z" fill="#e7e0d2"/>
-    <ellipse cx="0" cy="0" rx="13" ry="3" fill="#cbbba0"/>
-    <circle class="s3Steam" cx="-4" cy="-6" r="5" fill="url(#s3SteamG)" opacity="0"/>
-    <circle class="s3Steam" cx="3" cy="-9" r="6" fill="url(#s3SteamG)" opacity="0"/>
-    <circle class="s3Steam" cx="0" cy="-12" r="5.5" fill="url(#s3SteamG)" opacity="0"/>
-  </g>
+  <!-- Low drifting teal fog in foreground -->
+  <rect id="s4FogFront" x="-80" y="680" width="700" height="145" fill="url(#s4TealFog)" opacity=".65"/>
 
-  <!-- Soft ceramic clink ripple -->
-  <circle id="s3ClinkR1" cx="272" cy="702" r="3" fill="none" stroke="#fef08a" stroke-width="1.4" opacity="0"/>
-  <circle id="s3ClinkR2" cx="272" cy="702" r="3" fill="none" stroke="#fcd34d" stroke-width="1.1" opacity="0"/>
+  <!-- Subtle heartbeat pulse ring radiating quietly from standing figure's chest -->
+  <circle id="s4PulseRing" cx="262" cy="705" r="8" fill="none" stroke="#5eead4" stroke-width="1.2" opacity="0"/>
 </g>
 </svg>
 </div>
 
 <div class="controls">
-  <button id="playBtn" class="primary">▶ Play (12.0s)</button>
+  <button id="playBtn" class="primary">▶ Play (14.0s)</button>
   <button id="replayBtn">↺ 0.0s</button>
   <button id="soundBtn">🔊 Sound: ON</button>
 </div>
@@ -220,286 +175,340 @@ function initAudio() {
   if (audioCtx.state === 'suspended') audioCtx.resume();
 }
 
-function playSoftStep(vol = 0.048) {
+// Steady passing footsteps (panned subtly left-to-right or right-to-left if StereoPanner is supported)
+function playPassingStep(panVal = 0, vol = 0.055, pitch = 1.0) {
   if (!audioCtx || !soundEnabled) return;
   const t = audioCtx.currentTime;
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(98, t);
-  osc.frequency.exponentialRampToValueAtTime(40, t + 0.08);
+
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(102 * pitch, t);
+  osc.frequency.exponentialRampToValueAtTime(38 * pitch, t + 0.08);
+
   gain.gain.setValueAtTime(vol, t);
   gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
-  osc.connect(gain).connect(audioCtx.destination);
+
+  if (audioCtx.createStereoPanner) {
+    const panner = audioCtx.createStereoPanner();
+    panner.pan.setValueAtTime(Math.max(-1, Math.min(1, panVal)), t);
+    osc.connect(gain).connect(panner).connect(audioCtx.destination);
+  } else {
+    osc.connect(gain).connect(audioCtx.destination);
+  }
+
   osc.start(t);
   osc.stop(t + 0.095);
 }
 
-function playCeramicClink() {
+// One slow, deep pulse every 2 seconds (very quiet heartbeat-like sub thud)
+function playDeepPulse() {
   if (!audioCtx || !soundEnabled) return;
   const t = audioCtx.currentTime;
 
-  const partials = [
-    { freq: 2180, gain: 0.085, dur: 0.24 },
-    { freq: 3490, gain: 0.045, dur: 0.16 },
-    { freq: 5120, gain: 0.022, dur: 0.09 }
-  ];
+  // Primary deep thump
+  const osc1 = audioCtx.createOscillator();
+  const g1 = audioCtx.createGain();
+  osc1.type = 'sine';
+  osc1.frequency.setValueAtTime(56, t);
+  osc1.frequency.exponentialRampToValueAtTime(31, t + 0.28);
+  g1.gain.setValueAtTime(0.0001, t);
+  g1.gain.linearRampToValueAtTime(0.095, t + 0.025);
+  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.34);
+  osc1.connect(g1).connect(audioCtx.destination);
+  osc1.start(t);
+  osc1.stop(t + 0.36);
 
-  partials.forEach(p => {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(p.freq, t);
-    osc.frequency.exponentialRampToValueAtTime(p.freq * 0.985, t + p.dur);
-    gain.gain.setValueAtTime(0.0001, t);
-    gain.gain.linearRampToValueAtTime(p.gain, t + 0.004);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + p.dur);
-    osc.connect(gain).connect(audioCtx.destination);
-    osc.start(t);
-    osc.stop(t + p.dur + 0.02);
-  });
+  // Faint second heartbeat echo 0.28s later
+  const osc2 = audioCtx.createOscillator();
+  const g2 = audioCtx.createGain();
+  osc2.type = 'sine';
+  osc2.frequency.setValueAtTime(48, t + 0.28);
+  osc2.frequency.exponentialRampToValueAtTime(28, t + 0.52);
+  g2.gain.setValueAtTime(0.0001, t + 0.28);
+  g2.gain.linearRampToValueAtTime(0.052, t + 0.305);
+  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.56);
+  osc2.connect(g2).connect(audioCtx.destination);
+  osc2.start(t + 0.28);
+  osc2.stop(t + 0.58);
 }
 
-function playScene3Ambience(dur = 11.9) {
+// 14.0s Cold Drone + Thinning Wind (warm tones drop out early, leaving cold low drone & thin wind)
+function playColdDroneAndThinningWind(dur = 13.9) {
   if (!audioCtx || !soundEnabled) return;
   const t = audioCtx.currentTime;
 
-  const crackleCount = 26;
-  for (let i = 0; i < crackleCount; i++) {
-    const offset = 0.2 + Math.random() * (dur - 0.5);
-    const popTime = t + offset;
-    const popDur = 0.018 + Math.random() * 0.02;
-    const n = Math.floor(audioCtx.sampleRate * popDur);
-    const buf = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let j = 0; j < n; j++) d[j] = (Math.random() * 2 - 1) * Math.exp(-j / (n * 0.35));
+  // 1. Wind that starts gently and thins out by ~7.5s, leaving pulse and footsteps exposed
+  const n = Math.floor(audioCtx.sampleRate * dur);
+  const buf = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) data[i] = Math.random() * 2 - 1;
 
-    const src = audioCtx.createBufferSource();
-    src.buffer = buf;
-    const hp = audioCtx.createBiquadFilter();
-    hp.type = 'highpass';
-    hp.frequency.value = 1800 + Math.random() * 1400;
-    const g = audioCtx.createGain();
-    g.gain.setValueAtTime(0.018 + Math.random() * 0.016, popTime);
-    g.gain.exponentialRampToValueAtTime(0.0001, popTime + popDur);
-    src.connect(hp).connect(g).connect(audioCtx.destination);
-    src.start(popTime);
-  }
+  const windSrc = audioCtx.createBufferSource();
+  windSrc.buffer = buf;
+  const windFilter = audioCtx.createBiquadFilter();
+  windFilter.type = 'bandpass';
+  windFilter.frequency.setValueAtTime(290, t);
+  windFilter.frequency.linearRampToValueAtTime(210, t + 8.0);
+  windFilter.Q.value = 3.0;
 
-  const mLen = Math.floor(audioCtx.sampleRate * dur);
-  const mBuf = audioCtx.createBuffer(1, mLen, audioCtx.sampleRate);
-  const mData = mBuf.getChannelData(0);
-  for (let i = 0; i < mLen; i++) {
-    const sec = i / audioCtx.sampleRate;
-    const mod = 0.5 + 0.5 * Math.sin(sec * 2.1) * Math.cos(sec * 3.7);
-    mData[i] = (Math.random() * 2 - 1) * mod;
-  }
-  const mSrc = audioCtx.createBufferSource();
-  mSrc.buffer = mBuf;
-  const mFilter = audioCtx.createBiquadFilter();
-  mFilter.type = 'bandpass';
-  mFilter.frequency.value = 360;
-  mFilter.Q.value = 3.5;
-  const mGain = audioCtx.createGain();
-  mGain.gain.setValueAtTime(0.0001, t);
-  mGain.gain.linearRampToValueAtTime(0.024, t + 1.8);
-  mGain.gain.linearRampToValueAtTime(0.02, t + dur - 0.8);
-  mGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-  mSrc.connect(mFilter).connect(mGain).connect(audioCtx.destination);
-  mSrc.start(t);
+  const windGain = audioCtx.createGain();
+  windGain.gain.setValueAtTime(0.026, t);
+  windGain.gain.linearRampToValueAtTime(0.018, t + 4.5);
+  windGain.gain.exponentialRampToValueAtTime(0.0008, t + 9.5);
+  windGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
 
-  const chord = [
-    { freq: 87.31, type: 'sine',     peak: 0.045, start: 0.0 },
-    { freq: 130.81, type: 'triangle', peak: 0.032, start: 0.4 },
-    { freq: 220.00, type: 'sine',     peak: 0.026, start: 2.2 },
-    { freq: 329.63, type: 'sine',     peak: 0.016, start: 4.5 }
-  ];
+  windSrc.connect(windFilter).connect(windGain).connect(audioCtx.destination);
+  windSrc.start(t);
 
-  chord.forEach(note => {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = note.type;
-    osc.frequency.setValueAtTime(note.freq, t + note.start);
-    gain.gain.setValueAtTime(0.0001, t + note.start);
-    gain.gain.linearRampToValueAtTime(note.peak, t + note.start + 2.4);
-    gain.gain.linearRampToValueAtTime(note.peak * 0.9, t + dur - 1.2);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    osc.connect(gain).connect(audioCtx.destination);
-    osc.start(t + note.start);
-    osc.stop(t + dur + 0.05);
-  });
+  // 2. Warm upper harmonic drops out in first 2.5s
+  const warmNote = audioCtx.createOscillator();
+  const warmGain = audioCtx.createGain();
+  warmNote.type = 'sine';
+  warmNote.frequency.setValueAtTime(220.0, t); // A3 from Scene 3
+  warmNote.frequency.linearRampToValueAtTime(196.0, t + 2.4);
+  warmGain.gain.setValueAtTime(0.024, t);
+  warmGain.gain.exponentialRampToValueAtTime(0.0001, t + 2.6);
+  warmNote.connect(warmGain).connect(audioCtx.destination);
+  warmNote.start(t);
+  warmNote.stop(t + 2.7);
+
+  // 3. Cold, lower drone settles into deep register (C2 -> G1 / F1)
+  const coldLow = audioCtx.createOscillator();
+  const coldSub = audioCtx.createOscillator();
+  const coldGain = audioCtx.createGain();
+
+  coldLow.type = 'triangle';
+  coldSub.type = 'sine';
+  coldLow.frequency.setValueAtTime(87.31, t);     // F2
+  coldLow.frequency.linearRampToValueAtTime(65.41, t + 3.5); // drops to C2
+  coldLow.frequency.linearRampToValueAtTime(55.00, t + 9.0); // colder A1
+
+  coldSub.frequency.setValueAtTime(65.41, t);     // C2
+  coldSub.frequency.linearRampToValueAtTime(43.65, t + 5.0); // drops to deep F1
+
+  coldGain.gain.setValueAtTime(0.038, t);
+  coldGain.gain.linearRampToValueAtTime(0.048, t + 4.0);
+  coldGain.gain.linearRampToValueAtTime(0.036, t + dur - 1.0);
+  coldGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+  coldLow.connect(coldGain);
+  coldSub.connect(coldGain);
+  coldGain.connect(audioCtx.destination);
+
+  coldLow.start(t); coldSub.start(t);
+  coldLow.stop(t + dur + 0.05); coldSub.stop(t + dur + 0.05);
 }
+
+// ---------- CREATE STREAMING SHADOW SILHOUETTES ----------
+const svgNS = 'http://www.w3.org/2000/svg';
+const shadowsLRContainer = $('s4ShadowsLR');
+const shadowsRLContainer = $('s4ShadowsRL');
+
+function buildShadowWalker(dir, scale, y, shade) {
+  const g = document.createElementNS(svgNS, 'g');
+  const faceSign = dir === 1 ? 1 : -1;
+  g.innerHTML = `
+    <ellipse cx="0" cy="2" rx="26" ry="5" fill="#000" opacity=".75"/>
+    <g class="legB" transform="translate(${-4 * faceSign},-50)">
+      <path d="M 0 0 L ${-1 * faceSign} 26 L ${-3 * faceSign} 47" stroke="#05070c" stroke-width="10.5" stroke-linecap="round" fill="none"/>
+      <path d="M ${-6 * faceSign} 44 L ${10 * faceSign} 44 L ${11 * faceSign} 50 L ${-8 * faceSign} 50 Z" fill="#05070c"/>
+    </g>
+    <g class="legF" transform="translate(${4 * faceSign},-50)">
+      <path d="M 0 0 L ${1 * faceSign} 26 L ${4 * faceSign} 47" stroke="${shade}" stroke-width="11" stroke-linecap="round" fill="none"/>
+      <path d="M 0 44 L ${14 * faceSign} 44 L ${15 * faceSign} 50 L ${-2 * faceSign} 50 Z" fill="${shade}"/>
+    </g>
+    <path d="M ${-11.5 * faceSign} -108 L ${15.5 * faceSign} -108 L ${19.5 * faceSign} -26 L ${-14.5 * faceSign} -26 Z" fill="#60a5fa" opacity=".22"/>
+    <path d="M ${-13 * faceSign} -108 L ${14 * faceSign} -108 L ${18 * faceSign} -26 L ${-16 * faceSign} -26 Z" fill="${shade}"/>
+    <path class="armF" d="M ${3 * faceSign} -100 L ${9 * faceSign} -78 L ${12 * faceSign} -57" stroke="${shade}" stroke-width="8.5" stroke-linecap="round" fill="none"/>
+    <g transform="translate(${1 * faceSign},-130) rotate(${2 * faceSign})">
+      <circle cx="${-1.5 * faceSign}" cy="0" r="22" fill="#60a5fa" opacity=".26"/>
+      <circle cx="0" cy="0" r="22" fill="${shade}"/>
+      <circle cx="${10.5 * faceSign}" cy="-2" r="2" fill="#cbd5e1" opacity=".75"/>
+      <circle cx="${17.5 * faceSign}" cy="-2" r="2" fill="#cbd5e1" opacity=".75"/>
+    </g>
+  `;
+  return {
+    el: g,
+    legF: g.querySelector('.legF'),
+    legB: g.querySelector('.legB'),
+    armF: g.querySelector('.armF'),
+    dir,
+    scale,
+    y,
+    x: dir === 1 ? -70 : 610,
+    stride: 0,
+    bob: 0,
+    opacity: 0
+  };
+}
+
+// Wave 1 (0.0s - 7.5s): Shadows streaming Left -> Right behind the standing hero
+const lrSpecs = [
+  { start: 0.2, dur: 5.2, y: 768, scale: 0.80, shade: '#090e17' },
+  { start: 1.1, dur: 5.0, y: 774, scale: 0.86, shade: '#0b111c' },
+  { start: 2.0, dur: 5.3, y: 764, scale: 0.75, shade: '#080c14' },
+  { start: 3.1, dur: 4.9, y: 772, scale: 0.84, shade: '#0a0f19' },
+  { start: 4.2, dur: 5.1, y: 766, scale: 0.78, shade: '#080d16' }
+];
+const lrWalkers = lrSpecs.map(s => {
+  const w = buildShadowWalker(1, s.scale, s.y, s.shade);
+  w.spec = s;
+  shadowsLRContainer.appendChild(w.el);
+  return w;
+});
+
+// Wave 2 (6.2s - 14.0s): Shadows streaming Right -> Left in front of the standing hero
+const rlSpecs = [
+  { start: 6.2,  dur: 5.2, y: 794, scale: 0.96, shade: '#070a10' },
+  { start: 7.3,  dur: 5.0, y: 800, scale: 1.02, shade: '#06090f' },
+  { start: 8.4,  dur: 5.2, y: 792, scale: 0.94, shade: '#080b12' },
+  { start: 9.5,  dur: 4.9, y: 798, scale: 1.00, shade: '#06080e' },
+  { start: 10.6, dur: 4.8, y: 795, scale: 0.97, shade: '#070a11' }
+];
+const rlWalkers = rlSpecs.map(s => {
+  const w = buildShadowWalker(-1, s.scale, s.y, s.shade);
+  w.spec = s;
+  shadowsRLContainer.appendChild(w.el);
+  return w;
+});
+
+const allWalkers = [...lrWalkers, ...rlWalkers];
 
 // ---------- RIG STATE ----------
-const st = {
-  travX: 120,
-  travStride: 0,
-  travBob: 0,
-  travHead: 2,
-  travArm: 0,
-  vilOffer: 0,
-  vilHead: -3,
-  bowlMode: 0,
-  bgWalk: 0
-};
-
-const lerp = (a, b, t) => a + (b - a) * t;
+const st = { headRot: 0, eyeShift: 0 };
 
 function render() {
-  $('s3Traveler').setAttribute('transform', `translate(${st.travX.toFixed(1)},${(785 + st.travBob).toFixed(1)})`);
-  $('s3TravHead').setAttribute('transform', `translate(1,-130) rotate(${st.travHead.toFixed(2)})`);
-  $('s3TravLegF').setAttribute('transform', `translate(4,-50) rotate(${st.travStride.toFixed(2)})`);
-  $('s3TravLegB').setAttribute('transform', `translate(-4,-50) rotate(${(-st.travStride).toFixed(2)})`);
+  $('s4HeroHead').setAttribute('transform', `translate(0,-130) rotate(${st.headRot.toFixed(2)})`);
+  $('s4EyeL').setAttribute('cx', (5 + st.eyeShift).toFixed(2));
+  $('s4EyeR').setAttribute('cx', (12.5 + st.eyeShift).toFixed(2));
+  $('s4Mouth').setAttribute('x1', (5.5 + st.eyeShift * 0.85).toFixed(2));
+  $('s4Mouth').setAttribute('x2', (11.5 + st.eyeShift * 0.85).toFixed(2));
 
-  let tEx, tEy, tHx, tHy;
-  if (st.travArm <= 1) {
-    tEx = lerp(10 - st.travStride * 0.35, 28, st.travArm);
-    tEy = lerp(-78, -84, st.travArm);
-    tHx = lerp(13 - st.travStride * 0.8, 52, st.travArm);
-    tHy = lerp(-57, -83, st.travArm);
-  } else {
-    const k = st.travArm - 1;
-    tEx = lerp(28, 22, k);
-    tEy = lerp(-84, -81, k);
-    tHx = lerp(52, 36, k);
-    tHy = lerp(-83, -81, k);
-  }
-  $('s3TravArmF').setAttribute('d', `M 3 -100 L ${tEx.toFixed(1)} ${tEy.toFixed(1)} L ${tHx.toFixed(1)} ${tHy.toFixed(1)}`);
-
-  $('s3VilHead').setAttribute('transform', `translate(-1,-130) rotate(${st.vilHead.toFixed(2)})`);
-  let vEx, vEy, vHx, vHy;
-  if (st.vilOffer <= 1) {
-    vEx = lerp(-15, -26, st.vilOffer);
-    vEy = lerp(-83, -85, st.vilOffer);
-    vHx = lerp(-30, -54, st.vilOffer);
-    vHy = lerp(-82, -83, st.vilOffer);
-  } else {
-    const k = st.vilOffer - 1;
-    vEx = lerp(-26, -12, k);
-    vEy = lerp(-85, -78, k);
-    vHx = lerp(-54, -14, k);
-    vHy = lerp(-83, -58, k);
-  }
-  $('s3VilArmF').setAttribute('d', `M -3 -100 L ${vEx.toFixed(1)} ${vEy.toFixed(1)} L ${vHx.toFixed(1)} ${vHy.toFixed(1)}`);
-  $('s3VilArmB').setAttribute('d', `M 6 -100 L ${(vEx + 6).toFixed(1)} ${(vEy - 1).toFixed(1)} L ${(vHx + 4).toFixed(1)} ${(vHy - 1).toFixed(1)}`);
-
-  let bowlX, bowlY;
-  if (st.bowlMode < 0.5) {
-    bowlX = 338 + vHx - 6;
-    bowlY = 785 + vHy;
-  } else {
-    bowlX = st.travX + tHx + 6;
-    bowlY = 785 + st.travBob + tHy;
-  }
-  $('s3Bowl').setAttribute('transform', `translate(${bowlX.toFixed(1)},${bowlY.toFixed(1)})`);
-
-  $('s3BgP1').setAttribute('transform', `translate(${(60 + st.bgWalk).toFixed(1)}, 745) scale(0.42)`);
-  $('s3BgP2').setAttribute('transform', `translate(${(15 + st.bgWalk * 0.85).toFixed(1)}, 748) scale(0.36)`);
+  allWalkers.forEach(w => {
+    const f = w.dir;
+    w.el.setAttribute('transform', `translate(${w.x.toFixed(1)},${(w.y + w.bob).toFixed(1)}) scale(${w.scale})`);
+    w.el.setAttribute('opacity', w.opacity.toFixed(2));
+    w.legF.setAttribute('transform', `translate(${4 * f},-50) rotate(${w.stride.toFixed(2)})`);
+    w.legB.setAttribute('transform', `translate(${-4 * f},-50) rotate(${(-w.stride).toFixed(2)})`);
+    w.armF.setAttribute('d', `M ${3 * f} -100 L ${(9 - w.stride * 0.35) * f} -78 L ${(12 - w.stride * 0.8) * f} -57`);
+  });
 }
 
-// ---------- TIMELINE (12.0s) ----------
+// ---------- TIMELINE (14.0s) ----------
 let sceneTl = null;
 
-function resetScene3ToStart() {
+function resetScene4ToStart() {
   if (sceneTl) { sceneTl.kill(); sceneTl = null; }
-  Object.assign(st, {
-    travX: 120,
-    travStride: 0,
-    travBob: 0,
-    travHead: 2,
-    travArm: 0,
-    vilOffer: 0,
-    vilHead: -3,
-    bowlMode: 0,
-    bgWalk: 0
+  Object.assign(st, { headRot: 0, eyeShift: 0 });
+  allWalkers.forEach(w => {
+    w.x = w.dir === 1 ? -70 : 610;
+    w.stride = 0;
+    w.bob = 0;
+    w.opacity = 0;
   });
-  gsap.set('#s3Camera', { scale: 1, svgOrigin: '270 660' });
-  gsap.set('#s3LanternHalo', { opacity: 0.82 });
-  gsap.set('#s3LanternFlame', { attr: { ry: 6.5, rx: 4.5 } });
-  gsap.set('#s3ClinkR1, #s3ClinkR2', { attr: { r: 3 }, opacity: 0 });
-  gsap.set('.s3Steam', { opacity: 0, y: 0, x: 0 });
-  gsap.set('.s3Spark', { opacity: 0, y: 0, x: 0 });
+  gsap.set('#s4Camera', { scale: 1, svgOrigin: '262 670' });
+  gsap.set('#s4FogBack', { x: 0, opacity: 0.85 });
+  gsap.set('#s4FogFront', { x: 0, opacity: 0.65 });
+  gsap.set('#s4EmberHalo', { opacity: 0.85 });
+  gsap.set('#s4PulseRing', { attr: { r: 8 }, opacity: 0 });
   render();
   replayBtn.textContent = '↺ 0.0s';
 }
 
-function playScene3() {
-  resetScene3ToStart();
+function playScene4() {
+  resetScene4ToStart();
   sceneTl = gsap.timeline({
     onUpdate: () => {
       render();
       replayBtn.textContent = `↺ ${sceneTl.time().toFixed(1)}s`;
     },
-    onComplete: () => replayBtn.textContent = '↺ 12.0s'
+    onComplete: () => replayBtn.textContent = '↺ 14.0s'
   });
 
-  // 0.00s - 12.00s: Slow cinematic camera push-in centered between villager, lantern & traveler
-  sceneTl.to('#s3Camera', { scale: 1.06, svgOrigin: '270 670', duration: 12.0, ease: 'power1.inOut' }, 0);
+  // 0.00s - 14.00s: Slow camera push-in toward the lone figure standing still at the crossroads
+  sceneTl.to('#s4Camera', { scale: 1.06, svgOrigin: '262 670', duration: 14.0, ease: 'power1.inOut' }, 0);
 
-  // 0.00s: Warm music, fire crackle, and distant murmur begin
-  sceneTl.call(() => playScene3Ambience(11.9), null, 0.02);
+  // 0.00s: Warm tones drop out, drone gets colder & lower, wind thins out
+  sceneTl.call(() => playColdDroneAndThinningWind(13.9), null, 0.02);
 
-  // Continuous gentle lantern flame flicker (stays strictly inside lantern) & tiny sparks
-  sceneTl.to('#s3LanternHalo', { opacity: 0.96, duration: 0.65, yoyo: true, repeat: 17, ease: 'sine.inOut' }, 0);
-  sceneTl.to('#s3LanternFlame', { attr: { ry: 7.4, rx: 4.1 }, duration: 0.45, yoyo: true, repeat: 25, ease: 'sine.inOut' }, 0);
-  sceneTl.fromTo('.s3Spark',
-    { opacity: 0, y: 0, x: 0 },
-    { opacity: 0.65, y: -16, x: i => (i % 2 ? 4 : -4), duration: 1.8, stagger: 0.9, repeat: 3, ease: 'sine.out', immediateRender: false },
-    0.5
-  );
+  // Teal fog drifting across crossroads + lone ember glowing steadily on the road
+  sceneTl.to('#s4FogBack', { x: 45, duration: 14.0, ease: 'sine.inOut' }, 0);
+  sceneTl.to('#s4FogFront', { x: -55, duration: 14.0, ease: 'sine.inOut' }, 0);
+  sceneTl.to('#s4EmberHalo', { opacity: 0.55, duration: 0.9, yoyo: true, repeat: 14, ease: 'sine.inOut' }, 0);
 
-  // Distant pilgrims walk slowly in the background
-  sceneTl.to(st, { bgWalk: 145, duration: 12.0, ease: 'none' }, 0);
-
-  // Continuous warm steam rising from the bowl
-  sceneTl.fromTo('.s3Steam',
-    { opacity: 0, y: 0, x: 0 },
-    { opacity: 0.65, y: -26, x: i => (i % 2 ? 6 : -5), duration: 2.4, stagger: 0.5, repeat: 3, ease: 'sine.out', immediateRender: false },
-    0.3
-  );
-
-  // 0.00s - 2.60s: Traveler walks up quietly along the road and stops before the ember lantern
-  const steps = [
-    [0.10, 144, 8.0],
-    [0.68, 168, -8.0],
-    [1.26, 192, 7.0],
-    [1.84, 214, -5.5]
-  ];
-  steps.forEach(([t, targetX, strideVal]) => {
-    sceneTl.call(() => playSoftStep(0.045), null, t)
-      .to(st, { travX: targetX, duration: 0.54, ease: 'power1.out' }, t)
-      .to(st, { travStride: strideVal, duration: 0.27, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t)
-      .to(st, { travBob: -1.8, duration: 0.27, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t);
+  // Every 2.0 seconds: One slow, deep pulse (quiet heartbeat thud + subtle visual ring)
+  [1.0, 3.0, 5.0, 7.0, 9.0, 11.0, 13.0].forEach(pulseT => {
+    sceneTl.call(playDeepPulse, null, pulseT);
+    sceneTl.fromTo('#s4PulseRing',
+      { attr: { r: 8 }, opacity: 0.34 },
+      { attr: { r: 44 }, opacity: 0, duration: 1.25, ease: 'power2.out', immediateRender: false },
+      pulseT
+    );
   });
-  sceneTl.call(() => { st.travStride = 0; st.travBob = 0; render(); }, null, 2.42);
 
-  // 2.60s - 4.40s: Villager leans head slightly in a warm nod and extends the ceramic bowl forward
-  sceneTl.to(st, { vilHead: -9, duration: 0.65, ease: 'sine.inOut' }, 2.6);
-  sceneTl.to(st, { vilHead: -3, duration: 0.65, ease: 'sine.inOut' }, 3.35);
-  sceneTl.to(st, { vilOffer: 1, duration: 1.15, ease: 'power2.out' }, 2.75);
+  // Animate Wave 1 (Left -> Right shadows, 0.2s - 9.3s)
+  lrWalkers.forEach((w, idx) => {
+    const t0 = w.spec.start;
+    const dur = w.spec.dur;
+    sceneTl.to(w, { opacity: 0.88, duration: 0.5, ease: 'power1.out' }, t0);
+    sceneTl.to(w, { x: 610, duration: dur, ease: 'none' }, t0);
+    sceneTl.to(w, { opacity: 0, duration: 0.5, ease: 'power1.in' }, t0 + dur - 0.5);
 
-  // 3.50s - 4.85s: Traveler reaches out to receive the bowl over the warm lantern
-  sceneTl.to(st, { travHead: 7, duration: 0.6, ease: 'sine.inOut' }, 3.5);
-  sceneTl.to(st, { travArm: 1, duration: 1.05, ease: 'power2.out' }, 3.7);
+    const stepInt = 0.48;
+    const steps = Math.floor(dur / stepInt);
+    for (let s = 0; s < steps; s++) {
+      const ts = t0 + s * stepInt;
+      const dirSign = s % 2 === 0 ? 8.5 : -8.5;
+      sceneTl.to(w, { stride: dirSign, duration: stepInt * 0.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, ts);
+      sceneTl.to(w, { bob: -1.8, duration: stepInt * 0.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, ts);
 
-  // 4.80s: Hands meet at the bowl -> soft ceramic bowl clink + warm ripple
-  sceneTl.call(playCeramicClink, null, 4.8);
-  sceneTl.fromTo('#s3ClinkR1', { attr: { r: 3 }, opacity: 0.65 }, { attr: { r: 24 }, opacity: 0, duration: 0.7, ease: 'power2.out', immediateRender: false }, 4.8);
-  sceneTl.fromTo('#s3ClinkR2', { attr: { r: 3 }, opacity: 0.45 }, { attr: { r: 36 }, opacity: 0, duration: 0.85, ease: 'power2.out', immediateRender: false }, 4.88);
+      // Footsteps panned Left -> Right for primary walkers
+      if (idx % 2 === 0 && ts < 6.4) {
+        const progress = (ts - t0) / dur;
+        const pan = -0.65 + progress * 1.3;
+        sceneTl.call(() => playPassingStep(pan, 0.048, 0.96), null, ts);
+      }
+    }
+  });
 
-  // 5.10s - 6.80s: Bowl transfers smoothly to traveler; villager lowers arms calmly
-  sceneTl.set(st, { bowlMode: 1 }, 5.1);
-  sceneTl.to(st, { travArm: 2, duration: 1.2, ease: 'power2.inOut' }, 5.15);
-  sceneTl.to(st, { vilOffer: 2, duration: 1.3, ease: 'power2.inOut' }, 5.25);
+  // Animate Wave 2 (Right -> Left shadows, 6.2s - 14.0s)
+  rlWalkers.forEach((w, idx) => {
+    const t0 = w.spec.start;
+    const dur = w.spec.dur;
+    sceneTl.to(w, { opacity: 0.94, duration: 0.45, ease: 'power1.out' }, t0);
+    sceneTl.to(w, { x: -70, duration: dur, ease: 'none' }, t0);
+    if (t0 + dur <= 14.0) {
+      sceneTl.to(w, { opacity: 0, duration: 0.45, ease: 'power1.in' }, t0 + dur - 0.45);
+    }
 
-  // 7.20s - 12.00s: Traveler gives a grateful deadpan nod, holds warm bowl by the ember lantern
-  sceneTl.to(st, { travHead: 10, duration: 0.7, ease: 'sine.inOut' }, 7.2);
-  sceneTl.to(st, { travHead: 3, duration: 0.8, ease: 'sine.inOut' }, 8.1);
-  sceneTl.to(st, { vilHead: -6, duration: 1.2, ease: 'sine.inOut' }, 8.5);
+    const stepInt = 0.46;
+    const steps = Math.floor(Math.min(dur, 14.0 - t0) / stepInt);
+    for (let s = 0; s < steps; s++) {
+      const ts = t0 + s * stepInt;
+      const dirSign = s % 2 === 0 ? 9.0 : -9.0;
+      sceneTl.to(w, { stride: dirSign, duration: stepInt * 0.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, ts);
+      sceneTl.to(w, { bob: -2.0, duration: stepInt * 0.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, ts);
+
+      // Footsteps panned Right -> Left as wind thins out
+      if (idx % 2 === 0 && ts < 13.8) {
+        const progress = (ts - t0) / dur;
+        const pan = 0.65 - progress * 1.3;
+        sceneTl.call(() => playPassingStep(pan, 0.056, 1.04), null, ts);
+      }
+    }
+  });
+
+  // Standing Hero's deadpan reaction: watches left-to-right stream, then turns gaze right-to-left, then freezes at crossroads
+  sceneTl.to(st, { headRot: -3, eyeShift: -2.5, duration: 0.8, ease: 'sine.inOut' }, 0.8);
+  sceneTl.to(st, { headRot: 3, eyeShift: 3.5, duration: 1.6, ease: 'sine.inOut' }, 2.4);
+  sceneTl.to(st, { headRot: 4, eyeShift: 4.0, duration: 1.0, ease: 'sine.inOut' }, 6.0);
+  sceneTl.to(st, { headRot: -3, eyeShift: -3.5, duration: 1.8, ease: 'sine.inOut' }, 7.8);
+  sceneTl.to(st, { headRot: 0, eyeShift: 0, duration: 1.4, ease: 'sine.inOut' }, 11.2);
 }
 
-playBtn.addEventListener('click', () => { initAudio(); playScene3(); });
-replayBtn.addEventListener('click', () => { resetScene3ToStart(); });
+playBtn.addEventListener('click', () => { initAudio(); playScene4(); });
+replayBtn.addEventListener('click', () => { resetScene4ToStart(); });
 soundBtn.addEventListener('click', () => {
   soundEnabled = !soundEnabled;
   soundBtn.textContent = '🔊 Sound: ' + (soundEnabled ? 'ON' : 'OFF');
@@ -507,8 +516,8 @@ soundBtn.addEventListener('click', () => {
 });
 
 window.addEventListener('load', () => {
-  resetScene3ToStart();
-  setTimeout(playScene3, 250);
+  resetScene4ToStart();
+  setTimeout(playScene4, 250);
 });
 </script>
 </body>
