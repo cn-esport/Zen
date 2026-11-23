@@ -1,766 +1,522 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zenspiris — The Baker's Alarm Scene 1: The Burnt Loaf (6.0s + Foley SFX)</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <style>
-    :root {
-      --head: #0d0b12;
-      --face: #f2ede2;
-      --rim: #fcd34d;
-      --rim-cool: #60a5fa;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background: #040406;
-      color: #e2e8f0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      gap: 14px;
-      padding: 12px;
-    }
-
-    .stage-wrapper {
-      position: relative;
-      width: 100vw;
-      max-width: 355px;
-      aspect-ratio: 9 / 16;
-      background: #070911;
-      overflow: hidden;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.95);
-      border-radius: 4px;
-    }
-
-    svg.scene-svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-      shape-rendering: geometricPrecision;
-    }
-
-    .vignette {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 48%, transparent 36%, rgba(3, 4, 8, 0.92) 100%);
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    .letterbox {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 5.5%;
-      background: #000;
-      z-index: 12;
-      pointer-events: none;
-    }
-
-    .letterbox.top {
-      top: 0;
-      border-bottom: 1px solid rgba(252, 211, 77, 0.35);
-    }
-
-    .letterbox.bottom {
-      bottom: 0;
-      border-top: 1px solid rgba(252, 211, 77, 0.35);
-    }
-
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 20;
-    }
-
-    button {
-      background: #16161f;
-      color: #e2e8f0;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.12s ease, background 0.15s ease;
-    }
-
-    button:active {
-      transform: scale(0.96);
-    }
-
-    button.primary {
-      background: #1e3a5f;
-      border-color: #3b82f6;
-      color: #fff;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenspiris — The Baker's Alarm Scene 1: Burnt Loaf (6.0s + Foley SFX)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #040406;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: system-ui, sans-serif;
+    gap: 14px;
+  }
+  .stage-wrapper {
+    position: relative;
+    width: 100vw;
+    max-width: 355px;
+    aspect-ratio: 9/16;
+    background: #070911;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0,0,0,.95);
+  }
+  svg.scene-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    shape-rendering: geometricPrecision;
+  }
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 48%, transparent 36%, rgba(3,4,8,.92) 100%);
+    pointer-events: none;
+    z-index: 10;
+  }
+  .letterbox {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 5.5%;
+    background: #000;
+    z-index: 12;
+  }
+  .letterbox.top { top: 0; border-bottom: 1px solid rgba(252,211,77,.35); }
+  .letterbox.bottom { bottom: 0; border-top: 1px solid rgba(252,211,77,.35); }
+  .controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .ctrl-btn {
+    background: #16161f;
+    color: #cbd5e1;
+    border: 1px solid #2a2a38;
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .ctrl-btn:hover { background: #1f1f2b; }
+  .ctrl-btn.primary {
+    background: #1e3a5f;
+    border-color: #3b6ea5;
+    color: #e0f0ff;
+  }
+  .ctrl-btn.primary:hover { background: #254a78; }
+</style>
 </head>
 <body>
 
-  <div class="stage-wrapper">
-    <svg id="s1Svg" class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
-      <defs>
-        <!-- Dark Bakery Wall -->
-        <linearGradient id="s1WallGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#04060c" />
-          <stop offset="55%" stop-color="#0b101b" />
-          <stop offset="100%" stop-color="#111726" />
-        </linearGradient>
+<div class="stage-wrapper">
+  <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <!-- Oven glow -->
+      <radialGradient id="s1OvenGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.55"/>
+        <stop offset="45%" stop-color="#d97706" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="s1OvenCore" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fef08a" stop-opacity="0.95"/>
+        <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#b45309" stop-opacity="0.0"/>
+      </radialGradient>
+      <!-- Window cool glow -->
+      <radialGradient id="s1WindowGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Room wash (warm) -->
+      <radialGradient id="s1WarmWash" cx="50%" cy="55%" r="60%">
+        <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.10"/>
+        <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Wall gradient -->
+      <linearGradient id="s1Wall" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#06080f"/>
+        <stop offset="60%" stop-color="#0b101b"/>
+        <stop offset="100%" stop-color="#111726"/>
+      </linearGradient>
+      <!-- Floor gradient -->
+      <linearGradient id="s1Floor" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0d0a08"/>
+        <stop offset="100%" stop-color="#040303"/>
+      </linearGradient>
+      <!-- Smoke gradient -->
+      <radialGradient id="s1Smoke" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#4b5563" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="#4b5563" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Burnt loaf gradient -->
+      <linearGradient id="s1Loaf" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3d1f0a"/>
+        <stop offset="100%" stop-color="#1a0c04"/>
+      </linearGradient>
+      <clipPath id="s1OvenClip">
+        <rect x="272" y="560" width="120" height="90" rx="4"/>
+      </clipPath>
+    </defs>
 
-        <!-- Stone Floor -->
-        <linearGradient id="s1FloorGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#070a12" />
-          <stop offset="100%" stop-color="#030408" />
-        </linearGradient>
+    <g id="s1Camera">
+      <!-- Sky/wall -->
+      <rect x="0" y="0" width="540" height="800" fill="url(#s1Wall)"/>
 
-        <!-- Pre-dawn Window Sky -->
-        <linearGradient id="s1SkyGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#04060c" />
-          <stop offset="65%" stop-color="#0b101d" />
-          <stop offset="100%" stop-color="#131b2e" />
-        </linearGradient>
+      <!-- Window (cool light source) -->
+      <rect x="60" y="120" width="110" height="160" rx="4" fill="#161d2e"/>
+      <rect x="66" y="126" width="98" height="148" rx="2" fill="#0b1424"/>
+      <line x1="115" y1="126" x2="115" y2="274" stroke="#161d2e" stroke-width="3"/>
+      <line x1="66" y1="200" x2="164" y2="200" stroke="#161d2e" stroke-width="3"/>
+      <rect x="60" y="120" width="110" height="160" rx="4" fill="url(#s1WindowGlow)"/>
+      <!-- Window moonlight beam -->
+      <polygon points="66,274 164,274 260,560 150,560" fill="#60a5fa" opacity="0.05"/>
 
-        <!-- Cool Window Moonlight -->
-        <radialGradient id="s1CoolWindowGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#bae6fd" stop-opacity="0.22" />
-          <stop offset="55%" stop-color="#60a5fa" stop-opacity="0.08" />
-          <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
-        </radialGradient>
+      <!-- Room warm wash -->
+      <rect x="0" y="0" width="540" height="800" fill="url(#s1WarmWash)" opacity="0.6"/>
 
-        <!-- Warm Oven Core Glow -->
-        <radialGradient id="s1OvenFireGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#fef08a" stop-opacity="0.95" />
-          <stop offset="38%" stop-color="#f59e0b" stop-opacity="0.65" />
-          <stop offset="72%" stop-color="#d97706" stop-opacity="0.22" />
-          <stop offset="100%" stop-color="#d97706" stop-opacity="0" />
-        </radialGradient>
+      <!-- Floor -->
+      <rect x="0" y="770" width="540" height="190" fill="url(#s1Floor)"/>
+      <line x1="0" y1="770" x2="540" y2="770" stroke="#1a1410" stroke-width="2"/>
 
-        <!-- Warm Room Wash when Oven Pops -->
-        <radialGradient id="s1OvenRoomWash" cx="35%" cy="58%" r="58%">
-          <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.32" />
-          <stop offset="55%" stop-color="#d97706" stop-opacity="0.11" />
-          <stop offset="100%" stop-color="#0b101b" stop-opacity="0" />
-        </radialGradient>
-
-        <!-- Brick Oven Arch Gradient -->
-        <linearGradient id="s1OvenBrick" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#141926" />
-          <stop offset="75%" stop-color="#1b2234" />
-          <stop offset="100%" stop-color="#252e44" />
-        </linearGradient>
-
-        <!-- Smoke Puff Gradient -->
-        <radialGradient id="s1SmokeGrad" cx="45%" cy="45%" r="55%">
-          <stop offset="0%" stop-color="#94a3b8" stop-opacity="0.52" />
-          <stop offset="60%" stop-color="#475569" stop-opacity="0.25" />
-          <stop offset="100%" stop-color="#1e293b" stop-opacity="0" />
-        </radialGradient>
-
-        <clipPath id="s1WindowClip">
-          <rect x="330" y="215" width="128" height="175" rx="4" />
-        </clipPath>
-      </defs>
-
-      <!-- CAMERA GROUP -->
-      <g id="s1Camera">
-        <!-- Back Wall & Floor -->
-        <rect x="0" y="0" width="540" height="782" fill="url(#s1WallGrad)" />
-        <rect x="0" y="782" width="540" height="178" fill="url(#s1FloorGrad)" />
-        <line x1="0" y1="782" x2="540" y2="782" stroke="#1e293b" stroke-width="2" opacity="0.65" />
-
-        <!-- Subtle Wall Masonry Lines -->
-        <g stroke="#161f33" stroke-width="1.5" opacity="0.45">
-          <line x1="210" y1="180" x2="290" y2="180" />
-          <line x1="245" y1="180" x2="245" y2="205" />
-          <line x1="220" y1="450" x2="310" y2="450" />
-          <line x1="360" y1="480" x2="465" y2="480" />
-          <line x1="415" y1="480" x2="415" y2="508" />
+      <!-- Oven (right side) -->
+      <g id="s1Oven">
+        <!-- Oven body -->
+        <rect x="250" y="520" width="180" height="250" rx="6" fill="#0a0806"/>
+        <rect x="256" y="526" width="168" height="238" rx="4" fill="#12100c"/>
+        <!-- Oven arch top -->
+        <rect x="270" y="540" width="130" height="110" rx="4" fill="#050403"/>
+        <!-- Oven mouth glow (behind door) -->
+        <rect x="272" y="560" width="120" height="90" rx="4" fill="#1a0e04"/>
+        <ellipse cx="332" cy="605" rx="90" ry="80" fill="url(#s1OvenGlow)"/>
+        <ellipse cx="332" cy="605" rx="55" ry="45" fill="url(#s1OvenCore)" opacity="0.8"/>
+        <!-- Oven door (starts closed, pops open at 1.5s) -->
+        <g id="s1OvenDoor">
+          <rect x="270" y="558" width="124" height="94" rx="3" fill="#1a1612" stroke="#2a241c" stroke-width="2"/>
+          <rect x="278" y="566" width="108" height="78" rx="2" fill="#0e0c08"/>
+          <!-- Door handle -->
+          <rect x="318" y="600" width="28" height="6" rx="3" fill="#3d2a1a"/>
         </g>
+        <!-- Oven top rim -->
+        <rect x="256" y="526" width="168" height="8" rx="2" fill="#1e1a14"/>
 
-        <!-- Wooden Bakery Shelf & Flour Sacks (Background Right) -->
-        <g id="s1BgProps">
-          <!-- Shelf -->
-          <rect x="315" y="455" width="175" height="9" rx="2" fill="#131927" />
-          <polygon points="330,464 342,464 330,486" fill="#0d121d" />
-          <polygon points="475,464 463,464 475,486" fill="#0d121d" />
-          <!-- Flour Jars on Shelf -->
-          <rect x="338" y="423" width="24" height="32" rx="4" fill="#192133" />
-          <rect x="342" y="418" width="16" height="5" rx="2" fill="#28334d" />
-          <rect x="372" y="431" width="20" height="24" rx="3" fill="#151c2b" />
-          <!-- Flour Sack on Floor -->
-          <path d="M 418 782 Q 412 722 432 708 Q 454 696 476 708 Q 496 722 490 782 Z" fill="#161e2e" />
-          <path d="M 434 708 Q 454 716 474 708" fill="none" stroke="#28354f" stroke-width="3" stroke-linecap="round" />
+        <!-- Smoke puffs (hidden initially) -->
+        <g id="s1Smoke1" opacity="0">
+          <ellipse cx="332" cy="560" rx="28" ry="20" fill="url(#s1Smoke)"/>
         </g>
-
-        <!-- Small Pre-Dawn Window -->
-        <g id="s1Window">
-          <rect x="322" y="207" width="144" height="191" rx="6" fill="#161d2e" />
-          <g clip-path="url(#s1WindowClip)">
-            <rect x="330" y="215" width="128" height="175" fill="url(#s1SkyGrad)" />
-            <!-- Distant Roofline -->
-            <polygon points="325,390 325,342 365,322 415,348 465,330 465,390" fill="#070a12" />
-            <!-- Pre-dawn Crescent Moon -->
-            <circle cx="422" cy="252" r="9" fill="#bae6fd" opacity="0.65" />
-            <circle cx="418" cy="249" r="8" fill="#090e1a" />
-            <!-- Glass Diagonal Reflection -->
-            <polygon points="342,215 368,215 330,310 330,275" fill="#bae6fd" opacity="0.06" />
-          </g>
-          <!-- Mullions -->
-          <rect x="392" y="215" width="5" height="175" fill="#181f30" />
-          <rect x="330" y="300" width="128" height="5" fill="#181f30" />
-          <!-- Window Sill -->
-          <rect x="316" y="394" width="156" height="10" rx="2" fill="#1e273d" />
+        <g id="s1Smoke2" opacity="0">
+          <ellipse cx="350" cy="545" rx="34" ry="24" fill="url(#s1Smoke)"/>
         </g>
-
-        <!-- Cool Window Light Beam & Glow -->
-        <polygon points="330,215 458,215 385,782 220,782" fill="#60a5fa" opacity="0.045" />
-        <circle cx="394" cy="302" r="145" fill="url(#s1CoolWindowGlow)" />
-
-        <!-- Warm Oven Room Wash (Fades up when door pops) -->
-        <rect id="s1RoomWash" x="0" y="0" width="540" height="782" fill="url(#s1OvenRoomWash)" opacity="0.28" />
-
-        <!-- BRICK BAKERY OVEN (Left Side) -->
-        <g id="s1Oven">
-          <!-- Chimney / Hood -->
-          <rect x="26" y="120" width="132" height="270" fill="#0d121d" />
-          <line x1="158" y1="120" x2="158" y2="390" stroke="#fcd34d" stroke-width="1.5" opacity="0.18" />
-
-          <!-- Main Brick Oven Body -->
-          <rect x="0" y="385" width="186" height="397" rx="6" fill="url(#s1OvenBrick)" />
-          <!-- Oven Ledge -->
-          <rect x="0" y="592" width="204" height="14" rx="3" fill="#232c42" />
-          <line x1="2" y1="593" x2="202" y2="593" stroke="#fcd34d" stroke-width="1.5" opacity="0.35" />
-
-          <!-- Oven Hearth Cavity (Interior Fire) -->
-          <path d="M 24 592 L 24 505 Q 92 455 158 505 L 158 592 Z" fill="#070508" />
-          <!-- Glowing Embers inside -->
-          <ellipse id="s1OvenEmbers" cx="92" cy="586" rx="56" ry="9" fill="#f59e0b" opacity="0.75" />
-          <circle id="s1OvenInnerGlow" cx="95" cy="545" r="78" fill="url(#s1OvenFireGlow)" opacity="0.45" />
-
-          <!-- Warm Light Spill Cone onto Baker -->
-          <polygon id="s1OvenBeam" points="158,495 360,440 385,782 158,782" fill="#f59e0b" opacity="0.06" />
-
-          <!-- Iron Oven Door (Pivots open at x=158) -->
-          <g id="s1OvenDoor" transform="translate(158, 540)">
-            <!-- Door Plate (drawn to the left so scaleX animates swing open) -->
-            <path d="M -134 52 L -134 -35 Q -67 -85 0 -35 L 0 52 Z" fill="#111622" stroke="#28334d" stroke-width="2.5" />
-            <!-- Small Vents leaking warm glow -->
-            <rect x="-92" y="-18" width="46" height="4" rx="2" fill="#f59e0b" opacity="0.7" />
-            <rect x="-92" y="-8" width="46" height="4" rx="2" fill="#f59e0b" opacity="0.55" />
-            <!-- Door Latch Handle -->
-            <rect x="-126" y="4" width="16" height="6" rx="2" fill="#475569" />
-          </g>
-        </g>
-
-        <!-- SMOKE PUFFS (Hidden at start) -->
-        <g id="s1SmokeGroup" opacity="0">
-          <circle id="s1Smoke1" cx="155" cy="515" r="24" fill="url(#s1SmokeGrad)" />
-          <circle id="s1Smoke2" cx="172" cy="495" r="32" fill="url(#s1SmokeGrad)" />
-          <circle id="s1Smoke3" cx="145" cy="480" r="28" fill="url(#s1SmokeGrad)" />
-          <circle id="s1Smoke4" cx="182" cy="525" r="20" fill="url(#s1SmokeGrad)" />
-        </g>
-
-        <!-- BAKER CHARACTER (Standing at x=268, floor y=782) -->
-        <g id="s1Baker" transform="translate(268, 635)">
-          <!-- Ground Shadow -->
-          <ellipse cx="0" cy="147" rx="34" ry="7" fill="#020305" opacity="0.9" />
-
-          <!-- Far Arm (Behind torso, darker & thinner 6.5px) -->
-          <polyline id="s1FarArm" points="-10,-34 -24,-6 -18,22" fill="none" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" />
-
-          <!-- Back Leg (Darker #08070c, pivoting from hip y=20) -->
-          <g id="s1BackLeg" transform="translate(-5, 20)">
-            <polyline points="0,0 -2,64 -2,124" fill="none" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M -13 125 L 4 125 L 4 121 L -9 121 Z" fill="#08070c" />
-          </g>
-
-          <!-- Front Leg (var(--head), pivoting from hip y=20) -->
-          <g id="s1FrontLeg" transform="translate(6, 20)">
-            <polyline points="0,0 1,64 1,124" fill="none" stroke="var(--head)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M -11 125 L 6 125 L 6 121 L -7 121 Z" fill="var(--head)" />
-          </g>
-
-          <!-- Torso Group (for subtle breathing/posture) -->
-          <g id="s1BakerTorso">
-            <!-- Warm Rim Light copy behind torso (facing oven on left) -->
-            <path id="s1TorsoRim" d="M -15 -44 L 13 -44 L 17 24 L -19 24 Z" fill="var(--rim)" opacity="0.38" />
-            <!-- Flour-dusted Dark Coat -->
-            <path d="M -13 -44 L 15 -44 L 19 24 L -17 24 Z" fill="#1e2330" />
-            <!-- Subtle flour dust smudges on coat -->
-            <ellipse cx="-6" cy="-24" rx="5" ry="2.5" fill="#cbd5e1" opacity="0.14" />
-            <ellipse cx="8" cy="-12" rx="4" ry="2" fill="#cbd5e1" opacity="0.12" />
-
-            <!-- White Apron (muted off-white #cbd5e1 to stay within dark cinematic palette) -->
-            <path d="M -11 -26 L 11 -26 L 16 48 L -16 48 Z" fill="#cbd5e1" />
-            <!-- Apron Waist Tie -->
-            <rect x="-14" y="-6" width="28" height="4" rx="1.5" fill="#94a3b8" />
-            <!-- Flour smudge on apron -->
-            <ellipse cx="-4" cy="18" rx="6" ry="4" fill="#f8fafc" opacity="0.35" />
-
-            <!-- Wooden Baker's Peel + Burnt Loaf (Hidden until 4.0s pull-out) -->
-            <g id="s1PeelGroup" opacity="0" transform="translate(-26, 8)">
-              <!-- Long Wooden Handle -->
-              <line x1="42" y1="-2" x2="-58" y2="6" stroke="#78350f" stroke-width="4.5" stroke-linecap="round" />
-              <!-- Flat Paddle -->
-              <ellipse cx="-64" cy="6.5" rx="18" ry="4.5" fill="#92400e" />
-              <!-- Burnt Black Loaf -->
-              <path d="M -77 5 Q -64 -9 -51 5 Z" fill="#09080c" stroke="#1e293b" stroke-width="1" />
-              <!-- Tiny Ember Cracks on Burnt Loaf -->
-              <path d="M -69 1 L -65 -2 M -61 2 L -58 -1" stroke="#ea580c" stroke-width="1.2" stroke-linecap="round" />
-              <!-- Wisps of smoke rising off burnt loaf -->
-              <path id="s1LoafSmoke" d="M -64 -6 Q -68 -16 -62 -24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" opacity="0.6" />
-            </g>
-
-            <!-- Front Arm (8.5px, reaches toward oven then holds peel) -->
-            <polyline id="s1FrontArm" points="6,-32 10,-4 4,24" fill="none" stroke="var(--head)" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" />
-
-            <!-- HEAD GROUP (r=22, pivots at neck y=-56) -->
-            <g id="s1BakerHead" transform="translate(0, -64)">
-              <!-- 1. Rim-light circle behind (offset left toward warm oven) -->
-              <circle id="s1HeadRim" cx="-1.8" cy="0" r="22" fill="var(--rim)" opacity="0.48" />
-              <!-- Cool rim from window on right edge -->
-              <circle cx="1.4" cy="0" r="22" fill="var(--rim-cool)" opacity="0.24" />
-
-              <!-- 2. Main Head Circle -->
-              <circle cx="0" cy="0" r="22" fill="var(--head)" />
-
-              <!-- 3. Tall Chef Hat (Toque) with rim light -->
-              <g id="s1ChefHat">
-                <!-- Hat Rim Light -->
-                <path d="M -17 -16 L -19 -44 Q -22 -58 -8 -57 Q 0 -64 10 -57 Q 22 -58 17 -44 L 15 -16 Z" fill="var(--rim)" opacity="0.35" transform="translate(-1.5, 0)" />
-                <!-- Main Toque Shape -->
-                <path d="M -16 -16 L -18 -44 Q -21 -58 -7 -57 Q 1 -64 11 -57 Q 23 -58 18 -44 L 16 -16 Z" fill="#e2e8f0" />
-                <!-- Hat Band -->
-                <rect x="-16" y="-22" width="32" height="6" rx="2" fill="#cbd5e1" />
-                <!-- Subtle Pleat Lines -->
-                <line x1="-7" y1="-24" x2="-8" y2="-45" stroke="#94a3b8" stroke-width="1.3" opacity="0.55" />
-                <line x1="0" y1="-24" x2="0" y2="-48" stroke="#94a3b8" stroke-width="1.3" opacity="0.55" />
-                <line x1="7" y1="-24" x2="8" y2="-45" stroke="#94a3b8" stroke-width="1.3" opacity="0.55" />
-              </g>
-
-              <!-- 4. FACE STATES (Eyes + Mouth only, no nose/ears/eyebrows) -->
-              <!-- State A: Sleepy/Groggy Facing Left (toward oven) -->
-              <g id="s1FaceSleepyLeft" opacity="1">
-                <line x1="-16" y1="-2" x2="-11" y2="-2" stroke="var(--face)" stroke-width="2.1" stroke-linecap="round" />
-                <line x1="-8" y1="-2" x2="-3" y2="-2" stroke="var(--face)" stroke-width="2.1" stroke-linecap="round" />
-                <line x1="-13" y1="7" x2="-7" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round" />
-              </g>
-
-              <!-- State B: Deadpan Open Facing Left (toward oven) -->
-              <g id="s1FaceOpenLeft" opacity="0">
-                <circle cx="-14" cy="-2" r="2.15" fill="var(--face)" />
-                <circle cx="-6" cy="-2" r="2.15" fill="var(--face)" />
-                <line x1="-13" y1="7" x2="-7" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round" />
-              </g>
-
-              <!-- State C: Deadpan Camera Stare (Facing Front/Viewer) -->
-              <g id="s1FaceCamera" opacity="0">
-                <circle cx="-4" cy="-2" r="2.2" fill="var(--face)" />
-                <circle cx="4" cy="-2" r="2.2" fill="var(--face)" />
-                <line x1="-3" y1="7" x2="3" y2="7" stroke="var(--face)" stroke-width="1.8" stroke-linecap="round" />
-              </g>
-            </g>
-          </g>
-
-          <!-- Floating Sleepy "z Z Z" -->
-          <g id="s1SleepZs" fill="#94a3b8" font-family="Georgia, serif" font-style="italic" font-weight="bold">
-            <text id="s1Z1" x="-26" y="-92" font-size="13" opacity="0">z</text>
-            <text id="s1Z2" x="-36" y="-108" font-size="16" opacity="0">Z</text>
-            <text id="s1Z3" x="-48" y="-126" font-size="19" opacity="0">Z</text>
-          </g>
+        <g id="s1Smoke3" opacity="0">
+          <ellipse cx="315" cy="535" rx="30" ry="22" fill="url(#s1Smoke)"/>
         </g>
       </g>
-    </svg>
 
-    <div class="vignette"></div>
-    <div class="letterbox top"></div>
-    <div class="letterbox bottom"></div>
-  </div>
+      <!-- Oven glow spill onto floor -->
+      <ellipse cx="332" cy="790" rx="140" ry="30" fill="#f59e0b" opacity="0.06"/>
 
-  <div class="controls">
-    <button id="playBtn" class="primary">▶ Play (6.0s)</button>
-    <button id="replayBtn">↺ 0.0s</button>
-    <button id="soundBtn">🔊 Sound: ON</button>
-  </div>
+      <!-- Baker character (facing right toward oven) -->
+      <g id="s1Baker">
+        <!-- Ground shadow -->
+        <ellipse cx="200" cy="782" rx="46" ry="9" fill="#000" opacity="0.85"/>
 
-  <script>
-    // --- WEB AUDIO PROCEDURAL FOLEY ---
-    let audioCtx = null;
-    let soundEnabled = true;
+        <!-- Back leg -->
+        <path id="s1BackLeg" d="M 192 690 L 190 750 L 182 772" stroke="#08070c" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Back shoe -->
+        <ellipse cx="178" cy="775" rx="12" ry="6" fill="#08070c"/>
+        <!-- Front leg -->
+        <path id="s1FrontLeg" d="M 208 690 L 210 750 L 218 772" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Front shoe -->
+        <ellipse cx="222" cy="775" rx="12" ry="6" fill="#0d0b12"/>
 
-    function initAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-    }
+        <!-- Torso (dark coat) -->
+        <path d="M 178 620 L 222 620 L 228 700 L 172 700 Z" fill="#18222f"/>
+        <!-- Torso rim light (warm from oven, right side) -->
+        <path d="M 222 620 L 228 700 L 220 700 L 216 620 Z" fill="#fcd34d" opacity="0.35"/>
 
-    // 1. Iron Oven Door Bang + Latch Pop
-    function playOvenDoorBang() {
-      if (!soundEnabled) return;
-      initAudio();
-      const now = audioCtx.currentTime;
+        <!-- Apron (white) -->
+        <path d="M 184 638 L 216 638 L 220 700 L 180 700 Z" fill="#d8d4c8"/>
+        <path d="M 184 638 L 216 638 L 220 700 L 180 700 Z" fill="#f2ede2" opacity="0.15"/>
+        <!-- Apron strings -->
+        <path d="M 184 638 L 172 630" stroke="#d8d4c8" stroke-width="2" fill="none"/>
+        <path d="M 216 638 L 228 630" stroke="#d8d4c8" stroke-width="2" fill="none"/>
+        <!-- Flour dust spots on coat -->
+        <circle cx="188" cy="660" r="2" fill="#f2ede2" opacity="0.25"/>
+        <circle cx="210" cy="678" r="1.5" fill="#f2ede2" opacity="0.2"/>
+        <circle cx="195" cy="690" r="1.8" fill="#f2ede2" opacity="0.18"/>
 
-      // Metallic clank (two detuned triangle/sawtooth hits)
-      const osc1 = audioCtx.createOscillator();
-      const osc2 = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc1.type = 'triangle';
-      osc2.type = 'sawtooth';
-      osc1.frequency.setValueAtTime(195, now);
-      osc1.frequency.exponentialRampToValueAtTime(52, now + 0.18);
-      osc2.frequency.setValueAtTime(340, now);
-      osc2.frequency.exponentialRampToValueAtTime(88, now + 0.14);
+        <!-- Back arm (dark, thinner) -->
+        <path id="s1BackArm" d="M 182 632 L 170 668 L 175 685" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        <!-- Front arm (will reach to pull loaf at 4.0s) -->
+        <path id="s1FrontArm" d="M 218 632 L 238 660 L 248 680" stroke="#0d0b12" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-      osc1.connect(gain);
-      osc2.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc1.start(now);
-      osc2.start(now);
-      osc1.stop(now + 0.23);
-      osc2.stop(now + 0.23);
-    }
+        <!-- Head group -->
+        <g id="s1Head" transform="translate(200, 596)">
+          <!-- Rim light behind head (warm, from oven on right) -->
+          <circle cx="1.6" cy="0" r="22" fill="#fcd34d" opacity="0.5"/>
+          <!-- Head -->
+          <circle cx="0" cy="0" r="22" fill="#0d0b12"/>
 
-    // 2. Smoke Puff (Filtered Noise Burst)
-    function playSmokePuff() {
-      if (!soundEnabled) return;
-      initAudio();
-      const now = audioCtx.currentTime;
-      const duration = 0.45;
-      const bufferSize = Math.floor(audioCtx.sampleRate * duration);
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
+          <!-- Chef hat -->
+          <path d="M -16 -16 L -18 -34 Q -16 -44 0 -44 Q 16 -44 18 -34 L 16 -16 Z" fill="#e8e4d8"/>
+          <ellipse cx="0" cy="-38" rx="16" ry="10" fill="#f2ede2"/>
+          <!-- Hat band -->
+          <rect x="-17" y="-18" width="34" height="5" rx="1" fill="#c8c4b8"/>
 
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
+          <!-- Eyes (deadpan, looking right toward oven) -->
+          <g id="s1EyesDeadpan">
+            <circle cx="9" cy="-1" r="2.1" fill="#f2ede2"/>
+            <circle cx="16" cy="-1" r="2.1" fill="#f2ede2"/>
+          </g>
+          <!-- Eyes closed (blink state) -->
+          <g id="s1EyesClosed" opacity="0">
+            <path d="M 7 -2 Q 9.5 1 12 -2" stroke="#f2ede2" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+            <path d="M 14 -2 Q 16.5 1 19 -2" stroke="#f2ede2" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+          </g>
+          <!-- Mouth (deadpan flat line) -->
+          <line x1="9" y1="7" x2="15" y2="7" stroke="#f2ede2" stroke-width="1.8" stroke-linecap="round"/>
+        </g>
+      </g>
 
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(680, now);
-      filter.frequency.exponentialRampToValueAtTime(240, now + duration);
-      filter.Q.value = 1.8;
+      <!-- Burnt loaf (hidden in oven, appears at 4.0s) -->
+      <g id="s1Loaf" opacity="0" transform="translate(340, 660)">
+        <ellipse cx="0" cy="0" rx="22" ry="14" fill="url(#s1Loaf)"/>
+        <ellipse cx="0" cy="-6" rx="20" ry="12" fill="#2a1206"/>
+        <!-- Score marks -->
+        <line x1="-10" y1="-8" x2="10" y2="-8" stroke="#0a0502" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-8" y1="-3" x2="8" y2="-3" stroke="#0a0502" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Char edge -->
+        <ellipse cx="0" cy="0" rx="22" ry="14" fill="none" stroke="#0a0402" stroke-width="1.5"/>
+      </g>
 
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.001, now);
-      gain.gain.linearRampToValueAtTime(0.12, now + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+      <!-- Small smoke wisps from loaf -->
+      <g id="s1LoafSmoke" opacity="0">
+        <ellipse cx="340" cy="645" rx="10" ry="6" fill="url(#s1Smoke)"/>
+      </g>
 
-      noise.connect(filter);
-      filter.connect(gain);
-      gain.connect(audioCtx.destination);
-      noise.start(now);
-      noise.stop(now + duration);
-    }
+      <!-- Foreground: shelf edge / counter hint bottom-left -->
+      <rect x="0" y="720" width="120" height="50" fill="#0a0806" opacity="0.9"/>
+      <rect x="0" y="720" width="120" height="6" fill="#1a1410"/>
+      <!-- Flour sack on counter -->
+      <path d="M 30 700 Q 25 690 35 685 L 75 685 Q 85 690 80 700 L 80 720 L 30 720 Z" fill="#c8c4b8" opacity="0.7"/>
+      <path d="M 35 685 L 40 675 L 70 675 L 75 685" fill="#a8a498" opacity="0.6"/>
+    </g>
+  </svg>
 
-    // 3. Stone Floor Footstep
-    function playStoneStep() {
-      if (!soundEnabled) return;
-      initAudio();
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(125, now);
-      osc.frequency.exponentialRampToValueAtTime(45, now + 0.085);
+  <div class="vignette"></div>
+  <div class="letterbox top"></div>
+  <div class="letterbox bottom"></div>
+</div>
 
-      gain.gain.setValueAtTime(0.11, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.095);
+<div class="controls">
+  <button class="ctrl-btn primary" id="playBtn">▶ Play (6.0s)</button>
+  <button class="ctrl-btn" id="replayBtn">↺ 0.0s</button>
+  <button class="ctrl-btn" id="soundBtn">🔊 Sound: ON</button>
+</div>
 
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.1);
-    }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+/* ============================================================
+   Zenspiris — The Baker's Alarm Scene 1: Burnt Loaf
+   6.0s + Foley SFX
+   ============================================================ */
 
-    // 4. Wooden Peel Slide
-    function playPeelSlide() {
-      if (!soundEnabled) return;
-      initAudio();
-      const now = audioCtx.currentTime;
-      const duration = 0.25;
-      const bufferSize = Math.floor(audioCtx.sampleRate * duration);
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
+let audioCtx = null;
+let soundEnabled = true;
 
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(920, now);
-      filter.Q.value = 3.2;
+function initAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
 
-      const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.06, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+/* ---------- Foley ---------- */
+// Oven door bang: low thud + metallic clank
+function playOvenBang() {
+  if (!soundEnabled || !audioCtx) return;
+  const t = audioCtx.currentTime;
+  // Low thud
+  const o1 = audioCtx.createOscillator();
+  const g1 = audioCtx.createGain();
+  o1.type = 'triangle';
+  o1.frequency.setValueAtTime(180, t);
+  o1.frequency.exponentialRampToValueAtTime(55, t + 0.15);
+  g1.gain.setValueAtTime(0.16, t);
+  g1.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+  o1.connect(g1).connect(audioCtx.destination);
+  o1.start(t); o1.stop(t + 0.22);
+  // Metallic clank
+  const o2 = audioCtx.createOscillator();
+  const g2 = audioCtx.createGain();
+  o2.type = 'square';
+  o2.frequency.setValueAtTime(900, t + 0.02);
+  o2.frequency.exponentialRampToValueAtTime(420, t + 0.09);
+  g2.gain.setValueAtTime(0.05, t + 0.02);
+  g2.gain.exponentialRampToValueAtTime(0.001, t + 0.11);
+  o2.connect(g2).connect(audioCtx.destination);
+  o2.start(t + 0.02); o2.stop(t + 0.13);
+}
 
-      noise.connect(filter);
-      filter.connect(gain);
-      gain.connect(audioCtx.destination);
-      noise.start(now);
-      noise.stop(now + duration);
-    }
+// Smoke puff: filtered noise
+function playSmokePuff() {
+  if (!soundEnabled || !audioCtx) return;
+  const t = audioCtx.currentTime;
+  const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.4, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  const filt = audioCtx.createBiquadFilter();
+  filt.type = 'bandpass';
+  filt.frequency.value = 700;
+  filt.Q.value = 1.2;
+  const g = audioCtx.createGain();
+  g.gain.setValueAtTime(0.0, t);
+  g.gain.linearRampToValueAtTime(0.06, t + 0.05);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+  src.connect(filt).connect(g).connect(audioCtx.destination);
+  src.start(t); src.stop(t + 0.4);
+}
 
-    // --- GSAP TIMELINE ---
-    let sceneTl = null;
-    const playBtn = document.getElementById('playBtn');
-    const replayBtn = document.getElementById('replayBtn');
-    const soundBtn = document.getElementById('soundBtn');
+// Footstep (stone floor)
+function playFootstep() {
+  if (!soundEnabled || !audioCtx) return;
+  const t = audioCtx.currentTime;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = 'triangle';
+  o.frequency.setValueAtTime(140, t);
+  o.frequency.exponentialRampToValueAtTime(48, t + 0.09);
+  g.gain.setValueAtTime(0.11, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
+  o.connect(g).connect(audioCtx.destination);
+  o.start(t); o.stop(t + 0.11);
+}
 
-    function resetScene1ToStart() {
-      if (sceneTl) {
-        sceneTl.kill();
-        sceneTl = null;
-      }
+// Loaf pull: soft whoosh
+function playLoafPull() {
+  if (!soundEnabled || !audioCtx) return;
+  const t = audioCtx.currentTime;
+  const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.3, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  const filt = audioCtx.createBiquadFilter();
+  filt.type = 'lowpass';
+  filt.frequency.setValueAtTime(400, t);
+  filt.frequency.linearRampToValueAtTime(900, t + 0.15);
+  const g = audioCtx.createGain();
+  g.gain.setValueAtTime(0.0, t);
+  g.gain.linearRampToValueAtTime(0.05, t + 0.06);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
+  src.connect(filt).connect(g).connect(audioCtx.destination);
+  src.start(t); src.stop(t + 0.3);
+}
 
-      gsap.set('#s1Camera', { scale: 1, x: 0, y: 0, transformOrigin: '250px 520px' });
-      gsap.set('#s1Baker', { x: 268, y: 635 });
-      gsap.set('#s1BakerTorso', { y: 0, rotation: 0, transformOrigin: '0px 20px' });
-      gsap.set('#s1BakerHead', { x: 0, y: -64, rotation: -5, transformOrigin: '0px 16px' });
+/* ---------- Timeline ---------- */
+let sceneTl = null;
 
-      gsap.set('#s1FrontLeg', { rotation: 0, transformOrigin: '0px 0px' });
-      gsap.set('#s1BackLeg', { rotation: 0, transformOrigin: '0px 0px' });
+function resetScene1ToStart() {
+  if (sceneTl) { sceneTl.kill(); sceneTl = null; }
+  gsap.set('#s1Camera', { scale: 1, x: 0, y: 0 });
+  gsap.set('#s1OvenDoor', { rotation: 0, transformOrigin: '272px 652px' });
+  gsap.set('#s1Smoke1, #s1Smoke2, #s1Smoke3', { opacity: 0, y: 0, scale: 1 });
+  gsap.set('#s1Loaf', { opacity: 0, x: 0, y: 0 });
+  gsap.set('#s1LoafSmoke', { opacity: 0 });
+  gsap.set('#s1EyesDeadpan', { opacity: 1 });
+  gsap.set('#s1EyesClosed', { opacity: 0 });
+  gsap.set('#s1FrontArm', { attr: { d: 'M 218 632 L 238 660 L 248 680' } });
+  gsap.set('#s1Head', { rotation: 0, transformOrigin: '0px 0px' });
+  gsap.set('#s1Baker', { x: 0, y: 0 });
+  document.getElementById('replayBtn').textContent = '↺ 0.0s';
+}
 
-      gsap.set('#s1FrontArm', { attr: { points: '6,-32 10,-4 4,24' } });
-      gsap.set('#s1FarArm', { attr: { points: '-10,-34 -24,-6 -18,22' } });
+function playScene1() {
+  resetScene1ToStart();
+  const replayBtn = document.getElementById('replayBtn');
 
-      gsap.set('#s1FaceSleepyLeft', { opacity: 1 });
-      gsap.set('#s1FaceOpenLeft', { opacity: 0 });
-      gsap.set('#s1FaceCamera', { opacity: 0 });
+  sceneTl = gsap.timeline({
+    onUpdate: () => { replayBtn.textContent = `↺ ${sceneTl.time().toFixed(1)}s`; },
+    onComplete: () => { replayBtn.textContent = '↺ 6.0s'; }
+  });
 
-      gsap.set('#s1OvenDoor', { x: 158, y: 540, scaleX: 1, transformOrigin: '0px 0px' });
-      gsap.set('#s1OvenInnerGlow', { opacity: 0.42, scale: 1, transformOrigin: '95px 545px' });
-      gsap.set('#s1RoomWash', { opacity: 0.25 });
-      gsap.set('#s1OvenBeam', { opacity: 0.05 });
-      gsap.set('#s1HeadRim', { opacity: 0.45 });
-      gsap.set('#s1TorsoRim', { opacity: 0.35 });
+  // Camera slow push-in
+  sceneTl.to('#s1Camera', {
+    scale: 1.06,
+    transformOrigin: '330px 600px',
+    duration: 6.0,
+    ease: 'power1.inOut'
+  }, 0);
 
-      gsap.set('#s1SmokeGroup', { opacity: 0 });
-      gsap.set('#s1Smoke1', { x: 0, y: 0, scale: 0.5, opacity: 0.9, transformOrigin: '155px 515px' });
-      gsap.set('#s1Smoke2', { x: 0, y: 0, scale: 0.5, opacity: 0.9, transformOrigin: '172px 495px' });
-      gsap.set('#s1Smoke3', { x: 0, y: 0, scale: 0.5, opacity: 0.9, transformOrigin: '145px 480px' });
-      gsap.set('#s1Smoke4', { x: 0, y: 0, scale: 0.5, opacity: 0.9, transformOrigin: '182px 525px' });
+  // 0.0–1.5s: calm, oven glows, baker stands still
+  // (subtle breathing on head)
+  sceneTl.to('#s1Head', {
+    y: -1.5, duration: 0.75, yoyo: true, repeat: 1, ease: 'sine.inOut'
+  }, 0);
 
-      gsap.set('#s1PeelGroup', { opacity: 0, x: -26, y: 8 });
-      gsap.set('#s1LoafSmoke', { y: 0, opacity: 0.6 });
+  // 1.5s: oven door pops open with bang + smoke puffs
+  sceneTl.call(() => playOvenBang(), null, 1.5);
+  sceneTl.call(() => playSmokePuff(), null, 1.52);
+  sceneTl.to('#s1OvenDoor', {
+    rotation: -68,
+    transformOrigin: '272px 652px',
+    duration: 0.22,
+    ease: 'back.out(2.2)'
+  }, 1.5);
+  // Smoke puffs rise
+  sceneTl.to('#s1Smoke1', { opacity: 0.7, y: -18, scale: 1.3, duration: 0.5, ease: 'power2.out' }, 1.52);
+  sceneTl.to('#s1Smoke2', { opacity: 0.6, y: -24, scale: 1.4, duration: 0.6, ease: 'power2.out' }, 1.58);
+  sceneTl.to('#s1Smoke3', { opacity: 0.55, y: -20, scale: 1.25, duration: 0.55, ease: 'power2.out' }, 1.62);
+  sceneTl.to('#s1Smoke1, #s1Smoke2, #s1Smoke3', { opacity: 0, duration: 0.5, ease: 'power1.in' }, 2.2);
 
-      gsap.set(['#s1Z1', '#s1Z2', '#s1Z3'], { opacity: 0, y: 0 });
+  // 2.7s: baker reacts, deadpan eyes (blink + slight head turn toward oven)
+  sceneTl.to('#s1EyesDeadpan', { opacity: 0, duration: 0.06 }, 2.7);
+  sceneTl.to('#s1EyesClosed', { opacity: 1, duration: 0.06 }, 2.7);
+  sceneTl.to('#s1EyesClosed', { opacity: 0, duration: 0.08 }, 2.92);
+  sceneTl.to('#s1EyesDeadpan', { opacity: 1, duration: 0.08 }, 2.92);
+  sceneTl.to('#s1Head', {
+    rotation: 5,
+    transformOrigin: '0px 18px',
+    duration: 0.3,
+    ease: 'power2.out'
+  }, 2.75);
 
-      replayBtn.textContent = '↺ 0.0s';
-    }
+  // 3.2s: slight lean toward oven (anticipation)
+  sceneTl.to('#s1Baker', { x: 6, duration: 0.4, ease: 'power2.inOut' }, 3.2);
 
-    function playScene1() {
-      resetScene1ToStart();
+  // 4.0s: he pulls out a burnt loaf
+  sceneTl.call(() => playLoafPull(), null, 4.0);
+  // Arm reaches in
+  sceneTl.to('#s1FrontArm', {
+    attr: { d: 'M 218 632 L 252 648 L 278 648' },
+    duration: 0.35,
+    ease: 'power2.out'
+  }, 4.0);
+  // Loaf appears at hand
+  sceneTl.set('#s1Loaf', { opacity: 1, x: 0, y: 0 }, 4.35);
+  sceneTl.set('#s1LoafSmoke', { opacity: 0.6 }, 4.4);
+  // Arm retracts with loaf
+  sceneTl.to('#s1FrontArm', {
+    attr: { d: 'M 218 632 L 240 658 L 240 680' },
+    duration: 0.4,
+    ease: 'power2.inOut'
+  }, 4.4);
+  sceneTl.to('#s1Loaf', {
+    x: -8, y: 4,
+    duration: 0.4,
+    ease: 'power2.inOut'
+  }, 4.4);
+  sceneTl.to('#s1LoafSmoke', { opacity: 0, duration: 0.5 }, 4.6);
 
-      const walkState = { stride: 0 };
+  // 4.9s: head turns to camera (deadpan stare)
+  sceneTl.to('#s1Head', {
+    rotation: -8,
+    x: -3,
+    transformOrigin: '0px 18px',
+    duration: 0.4,
+    ease: 'power2.inOut'
+  }, 4.9);
 
-      sceneTl = gsap.timeline({
-        onUpdate: () => {
-          replayBtn.textContent = `↺ ${sceneTl.time().toFixed(1)}s`;
-        },
-        onComplete: () => {
-          replayBtn.textContent = '↺ 6.0s';
-        }
-      });
+  // 5.0–6.0s: deadpan hold — tiny blink at 5.6s for life
+  sceneTl.to('#s1EyesDeadpan', { opacity: 0, duration: 0.05 }, 5.6);
+  sceneTl.to('#s1EyesClosed', { opacity: 1, duration: 0.05 }, 5.6);
+  sceneTl.to('#s1EyesClosed', { opacity: 0, duration: 0.07 }, 5.78);
+  sceneTl.to('#s1EyesDeadpan', { opacity: 1, duration: 0.07 }, 5.78);
 
-      // 0.0s: Slow camera push-in over full 6.0s
-      sceneTl.to('#s1Camera', {
-        scale: 1.06,
-        transformOrigin: '245px 525px',
-        duration: 6.0,
-        ease: 'power1.inOut'
-      }, 0);
+  // Footstep at 3.2s (weight shift) — subtle
+  sceneTl.call(() => playFootstep(), null, 3.2);
+}
 
-      // 0.0s - 1.5s: Calm pre-dawn establishing shot, oven embers pulse, sleepy z Z Z
-      sceneTl.to('#s1OvenInnerGlow', {
-        opacity: 0.62,
-        scale: 1.05,
-        duration: 0.75,
-        yoyo: true,
-        repeat: 1,
-        ease: 'sine.inOut'
-      }, 0);
+/* ---------- Controls ---------- */
+document.getElementById('playBtn').addEventListener('click', () => {
+  initAudio();
+  playScene1();
+});
 
-      sceneTl.to('#s1BakerHead', {
-        rotation: -8,
-        duration: 0.85,
-        ease: 'sine.inOut'
-      }, 0.1);
+document.getElementById('replayBtn').addEventListener('click', () => {
+  initAudio();
+  playScene1();
+});
 
-      // Floating z Z Z
-      sceneTl.fromTo('#s1Z1', { opacity: 0, y: 0 }, { opacity: 0.75, y: -14, duration: 0.7, ease: 'sine.out', immediateRender: false }, 0.15);
-      sceneTl.fromTo('#s1Z2', { opacity: 0, y: 0 }, { opacity: 0.65, y: -18, duration: 0.75, ease: 'sine.out', immediateRender: false }, 0.35);
-      sceneTl.fromTo('#s1Z3', { opacity: 0, y: 0 }, { opacity: 0.55, y: -22, duration: 0.8, ease: 'sine.out', immediateRender: false }, 0.55);
-      sceneTl.to(['#s1Z1', '#s1Z2', '#s1Z3'], { opacity: 0, duration: 0.25 }, 1.25);
+document.getElementById('soundBtn').addEventListener('click', (e) => {
+  soundEnabled = !soundEnabled;
+  e.target.textContent = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: OFF';
+});
 
-      // 1.5s: Oven door pops open with a bang + smoke puffs + warm light surges
-      sceneTl.call(() => {
-        playOvenDoorBang();
-        playSmokePuff();
-      }, null, 1.5);
-
-      // Oven door swings open
-      sceneTl.to('#s1OvenDoor', {
-        scaleX: -0.25,
-        duration: 0.22,
-        ease: 'back.out(1.6)'
-      }, 1.5);
-
-      // Warm light surge (source glow + room wash + rim light)
-      sceneTl.to('#s1OvenInnerGlow', { opacity: 0.95, scale: 1.22, duration: 0.35, ease: 'power2.out' }, 1.5);
-      sceneTl.to('#s1RoomWash', { opacity: 0.78, duration: 0.35, ease: 'power2.out' }, 1.5);
-      sceneTl.to('#s1OvenBeam', { opacity: 0.14, duration: 0.35, ease: 'power2.out' }, 1.5);
-      sceneTl.to('#s1HeadRim', { opacity: 0.62, duration: 0.3 }, 1.5);
-      sceneTl.to('#s1TorsoRim', { opacity: 0.52, duration: 0.3 }, 1.5);
-
-      // Smoke puffs billowing out
-      sceneTl.set('#s1SmokeGroup', { opacity: 1 }, 1.5);
-      sceneTl.to('#s1Smoke1', { x: 42, y: -55, scale: 1.45, opacity: 0, duration: 1.15, ease: 'power2.out' }, 1.5);
-      sceneTl.to('#s1Smoke2', { x: 64, y: -78, scale: 1.65, opacity: 0, duration: 1.25, ease: 'power2.out' }, 1.55);
-      sceneTl.to('#s1Smoke3', { x: 28, y: -88, scale: 1.55, opacity: 0, duration: 1.2, ease: 'power2.out' }, 1.58);
-      sceneTl.to('#s1Smoke4', { x: 75, y: -42, scale: 1.35, opacity: 0, duration: 1.05, ease: 'power2.out' }, 1.62);
-
-      // 2.7s: Baker reacts with deadpan eyes & steps closer to oven
-      sceneTl.set('#s1FaceSleepyLeft', { opacity: 0 }, 2.7);
-      sceneTl.set('#s1FaceOpenLeft', { opacity: 1 }, 2.7);
-
-      // Subtle startle jolt & head snaps upright
-      sceneTl.to('#s1BakerHead', {
-        rotation: 0,
-        duration: 0.22,
-        ease: 'power2.out'
-      }, 2.7);
-      sceneTl.to('#s1BakerTorso', {
-        y: -4,
-        duration: 0.12,
-        yoyo: true,
-        repeat: 1,
-        ease: 'power2.out'
-      }, 2.7);
-
-      // Short 2-step walk toward oven (x: 268 -> 236)
-      sceneTl.call(() => playStoneStep(), null, 2.95);
-      sceneTl.call(() => playStoneStep(), null, 3.25);
-
-      sceneTl.to('#s1Baker', {
-        x: 236,
-        duration: 0.65,
-        ease: 'power1.out'
-      }, 2.9);
-
-      sceneTl.to(walkState, {
-        stride: 8,
-        duration: 0.16,
-        yoyo: true,
-        repeat: 3,
-        ease: 'sine.inOut',
-        onUpdate: () => {
-          document.getElementById('s1FrontLeg').setAttribute('transform', `translate(6, 20) rotate(${walkState.stride})`);
-          document.getElementById('s1BackLeg').setAttribute('transform', `translate(-5, 20) rotate(${-walkState.stride})`);
-        }
-      }, 2.9);
-
-      sceneTl.call(() => {
-        document.getElementById('s1FrontLeg').setAttribute('transform', 'translate(6, 20) rotate(0)');
-        document.getElementById('s1BackLeg').setAttribute('transform', 'translate(-5, 20) rotate(0)');
-      }, null, 3.6);
-
-      // 4.0s: Baker reaches in and pulls out a burnt loaf on wooden peel
-      sceneTl.call(() => playPeelSlide(), null, 4.0);
-
-      // Arms reach forward then pull back holding peel
-      sceneTl.to('#s1FrontArm', {
-        attr: { points: '4,-30 -18,-10 -34,4' },
-        duration: 0.25,
-        ease: 'power2.out'
-      }, 3.85);
-      sceneTl.to('#s1FarArm', {
-        attr: { points: '-10,-32 -32,-12 -48,2' },
-        duration: 0.25,
-        ease: 'power2.out'
-      }, 3.85);
-
-      // Reveal peel & burnt loaf and pull out
-      sceneTl.set('#s1PeelGroup', { opacity: 1, x: -45, y: 6 }, 4.05);
-      sceneTl.to('#s1PeelGroup', {
-        x: -14,
-        y: 8,
-        duration: 0.45,
-        ease: 'power2.out'
-      }, 4.05);
-      sceneTl.to('#s1FrontArm', {
-        attr: { points: '6,-30 -6,-6 -16,8' },
-        duration: 0.45,
-        ease: 'power2.out'
-      }, 4.05);
-      sceneTl.to('#s1FarArm', {
-        attr: { points: '-10,-32 -22,-8 -32,6' },
-        duration: 0.45,
-        ease: 'power2.out'
-      }, 4.05);
-
-      // Rising wisp of smoke off the burnt loaf
-      sceneTl.to('#s1LoafSmoke', {
-        y: -12,
-        opacity: 0.25,
-        duration: 1.6,
-        ease: 'sine.out'
-      }, 4.2);
-
-      // 5.0s - 6.0s: Baker turns head to stare deadpan at the camera, hold
-      sceneTl.set('#s1FaceOpenLeft', { opacity: 0 }, 5.0);
-      sceneTl.set('#s1FaceCamera', { opacity: 1 }, 5.0);
-      sceneTl.to('#s1BakerHead', {
-        x: 2,
-        rotation: 2,
-        duration: 0.18,
-        ease: 'power2.out'
-      }, 5.0);
-    }
-
-    playBtn.addEventListener('click', () => {
-      initAudio();
-      playScene1();
-    });
-
-    replayBtn.addEventListener('click', () => {
-      initAudio();
-      playScene1();
-    });
-
-    soundBtn.addEventListener('click', () => {
-      soundEnabled = !soundEnabled;
-      soundBtn.textContent = soundEnabled ? '🔊 Sound: ON' : '🔇 Sound: OFF';
-      if (soundEnabled) initAudio();
-    });
-
-    window.addEventListener('load', () => {
-      setTimeout(playScene1, 250);
-    });
-  </script>
+/* Auto-play on load */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    initAudio();
+    playScene1();
+  }, 250);
+});
+</script>
 </body>
 </html>
