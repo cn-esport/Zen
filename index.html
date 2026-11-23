@@ -82,11 +82,8 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
 
   <!-- Roadside wooden shelter / village house eaves on the right -->
   <g id="s3Shelter">
-    <!-- warm spill from open shoji screen -->
     <polygon points="365,530 540,480 540,785 270,785" fill="url(#s3EavesSpill)"/>
-    <!-- main wooden wall -->
     <rect x="375" y="455" width="175" height="330" fill="#101522"/>
-    <!-- shoji warm paper window -->
     <rect x="415" y="515" width="110" height="145" fill="#78350f" opacity=".55"/>
     <rect x="421" y="521" width="98" height="133" fill="#f59e0b" opacity=".28"/>
     <g stroke="#161c2c" stroke-width="3">
@@ -95,12 +92,9 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
       <line x1="421" y1="565" x2="519" y2="565"/>
       <line x1="421" y1="610" x2="519" y2="610"/>
     </g>
-    <!-- overhanging tiled roof eaves -->
     <path d="M 330 462 Q 430 442 555 415 L 555 468 L 325 474 Z" fill="#080b12"/>
     <path d="M 330 462 Q 430 442 555 415" stroke="#fcd34d" stroke-width="1.4" fill="none" opacity=".25"/>
-    <!-- wooden support pillar -->
     <rect x="368" y="468" width="12" height="317" fill="#0b0f19"/>
-    <!-- wooden porch bench -->
     <rect x="352" y="756" width="188" height="10" fill="#182030"/>
     <rect x="364" y="766" width="8" height="19" fill="#0b0f19"/>
   </g>
@@ -125,44 +119,38 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
     <rect x="260" y="746" width="24" height="33" rx="3" fill="#141824" stroke="#29221c" stroke-width="2"/>
     <!-- glowing ember paper core -->
     <rect id="s3LanternCore" x="263" y="750" width="18" height="25" rx="2" fill="#f59e0b"/>
-    <ellipse id="s3LanternFlame" cx="272" cy="764" rx="5" ry="7.5" fill="#fef08a"/>
+    <!-- inner flame centered properly inside the lantern -->
+    <g transform="translate(272, 766)">
+      <ellipse id="s3LanternFlame" cx="0" cy="-2" rx="4.5" ry="6.5" fill="#fef08a"/>
+    </g>
     <!-- lantern roof cap & handle -->
     <path d="M 254 747 L 272 737 L 290 747 Z" fill="#0d0b12"/>
     <path d="M 267 737 Q 272 730 277 737" stroke="#d97706" stroke-width="1.8" fill="none"/>
     <!-- tiny rising ember sparks -->
-    <circle class="s3Spark" cx="270" cy="742" r="1.4" fill="#fef08a" opacity="0"/>
-    <circle class="s3Spark" cx="275" cy="740" r="1.2" fill="#fcd34d" opacity="0"/>
+    <circle class="s3Spark" cx="270" cy="742" r="1.3" fill="#fef08a" opacity="0"/>
+    <circle class="s3Spark" cx="275" cy="740" r="1.1" fill="#fcd34d" opacity="0"/>
   </g>
 
   <!-- TRAVELER (Hero from Scenes 1 & 2, walking in from left, facing right) -->
   <g id="s3Traveler" transform="translate(120, 785)">
     <ellipse cx="0" cy="2" rx="28" ry="5.5" fill="#000" opacity=".9"/>
-    <!-- back leg -->
     <g id="s3TravLegB" transform="translate(-4,-50)">
       <path d="M 0 0 L -1 26 L -3 47" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       <path d="M -6 44 L 10 44 L 11 50 L -8 50 Z" fill="#08070c"/>
     </g>
-    <!-- front leg -->
     <g id="s3TravLegF" transform="translate(4,-50)">
       <path d="M 0 0 L 1 26 L 4 47" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       <path d="M 0 44 L 14 44 L 15 50 L -2 50 Z" class="hd"/>
     </g>
-    <!-- far arm -->
     <path id="s3TravArmB" d="M -7 -100 L -11 -78 L -8 -58" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- torso warm rim light (right edge facing lantern) -->
     <path d="M -11.5 -108 L 15.5 -108 L 19.5 -26 L -14.5 -26 Z" fill="#fcd34d" opacity=".46"/>
-    <!-- torso trapezoid -->
     <path d="M -13 -108 L 14 -108 L 18 -26 L -16 -26 Z" fill="#1e2330"/>
-    <!-- same muted slate scarf from Scenes 1 & 2 -->
     <path d="M -13 -108 L 14 -108 L 15 -97 L -14 -97 Z" fill="#2d3748"/>
     <path d="M 2 -98 L 11 -98 L 12 -74 L 3 -76 Z" fill="#242c3a"/>
-    <!-- front arm (reaches out to receive the bowl) -->
     <path id="s3TravArmF" d="M 3 -100 L 10 -78 L 13 -57" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- head group -->
     <g id="s3TravHead" transform="translate(1,-130) rotate(2)">
       <circle cx="1.6" cy="0" r="22" fill="#fcd34d" opacity=".52"/>
       <circle cx="0" cy="0" r="22" class="hd"/>
-      <!-- open eyes looking right toward villager & bowl -->
       <circle class="fc" cx="10.5" cy="-2" r="2.1"/>
       <circle class="fc" cx="17.5" cy="-2" r="2.1"/>
       <line class="fs" x1="9" y1="7" x2="15" y2="7" stroke-width="1.8"/>
@@ -172,35 +160,25 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
   <!-- VILLAGER (Side character on right, facing left, holding out ceramic bowl) -->
   <g id="s3Villager" transform="translate(338, 785)">
     <ellipse cx="0" cy="2" rx="29" ry="5.5" fill="#000" opacity=".9"/>
-    <!-- back leg -->
     <g transform="translate(4,-50)">
       <path d="M 0 0 L 1 26 L 3 47" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       <path d="M -10 44 L 6 44 L 8 50 L -11 50 Z" fill="#08070c"/>
     </g>
-    <!-- front leg -->
     <g transform="translate(-4,-50)">
       <path d="M 0 0 L -1 26 L -4 47" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       <path d="M -14 44 L 0 44 L 2 50 L -15 50 Z" class="hd"/>
     </g>
-    <!-- far arm supporting bowl -->
     <path id="s3VilArmB" d="M 6 -100 L -12 -85 L -32 -84" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- torso warm rim light (left edge facing lantern) -->
     <path d="M -15.5 -108 L 11.5 -108 L 14.5 -26 L -19.5 -26 Z" fill="#fcd34d" opacity=".46"/>
-    <!-- villager tunic / coat (warm earthy dark tone) -->
     <path d="M -14 -108 L 13 -108 L 16 -26 L -18 -26 Z" fill="#231e24"/>
-    <!-- warm ochre scarf / collar -->
     <path d="M -14 -108 L 13 -108 L 14 -97 L -15 -97 Z" fill="#78350f"/>
     <path d="M -11 -98 L -2 -98 L -3 -76 L -12 -74 Z" fill="#92400e"/>
-    <!-- front arm holding out bowl -->
     <path id="s3VilArmF" d="M -3 -100 L -18 -84 L -36 -83" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- head group (facing left: rim light on left cx=-1.6, eyes negative cx) -->
     <g id="s3VilHead" transform="translate(-1,-130) rotate(-3)">
       <circle cx="-1.6" cy="0" r="22" fill="#fcd34d" opacity=".52"/>
       <circle cx="0" cy="0" r="22" class="hd"/>
-      <!-- simple tied cloth headband / kerchief knot -->
       <path d="M -19 -10 Q 0 -16 19 -10 L 18 -6 Q 0 -12 -18 -6 Z" fill="#92400e"/>
       <circle cx="21" cy="-8" r="3.5" fill="#78350f"/>
-      <!-- deadpan eyes facing left -->
       <circle class="fc" cx="-10.5" cy="-2" r="2.1"/>
       <circle class="fc" cx="-17.5" cy="-2" r="2.1"/>
       <line class="fs" x1="-15" y1="7" x2="-9" y2="7" stroke-width="1.8"/>
@@ -209,12 +187,9 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
 
   <!-- CERAMIC BOWL + WARM STEAM + CLINK RIPPLE -->
   <g id="s3Bowl" transform="translate(298, 702)">
-    <!-- warm rim highlight on bottom of bowl -->
     <path d="M -13 0 Q 0 13 13 0 Z" fill="#fcd34d" opacity=".45" transform="translate(0,1.5)"/>
-    <!-- ceramic bowl body (off-white earthenware) -->
     <path d="M -13 0 Q 0 13 13 0 Z" fill="#e7e0d2"/>
     <ellipse cx="0" cy="0" rx="13" ry="3" fill="#cbbba0"/>
-    <!-- gentle steam wisps rising from warm food/tea -->
     <circle class="s3Steam" cx="-4" cy="-6" r="5" fill="url(#s3SteamG)" opacity="0"/>
     <circle class="s3Steam" cx="3" cy="-9" r="6" fill="url(#s3SteamG)" opacity="0"/>
     <circle class="s3Steam" cx="0" cy="-12" r="5.5" fill="url(#s3SteamG)" opacity="0"/>
@@ -245,7 +220,6 @@ function initAudio() {
   if (audioCtx.state === 'suspended') audioCtx.resume();
 }
 
-// Low-in-mix dirt footsteps as traveler slows down
 function playSoftStep(vol = 0.048) {
   if (!audioCtx || !soundEnabled) return;
   const t = audioCtx.currentTime;
@@ -261,7 +235,6 @@ function playSoftStep(vol = 0.048) {
   osc.stop(t + 0.095);
 }
 
-// Soft ceramic bowl clink (delicate high bell-like porcelain resonance)
 function playCeramicClink() {
   if (!audioCtx || !soundEnabled) return;
   const t = audioCtx.currentTime;
@@ -287,12 +260,10 @@ function playCeramicClink() {
   });
 }
 
-// 12.0s Ambient Layer: Faint lantern fire crackle + warm quiet murmur + warmer harmonic music
 function playScene3Ambience(dur = 11.9) {
   if (!audioCtx || !soundEnabled) return;
   const t = audioCtx.currentTime;
 
-  // 1. Faint lantern fire crackle (sparse micro-pops over 12s)
   const crackleCount = 26;
   for (let i = 0; i < crackleCount; i++) {
     const offset = 0.2 + Math.random() * (dur - 0.5);
@@ -315,7 +286,6 @@ function playScene3Ambience(dur = 11.9) {
     src.start(popTime);
   }
 
-  // 2. Warm, quiet murmur of distant voices (low-mid modulated formant hum)
   const mLen = Math.floor(audioCtx.sampleRate * dur);
   const mBuf = audioCtx.createBuffer(1, mLen, audioCtx.sampleRate);
   const mData = mBuf.getChannelData(0);
@@ -338,12 +308,11 @@ function playScene3Ambience(dur = 11.9) {
   mSrc.connect(mFilter).connect(mGain).connect(audioCtx.destination);
   mSrc.start(t);
 
-  // 3. Warmer musical pad swell (F major 9th / warm fifths: F2, C3, A3, E4)
   const chord = [
-    { freq: 87.31, type: 'sine',     peak: 0.045, start: 0.0 },  // F2
-    { freq: 130.81, type: 'triangle', peak: 0.032, start: 0.4 }, // C3
-    { freq: 220.00, type: 'sine',     peak: 0.026, start: 2.2 }, // A3 (warm major 3rd enters)
-    { freq: 329.63, type: 'sine',     peak: 0.016, start: 4.5 }  // E4 (gentle warmth)
+    { freq: 87.31, type: 'sine',     peak: 0.045, start: 0.0 },
+    { freq: 130.81, type: 'triangle', peak: 0.032, start: 0.4 },
+    { freq: 220.00, type: 'sine',     peak: 0.026, start: 2.2 },
+    { freq: 329.63, type: 'sine',     peak: 0.016, start: 4.5 }
   ];
 
   chord.forEach(note => {
@@ -367,23 +336,21 @@ const st = {
   travStride: 0,
   travBob: 0,
   travHead: 2,
-  travArm: 0,    // 0 = walking swing, 1 = reaching out for bowl, 2 = holding bowl
-  vilOffer: 0,   // 0 = holding near chest, 1 = extended toward traveler, 2 = hands resting after handoff
+  travArm: 0,
+  vilOffer: 0,
   vilHead: -3,
-  bowlMode: 0,   // 0 = carried by villager, 1 = held by traveler
+  bowlMode: 0,
   bgWalk: 0
 };
 
 const lerp = (a, b, t) => a + (b - a) * t;
 
 function render() {
-  // Traveler position & legs
   $('s3Traveler').setAttribute('transform', `translate(${st.travX.toFixed(1)},${(785 + st.travBob).toFixed(1)})`);
   $('s3TravHead').setAttribute('transform', `translate(1,-130) rotate(${st.travHead.toFixed(2)})`);
   $('s3TravLegF').setAttribute('transform', `translate(4,-50) rotate(${st.travStride.toFixed(2)})`);
   $('s3TravLegB').setAttribute('transform', `translate(-4,-50) rotate(${(-st.travStride).toFixed(2)})`);
 
-  // Traveler front arm interpolation: Idle/Walk -> Reach -> Hold Bowl
   let tEx, tEy, tHx, tHy;
   if (st.travArm <= 1) {
     tEx = lerp(10 - st.travStride * 0.35, 28, st.travArm);
@@ -399,7 +366,6 @@ function render() {
   }
   $('s3TravArmF').setAttribute('d', `M 3 -100 L ${tEx.toFixed(1)} ${tEy.toFixed(1)} L ${tHx.toFixed(1)} ${tHy.toFixed(1)}`);
 
-  // Villager head & offering arms
   $('s3VilHead').setAttribute('transform', `translate(-1,-130) rotate(${st.vilHead.toFixed(2)})`);
   let vEx, vEy, vHx, vHy;
   if (st.vilOffer <= 1) {
@@ -417,7 +383,6 @@ function render() {
   $('s3VilArmF').setAttribute('d', `M -3 -100 L ${vEx.toFixed(1)} ${vEy.toFixed(1)} L ${vHx.toFixed(1)} ${vHy.toFixed(1)}`);
   $('s3VilArmB').setAttribute('d', `M 6 -100 L ${(vEx + 6).toFixed(1)} ${(vEy - 1).toFixed(1)} L ${(vHx + 4).toFixed(1)} ${(vHy - 1).toFixed(1)}`);
 
-  // Bowl position follows either villager's hand or traveler's hand
   let bowlX, bowlY;
   if (st.bowlMode < 0.5) {
     bowlX = 338 + vHx - 6;
@@ -428,7 +393,6 @@ function render() {
   }
   $('s3Bowl').setAttribute('transform', `translate(${bowlX.toFixed(1)},${bowlY.toFixed(1)})`);
 
-  // Subtle distant background pilgrims drifting slowly left-to-right
   $('s3BgP1').setAttribute('transform', `translate(${(60 + st.bgWalk).toFixed(1)}, 745) scale(0.42)`);
   $('s3BgP2').setAttribute('transform', `translate(${(15 + st.bgWalk * 0.85).toFixed(1)}, 748) scale(0.36)`);
 }
@@ -451,7 +415,7 @@ function resetScene3ToStart() {
   });
   gsap.set('#s3Camera', { scale: 1, svgOrigin: '270 660' });
   gsap.set('#s3LanternHalo', { opacity: 0.82 });
-  gsap.set('#s3LanternFlame', { scale: 1, transformOrigin: '272px 764px' });
+  gsap.set('#s3LanternFlame', { attr: { ry: 6.5, rx: 4.5 } });
   gsap.set('#s3ClinkR1, #s3ClinkR2', { attr: { r: 3 }, opacity: 0 });
   gsap.set('.s3Steam', { opacity: 0, y: 0, x: 0 });
   gsap.set('.s3Spark', { opacity: 0, y: 0, x: 0 });
@@ -475,12 +439,12 @@ function playScene3() {
   // 0.00s: Warm music, fire crackle, and distant murmur begin
   sceneTl.call(() => playScene3Ambience(11.9), null, 0.02);
 
-  // Continuous gentle lantern flame flicker & rising ember sparks
+  // Continuous gentle lantern flame flicker (stays strictly inside lantern) & tiny sparks
   sceneTl.to('#s3LanternHalo', { opacity: 0.96, duration: 0.65, yoyo: true, repeat: 17, ease: 'sine.inOut' }, 0);
-  sceneTl.to('#s3LanternFlame', { scaleY: 1.14, scaleX: 0.92, duration: 0.45, yoyo: true, repeat: 25, ease: 'sine.inOut' }, 0);
+  sceneTl.to('#s3LanternFlame', { attr: { ry: 7.4, rx: 4.1 }, duration: 0.45, yoyo: true, repeat: 25, ease: 'sine.inOut' }, 0);
   sceneTl.fromTo('.s3Spark',
     { opacity: 0, y: 0, x: 0 },
-    { opacity: 0.85, y: -38, x: i => (i % 2 ? 7 : -6), duration: 2.2, stagger: 0.9, repeat: 3, ease: 'sine.out', immediateRender: false },
+    { opacity: 0.65, y: -16, x: i => (i % 2 ? 4 : -4), duration: 1.8, stagger: 0.9, repeat: 3, ease: 'sine.out', immediateRender: false },
     0.5
   );
 
