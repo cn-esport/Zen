@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — The Baker's Alarm Scene 1: Oven Door (6.0s + Foley SFX)</title>
+<title>Zenspiris — The Ember Doorway Scene 1: Leaning Broom (5.0s + Foley SFX)</title>
 <style>
 :root{--head:#0d0b12;--face:#f2ede2;--rim:#fcd34d;--rim-cool:#60a5fa}
 *{box-sizing:border-box;margin:0}
@@ -16,192 +18,389 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
 .controls button{background:#16161f;color:#cbd5e1;border:1px solid #2a2a38;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
 .controls button.primary{background:#1e3a5f;border-color:#3b6ea8;color:#fff}
 .hd{fill:var(--head)}.fc{fill:var(--face)}.fs{stroke:var(--face);stroke-linecap:round;fill:none}
-</style></head>
+</style>
+</head>
 <body>
 <div class="stage-wrapper">
 <div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
 <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 <defs>
- <linearGradient id="s1Wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06080f"/><stop offset="1" stop-color="#111726"/></linearGradient>
- <linearGradient id="s1Floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b101b"/><stop offset="1" stop-color="#04060c"/></linearGradient>
- <linearGradient id="s1Glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b101d"/><stop offset="1" stop-color="#1b2c48"/></linearGradient>
- <radialGradient id="s1OvenG"><stop offset="0" stop-color="#fef08a" stop-opacity=".9"/><stop offset=".3" stop-color="#f59e0b" stop-opacity=".55"/><stop offset=".65" stop-color="#d97706" stop-opacity=".2"/><stop offset="1" stop-color="#d97706" stop-opacity="0"/></radialGradient>
- <radialGradient id="s1WashG"><stop offset="0" stop-color="#f59e0b" stop-opacity=".55"/><stop offset=".5" stop-color="#d97706" stop-opacity=".18"/><stop offset="1" stop-color="#d97706" stop-opacity="0"/></radialGradient>
- <linearGradient id="s1Open" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fef08a"/><stop offset=".5" stop-color="#f59e0b"/><stop offset="1" stop-color="#b45309"/></linearGradient>
+  <linearGradient id="s1Wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset="1" stop-color="#0f1524"/></linearGradient>
+  <linearGradient id="s1Floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b101b"/><stop offset="1" stop-color="#04060c"/></linearGradient>
+  <linearGradient id="s1Glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b101d"/><stop offset="1" stop-color="#182640"/></linearGradient>
+  <radialGradient id="s1EmberG" cx="50%" cy="60%" r="60%">
+    <stop offset="0" stop-color="#fef08a" stop-opacity=".95"/>
+    <stop offset=".35" stop-color="#f59e0b" stop-opacity=".65"/>
+    <stop offset=".7" stop-color="#b45309" stop-opacity=".28"/>
+    <stop offset="1" stop-color="#78350f" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="s1RoomWash">
+    <stop offset="0" stop-color="#f59e0b" stop-opacity=".42"/>
+    <stop offset=".55" stop-color="#d97706" stop-opacity=".12"/>
+    <stop offset="1" stop-color="#d97706" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="s1Spill" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#f59e0b" stop-opacity=".28"/>
+    <stop offset="1" stop-color="#f59e0b" stop-opacity="0"/>
+  </linearGradient>
+  <clipPath id="s1DoorClip">
+    <rect x="275" y="450" width="160" height="335"/>
+  </clipPath>
 </defs>
+
 <g id="s1Camera">
- <!-- wall + floor -->
- <rect x="0" y="0" width="540" height="790" fill="url(#s1Wall)"/>
- <rect x="0" y="785" width="540" height="175" fill="url(#s1Floor)"/>
- <g stroke="#0e1422" stroke-width="2"><line x1="0" y1="830" x2="540" y2="830"/><line x1="0" y1="885" x2="540" y2="885"/></g>
- <!-- window + dawn beam -->
- <polygon points="70,400 160,400 330,785 200,785" fill="#60a5fa" opacity=".05"/>
- <rect x="62" y="372" width="106" height="134" fill="#161d2e"/>
- <rect x="70" y="380" width="90" height="118" fill="url(#s1Glass)"/>
- <polygon points="70,380 112,380 70,450" fill="#bae6fd" opacity=".06"/>
- <g stroke="#181f30" stroke-width="4"><line x1="115" y1="380" x2="115" y2="498"/><line x1="70" y1="439" x2="160" y2="439"/></g>
- <rect x="56" y="504" width="118" height="9" fill="#181f30"/>
- <!-- shelf with loaves -->
- <rect x="40" y="300" width="240" height="8" fill="#1a1410"/>
- <g fill="#231510"><ellipse cx="80" cy="289" rx="22" ry="11"/><ellipse cx="140" cy="289" rx="22" ry="11"/><ellipse cx="200" cy="289" rx="22" ry="11"/><ellipse cx="252" cy="291" rx="18" ry="9"/></g>
- <g fill="#fcd34d" opacity=".12"><ellipse cx="86" cy="286" rx="14" ry="5"/><ellipse cx="146" cy="286" rx="14" ry="5"/><ellipse cx="206" cy="286" rx="14" ry="5"/></g>
- <!-- flour sack -->
- <path d="M 30 785 L 36 712 Q 70 698 104 712 L 112 785 Z" fill="#3a372f"/>
- <rect x="48" y="740" width="46" height="14" fill="#2a2824"/>
- <!-- oven glow layers -->
- <circle id="s1OvenGlow" cx="395" cy="690" r="240" fill="url(#s1OvenG)" opacity=".55"/>
- <g id="s1Flick"><ellipse cx="300" cy="792" rx="170" ry="22" fill="#f59e0b" opacity=".16"/></g>
- <!-- chimney -->
- <rect x="440" y="0" width="28" height="575" fill="#0f0d10"/>
- <!-- oven -->
- <g id="s1Oven">
-  <path d="M 310 785 L 310 612 Q 310 560 362 560 L 458 560 Q 510 560 510 612 L 510 785 Z" fill="#1c1816"/>
-  <g stroke="#0e0b0a" stroke-width="2"><line x1="310" y1="600" x2="510" y2="600"/><line x1="310" y1="760" x2="510" y2="760"/><line x1="470" y1="760" x2="470" y2="785"/><line x1="350" y1="760" x2="350" y2="785"/></g>
-  <rect x="336" y="626" width="118" height="128" rx="14" fill="#0a0605"/>
-  <rect id="s1OpenGlow" x="340" y="630" width="110" height="120" rx="12" fill="url(#s1Open)" opacity="0"/>
-  <g id="s1Door">
-   <rect x="0" y="0" width="110" height="120" rx="12" fill="#15100e" stroke="#2a211c" stroke-width="3"/>
-   <rect x="16" y="22" width="78" height="22" rx="6" fill="#f59e0b" opacity=".9"/>
-   <rect x="92" y="56" width="7" height="30" rx="3" fill="#d97706"/>
+  <!-- dark interior wall + wooden floor -->
+  <rect x="0" y="0" width="540" height="790" fill="url(#s1Wall)"/>
+  <rect x="0" y="785" width="540" height="175" fill="url(#s1Floor)"/>
+  <!-- wooden plank lines -->
+  <g stroke="#0e1422" stroke-width="2">
+    <line x1="0" y1="818" x2="540" y2="818"/>
+    <line x1="0" y1="858" x2="540" y2="858"/>
+    <line x1="0" y1="905" x2="540" y2="905"/>
   </g>
- </g>
- <!-- smoke from oven -->
- <g fill="#94a3b8"><circle class="s1p s1pA" cx="372" cy="668" r="10"/><circle class="s1p s1pA" cx="398" cy="660" r="10"/><circle class="s1p s1pA" cx="424" cy="668" r="10"/><circle class="s1p s1pA" cx="410" cy="690" r="10"/>
-  <circle class="s1p s1pB" cx="380" cy="680" r="10"/><circle class="s1p s1pB" cx="408" cy="672" r="10"/><circle class="s1p s1pB" cx="430" cy="684" r="10"/></g>
- <circle id="s1Wash" cx="395" cy="690" r="400" fill="url(#s1WashG)" opacity=".3"/>
- <!-- baker -->
- <g id="s1Char">
-  <ellipse cx="0" cy="2" rx="32" ry="6" fill="#000" opacity=".9"/>
-  <g id="s1LegB" transform="translate(-4,-50)"><path d="M 0 0 L -1 26 L -3 47" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M -6 44 L 10 44 L 11 50 L -8 50 Z" fill="#08070c"/></g>
-  <g id="s1LegF" transform="translate(4,-50)"><path d="M 0 0 L 1 26 L 4 47" class="hs" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 0 44 L 14 44 L 15 50 L -2 50 Z" class="hd"/></g>
-  <path d="M -6 -100 L -12 -78 L -10 -58" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <path d="M -11.5 -108 L 15.5 -108 L 20.5 -26 L -15.5 -26 Z" fill="#fcd34d" opacity=".4"/>
-  <path d="M -13 -108 L 14 -108 L 19 -26 L -17 -26 Z" fill="#1e2330"/>
-  <g fill="#cbd5e1" opacity=".22"><circle cx="-8" cy="-92" r="2"/><circle cx="-4" cy="-64" r="2.4"/><circle cx="12" cy="-100" r="1.8"/><circle cx="-12" cy="-44" r="2.2"/></g>
-  <path d="M -1 -98 L 17 -98 L 21 -28 L -3 -28 Z" fill="#d9d5c8"/>
-  <circle cx="7" cy="-72" r="2" fill="#b8b3a3"/>
-  <path id="s1Arm" d="M 3 -100 L 10 -78 L 14 -58" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <g id="s1Head" transform="translate(2,-130) rotate(6)">
-   <circle id="s1HeadRim" cx="1.6" cy="0" r="22" fill="#fcd34d" opacity=".5"/>
-   <circle cx="0" cy="0" r="22" class="hd"/>
-   <path d="M -16 -12 L -18 -34 Q -26 -52 -8 -54 Q 0 -66 11 -55 Q 26 -52 18 -34 L 16 -12 Z" transform="translate(1.6,0)" fill="#fcd34d" opacity=".45"/>
-   <path d="M -16 -12 L -18 -34 Q -26 -52 -8 -54 Q 0 -66 11 -55 Q 26 -52 18 -34 L 16 -12 Z" fill="#ece8dc"/>
-   <rect x="-17" y="-20" width="34" height="4" fill="#cfc9b8"/>
-   <g id="s1FG" class="fs"><line x1="8" y1="-2" x2="13" y2="-2" stroke-width="2.1"/><line x1="15.5" y1="-2" x2="20.5" y2="-2" stroke-width="2.1"/><line x1="9" y1="7" x2="15" y2="7" stroke-width="1.8"/></g>
-   <g id="s1FO" opacity="0"><circle class="fc eo" cx="11" cy="-2" r="2.1"/><circle class="fc eo" cx="18.5" cy="-2" r="2.1"/><line class="fs" x1="9" y1="7" x2="15" y2="7" stroke-width="1.8"/></g>
-   <g id="s1FF" opacity="0"><circle class="fc" cx="-4" cy="-2" r="2.2"/><circle class="fc" cx="4" cy="-2" r="2.2"/><line class="fs" x1="-3" y1="7" x2="3" y2="7" stroke-width="1.8"/></g>
+  <!-- subtle wall paneling -->
+  <g stroke="#0a0e18" stroke-width="2">
+    <line x1="65" y1="0" x2="65" y2="785"/>
+    <line x1="225" y1="0" x2="225" y2="785"/>
+    <line x1="485" y1="0" x2="485" y2="785"/>
   </g>
- </g>
- <!-- burnt loaf (follows hand) -->
- <g id="s1Loaf" opacity="0">
-  <ellipse cx="1" cy="0" rx="24" ry="12" fill="#fcd34d" opacity=".35"/>
-  <ellipse cx="0" cy="0" rx="23" ry="11" fill="#1a1208"/>
-  <g stroke="#3a2412" stroke-width="2.4" stroke-linecap="round"><line x1="-10" y1="-5" x2="-5" y2="3"/><line x1="-1" y1="-6" x2="4" y2="3"/><line x1="8" y1="-5" x2="13" y2="2"/></g>
- </g>
- <g fill="#64748b"><circle class="s1p s1pW" cx="304" cy="684" r="5"/><circle class="s1p s1pW" cx="312" cy="682" r="5"/><circle class="s1p s1pW" cx="308" cy="686" r="5"/></g>
+
+  <!-- small high night window (cool moonlight source) -->
+  <polygon points="62,275 142,275 215,785 95,785" fill="#60a5fa" opacity=".04"/>
+  <rect x="56" y="250" width="92" height="114" fill="#161d2e"/>
+  <rect x="62" y="256" width="80" height="102" fill="url(#s1Glass)"/>
+  <polygon points="62,256 98,256 62,318" fill="#bae6fd" opacity=".06"/>
+  <g stroke="#181f30" stroke-width="3.5">
+    <line x1="102" y1="256" x2="102" y2="358"/>
+    <line x1="62" y1="307" x2="142" y2="307"/>
+  </g>
+  <rect x="50" y="362" width="104" height="8" fill="#181f30"/>
+
+  <!-- doorway frame & ember interior -->
+  <rect x="263" y="438" width="184" height="347" fill="#131926"/>
+  <g clip-path="url(#s1DoorClip)">
+    <!-- deep doorway void -->
+    <rect x="275" y="450" width="160" height="335" fill="#09070a"/>
+    <!-- glowing ember core behind sliding door -->
+    <ellipse id="s1EmberCore" cx="355" cy="660" rx="135" ry="215" fill="url(#s1EmberG)" opacity=".32"/>
+    <!-- floating ember motes -->
+    <g fill="#fef08a">
+      <circle class="s1Mote" cx="330" cy="700" r="2.2" opacity="0"/>
+      <circle class="s1Mote" cx="362" cy="730" r="1.8" opacity="0"/>
+      <circle class="s1Mote" cx="388" cy="685" r="2.4" opacity="0"/>
+      <circle class="s1Mote" cx="345" cy="645" r="1.6" opacity="0"/>
+    </g>
+    <!-- sliding wooden door panel (slides right as it opens) -->
+    <g id="s1SlidingDoor" transform="translate(26,0)">
+      <rect x="275" y="450" width="160" height="335" fill="#161c2b" stroke="#0b0e17" stroke-width="3"/>
+      <rect x="293" y="472" width="124" height="125" fill="none" stroke="#1e273b" stroke-width="2.5"/>
+      <rect x="293" y="618" width="124" height="145" fill="none" stroke="#1e273b" stroke-width="2.5"/>
+      <!-- recessed door handle -->
+      <rect x="287" y="608" width="6" height="28" rx="2" fill="#090c14"/>
+    </g>
+  </g>
+  <!-- doorway top rail -->
+  <rect x="255" y="432" width="200" height="10" fill="#181f30"/>
+
+  <!-- ember floor light spill -->
+  <polygon id="s1FloorSpill" points="278,785 432,785 495,960 220,960" fill="url(#s1Spill)" opacity=".25"/>
+  <!-- warm ambient room wash -->
+  <circle id="s1RoomWashC" cx="340" cy="630" r="360" fill="url(#s1RoomWash)" opacity=".2"/>
+
+  <!-- leaning wooden broom (left of character) -->
+  <g id="s1Broom" transform="translate(154,785) rotate(-13)">
+    <!-- warm rim highlight on broomstick -->
+    <line x1="2" y1="-28" x2="2" y2="-224" stroke="#fcd34d" stroke-width="6.5" stroke-linecap="round" opacity=".38"/>
+    <!-- broom handle -->
+    <line x1="0" y1="-28" x2="0" y2="-224" stroke="#2c221b" stroke-width="6.5" stroke-linecap="round"/>
+    <!-- bristle cap & binding -->
+    <path d="M -8 -36 L 8 -36 L 15 0 L -15 0 Z" fill="#1e1813"/>
+    <rect x="-8.5" y="-38" width="17" height="5" rx="2" fill="#b45309"/>
+    <g stroke="#36291e" stroke-width="1.5">
+      <line x1="-6" y1="-26" x2="-10" y2="-2"/>
+      <line x1="0" y1="-26" x2="0" y2="-2"/>
+      <line x1="6" y1="-26" x2="10" y2="-2"/>
+    </g>
+  </g>
+
+  <!-- knock ripple on floor at broom base -->
+  <circle id="s1KnockR1" cx="154" cy="785" r="3" fill="none" stroke="#fcd34d" stroke-width="1.5" opacity="0"/>
+  <circle id="s1KnockR2" cx="154" cy="785" r="3" fill="none" stroke="#fcd34d" stroke-width="1.2" opacity="0"/>
+
+  <!-- lone silhouette character -->
+  <g id="s1Char" transform="translate(212,785)">
+    <!-- ground shadow -->
+    <ellipse cx="0" cy="2" rx="30" ry="6" fill="#000" opacity=".9"/>
+    <!-- back leg -->
+    <g id="s1LegB" transform="translate(-4,-50)">
+      <path d="M 0 0 L -1 26 L -3 47" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M -6 44 L 10 44 L 11 50 L -8 50 Z" fill="#08070c"/>
+    </g>
+    <!-- front leg -->
+    <g id="s1LegF" transform="translate(4,-50)">
+      <path d="M 0 0 L 1 26 L 4 47" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <path d="M 0 44 L 14 44 L 15 50 L -2 50 Z" class="hd"/>
+    </g>
+    <!-- far arm -->
+    <path d="M -7 -100 L -13 -77 L -11 -56" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- torso warm rim light (right edge facing ember doorway) -->
+    <path id="s1TorsoRim" d="M -11.5 -108 L 15.5 -108 L 19.5 -26 L -14.5 -26 Z" fill="#fcd34d" opacity=".32"/>
+    <!-- torso trapezoid -->
+    <path d="M -13 -108 L 14 -108 L 18 -26 L -16 -26 Z" fill="#1e2330"/>
+    <!-- muted scarf -->
+    <path d="M -13 -108 L 14 -108 L 15 -97 L -14 -97 Z" fill="#2d3748"/>
+    <path d="M 2 -98 L 11 -98 L 12 -74 L 3 -76 Z" fill="#242c3a"/>
+    <!-- front arm (reaches slightly toward broom at start, then rests) -->
+    <path id="s1Arm" d="M 3 -100 L -14 -82 L -28 -68" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- head group -->
+    <g id="s1Head" transform="translate(1,-130) rotate(2)">
+      <!-- rim light circle behind head -->
+      <circle id="s1HeadRim" cx="1.6" cy="0" r="22" fill="#fcd34d" opacity=".38"/>
+      <!-- head circle -->
+      <circle cx="0" cy="0" r="22" class="hd"/>
+      <!-- deadpan face looking right toward doorway -->
+      <g id="s1FaceRight">
+        <circle class="fc" cx="10.5" cy="-2" r="2.1"/>
+        <circle class="fc" cx="17.5" cy="-2" r="2.1"/>
+        <line class="fs" x1="9" y1="7" x2="15" y2="7" stroke-width="1.8"/>
+      </g>
+    </g>
+  </g>
 </g>
 </svg>
 </div>
+
 <div class="controls">
- <button id="playBtn" class="primary">▶ Play (6.0s)</button>
- <button id="replayBtn">↺ 0.0s</button>
- <button id="soundBtn">🔊 Sound: ON</button>
+  <button id="playBtn" class="primary">▶ Play (5.0s)</button>
+  <button id="replayBtn">↺ 0.0s</button>
+  <button id="soundBtn">🔊 Sound: ON</button>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
-const $=id=>document.getElementById(id);
-const playBtn=$('playBtn'),replayBtn=$('replayBtn'),soundBtn=$('soundBtn');
-// ---------- AUDIO (procedural foley) ----------
-let audioCtx=null,soundEnabled=true;
-function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}
-function tone(type,f0,f1,d,g){if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,o=audioCtx.createOscillator(),v=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);v.gain.setValueAtTime(g,t);v.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+d+.02);}
-function noise(d,type,f,q,g,att){if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type=type;fl.frequency.value=f;fl.Q.value=q;v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+att);v.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
-function playOvenDoor(){tone('triangle',170,48,.2,.16);noise(.12,'bandpass',1400,1,.1,.005);tone('sine',640,610,.5,.05);}
-function playSmoke(){noise(.55,'bandpass',650,.8,.07,.06);}
-function playStep(){tone('triangle',130,46,.08,.11);}
+const $ = id => document.getElementById(id);
+const playBtn = $('playBtn'), replayBtn = $('replayBtn'), soundBtn = $('soundBtn');
+
+// ---------- PROCEDURAL WEB AUDIO FOLEY ----------
+let audioCtx = null, soundEnabled = true;
+function initAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+// 0.00s: Broom handle set down on wooden floor (one soft knock)
+function playBroomKnock() {
+  if (!audioCtx || !soundEnabled) return;
+  const t = audioCtx.currentTime;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(145, t);
+  osc.frequency.exponentialRampToValueAtTime(54, t + 0.09);
+  gain.gain.setValueAtTime(0.14, t);
+  gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(t);
+  osc.stop(t + 0.12);
+}
+
+// 2.00s: Quiet footsteps on wood
+function playQuietStep() {
+  if (!audioCtx || !soundEnabled) return;
+  const t = audioCtx.currentTime;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(110, t);
+  osc.frequency.exponentialRampToValueAtTime(44, t + 0.075);
+  gain.gain.setValueAtTime(0.085, t);
+  gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.085);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(t);
+  osc.stop(t + 0.09);
+}
+
+// 2.75s: Wooden door sliding open
+function playDoorSlide() {
+  if (!audioCtx || !soundEnabled) return;
+  const t = audioCtx.currentTime;
+  const dur = 1.35;
+  const n = Math.floor(audioCtx.sampleRate * dur);
+  const buf = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) data[i] = Math.random() * 2 - 1;
+
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = 'bandpass';
+  filter.frequency.setValueAtTime(340, t);
+  filter.frequency.linearRampToValueAtTime(460, t + dur * 0.6);
+  filter.frequency.linearRampToValueAtTime(290, t + dur);
+  filter.Q.value = 3.2;
+
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0.0001, t);
+  gain.gain.linearRampToValueAtTime(0.065, t + 0.18);
+  gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+  src.connect(filter).connect(gain).connect(audioCtx.destination);
+  src.start(t);
+}
+
+// 0.00s - 5.00s: Soft wind + low ambient drone fading in
+function playWindAndDrone(dur = 4.9) {
+  if (!audioCtx || !soundEnabled) return;
+  const t = audioCtx.currentTime;
+
+  // Soft wind
+  const n = Math.floor(audioCtx.sampleRate * dur);
+  const buf = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < n; i++) data[i] = Math.random() * 2 - 1;
+
+  const windSrc = audioCtx.createBufferSource();
+  windSrc.buffer = buf;
+  const windFilter = audioCtx.createBiquadFilter();
+  windFilter.type = 'bandpass';
+  windFilter.frequency.value = 270;
+  windFilter.Q.value = 2.6;
+  const windGain = audioCtx.createGain();
+  windGain.gain.setValueAtTime(0.0001, t);
+  windGain.gain.linearRampToValueAtTime(0.026, t + 1.2);
+  windGain.gain.linearRampToValueAtTime(0.02, t + dur - 0.3);
+  windGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  windSrc.connect(windFilter).connect(windGain).connect(audioCtx.destination);
+  windSrc.start(t);
+
+  // Subtle low drone fading in
+  const drone1 = audioCtx.createOscillator();
+  const drone2 = audioCtx.createOscillator();
+  const droneGain = audioCtx.createGain();
+  drone1.type = 'sine';
+  drone2.type = 'triangle';
+  drone1.frequency.setValueAtTime(65.4, t);   // C2
+  drone2.frequency.setValueAtTime(98.0, t);   // G2
+  droneGain.gain.setValueAtTime(0.0001, t);
+  droneGain.gain.linearRampToValueAtTime(0.045, t + 2.4);
+  droneGain.gain.linearRampToValueAtTime(0.055, t + dur - 0.4);
+  droneGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+  drone1.connect(droneGain);
+  drone2.connect(droneGain);
+  droneGain.connect(audioCtx.destination);
+  drone1.start(t);
+  drone2.start(t);
+  drone1.stop(t + dur + 0.05);
+  drone2.stop(t + dur + 0.05);
+}
+
 // ---------- RIG STATE ----------
-const st={x:190,bob:0,head:6,stride:0,arm:0,door:1};
-const IDLE={e:[10,-78],h:[14,-58]},REACH={e:[38,-96],h:[80,-90]},HOLD={e:[26,-82],h:[48,-84]};
-const lerp=(a,b,t)=>a+(b-a)*t;
-function pose(a){const[p,q,t]=a<=1?[IDLE,REACH,a]:[REACH,HOLD,a-1];return{e:[lerp(p.e[0],q.e[0],t),lerp(p.e[1],q.e[1],t)],h:[lerp(p.h[0],q.h[0],t),lerp(p.h[1],q.h[1],t)]};}
-function render(){
- const p=pose(st.arm);
- $('s1Char').setAttribute('transform',`translate(${st.x},${785+st.bob})`);
- $('s1Head').setAttribute('transform',`translate(2,-130) rotate(${st.head})`);
- $('s1LegF').setAttribute('transform',`translate(4,-50) rotate(${st.stride})`);
- $('s1LegB').setAttribute('transform',`translate(-4,-50) rotate(${-st.stride})`);
- $('s1Arm').setAttribute('d',`M 3 -100 L ${p.e[0]} ${p.e[1]} L ${p.h[0]} ${p.h[1]}`);
- $('s1Loaf').setAttribute('transform',`translate(${st.x+p.h[0]+3},${785+st.bob+p.h[1]-8})`);
- $('s1Door').setAttribute('transform',`translate(340,630) scale(${st.door},1)`);
+const st = { x: 212, bob: 0, head: 2, stride: 0, arm: 0, broomAngle: -10, doorX: 26 };
+const ARM_BROOM = { e: [-14, -82], h: [-28, -68] };
+const ARM_REST  = { e: [10, -78],  h: [13, -57] };
+const lerp = (a, b, t) => a + (b - a) * t;
+
+function render() {
+  const ex = lerp(ARM_BROOM.e[0], ARM_REST.e[0], st.arm);
+  const ey = lerp(ARM_BROOM.e[1], ARM_REST.e[1], st.arm);
+  const hx = lerp(ARM_BROOM.h[0], ARM_REST.h[0], st.arm);
+  const hy = lerp(ARM_BROOM.h[1], ARM_REST.h[1], st.arm);
+
+  $('s1Char').setAttribute('transform', `translate(${st.x},${785 + st.bob})`);
+  $('s1Head').setAttribute('transform', `translate(1,-130) rotate(${st.head})`);
+  $('s1LegF').setAttribute('transform', `translate(4,-50) rotate(${st.stride})`);
+  $('s1LegB').setAttribute('transform', `translate(-4,-50) rotate(${-st.stride})`);
+  $('s1Arm').setAttribute('d', `M 3 -100 L ${ex.toFixed(1)} ${ey.toFixed(1)} L ${hx.toFixed(1)} ${hy.toFixed(1)}`);
+  $('s1Broom').setAttribute('transform', `translate(154,785) rotate(${st.broomAngle.toFixed(2)})`);
+  $('s1SlidingDoor').setAttribute('transform', `translate(${st.doorX.toFixed(1)},0)`);
 }
-// ---------- TIMELINE ----------
-let sceneTl=null;
-function resetScene1ToStart(){
- if(sceneTl){sceneTl.kill();sceneTl=null;}
- Object.assign(st,{x:190,bob:0,head:6,stride:0,arm:0,door:1});
- gsap.set('#s1Camera',{scale:1,svgOrigin:'260 530'});
- gsap.set('#s1FG',{opacity:1});gsap.set('#s1FO,#s1FF',{opacity:0});
- gsap.set('.eo',{attr:{r:2.1}});gsap.set('#s1HeadRim',{attr:{cx:1.6}});
- gsap.set('#s1Loaf,#s1OpenGlow',{opacity:0});
- gsap.set('#s1OvenGlow',{opacity:.55});gsap.set('#s1Wash',{opacity:.3});
- gsap.set('#s1Oven',{x:0});gsap.set('#s1Flick',{opacity:1});
- gsap.set('.s1p',{opacity:0,x:0,y:0});
- gsap.set('.s1pA,.s1pB',{attr:{r:10}});gsap.set('.s1pW',{attr:{r:5}});
- render();replayBtn.textContent='↺ 0.0s';
+
+// ---------- TIMELINE (5.0s) ----------
+let sceneTl = null;
+
+function resetScene1ToStart() {
+  if (sceneTl) { sceneTl.kill(); sceneTl = null; }
+  Object.assign(st, { x: 212, bob: 0, head: 2, stride: 0, arm: 0, broomAngle: -10, doorX: 26 });
+  gsap.set('#s1Camera', { scale: 1, svgOrigin: '275 560' });
+  gsap.set('#s1EmberCore', { opacity: 0.32 });
+  gsap.set('#s1FloorSpill', { opacity: 0.25 });
+  gsap.set('#s1RoomWashC', { opacity: 0.2 });
+  gsap.set('#s1HeadRim', { opacity: 0.38 });
+  gsap.set('#s1TorsoRim', { opacity: 0.32 });
+  gsap.set('#s1KnockR1, #s1KnockR2', { attr: { r: 3 }, opacity: 0 });
+  gsap.set('.s1Mote', { opacity: 0, y: 0, x: 0 });
+  render();
+  replayBtn.textContent = '↺ 0.0s';
 }
-function puff(sel,t,r0,r1,dy,dur){
- sceneTl.fromTo(sel,{opacity:0,y:0,x:0,attr:{r:r0}},{opacity:.6,y:-30,attr:{r:r0*2.2},duration:.25,ease:'power2.out',stagger:.07,immediateRender:false},t)
-  .to(sel,{y:dy,x:i=>i%2?16:-12,attr:{r:r1},opacity:0,duration:dur,ease:'sine.out',stagger:.07},t+.25);
+
+function playScene1() {
+  resetScene1ToStart();
+  sceneTl = gsap.timeline({
+    onUpdate: () => {
+      render();
+      replayBtn.textContent = `↺ ${sceneTl.time().toFixed(1)}s`;
+    },
+    onComplete: () => replayBtn.textContent = '↺ 5.0s'
+  });
+
+  // 0.00s - 5.00s: Slow camera push-in toward character & ember doorway
+  sceneTl.to('#s1Camera', { scale: 1.06, svgOrigin: '275 560', duration: 5.0, ease: 'power1.inOut' }, 0);
+
+  // 0.00s: Ambient wind & drone fade in + broom handle set down on wooden floor (soft knock)
+  sceneTl.call(() => { playWindAndDrone(4.9); playBroomKnock(); }, null, 0.02);
+  sceneTl.to(st, { broomAngle: -14.5, duration: 0.28, ease: 'power2.out' }, 0.02);
+  sceneTl.to(st, { broomAngle: -13.5, duration: 0.22, ease: 'bounce.out' }, 0.3);
+  sceneTl.fromTo('#s1KnockR1', { attr: { r: 3 }, opacity: 0.55 }, { attr: { r: 22 }, opacity: 0, duration: 0.55, ease: 'power2.out', immediateRender: false }, 0.05);
+  sceneTl.fromTo('#s1KnockR2', { attr: { r: 3 }, opacity: 0.4 }, { attr: { r: 32 }, opacity: 0, duration: 0.65, ease: 'power2.out', immediateRender: false }, 0.12);
+
+  // 0.45s: Hand returns smoothly from broom to side; head tilts toward doorway
+  sceneTl.to(st, { arm: 1, duration: 0.65, ease: 'power2.inOut' }, 0.45);
+  sceneTl.to(st, { head: -2, duration: 0.7, ease: 'sine.inOut' }, 0.6);
+
+  // 2.00s: Quiet footsteps stepping subtly closer toward the doorway
+  [
+    [2.00, 224],
+    [2.42, 236]
+  ].forEach(([t, targetX]) => {
+    sceneTl.call(playQuietStep, null, t)
+      .to(st, { x: targetX, duration: 0.38, ease: 'power1.out' }, t)
+      .to(st, { stride: 7.5, duration: 0.19, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t)
+      .to(st, { bob: -1.8, duration: 0.19, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t);
+  });
+  sceneTl.call(() => { st.stride = 0; st.bob = 0; render(); }, null, 2.82);
+
+  // 2.75s: Door slides open further, releasing stronger warm ember glow & rim light
+  sceneTl.call(playDoorSlide, null, 2.75);
+  sceneTl.to(st, { doorX: 118, duration: 1.4, ease: 'power2.inOut' }, 2.75);
+  sceneTl.to('#s1EmberCore', { opacity: 0.92, duration: 1.35, ease: 'power2.out' }, 2.8);
+  sceneTl.to('#s1FloorSpill', { opacity: 0.75, duration: 1.35, ease: 'power2.out' }, 2.8);
+  sceneTl.to('#s1RoomWashC', { opacity: 0.48, duration: 1.35, ease: 'power2.out' }, 2.8);
+  sceneTl.to('#s1HeadRim', { opacity: 0.56, duration: 1.2, ease: 'power2.out' }, 2.85);
+  sceneTl.to('#s1TorsoRim', { opacity: 0.46, duration: 1.2, ease: 'power2.out' }, 2.85);
+
+  // 3.10s - 5.00s: Floating ember motes drift up inside doorway + deadpan hold
+  sceneTl.fromTo('.s1Mote',
+    { opacity: 0, y: 0, x: 0 },
+    { opacity: 0.75, y: -55, x: i => (i % 2 ? 10 : -8), duration: 1.8, stagger: 0.18, ease: 'sine.out', immediateRender: false },
+    3.1
+  );
+  sceneTl.to(st, { head: 1, duration: 0.9, ease: 'sine.inOut' }, 4.0);
 }
-function playScene1(){
- resetScene1ToStart();
- sceneTl=gsap.timeline({
-  onUpdate:()=>{render();replayBtn.textContent=`↺ ${sceneTl.time().toFixed(1)}s`;},
-  onComplete:()=>replayBtn.textContent='↺ 6.0s'
- });
- // camera slow push-in (whole scene)
- sceneTl.to('#s1Camera',{scale:1.06,svgOrigin:'260 530',duration:6.0,ease:'power1.inOut'},0);
- // 0.0-1.5s: calm, oven glows, baker sleepy-nods
- sceneTl.to(st,{head:13,duration:1.3,ease:'sine.inOut'},0.1);
- sceneTl.to('#s1Flick',{opacity:.78,duration:.45,yoyo:true,repeat:12,ease:'sine.inOut'},0);
- // 1.5s: oven door pops open with a bang + smoke puff
- sceneTl.call(playOvenDoor,null,1.5);
- sceneTl.to(st,{door:.16,duration:.12,ease:'power4.out'},1.5);
- sceneTl.to(st,{door:.22,duration:.35,ease:'back.out(2)'},1.62);
- sceneTl.fromTo('#s1OpenGlow',{opacity:0},{opacity:1,duration:.12,immediateRender:false},1.5);
- sceneTl.to('#s1OvenGlow',{opacity:.95,duration:.4},1.5);
- sceneTl.to('#s1Wash',{opacity:.55,duration:.5},1.5);
- sceneTl.fromTo('#s1Oven',{x:0},{x:3,duration:.04,yoyo:true,repeat:5,ease:'sine.inOut',immediateRender:false},1.5);
- sceneTl.call(playSmoke,null,1.55);
- puff('.s1pA',1.55,10,40,-120,1.2);
- // 2.7s: baker reacts - deadpan eyes open, head lifts
- sceneTl.set('#s1FG',{opacity:0},2.7).set('#s1FO',{opacity:1},2.7);
- sceneTl.to('.eo',{attr:{r:3.2},duration:.1,yoyo:true,repeat:1},2.7);
- sceneTl.to(st,{head:0,duration:.3,ease:'power2.out'},2.7);
- // 3.0s + 3.45s: two footsteps toward the oven
- [[3.0,225],[3.45,258]].forEach(([t,x])=>{
-  sceneTl.to(st,{x:x,duration:.4,ease:'power1.out'},t)
-   .to(st,{stride:9,duration:.2,yoyo:true,repeat:1,ease:'sine.inOut'},t)
-   .to(st,{bob:-2,duration:.2,yoyo:true,repeat:1,ease:'sine.inOut'},t)
-   .call(playStep,null,t);
- });
- sceneTl.call(()=>{st.stride=0;st.bob=0;render();},null,3.88);
- // 3.45s: arm reaches into the oven
- sceneTl.to(st,{arm:1,duration:.5,ease:'power2.out'},3.45);
- // 4.0s: pulls out the burnt loaf + smoke puff
- sceneTl.set('#s1Loaf',{opacity:1},4.0);
- sceneTl.to(st,{arm:2,duration:.55,ease:'power2.inOut'},4.0);
- sceneTl.call(playSmoke,null,4.0);
- puff('.s1pB',4.0,10,34,-100,1.2);
- // 4.5s: loaf wisps rise
- puff('.s1pW',4.5,5,12,-60,1.0);
- // 5.0s: turns to camera, deadpan hold (loop point)
- sceneTl.set('#s1FO',{opacity:0},5.0).set('#s1FF',{opacity:1},5.0).set('#s1HeadRim',{attr:{cx:0}},5.0);
- sceneTl.to(st,{head:-4,duration:.6,ease:'sine.inOut'},5.1);
-}
-playBtn.addEventListener('click',()=>{initAudio();playScene1();});
-replayBtn.addEventListener('click',()=>{resetScene1ToStart();});
-soundBtn.addEventListener('click',()=>{soundEnabled=!soundEnabled;soundBtn.textContent='🔊 Sound: '+(soundEnabled?'ON':'OFF');if(soundEnabled)initAudio();});
-window.addEventListener('load',()=>{resetScene1ToStart();setTimeout(playScene1,250);});
+
+playBtn.addEventListener('click', () => { initAudio(); playScene1(); });
+replayBtn.addEventListener('click', () => { resetScene1ToStart(); });
+soundBtn.addEventListener('click', () => {
+  soundEnabled = !soundEnabled;
+  soundBtn.textContent = '🔊 Sound: ' + (soundEnabled ? 'ON' : 'OFF');
+  if (soundEnabled) initAudio();
+});
+
+window.addEventListener('load', () => {
+  resetScene1ToStart();
+  setTimeout(playScene1, 250);
+});
 </script>
-</body></html>
+</body>
+</html>
