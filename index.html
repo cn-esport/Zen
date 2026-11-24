@@ -1,440 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — Okage Mairi Scene 2: The Ridge to Ise (10.0s + Foley SFX)</title>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zenspiris — The Servant Scene 1: The Open Door (5.0s + Foley SFX)</title>
 <style>
-:root{--head:#0d0b12;--face:#f2ede2;--rim:#fcd34d;--rim-cool:#60a5fa}
-*{box-sizing:border-box;margin:0}
+:root{--head:#0d0b12;--face:#f2ede2;--rim:#fcd34d;--rim-cool:#60a5fa}*{box-sizing:border-box;margin:0}
 body{background:#040406;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;font-family:system-ui,sans-serif}
-.stage-wrapper{position:relative;width:100vw;max-width:355px;aspect-ratio:9/16;background:#070911;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.95)}
+.stage-wrapper{position:relative;width:100vw;max-width:355px;aspect-ratio:9/16;background:#070911;overflow:hidden;box-shadow:0 24px 70px #000}
 svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrecision}
 .vignette{position:absolute;inset:0;z-index:10;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 36%,rgba(3,4,8,.92) 100%)}
-.letterbox{position:absolute;left:0;right:0;height:5.5%;background:#000;z-index:12}
-.letterbox.top{top:0;border-bottom:1px solid rgba(252,211,77,.35)}
-.letterbox.bottom{bottom:0;border-top:1px solid rgba(252,211,77,.35)}
-.controls{display:flex;gap:8px}
-.controls button{background:#16161f;color:#cbd5e1;border:1px solid #2a2a38;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
-.controls button.primary{background:#1e3a5f;border-color:#3b6ea8;color:#fff}
-.hd{fill:var(--head)}.fc{fill:var(--face)}.fs{stroke:var(--face);stroke-linecap:round;fill:none}
-</style>
-</head>
-<body>
-<div class="stage-wrapper">
-<div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
+.letterbox{position:absolute;left:0;right:0;height:5.5%;background:#000;z-index:12}.letterbox.top{top:0;border-bottom:1px solid #fcd34d59}.letterbox.bottom{bottom:0;border-top:1px solid #fcd34d59}
+.controls{display:flex;gap:8px}.controls button{background:#16161f;color:#cbd5e1;border:1px solid #2a2a38;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}.controls .primary{background:#1e3a5f;border-color:#3b6ea8;color:#fff}
+</style></head><body>
+<div class="stage-wrapper"><div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
 <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 <defs>
-  <!-- High-angle dark night sky transitioning into teal haze & early ember sunrise -->
-  <linearGradient id="s2Sky" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#03050a"/>
-    <stop offset=".38" stop-color="#08131d"/>
-    <stop offset=".64" stop-color="#0e2a34"/>
-    <stop offset=".84" stop-color="#222320"/>
-    <stop offset="1" stop-color="#5c2d16"/>
-  </linearGradient>
-  <!-- Faint ember glow low on the horizon -->
-  <radialGradient id="s2HorizonEmber" cx="76%" cy="58%" r="58%">
-    <stop offset="0" stop-color="#fef08a" stop-opacity=".42"/>
-    <stop offset=".38" stop-color="#f59e0b" stop-opacity=".28"/>
-    <stop offset=".75" stop-color="#b45309" stop-opacity=".12"/>
-    <stop offset="1" stop-color="#78350f" stop-opacity="0"/>
-  </radialGradient>
-  <!-- Teal valley haze -->
-  <linearGradient id="s2TealHaze" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#14b8a6" stop-opacity="0"/>
-    <stop offset=".5" stop-color="#0d9488" stop-opacity=".26"/>
-    <stop offset="1" stop-color="#042f2e" stop-opacity="0"/>
-  </linearGradient>
-  <!-- Ridge earth gradient -->
-  <linearGradient id="s2RidgeGrad" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#0b131d"/>
-    <stop offset=".45" stop-color="#070c14"/>
-    <stop offset="1" stop-color="#030509"/>
-  </linearGradient>
-  <!-- Winding dirt path highlight -->
-  <linearGradient id="s2DirtPath" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0" stop-color="#14212e"/>
-    <stop offset=".55" stop-color="#1c2a38"/>
-    <stop offset="1" stop-color="#2c241d"/>
-  </linearGradient>
+<linearGradient id="s1Wall" x2="1" y2="1"><stop stop-color="#07151a"/><stop offset=".6" stop-color="#0b2025"/><stop offset="1" stop-color="#10272a"/></linearGradient>
+<linearGradient id="s1Floor" x2="0" y2="1"><stop stop-color="#172326"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+<linearGradient id="s1DoorGlow" x2="1"><stop stop-color="#fbbf24" stop-opacity=".95"/><stop offset=".5" stop-color="#ea580c" stop-opacity=".72"/><stop offset="1" stop-color="#7c2d12" stop-opacity=".18"/></linearGradient>
+<radialGradient id="s1Halo"><stop stop-color="#fb923c" stop-opacity=".42"/><stop offset=".55" stop-color="#c2410c" stop-opacity=".16"/><stop offset="1" stop-color="#c2410c" stop-opacity="0"/></radialGradient>
+<linearGradient id="s1Beam" x2="0" y2="1"><stop stop-color="#fbbf24" stop-opacity=".3"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></linearGradient>
+<filter id="s1Blur"><feGaussianBlur stdDeviation="16"/></filter>
 </defs>
-
-<!-- Camera starts slightly zoomed in (scale 1.11) and pulls back slowly as crowd grows -->
-<g id="s2Camera">
-  <!-- Sky & Early Ember Horizon Glow -->
-  <rect x="-40" y="-40" width="620" height="720" fill="url(#s2Sky)"/>
-  <ellipse id="s2EmberGlow" cx="410" cy="545" rx="360" ry="185" fill="url(#s2HorizonEmber)" opacity=".55"/>
-
-  <!-- Pale distant crescent/moon glow -->
-  <circle cx="95" cy="195" r="46" fill="#5eead4" opacity=".06"/>
-  <circle cx="95" cy="195" r="10" fill="#ccfbf1" opacity=".42"/>
-
-  <!-- Far distant mountain silhouettes -->
-  <path d="M -50 530 Q 85 470 220 515 Q 360 455 485 505 L 600 485 L 600 660 L -50 660 Z" fill="#07121b"/>
-
-  <!-- Upper teal haze layer behind ridge -->
-  <rect id="s2HazeBack" x="-80" y="435" width="700" height="175" fill="url(#s2TealHaze)" opacity=".88"/>
-
-  <!-- High-angle Long Ridge Line -->
-  <path d="M -60 635 Q 90 580 255 605 Q 410 628 600 570 L 600 1000 L -60 1000 Z" fill="url(#s2RidgeGrad)"/>
-
-  <!-- Winding dirt path across the ridge (matches trajectory of walkers) -->
-  <path d="M -60 648 Q 85 595 255 618 Q 415 640 600 585" stroke="url(#s2DirtPath)" stroke-width="24" stroke-linecap="round" fill="none" opacity=".92"/>
-  <!-- Faint ember sunrise rim catching the upper edge of the dirt path -->
-  <path d="M -60 637 Q 85 584 255 607 Q 415 629 600 574" stroke="#fcd34d" stroke-width="1.5" fill="none" opacity=".32"/>
-
-  <!-- Subtle slope contour lines below ridge -->
-  <g stroke="#0e1824" stroke-width="2" fill="none">
-    <path d="M -40 705 Q 150 675 340 700 Q 460 715 580 685"/>
-    <path d="M -40 780 Q 180 755 390 785 L 580 765"/>
-    <path d="M -40 865 Q 210 845 580 875"/>
-  </g>
-
-  <!-- ALL SILHOUETTE WALKERS ON THE WINDING RIDGE PATH -->
-  <g id="s2WalkersLayer"></g>
-
-  <!-- Low drifting teal mist across the winding path -->
-  <rect id="s2MistLow" x="-90" y="555" width="720" height="115" fill="url(#s2TealHaze)" opacity=".72"/>
+<g id="s1Camera">
+<rect width="540" height="790" fill="url(#s1Wall)"/><path d="M0 240H540M0 520H540" stroke="#173037" stroke-width="2" opacity=".25"/>
+<rect y="785" width="540" height="175" fill="url(#s1Floor)"/><g stroke="#243237" stroke-width="2" opacity=".45"><path d="M0 832H540M0 890H540M120 785L60 960M310 785L340 960"/></g>
+<ellipse cx="430" cy="570" rx="210" ry="300" fill="url(#s1Halo)" filter="url(#s1Blur)"/>
+<!-- open sliding doorway and warm spill -->
+<path d="M345 210H525V785H345Z" fill="#05080a"/><path d="M358 224H512V785H358Z" fill="url(#s1DoorGlow)" opacity=".9"/>
+<path d="M368 235H500V785H368Z" fill="#3b1a12" opacity=".24"/><path d="M358 224H512V785H358Z" fill="none" stroke="#29211b" stroke-width="12"/>
+<path d="M365 785L540 785L540 960L180 960Z" fill="url(#s1Beam)"/>
+<path d="M370 785H540V900H275Z" fill="#f59e0b" opacity=".055"/>
+<g id="s1SlidingPanel"><rect x="318" y="208" width="30" height="580" fill="#11191b" stroke="#263337" stroke-width="4"/><path d="M326 222V775" stroke="#3a4747" stroke-width="2"/><circle cx="338" cy="500" r="3" fill="#b77935"/></g>
+<path d="M0 755H540" stroke="#263337" stroke-width="5" opacity=".7"/><rect y="760" width="540" height="25" fill="#0b1114"/>
+<!-- dust in the beam -->
+<g id="s1Dust" fill="#fcd9a1"><circle cx="390" cy="380" r="2.2"/><circle cx="430" cy="450" r="1.6"/><circle cx="475" cy="520" r="2"/><circle cx="405" cy="600" r="1.5"/><circle cx="495" cy="650" r="1.8"/><circle cx="450" cy="330" r="1.3"/><circle cx="365" cy="690" r="1.4"/><circle cx="460" cy="740" r="1.8"/></g>
+<!-- broom, starts upright and settles against wall -->
+<g id="s1Broom" transform="translate(192 0)"><path d="M0 380V757" stroke="#8b5a2b" stroke-width="7" stroke-linecap="round"/><path d="M-2 390V750" stroke="#d19a55" stroke-width="1.5" opacity=".55"/><path d="M-17 748Q0 738 17 748L24 783Q0 792 -24 783Z" fill="#a56b2f"/><path d="M-17 750L-22 782M-9 747L-12 786M0 747V789M9 747L12 786M17 750L22 782" stroke="#d6a15b" stroke-width="2"/><path d="M-17 748Q0 741 17 748" stroke="#5b371e" stroke-width="3" fill="none"/></g>
+<!-- servant silhouette, simple kimono -->
+<ellipse cx="170" cy="786" rx="38" ry="8" fill="#000" opacity=".85"/>
+<g id="s1Servant" transform="translate(170 785)">
+<g><path d="M-9 -48L-12 -8M9 -48L12 -8" stroke="#08070c" stroke-width="11" stroke-linecap="round"/><path d="M-21 -7H-2L-1 0H-24ZM3 -7H22L24 0H2Z" fill="#08070c"/></g>
+<path d="M-13 -112L13 -112L23 -35Q0 -22 -23 -35Z" fill="#08090d"/><path d="M-13 -107L0 -91L13 -107" fill="none" stroke="#1c2529" stroke-width="2"/>
+<path d="M-13 -105L-22 -75L-25 -48" stroke="#0d0b12" stroke-width="8" stroke-linecap="round" fill="none"/>
+<path d="M13 -105L21 -78L19 -55" stroke="#0d0b12" stroke-width="8" stroke-linecap="round" fill="none"/>
+<g id="s1Head" transform="translate(0 -139) rotate(-9)"><circle cx="1.6" r="22" fill="#60a5fa" opacity=".38"/><circle r="22" fill="#0d0b12"/><path d="M-18 -7Q0 -27 18 -7L14 1H-14Z" fill="#0d0b12"/><path d="M-15 -3Q0 -13 15 -3" fill="none" stroke="#202b30" stroke-width="2"/></g>
 </g>
-</svg>
-</div>
-
-<div class="controls">
-  <button id="playBtn" class="primary">▶ Play (10.0s)</button>
-  <button id="replayBtn">↺ 0.0s</button>
-  <button id="soundBtn">🔊 Sound: ON</button>
-</div>
-
+<ellipse cx="255" cy="755" rx="270" ry="90" fill="#0f766e" opacity=".08" filter="url(#s1Blur)"/>
+</g></svg></div>
+<div class="controls"><button id="playBtn" class="primary">▶ Play (5.0s)</button><button id="replayBtn">↺ 0.0s</button><button id="soundBtn">🔊 Sound: ON</button></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
-const $ = id => document.getElementById(id);
-const playBtn = $('playBtn'), replayBtn = $('replayBtn'), soundBtn = $('soundBtn');
-
-// ---------- PROCEDURAL WEB AUDIO FOLEY ----------
-let audioCtx = null, soundEnabled = true;
-function initAudio() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-}
-
-// Dirt-path footsteps (layers slowly from one lone pair into a soft steady tread)
-function playDirtStep(volume = 0.08, pitch = 1.0) {
-  if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime;
-
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = 'triangle';
-  osc.frequency.setValueAtTime(104 * pitch, t);
-  osc.frequency.exponentialRampToValueAtTime(39 * pitch, t + 0.085);
-  gain.gain.setValueAtTime(volume, t);
-  gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.095);
-  osc.connect(gain).connect(audioCtx.destination);
-  osc.start(t);
-  osc.stop(t + 0.1);
-
-  // Soft dirt grit texture
-  const n = Math.floor(audioCtx.sampleRate * 0.065);
-  const buf = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
-  const d = buf.getChannelData(0);
-  for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
-  const src = audioCtx.createBufferSource();
-  src.buffer = buf;
-  const flt = audioCtx.createBiquadFilter();
-  flt.type = 'bandpass';
-  flt.frequency.value = 920 * pitch;
-  flt.Q.value = 1.8;
-  const ng = audioCtx.createGain();
-  ng.gain.setValueAtTime(volume * 0.4, t);
-  ng.gain.exponentialRampToValueAtTime(0.0001, t + 0.065);
-  src.connect(flt).connect(ng).connect(audioCtx.destination);
-  src.start(t);
-}
-
-// Gentle wind across ridge + low atmospheric drone that swells slightly
-function playWindAndDrone(dur = 9.9) {
-  if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime;
-
-  // Gentle wind
-  const n = Math.floor(audioCtx.sampleRate * dur);
-  const buf = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
-  const data = buf.getChannelData(0);
-  for (let i = 0; i < n; i++) data[i] = Math.random() * 2 - 1;
-
-  const windSrc = audioCtx.createBufferSource();
-  windSrc.buffer = buf;
-  const windFilter = audioCtx.createBiquadFilter();
-  windFilter.type = 'bandpass';
-  windFilter.frequency.setValueAtTime(250, t);
-  windFilter.frequency.linearRampToValueAtTime(305, t + 5.0);
-  windFilter.frequency.linearRampToValueAtTime(260, t + dur);
-  windFilter.Q.value = 2.5;
-
-  const windGain = audioCtx.createGain();
-  windGain.gain.setValueAtTime(0.022, t);
-  windGain.gain.linearRampToValueAtTime(0.03, t + 4.5);
-  windGain.gain.linearRampToValueAtTime(0.026, t + dur - 0.5);
-  windGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-
-  windSrc.connect(windFilter).connect(windGain).connect(audioCtx.destination);
-  windSrc.start(t);
-
-  // Low drone swelling slightly as the river of silhouettes fills the ridge
-  const d1 = audioCtx.createOscillator();
-  const d2 = audioCtx.createOscillator();
-  const d3 = audioCtx.createOscillator();
-  const dGain = audioCtx.createGain();
-
-  d1.type = 'sine';
-  d2.type = 'triangle';
-  d3.type = 'sine';
-  d1.frequency.setValueAtTime(65.41, t);  // C2
-  d2.frequency.setValueAtTime(98.00, t);  // G2
-  d3.frequency.setValueAtTime(130.81, t); // C3
-
-  dGain.gain.setValueAtTime(0.032, t);
-  dGain.gain.linearRampToValueAtTime(0.052, t + 5.0);
-  dGain.gain.linearRampToValueAtTime(0.074, t + 8.8);
-  dGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-
-  d1.connect(dGain);
-  d2.connect(dGain);
-  d3.connect(dGain);
-  dGain.connect(audioCtx.destination);
-
-  d1.start(t); d2.start(t); d3.start(t);
-  d1.stop(t + dur + 0.05); d2.stop(t + dur + 0.05); d3.stop(t + dur + 0.05);
-}
-
-// ---------- RIDGE PATH MATH & SILHOUETTE BUILDER ----------
-// Quadratic bezier matching the winding dirt path across the ridge
-function getRidgePoint(u) {
-  // u in [-0.15 .. 1.15] maps across x = [-60 .. 600]
-  const x = -60 + u * 660;
-  // Two-segment curve matching M -60 648 Q 85 595 255 618 Q 415 640 600 585
-  let y;
-  if (u <= 0.48) {
-    const t = u / 0.48;
-    const p0 = 648, p1 = 595, p2 = 618;
-    y = (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
-  } else {
-    const t = (u - 0.48) / 0.52;
-    const p0 = 618, p1 = 640, p2 = 585;
-    y = (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
-  }
-  return { x, y };
-}
-
-const svgNS = 'http://www.w3.org/2000/svg';
-const walkersLayer = $('s2WalkersLayer');
-
-function createPilgrim({ hasHat = false, hasBundle = false, hasStaff = false, scale = 0.34, phase = 0, spawnTime = 0, startU = 0.05, speedU = 0.048 }) {
-  const g = document.createElementNS(svgNS, 'g');
-  g.setAttribute('opacity', '0');
-
-  // Conical straw hat (kasa) with warm ember rim highlight
-  const hatSVG = hasHat ? `
-    <path d="M -27 -136 Q 0 -158 29 -136 Q 0 -132 -27 -136 Z" fill="#fcd34d" opacity=".42" transform="translate(2,0)"/>
-    <path d="M -27 -136 Q 0 -158 29 -136 Q 0 -132 -27 -136 Z" fill="#090c14"/>
-  ` : '';
-
-  // Small cloth bundle slung over shoulder/back
-  const bundleSVG = hasBundle ? `
-    <circle cx="-17" cy="-84" r="11" fill="#fcd34d" opacity=".28"/>
-    <circle cx="-18" cy="-84" r="10.5" fill="#090c14"/>
-  ` : '';
-
-  // Wooden walking staff held in front hand
-  const staffSVG = hasStaff ? `
-    <line x1="21" y1="-155" x2="25" y2="2" stroke="#fcd34d" stroke-width="3.6" stroke-linecap="round" opacity=".35"/>
-    <line x1="19.5" y1="-155" x2="23.5" y2="2" stroke="#090c14" stroke-width="3.6" stroke-linecap="round"/>
-  ` : '';
-
-  g.innerHTML = `
-    <ellipse cx="0" cy="2" rx="22" ry="4.5" fill="#000" opacity=".7"/>
-    <!-- back leg -->
-    <g class="legB" transform="translate(-3,-46)">
-      <path d="M 0 0 L -1 24 L -2 44" stroke="#05070c" stroke-width="9.5" stroke-linecap="round" fill="none"/>
-    </g>
-    <!-- front leg -->
-    <g class="legF" transform="translate(3,-46)">
-      <path d="M 0 0 L 1 24 L 3 44" stroke="#090c14" stroke-width="10" stroke-linecap="round" fill="none"/>
-    </g>
-    ${bundleSVG}
-    <!-- torso warm ember rim -->
-    <path d="M -11 -104 L 14 -104 L 18 -24 L -13 -24 Z" fill="#fcd34d" opacity=".38"/>
-    <!-- torso -->
-    <path d="M -12.5 -104 L 12.5 -104 L 16.5 -24 L -14.5 -24 Z" fill="#090c14"/>
-    <!-- arm -->
-    <path d="M 2 -96 L 9 -76 L 14 -60" stroke="#090c14" stroke-width="7.5" stroke-linecap="round" fill="none"/>
-    ${staffSVG}
-    <!-- head + rim light -->
-    <g transform="translate(1,-125)">
-      <circle cx="1.8" cy="0" r="20" fill="#fcd34d" opacity=".45"/>
-      <circle cx="0" cy="0" r="20" fill="#090c14"/>
-      ${hatSVG}
-    </g>
-  `;
-
-  walkersLayer.appendChild(g);
-  return {
-    el: g,
-    legF: g.querySelector('.legF'),
-    legB: g.querySelector('.legB'),
-    scale,
-    phase,
-    spawnTime,
-    startU,
-    speedU,
-    u: startU
-  };
-}
-
-// Build the progression of walkers matching the exact script beats:
-const walkers = [];
-
-// 0:05 (t=0.0s): One lone small silhouette walking left to right at steady pace (the servant from Scene 1)
-walkers.push(createPilgrim({
-  hasHat: false, hasBundle: true, hasStaff: false,
-  scale: 0.36, phase: 0, spawnTime: 0.0, startU: 0.22, speedU: 0.046
-}));
-
-// 0:08 (t=3.0s): Two, then four more figures appear behind, walking the same steady pace
-const waveTwoSpecs = [
-  { spawnTime: 2.8, startU: 0.14, hasHat: true,  hasBundle: false, hasStaff: true,  scale: 0.35 },
-  { spawnTime: 3.1, startU: 0.10, hasHat: false, hasBundle: true,  hasStaff: false, scale: 0.34 },
-  { spawnTime: 3.8, startU: 0.06, hasHat: true,  hasBundle: true,  hasStaff: false, scale: 0.35 },
-  { spawnTime: 4.1, startU: 0.02, hasHat: false, hasBundle: false, hasStaff: true,  scale: 0.33 },
-  { spawnTime: 4.4, startU: -0.02, hasHat: true, hasBundle: false, hasStaff: false, scale: 0.35 },
-  { spawnTime: 4.7, startU: -0.06, hasHat: true, hasBundle: true,  hasStaff: true,  scale: 0.34 }
-];
-waveTwoSpecs.forEach((s, idx) => {
-  walkers.push(createPilgrim({
-    ...s, phase: (idx + 1) * 1.1, speedU: 0.046
-  }));
-});
-
-// 0:11 - 0:13 (t=6.0s - 8.5s): The line thickens with straw hats, bundles & staffs until a long dark river fills the entire ridge
-const totalRiverCount = 38;
-for (let i = 0; i < totalRiverCount; i++) {
-  const frac = i / (totalRiverCount - 1);
-  // Distribute across the entire ridge from far left (-0.12) to far right (1.06)
-  const uPos = -0.12 + frac * 1.18 + ((i % 3) - 1) * 0.008;
-  // Skip positions overlapping the initial group at t=6.0s
-  if (uPos > 0.18 && uPos < 0.52 && i % 2 === 0) continue;
-
-  const spawnT = 5.8 + ((i * 7) % totalRiverCount) / totalRiverCount * 2.5;
-  walkers.push(createPilgrim({
-    hasHat: i % 2 === 0,
-    hasBundle: i % 3 !== 0,
-    hasStaff: i % 3 === 1,
-    scale: 0.31 + (i % 4) * 0.015,
-    phase: i * 0.85,
-    spawnTime: spawnT,
-    startU: uPos - spawnT * 0.046,
-    speedU: 0.046
-  }));
-}
-
-// ---------- RIG STATE & RENDER ----------
-const st = { elapsed: 0 };
-
-function render() {
-  const t = st.elapsed;
-  walkers.forEach(w => {
-    const uNow = w.startU + t * w.speedU;
-    const pt = getRidgePoint(uNow);
-    // Steady slow walking cadence (same pace for all figures)
-    const walkCycle = t * 5.6 + w.phase;
-    const stride = Math.sin(walkCycle) * 9.5;
-    const bob = Math.abs(Math.cos(walkCycle)) * 1.6;
-
-    w.el.setAttribute('transform', `translate(${pt.x.toFixed(1)},${(pt.y - bob).toFixed(1)}) scale(${w.scale.toFixed(2)})`);
-    w.legF.setAttribute('transform', `translate(3,-46) rotate(${stride.toFixed(1)})`);
-    w.legB.setAttribute('transform', `translate(-3,-46) rotate(${(-stride).toFixed(1)})`);
-  });
-}
-
-// ---------- TIMELINE (10.0s) ----------
-let sceneTl = null;
-
-function resetScene2ToStart() {
-  if (sceneTl) { sceneTl.kill(); sceneTl = null; }
-  st.elapsed = 0;
-  walkers.forEach(w => w.el.setAttribute('opacity', '0'));
-  // Start wide high-angle slightly pushed in (scale 1.11) so it can slowly pull back to 1.0 as crowd grows
-  gsap.set('#s2Camera', { scale: 1.11, svgOrigin: '230 610' });
-  gsap.set('#s2HazeBack', { x: 0 });
-  gsap.set('#s2MistLow', { x: 0 });
-  gsap.set('#s2EmberGlow', { opacity: 0.55 });
-  render();
-  replayBtn.textContent = '↺ 0.0s';
-}
-
-function playScene2() {
-  resetScene2ToStart();
-  sceneTl = gsap.timeline({
-    onUpdate: () => {
-      render();
-      replayBtn.textContent = `↺ ${sceneTl.time().toFixed(1)}s`;
-    },
-    onComplete: () => replayBtn.textContent = '↺ 10.0s'
-  });
-
-  // 0:05 - 0:15 (10.0s): Slow camera pull-back as the crowd grows across the ridge
-  sceneTl.to('#s2Camera', { scale: 1.0, svgOrigin: '270 610', duration: 10.0, ease: 'power1.inOut' }, 0);
-
-  // Ambient gentle wind + swelling low drone
-  sceneTl.call(() => playWindAndDrone(9.9), null, 0.02);
-
-  // Continuous uniform forward progress for all figures along the winding ridge
-  sceneTl.to(st, { elapsed: 10.0, duration: 10.0, ease: 'none' }, 0);
-
-  // Low mist drifting across the path + faint ember sky brightening slightly
-  sceneTl.to('#s2HazeBack', { x: 35, duration: 10.0, ease: 'sine.inOut' }, 0);
-  sceneTl.to('#s2MistLow', { x: -45, duration: 10.0, ease: 'sine.inOut' }, 0);
-  sceneTl.to('#s2EmberGlow', { opacity: 0.92, duration: 9.0, ease: 'sine.inOut' }, 1.0);
-
-  // Fade in each walker according to the script beats (0:05 lone walker -> 0:08 two then four -> 0:11 thickens -> 0:13 river)
-  walkers.forEach((w, idx) => {
-    const dur = idx === 0 ? 0.35 : 0.75;
-    sceneTl.to(w.el, { opacity: 0.94, duration: dur, ease: 'power1.out' }, w.spawnTime);
-  });
-
-  // Layered dirt footsteps: starts with one lone pair (0.0s - 3.0s), then layers more footsteps into a soft steady tread
-  const stepInterval = 0.56;
-  const totalSteps = Math.floor(9.8 / stepInterval);
-  for (let s = 0; s < totalSteps; s++) {
-    const ts = s * stepInterval;
-    // Primary lone walker footsteps
-    sceneTl.call(() => playDirtStep(0.082, s % 2 === 0 ? 1.0 : 0.95), null, ts);
-
-    // At 3.0s+ (0:08 mark): second layer of footsteps joins
-    if (ts >= 2.8) {
-      sceneTl.call(() => playDirtStep(0.052, 0.91), null, ts + 0.14);
-    }
-    // At 5.8s+ (0:11 mark): third & fourth layers blend into a soft steady tread
-    if (ts >= 5.6) {
-      sceneTl.call(() => playDirtStep(0.044, 1.06), null, ts + 0.28);
-      sceneTl.call(() => playDirtStep(0.038, 0.87), null, ts + 0.42);
-    }
-  }
-}
-
-playBtn.addEventListener('click', () => { initAudio(); playScene2(); });
-replayBtn.addEventListener('click', () => { resetScene2ToStart(); });
-soundBtn.addEventListener('click', () => {
-  soundEnabled = !soundEnabled;
-  soundBtn.textContent = '🔊 Sound: ' + (soundEnabled ? 'ON' : 'OFF');
-  if (soundEnabled) initAudio();
-});
-
-window.addEventListener('load', () => {
-  resetScene2ToStart();
-  setTimeout(playScene2, 250);
-});
-</script>
-</body>
-</html>
+const $=id=>document.getElementById(id),playBtn=$('playBtn'),replayBtn=$('replayBtn'),soundBtn=$('soundBtn');
+let audioCtx=null,soundEnabled=true,windSource=null,windGain=null,droneOsc=null,droneGain=null;
+function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}
+function tone(type,f0,f1,d,g){if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,o=audioCtx.createOscillator(),v=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);v.gain.setValueAtTime(g,t);v.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+d+.02)}
+function woodKnock(){tone('triangle',165,72,.16,.105);tone('sine',420,210,.09,.025)}
+function footstep(){tone('triangle',118,48,.1,.065)}
+function slideDoor(){if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*.38),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=(Math.random()*2-1)*Math.pow(1-i/n,1.5);const s=audioCtx.createBufferSource(),f=audioCtx.createBiquadFilter(),v=audioCtx.createGain();f.type='bandpass';f.frequency.value=430;f.Q.value=.65;v.gain.value=.055;s.buffer=b;s.connect(f).connect(v).connect(audioCtx.destination);s.start(t);tone('sine',180,115,.3,.025)}
+function startAmbience(){if(!audioCtx||!soundEnabled)return;if(!droneOsc){droneOsc=audioCtx.createOscillator();droneGain=audioCtx.createGain();droneOsc.type='sine';droneOsc.frequency.value=54;droneGain.gain.value=.0001;droneOsc.connect(droneGain).connect(audioCtx.destination);droneOsc.start()}
+droneGain.gain.setTargetAtTime(.025,audioCtx.currentTime,.7);
+if(!windSource){const n=audioCtx.sampleRate*2,b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;windSource=audioCtx.createBufferSource();windSource.buffer=b;windSource.loop=true;const f=audioCtx.createBiquadFilter();f.type='lowpass';f.frequency.value=380;windGain=audioCtx.createGain();windGain.gain.value=.0001;windSource.connect(f).connect(windGain).connect(audioCtx.destination);windSource.start()}windGain.gain.setTargetAtTime(.012,audioCtx.currentTime,.8)}
+function fadeAmbience(){if(!audioCtx)return;if(windGain)windGain.gain.setTargetAtTime(.001,audioCtx.currentTime,.6);if(droneGain)droneGain.gain.setTargetAtTime(.0001,audioCtx.currentTime,1.2)}
+let sceneTl=null;const st={x:170,head:-9,broom:0};
+function render(){$('s1Servant').setAttribute('transform',`translate(${st.x} 785)`);$('s1Head').setAttribute('transform',`translate(0 -139) rotate(${st.head})`);$('s1Broom').setAttribute('transform',`translate(192 0) rotate(${st.broom} 0 755)`)}
+function resetScene1ToStart(){if(sceneTl){sceneTl.kill();sceneTl=null}Object.assign(st,{x:170,head:-9,broom:0});gsap.set('#s1SlidingPanel',{x:0});gsap.set('#s1Dust circle',{x:0,y:0,opacity:.65});gsap.set('#s1Camera',{scale:1,svgOrigin:'270 520'});gsap.set('#s1Servant',{opacity:1,scaleX:1,y:0});render();replayBtn.textContent='↺ 0.0s'}
+function playScene1(){resetScene1ToStart();sceneTl=gsap.timeline({onUpdate:()=>{render();replayBtn.textContent=`↺ ${sceneTl.time().toFixed(1)}s`},onComplete:()=>replayBtn.textContent='↺ 5.0s'});
+// 0.0–1.0s: quiet establishing shot; servant waits with broom upright.
+sceneTl.to('#s1Camera',{scale:1.045,svgOrigin:'270 520',duration:5,ease:'power1.inOut'},0);sceneTl.call(woodKnock,null,.03);
+// 1.0s: lowers broom; it leans against wall and settles.
+sceneTl.to(st,{broom:8,duration:.62,ease:'power2.inOut'},1);sceneTl.to(st,{broom:5,duration:.2,ease:'bounce.out'},1.62);
+// 2.0s: straightens and turns toward the glowing exit.
+sceneTl.to(st,{head:2,duration:.25,ease:'power2.out'},2);sceneTl.to(st,{head:0,duration:.25,ease:'sine.inOut'},2.25);
+// 2.35s: footsteps begin; sliding door moves aside.
+sceneTl.call(footstep,null,2.35);sceneTl.call(slideDoor,null,2.48);sceneTl.to('#s1SlidingPanel',{x:34,duration:.48,ease:'power2.inOut'},2.45);
+// 2.5–4.7s: calm, steady walk; no glance back.
+sceneTl.to(st,{x:255,duration:1.45,ease:'power1.inOut'},2.55);sceneTl.to('#s1Servant',{y:-1,duration:.22,yoyo:true,repeat:5,ease:'sine.inOut'},2.55);
+[2.95,3.48,4.02,4.48].forEach(t=>sceneTl.call(footstep,null,t));
+// 4.0s: enters the warm doorway and resolves to a thin outline, then disappears.
+sceneTl.to(st,{x:410,duration:.72,ease:'power1.in'},4);sceneTl.to('#s1Servant',{scaleX:.22,opacity:.58,duration:.55,ease:'power2.in'},4.15);sceneTl.to('#s1Servant',{opacity:0,duration:.25},4.72);
+// Dust drifts through the diagonal beam; ambience fades toward the end.
+sceneTl.to('#s1Dust circle',{x:'random(-14,14)',y:'random(-24,22)',duration:2.3,repeat:1,yoyo:true,stagger:.08,ease:'sine.inOut'},.2);sceneTl.call(fadeAmbience,null,4.1)}
+playBtn.addEventListener('click',()=>{initAudio();startAmbience();playScene1()});replayBtn.addEventListener('click',resetScene1ToStart);
+soundBtn.addEventListener('click',()=>{soundEnabled=!soundEnabled;soundBtn.textContent='🔊 Sound: '+(soundEnabled?'ON':'OFF');if(soundEnabled){initAudio();startAmbience()}else fadeAmbience()});
+window.addEventListener('load',()=>{resetScene1ToStart();setTimeout(playScene1,250)});
+</script></body></html>
