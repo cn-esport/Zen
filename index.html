@@ -1,271 +1,218 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — The Crossroads Scene 4: Shadows Pass (6.0s + Foley SFX)</title>
+<title>Zenspiris — The Crossroads Scene 4: Stillness (14.0s + Foley SFX)</title>
 <style>
-:root{--head:#0d0b12;--face:#f2ede2;--rim:#fcd34d;--rim-cool:#22d3ee}
+:root{--head:#0d0b12;--face:#f2ede2;--rim:#fcd34d;--rim-cool:#60a5fa}
 *{box-sizing:border-box;margin:0}
 body{background:#040406;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;font-family:system-ui,sans-serif}
 .stage-wrapper{position:relative;width:100vw;max-width:355px;aspect-ratio:9/16;background:#070911;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.95)}
 svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrecision}
 .vignette{position:absolute;inset:0;z-index:10;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 36%,rgba(3,4,8,.92) 100%)}
 .letterbox{position:absolute;left:0;right:0;height:5.5%;background:#000;z-index:12}
-.letterbox.top{top:0;border-bottom:1px solid rgba(34,211,238,.35)}
-.letterbox.bottom{bottom:0;border-top:1px solid rgba(34,211,238,.35)}
+.letterbox.top{top:0;border-bottom:1px solid rgba(96,165,250,.28)}
+.letterbox.bottom{bottom:0;border-top:1px solid rgba(96,165,250,.28)}
 .controls{display:flex;gap:8px}
 .controls button{background:#16161f;color:#cbd5e1;border:1px solid #2a2a38;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
 .controls button.primary{background:#1e3a5f;border-color:#3b6ea8;color:#fff}
 .hd{fill:var(--head)}.fc{fill:var(--face)}.fs{stroke:var(--face);stroke-linecap:round;fill:none}
-</style></head>
+</style>
+</head>
 <body>
 <div class="stage-wrapper">
 <div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
 <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 <defs>
- <linearGradient id="s4Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset=".55" stop-color="#081018"/><stop offset="1" stop-color="#0e1a22"/></linearGradient>
- <linearGradient id="s4Road" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1218"/><stop offset="1" stop-color="#04060c"/></linearGradient>
- <radialGradient id="s4FogG"><stop offset="0" stop-color="#22d3ee" stop-opacity=".35"/><stop offset=".5" stop-color="#0e7490" stop-opacity=".12"/><stop offset="1" stop-color="#0e7490" stop-opacity="0"/></radialGradient>
- <radialGradient id="s4EmberG"><stop offset="0" stop-color="#fef08a" stop-opacity="1"/><stop offset=".35" stop-color="#f59e0b" stop-opacity=".6"/><stop offset="1" stop-color="#d97706" stop-opacity="0"/></radialGradient>
- <radialGradient id="s4Vig"><stop offset=".4" stop-color="#04060c" stop-opacity="0"/><stop offset="1" stop-color="#04060c" stop-opacity=".8"/></radialGradient>
- <filter id="s4Blur"><feGaussianBlur stdDeviation="3"/></filter>
+ <linearGradient id="s4Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050910"/><stop offset=".58" stop-color="#0b1720"/><stop offset="1" stop-color="#101d25"/></linearGradient>
+ <linearGradient id="s4Road" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17232a"/><stop offset="1" stop-color="#05080d"/></linearGradient>
+ <radialGradient id="s4Fog"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".22"/><stop offset=".55" stop-color="#0f766e" stop-opacity=".11"/><stop offset="1" stop-color="#0f766e" stop-opacity="0"/></radialGradient>
+ <radialGradient id="s4Ember"><stop offset="0" stop-color="#fde68a" stop-opacity=".95"/><stop offset=".2" stop-color="#f59e0b" stop-opacity=".7"/><stop offset=".55" stop-color="#b45309" stop-opacity=".24"/><stop offset="1" stop-color="#b45309" stop-opacity="0"/></radialGradient>
+ <linearGradient id="s4RoadMark" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5eead4" stop-opacity="0"/><stop offset=".5" stop-color="#5eead4" stop-opacity=".22"/><stop offset="1" stop-color="#5eead4" stop-opacity="0"/></linearGradient>
+ <filter id="s4Blur"><feGaussianBlur stdDeviation="18"/></filter>
 </defs>
 <g id="s4Camera">
- <!-- sky + distant haze -->
- <rect x="0" y="0" width="540" height="960" fill="url(#s4Sky)"/>
- <circle cx="270" cy="640" r="380" fill="url(#s4FogG)" opacity=".55"/>
- <!-- far tree/telegraph silhouettes for depth -->
- <g fill="#04060c" opacity=".85">
-  <path d="M 40 640 L 60 560 L 74 600 L 88 560 L 104 640 Z"/>
-  <path d="M 430 640 L 450 566 L 462 604 L 478 560 L 496 640 Z"/>
-  <rect x="256" y="470" width="6" height="180"/><path d="M 244 486 L 274 486 L 272 492 L 246 492 Z"/>
+ <rect width="540" height="960" fill="url(#s4Sky)"/>
+ <!-- distant skyline and bare trees -->
+ <path d="M0 515 L0 455 38 455 38 430 70 430 70 478 112 478 112 442 150 442 150 500 198 500 198 460 235 460 235 520Z" fill="#080d14"/>
+ <path d="M330 520 L330 470 365 470 365 430 402 430 402 480 438 480 438 445 480 445 480 495 540 495 540 560Z" fill="#080d14"/>
+ <g stroke="#101e25" stroke-width="5" fill="none" opacity=".8">
+  <path d="M60 520 Q55 455 34 410 M55 470 L18 438 M53 462 L85 420"/>
+  <path d="M465 525 Q474 455 500 405 M476 470 L445 435 M480 460 L520 428"/>
  </g>
- <!-- crossroads ground -->
- <rect x="0" y="620" width="540" height="340" fill="url(#s4Road)"/>
- <!-- fork roads -->
- <polygon points="270,620 150,960 390,960" fill="#0b141c" opacity=".9"/>
- <polygon points="0,660 540,660 540,700 0,700" fill="#0d1822" opacity=".75"/>
- <!-- cobble hints -->
- <g stroke="#1a2a36" stroke-width="1.5" opacity=".6">
-  <line x1="80" y1="720" x2="140" y2="720"/><line x1="180" y1="760" x2="250" y2="760"/>
-  <line x1="320" y1="800" x2="390" y2="800"/><line x1="120" y1="840" x2="200" y2="840"/>
-  <line x1="360" y1="870" x2="440" y2="870"/>
+ <!-- teal fog layers -->
+ <ellipse id="s4FogA" cx="125" cy="590" rx="250" ry="130" fill="url(#s4Fog)" filter="url(#s4Blur)" opacity=".9"/>
+ <ellipse id="s4FogB" cx="425" cy="650" rx="260" ry="150" fill="url(#s4Fog)" filter="url(#s4Blur)" opacity=".72"/>
+ <ellipse id="s4FogC" cx="270" cy="760" rx="300" ry="110" fill="url(#s4Fog)" filter="url(#s4Blur)" opacity=".7"/>
+ <!-- crossroads -->
+ <path d="M168 520 L372 520 L540 960 L0 960Z" fill="url(#s4Road)"/>
+ <path d="M0 690 L540 690 L540 815 L0 815Z" fill="#0b141a" opacity=".88"/>
+ <path d="M250 520 L290 520 L540 960 L0 960Z" fill="#111c23" opacity=".46"/>
+ <path d="M270 530 L270 960" stroke="url(#s4RoadMark)" stroke-width="3" opacity=".6"/>
+ <path d="M0 751 Q270 720 540 751" stroke="#24343a" stroke-width="2" opacity=".45" fill="none"/>
+ <path d="M0 788 Q270 758 540 788" stroke="#24343a" stroke-width="2" opacity=".28" fill="none"/>
+ <!-- road edge highlights -->
+ <path d="M168 520 L0 960 M372 520 L540 960" stroke="#274047" stroke-width="3" opacity=".34"/>
+ <!-- distant crossing sign silhouettes -->
+ <g fill="#080c12" opacity=".9">
+  <path d="M102 520 L108 438 L114 520Z"/><path d="M88 444 L132 444 L132 451 L88 451Z"/>
+  <path d="M430 520 L436 425 L442 520Z"/><path d="M414 434 L460 434 L460 441 L414 441Z"/>
  </g>
- <!-- fog bands (animated drift) -->
- <ellipse class="s4fog" cx="140" cy="700" rx="220" ry="40" fill="#22d3ee" opacity=".07"/>
- <ellipse class="s4fog" cx="400" cy="760" rx="260" ry="46" fill="#22d3ee" opacity=".06"/>
- <ellipse class="s4fog" cx="260" cy="820" rx="300" ry="52" fill="#22d3ee" opacity=".05"/>
- <!-- ember on the road (warm accent) -->
- <g id="s4Ember">
-  <circle cx="360" cy="806" r="60" fill="url(#s4EmberG)" opacity=".8"/>
-  <ellipse cx="360" cy="806" rx="7" ry="4" fill="#fef08a"/>
-  <ellipse cx="360" cy="806" rx="3" ry="1.8" fill="#fff"/>
+ <!-- ember on road -->
+ <circle cx="270" cy="824" r="100" fill="url(#s4Ember)" opacity=".55"/>
+ <ellipse id="s4EmberCore" cx="270" cy="824" rx="5" ry="2.5" fill="#fef3c7"/>
+ <ellipse cx="270" cy="827" rx="22" ry="5" fill="#f59e0b" opacity=".2"/>
+ <g id="s4EmberSparks" fill="#fbbf24">
+  <circle cx="264" cy="817" r="1.8"/><circle cx="276" cy="813" r="1.2"/><circle cx="282" cy="824" r="1.1"/>
  </g>
- <!-- shadow streamers (two directions) -->
- <g id="s4ShadowsL" filter="url(#s4Blur)">
-  <g class="sh" fill="#04060c" opacity=".9"><circle cx="0" cy="-140" r="20"/><path d="M -12 -122 L 12 -122 L 16 -40 L -16 -40 Z"/><path d="M -16 -40 L -20 40 L -8 40 L -6 -40 Z"/><path d="M 6 -40 L 8 40 L 20 40 L 16 -40 Z"/></g>
-  <g class="sh" fill="#04060c" opacity=".8"><circle cx="0" cy="-140" r="20"/><path d="M -12 -122 L 12 -122 L 16 -40 L -16 -40 Z"/><path d="M -16 -40 L -20 40 L -8 40 L -6 -40 Z"/><path d="M 6 -40 L 8 40 L 20 40 L 16 -40 Z"/></g>
-  <g class="sh" fill="#04060c" opacity=".7"><circle cx="0" cy="-140" r="20"/><path d="M -12 -122 L 12 -122 L 16 -40 L -16 -40 Z"/><path d="M -16 -40 L -20 40 L -8 40 L -6 -40 Z"/><path d="M 6 -40 L 8 40 L 20 40 L 16 -40 Z"/></g>
+ <!-- passing shadows: deliberately featureless silhouettes -->
+ <g id="s4ShadowA" opacity="0" fill="#020409">
+  <ellipse cx="0" cy="0" rx="25" ry="6" opacity=".8"/>
+  <path d="M-17 -6 L-13 -62 Q0 -75 13 -62 L18 -6Z"/>
+  <circle cx="0" cy="-80" r="17"/>
+  <path d="M-12 -48 L-37 -18 L-31 -13 L-4 -38 M12 -48 L35 -21 L30 -16 L4 -38" fill="none" stroke="#020409" stroke-width="10" stroke-linecap="round"/>
+  <path d="M-9 -8 L-17 0 M10 -8 L18 0" stroke="#020409" stroke-width="11" stroke-linecap="round"/>
  </g>
- <g id="s4ShadowsR" filter="url(#s4Blur)">
-  <g class="sh" fill="#04060c" opacity=".85"><circle cx="0" cy="-130" r="18"/><path d="M -11 -114 L 11 -114 L 14 -38 L -14 -38 Z"/><path d="M -14 -38 L -18 34 L -7 34 L -5 -38 Z"/><path d="M 5 -38 L 7 34 L 18 34 L 14 -38 Z"/></g>
-  <g class="sh" fill="#04060c" opacity=".75"><circle cx="0" cy="-130" r="18"/><path d="M -11 -114 L 11 -114 L 14 -38 L -14 -38 Z"/><path d="M -14 -38 L -18 34 L -7 34 L -5 -38 Z"/><path d="M 5 -38 L 7 34 L 18 34 L 14 -38 Z"/></g>
+ <g id="s4ShadowB" opacity="0" fill="#03060b">
+  <ellipse cx="0" cy="0" rx="22" ry="5" opacity=".8"/>
+  <path d="M-15 -5 L-12 -56 Q0 -68 12 -56 L15 -5Z"/>
+  <circle cx="0" cy="-73" r="16"/>
+  <path d="M-10 -44 L-32 -19 M10 -44 L33 -24" stroke="#03060b" stroke-width="9" stroke-linecap="round"/>
+  <path d="M-8 -7 L-14 0 M9 -7 L16 0" stroke="#03060b" stroke-width="10" stroke-linecap="round"/>
  </g>
- <!-- HERO: standing still at crossroads, facing camera, teal rim -->
- <g id="s4Char" transform="translate(270,785)">
-  <ellipse cx="0" cy="4" rx="34" ry="7" fill="#000" opacity=".9"/>
-  <!-- legs (still, planted) -->
-  <path d="M -6 -50 L -7 44" stroke="#08070c" stroke-width="11" stroke-linecap="round"/>
-  <path d="M 6 -50 L 7 44" stroke="#0d0b12" stroke-width="11" stroke-linecap="round"/>
-  <path d="M -13 44 L 2 44 L 3 50 L -14 50 Z" fill="#08070c"/>
-  <path d="M 2 44 L 16 44 L 17 50 L 1 50 Z" class="hd"/>
-  <!-- far arm -->
-  <path d="M -12 -100 L -16 -76 L -12 -56" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <!-- coat with teal rim -->
-  <path d="M -13 -108 L 14 -108 L 19 -26 L -17 -26 Z" fill="#22d3ee" opacity=".38" transform="translate(2,0)"/>
-  <path d="M -13 -108 L 14 -108 L 19 -26 L -17 -26 Z" fill="#1e2330"/>
-  <!-- coat seam lines -->
-  <g stroke="#141a24" stroke-width="1.4"><line x1="0" y1="-104" x2="0" y2="-30"/><line x1="-9" y1="-70" x2="-14" y2="-34"/><line x1="10" y1="-70" x2="15" y2="-34"/></g>
-  <!-- scarf accent (teal) -->
-  <path d="M -12 -112 Q 0 -104 13 -112 L 13 -102 Q 0 -94 -12 -102 Z" fill="#0e7490"/>
-  <path d="M 6 -102 L 14 -70 L 4 -70 L 0 -100 Z" fill="#155e75"/>
-  <!-- front arm (still) -->
-  <path d="M 3 -100 L 12 -78 L 16 -58" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <!-- head -->
-  <g id="s4Head" transform="translate(2,-130)">
-   <circle cx="1.8" cy="0" r="22" fill="#22d3ee" opacity=".5"/>
-   <circle cx="0" cy="0" r="22" class="hd"/>
-   <!-- tiny beanie -->
-   <path d="M -18 -14 Q -18 -34 0 -34 Q 18 -34 18 -14 Z" fill="#0e7490"/>
-   <rect x="-18" y="-16" width="36" height="4" fill="#155e75"/>
-   <!-- eyes: calm open dots, deadpan -->
-   <g id="s4Face">
-    <circle class="fc" cx="-3" cy="0" r="2.2"/>
-    <circle class="fc" cx="3.5" cy="0" r="2.2"/>
-    <line class="fs" x1="-2" y1="8" x2="3" y2="8" stroke-width="1.8"/>
-   </g>
-  </g>
+ <!-- central still figure -->
+ <ellipse cx="270" cy="790" rx="38" ry="8" fill="#000" opacity=".88"/>
+ <g id="s4StillFigure" transform="translate(270 790)">
+  <g transform="translate(-5,-52)"><path d="M0 0 L-2 26 L-5 49" stroke="#08070c" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M-11 46 L7 46 L10 52 L-13 52Z" fill="#08070c"/></g>
+  <g transform="translate(5,-52)"><path d="M0 0 L2 26 L5 49" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M0 46 L18 46 L20 52 L-2 52Z" fill="#0d0b12"/></g>
+  <path d="M-14 -112 L14 -112 L20 -28 L-18 -28Z" fill="#18222f"/>
+  <path d="M-12 -108 L-19 -76 L-23 -48" stroke="#0d0b12" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M12 -108 L20 -78 L24 -48" stroke="#0d0b12" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <circle cx="1.6" cy="-142" r="22" fill="#60a5fa" opacity=".48"/>
+  <circle cx="0" cy="-142" r="22" fill="#0d0b12"/>
+  <g stroke="#f2ede2" stroke-linecap="round" fill="none"><line x1="8" y1="-144" x2="12" y2="-144" stroke-width="2.1"/><line x1="15" y1="-144" x2="19" y2="-144" stroke-width="2.1"/><line x1="9" y1="-135" x2="15" y2="-135" stroke-width="1.8"/></g>
  </g>
- <!-- foreground fog wash -->
- <rect x="0" y="820" width="540" height="140" fill="#22d3ee" opacity=".04"/>
- <rect x="0" y="0" width="540" height="960" fill="url(#s4Vig)" opacity=".5"/>
+ <!-- drifting translucent ground shadows -->
+ <g id="s4GroundShadows" fill="#020409" opacity=".45">
+  <ellipse cx="80" cy="875" rx="65" ry="8"/><ellipse cx="465" cy="860" rx="75" ry="9"/>
+ </g>
 </g>
 </svg>
 </div>
 <div class="controls">
- <button id="playBtn" class="primary">▶ Play (6.0s)</button>
+ <button id="playBtn" class="primary">▶ Play (14.0s)</button>
  <button id="replayBtn">↺ 0.0s</button>
  <button id="soundBtn">🔊 Sound: ON</button>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
 const $=id=>document.getElementById(id);
-const playBtn=$('playBtn'),replayBtn=$('replayBtn'),soundBtn=$('soundBtn');
-
-// ---------- AUDIO (procedural foley) ----------
-let audioCtx=null,soundEnabled=true;
-function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}
-function tone(type,f0,f1,d,g,att){
- if(!audioCtx||!soundEnabled)return;
- const t=audioCtx.currentTime,o=audioCtx.createOscillator(),v=audioCtx.createGain();
- o.type=type;o.frequency.setValueAtTime(f0,t);
- if(f1)o.frequency.exponentialRampToValueAtTime(f1,t+d);
- v.gain.setValueAtTime(.0001,t);
- v.gain.linearRampToValueAtTime(g,t+(att||.01));
- v.gain.exponentialRampToValueAtTime(.0001,t+d);
- o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+d+.02);
+const playBtn=$('playBtn'), replayBtn=$('replayBtn'), soundBtn=$('soundBtn');
+let audioCtx=null, soundEnabled=true, droneOsc=null, droneGain=null, droneFilter=null, windSource=null, windGain=null;
+function initAudio(){
+ if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+ if(audioCtx.state==='suspended') audioCtx.resume();
 }
-function noise(d,type,f,q,g,att){
+function tone(type,f0,f1,d,g,when=0){
  if(!audioCtx||!soundEnabled)return;
- const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);
+ const t=audioCtx.currentTime+when,o=audioCtx.createOscillator(),v=audioCtx.createGain();
+ o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(Math.max(1,f1),t+d);
+ v.gain.setValueAtTime(g,t);v.gain.exponentialRampToValueAtTime(.0001,t+d);
+ o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+d+.03);
+}
+function pulse(when=0){
+ if(!audioCtx||!soundEnabled)return;
+ const t=audioCtx.currentTime+when,o=audioCtx.createOscillator(),v=audioCtx.createGain(),f=audioCtx.createBiquadFilter();
+ o.type='sine';o.frequency.setValueAtTime(48,t);o.frequency.exponentialRampToValueAtTime(34,t+.42);
+ f.type='lowpass';f.frequency.value=90;v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(.055,t+.08);v.gain.exponentialRampToValueAtTime(.0001,t+.72);
+ o.connect(f).connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+.75);
+}
+function footstep(when=0,pan=0){
+ if(!audioCtx||!soundEnabled)return;
+ const t=audioCtx.currentTime+when,o=audioCtx.createOscillator(),v=audioCtx.createGain(),p=audioCtx.createStereoPanner();
+ o.type='triangle';o.frequency.setValueAtTime(105,t);o.frequency.exponentialRampToValueAtTime(39,t+.12);
+ p.pan.value=pan;v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(.075,t+.012);v.gain.exponentialRampToValueAtTime(.0001,t+.18);
+ o.connect(v).connect(p).connect(audioCtx.destination);o.start(t);o.stop(t+.2);
+}
+function startDrone(){
+ if(!audioCtx||!soundEnabled)return;
+ if(droneOsc){try{droneOsc.stop()}catch(e){}}
+ droneOsc=audioCtx.createOscillator();droneFilter=audioCtx.createBiquadFilter();droneGain=audioCtx.createGain();
+ droneOsc.type='sine';droneOsc.frequency.setValueAtTime(58,audioCtx.currentTime);
+ droneFilter.type='lowpass';droneFilter.frequency.value=180;droneGain.gain.value=.0001;
+ droneOsc.connect(droneFilter).connect(droneGain).connect(audioCtx.destination);droneOsc.start();
+ droneGain.gain.setTargetAtTime(.028,audioCtx.currentTime,.8);
+}
+function lowerDrone(){
+ if(!audioCtx||!droneOsc)return;
+ droneOsc.frequency.setTargetAtTime(39,audioCtx.currentTime,.9);
+ droneFilter.frequency.setTargetAtTime(105,audioCtx.currentTime,1.1);
+}
+function startWind(){
+ if(!audioCtx||!soundEnabled)return;
+ const n=audioCtx.sampleRate*3,b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);
  for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
- const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();
- s.buffer=b;fl.type=type;fl.frequency.value=f;fl.Q.value=q;
- v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+att);v.gain.exponentialRampToValueAt(.0001,t+d);
- s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);
+ windSource=audioCtx.createBufferSource();windSource.buffer=b;windSource.loop=true;
+ const f=audioCtx.createBiquadFilter();f.type='bandpass';f.frequency.value=260;f.Q.value=.7;
+ windGain=audioCtx.createGain();windGain.gain.value=.018;
+ windSource.connect(f).connect(windGain).connect(audioCtx.destination);windSource.start();
 }
-// passing footstep: soft triangle thump
-function playStep(pan){
- if(!audioCtx||!soundEnabled)return;
- tone('triangle',130,46,.09,.09);
- if(audioCtx.createStereoPanner){/* pan handled in beat timing, not per-call */}
+function thinWind(){if(windGain&&audioCtx)windGain.gain.setTargetAtTime(.001,audioCtx.currentTime,1.2)}
+function stopAudioBeds(){
+ if(droneGain&&audioCtx)droneGain.gain.setTargetAtTime(.0001,audioCtx.currentTime,.08);
+ if(windGain&&audioCtx)windGain.gain.setTargetAtTime(.0001,audioCtx.currentTime,.08);
 }
-// cold drone: low sine fading downward
-function playColdDrone(dur){
- if(!audioCtx||!soundEnabled)return;
- const t=audioCtx.currentTime,o=audioCtx.createOscillator(),v=audioCtx.createGain();
- o.type='sine';o.frequency.setValueAtTime(55,t);o.frequency.exponentialRampToValueAtTime(38,t+dur);
- v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(.055,t+1.2);v.gain.exponentialRampToValueAtTime(.0001,t+dur);
- o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+dur+.02);
-}
-// deep slow heartbeat pulse (quiet)
-function playPulse(){
- if(!audioCtx||!soundEnabled)return;
- const t=audioCtx.currentTime,o=audioCtx.createOscillator(),v=audioCtx.createGain();
- o.type='sine';o.frequency.setValueAtTime(58,t);o.frequency.exponentialRampToValueAtTime(42,t+.35);
- v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(.03,t+.05);v.gain.exponentialRampToValueAtTime(.0001,t+.55);
- o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+.6);
-}
-// thinning wind
-function playWind(dur){
- if(!audioCtx||!soundEnabled)return;
- const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*dur),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);
- for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
- const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();
- s.buffer=b;fl.type='bandpass';fl.frequency.value=260;fl.Q.value=2.4;
- v.gain.setValueAtTime(.02,t);v.gain.exponentialRampToValueAtTime(.004,t+dur);
- s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);
-}
-
-// ---------- RIG STATE ----------
-const st={head:0,bob:0,armSwing:0,emberPulse:1};
-
-function render(){
- const c=$('s4Char');
- c.setAttribute('transform',`translate(270,${785+st.bob})`);
- $('s4Head').setAttribute('transform',`translate(2,-130) rotate(${st.head})`);
-}
-
-// ---------- TIMELINE ----------
 let sceneTl=null;
-
 function resetScene4ToStart(){
  if(sceneTl){sceneTl.kill();sceneTl=null;}
- Object.assign(st,{head:0,bob:0,armSwing:0,emberPulse:1});
- gsap.set('#s4Camera',{scale:1,svgOrigin:'270 560'});
- gsap.set('#s4Char',{opacity:1});
- gsap.set('#s4Head',{rotation:0});
- gsap.set('.s4fog',{x:0,opacity:o=>o});
- gsap.set('.s4fog',{attr:{opacity:(i)=>[0.07,0.06,0.05][i]}});
- gsap.set('#s4Ember',{opacity:1});
- gsap.set('#s4Ember circle',{attr:{r:(i)=>i===0?60:(i===1?7:3)}});
- gsap.set('#s4ShadowsL .sh, #s4ShadowsR .sh',{opacity:(i,el)=>el.parentNode.id==='s4ShadowsL'?0.9-i*0.1:0.85-i*0.1});
- gsap.set('#s4ShadowsL',{x:-300,y:0,opacity:0});
- gsap.set('#s4ShadowsR',{x:300,y:0,opacity:0});
- gsap.set('#s4Face',{opacity:1});
- render();
+ gsap.set('#s4Camera',{scale:1,x:0,y:0,svgOrigin:'270 520'});
+ gsap.set('#s4ShadowA',{x:-110,y:0,opacity:0,scale:.9});
+ gsap.set('#s4ShadowB',{x:650,y:0,opacity:0,scale:1});
+ gsap.set('#s4FogA',{x:0,opacity:.9});gsap.set('#s4FogB',{x:0,opacity:.72});gsap.set('#s4FogC',{x:0,opacity:.7});
+ gsap.set('#s4EmberCore',{opacity:.75,scale:1,transformOrigin:'270px 824px'});
+ gsap.set('#s4EmberSparks',{opacity:.8});
  replayBtn.textContent='↺ 0.0s';
 }
-
 function playScene4(){
  resetScene4ToStart();
  sceneTl=gsap.timeline({
-  onUpdate:()=>{render();replayBtn.textContent=`↺ ${sceneTl.time().toFixed(1)}s`;},
-  onComplete:()=>replayBtn.textContent='↺ 6.0s'
+  onUpdate:()=>replayBtn.textContent=`↺ ${sceneTl.time().toFixed(1)}s`,
+  onComplete:()=>replayBtn.textContent='↺ 14.0s'
  });
-
- // camera slow push-in, focus on hero
- sceneTl.to('#s4Camera',{scale:1.06,svgOrigin:'270 560',duration:6.0,ease:'power1.inOut'},0);
-
- // ambience from the start
- sceneTl.call(playColdDrone,null,0.0, [5.8]);
- sceneTl.call(playWind,null,0.0,[5.8]);
-
- // 0.0-1.0s: hero stands, fog drifts, ember glows
- sceneTl.to(st,{head:2,duration:1.2,ease:'sine.inOut'},0.0);
- sceneTl.to('.s4fog',{x:40,duration:6.0,ease:'sine.inOut'},0);
- sceneTl.to('#s4Ember',{opacity:.65,duration:.6,yoyo:true,repeat:9,ease:'sine.inOut'},0);
-
- // 0.0s: quiet heartbeat pulse, then every 2s (0.0, 2.0, 4.0)
- sceneTl.call(playPulse,null,0.0);
- sceneTl.call(playPulse,null,2.0);
- sceneTl.call(playPulse,null,4.0);
-
- // 0.6s-2.4s: shadows stream LEFT -> RIGHT (with footsteps)
- gsap.set('#s4ShadowsL',{x:-320,opacity:0});
- [0,0.18,0.36].forEach((delay,i)=>{
-  const t0=0.6+delay;
-  sceneTl.fromTo('#s4ShadowsL .sh',{x:-320-i*22,opacity:0.9-i*0.1},{x:560,opacity:0,duration:1.5,ease:'none',immediateRender:false},t0);
-  sceneTl.call(playStep,null,t0+0.05+i*0.06);
-  sceneTl.call(playStep,null,t0+0.45+i*0.06);
-  sceneTl.call(playStep,null,t0+0.95+i*0.06);
- });
-
- // 2.8s-4.6s: shadows stream RIGHT -> LEFT (returning)
- [0,0.22].forEach((delay,i)=>{
-  const t0=2.8+delay;
-  sceneTl.fromTo('#s4ShadowsR .sh',{x:560+i*22,opacity:0.85-i*0.1},{x:-320,opacity:0,duration:1.6,ease:'none',immediateRender:false},t0);
-  sceneTl.call(playStep,null,t0+0.1+i*0.06);
-  sceneTl.call(playStep,null,t0+0.55+i*0.06);
-  sceneTl.call(playStep,null,t0+1.1+i*0.06);
- });
-
- // 3.2s: hero's head turns slightly to follow one shadow (deadpan)
- sceneTl.to(st,{head:-6,duration:0.7,ease:'sine.inOut'},3.2);
-
- // 4.6s: warm accent drops — ember dims, fog thickens
- sceneTl.to('#s4Ember',{opacity:.4,duration:1.0,ease:'power1.out'},4.6);
- sceneTl.to('#s4Camera',{scale:1.075,duration:1.4,ease:'power1.inOut'},4.6);
-
- // 5.0s: hero returns to face camera deadpan hold (loop point)
- sceneTl.to(st,{head:0,duration:0.8,ease:'sine.inOut'},5.0);
-
- // 5.6s: final ember flicker, held still
- sceneTl.to('#s4Ember',{opacity:.5,duration:.4,yoyo:true,repeat:1,ease:'sine.inOut'},5.6);
+ // 0.0–2.0s: establish the crossroads; distant warm ember remains.
+ sceneTl.to('#s4Camera',{scale:1.055,svgOrigin:'270 520',duration:14,ease:'power1.inOut'},0);
+ sceneTl.to('#s4FogA',{x:28,duration:7,yoyo:true,repeat:1,ease:'sine.inOut'},0);
+ sceneTl.to('#s4FogB',{x:-32,duration:8,yoyo:true,repeat:1,ease:'sine.inOut'},0);
+ sceneTl.to('#s4EmberCore',{scale:1.18,opacity:.95,duration:1.1,yoyo:true,repeat:12,ease:'sine.inOut'},0);
+ // 1.0–5.0s: first stream of shadows crosses left to right.
+ sceneTl.fromTo('#s4ShadowA',{x:-100,y:0,opacity:0,scale:.88},{x:660,y:-8,opacity:.58,scale:1.12,duration:3.8,ease:'none',immediateRender:false},1.0);
+ sceneTl.to('#s4ShadowA',{opacity:0,duration:.35},4.45);
+ // 1.0–5.4s: footsteps pass from left to right.
+ [1.05,1.62,2.18,2.76,3.32,3.9,4.48].forEach((t,i)=>sceneTl.call(()=>footstep(0,-.8+i*.25),null,t));
+ // 5.0s: warm color recedes; cold drone takes over.
+ sceneTl.to('#s4EmberCore',{opacity:.42,scale:.82,duration:1.4,ease:'sine.inOut'},5.0);
+ sceneTl.to('#s4FogA',{opacity:.62,duration:1.8},5.0);
+ sceneTl.call(lowerDrone,null,5.0);
+ // 6.0–10.5s: second stream moves right to left, slightly closer and darker.
+ sceneTl.fromTo('#s4ShadowB',{x:650,y:10,opacity:0,scale:1.08},{x:-130,y:0,opacity:.66,scale:.92,duration:4.1,ease:'none',immediateRender:false},6.0);
+ sceneTl.to('#s4ShadowB',{opacity:0,duration:.35},10.0);
+ [6.05,6.62,7.2,7.78,8.35,8.94,9.52,10.08].forEach((t,i)=>sceneTl.call(()=>footstep(0,.8-i*.22),null,t));
+ // 2-second heartbeat-like pulse, quiet and deep.
+ [1.0,3.0,5.0,7.0,9.0,11.0,13.0].forEach(t=>sceneTl.call(()=>pulse(),null,t));
+ // 10.5–14.0s: traffic fades away; wind thins until only pulse and low drone remain.
+ sceneTl.call(thinWind,null,10.5);
+ sceneTl.to('#s4FogC',{opacity:.38,duration:2.5},10.5);
+ sceneTl.to('#s4EmberCore',{opacity:.28,scale:.72,duration:2.5,ease:'sine.inOut'},10.5);
+ sceneTl.to('#s4ShadowA,#s4ShadowB',{opacity:0,duration:.2},10.6);
 }
-
-playBtn.addEventListener('click',()=>{initAudio();playScene4();});
-replayBtn.addEventListener('click',()=>{resetScene4ToStart();});
-soundBtn.addEventListener('click',()=>{soundEnabled=!soundEnabled;soundBtn.textContent='🔊 Sound: '+(soundEnabled?'ON':'OFF');if(soundEnabled)initAudio();});
-window.addEventListener('load',()=>{resetScene4ToStart();setTimeout(playScene4,250);});
+playBtn.addEventListener('click',()=>{initAudio();startDrone();startWind();playScene4();});
+replayBtn.addEventListener('click',()=>{stopAudioBeds();resetScene4ToStart();});
+soundBtn.addEventListener('click',()=>{
+ soundEnabled=!soundEnabled;soundBtn.textContent='🔊 Sound: '+(soundEnabled?'ON':'OFF');
+ if(soundEnabled){initAudio();startDrone();startWind()}else stopAudioBeds();
+});
+window.addEventListener('load',()=>{resetScene4ToStart();setTimeout(()=>{playScene4()},250);});
 </script>
-</body></html>
+</body>
+</html>
