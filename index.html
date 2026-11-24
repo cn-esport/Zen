@@ -1,524 +1,271 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<html lang="en"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — Okage Mairi Scene 4: The Crossroads (14.0s + Foley SFX)</title>
+<title>Zenspiris — The Crossroads Scene 4: Shadows Pass (6.0s + Foley SFX)</title>
 <style>
-:root{--head:#0d0b12;--face:#f2ede2;--rim:#fcd34d;--rim-cool:#60a5fa}
+:root{--head:#0d0b12;--face:#f2ede2;--rim:#fcd34d;--rim-cool:#22d3ee}
 *{box-sizing:border-box;margin:0}
 body{background:#040406;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;font-family:system-ui,sans-serif}
 .stage-wrapper{position:relative;width:100vw;max-width:355px;aspect-ratio:9/16;background:#070911;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.95)}
 svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrecision}
 .vignette{position:absolute;inset:0;z-index:10;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 36%,rgba(3,4,8,.92) 100%)}
 .letterbox{position:absolute;left:0;right:0;height:5.5%;background:#000;z-index:12}
-.letterbox.top{top:0;border-bottom:1px solid rgba(252,211,77,.35)}
-.letterbox.bottom{bottom:0;border-top:1px solid rgba(252,211,77,.35)}
+.letterbox.top{top:0;border-bottom:1px solid rgba(34,211,238,.35)}
+.letterbox.bottom{bottom:0;border-top:1px solid rgba(34,211,238,.35)}
 .controls{display:flex;gap:8px}
 .controls button{background:#16161f;color:#cbd5e1;border:1px solid #2a2a38;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
 .controls button.primary{background:#1e3a5f;border-color:#3b6ea8;color:#fff}
 .hd{fill:var(--head)}.fc{fill:var(--face)}.fs{stroke:var(--face);stroke-linecap:round;fill:none}
-</style>
-</head>
+</style></head>
 <body>
 <div class="stage-wrapper">
 <div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
 <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 <defs>
-  <!-- Cold night sky with deep teal horizon fog -->
-  <linearGradient id="s4Sky" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#03050a"/>
-    <stop offset=".5" stop-color="#08121c"/>
-    <stop offset=".82" stop-color="#0e2a33"/>
-    <stop offset="1" stop-color="#133840"/>
-  </linearGradient>
-  <!-- Dark crossroads earth -->
-  <linearGradient id="s4Ground" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#091018"/>
-    <stop offset="1" stop-color="#030509"/>
-  </linearGradient>
-  <!-- Teal fog layers -->
-  <linearGradient id="s4TealFog" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#14b8a6" stop-opacity="0"/>
-    <stop offset=".5" stop-color="#0d9488" stop-opacity=".28"/>
-    <stop offset="1" stop-color="#042f2e" stop-opacity="0"/>
-  </linearGradient>
-  <!-- Single lone ember glow on the road -->
-  <radialGradient id="s4RoadEmber">
-    <stop offset="0" stop-color="#fef08a" stop-opacity=".95"/>
-    <stop offset=".25" stop-color="#f59e0b" stop-opacity=".5"/>
-    <stop offset=".6" stop-color="#b45309" stop-opacity=".16"/>
-    <stop offset="1" stop-color="#78350f" stop-opacity="0"/>
-  </radialGradient>
-  <!-- Cool moonlight wash from above -->
-  <radialGradient id="s4MoonWash">
-    <stop offset="0" stop-color="#60a5fa" stop-opacity=".16"/>
-    <stop offset="1" stop-color="#60a5fa" stop-opacity="0"/>
-  </radialGradient>
+ <linearGradient id="s4Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset=".55" stop-color="#081018"/><stop offset="1" stop-color="#0e1a22"/></linearGradient>
+ <linearGradient id="s4Road" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1218"/><stop offset="1" stop-color="#04060c"/></linearGradient>
+ <radialGradient id="s4FogG"><stop offset="0" stop-color="#22d3ee" stop-opacity=".35"/><stop offset=".5" stop-color="#0e7490" stop-opacity=".12"/><stop offset="1" stop-color="#0e7490" stop-opacity="0"/></radialGradient>
+ <radialGradient id="s4EmberG"><stop offset="0" stop-color="#fef08a" stop-opacity="1"/><stop offset=".35" stop-color="#f59e0b" stop-opacity=".6"/><stop offset="1" stop-color="#d97706" stop-opacity="0"/></radialGradient>
+ <radialGradient id="s4Vig"><stop offset=".4" stop-color="#04060c" stop-opacity="0"/><stop offset="1" stop-color="#04060c" stop-opacity=".8"/></radialGradient>
+ <filter id="s4Blur"><feGaussianBlur stdDeviation="3"/></filter>
 </defs>
-
 <g id="s4Camera">
-  <!-- Sky & distant cold hills -->
-  <rect x="0" y="0" width="540" height="790" fill="url(#s4Sky)"/>
-  <path d="M -20 620 Q 150 570 300 605 Q 430 575 560 600 L 560 790 L -20 790 Z" fill="#060d15"/>
-
-  <!-- Pale cold moon -->
-  <circle cx="130" cy="220" r="65" fill="url(#s4MoonWash)"/>
-  <circle cx="130" cy="220" r="12" fill="#bae6fd" opacity=".48"/>
-
-  <!-- Background teal fog bank -->
-  <rect id="s4FogBack" x="-60" y="520" width="660" height="220" fill="url(#s4TealFog)" opacity=".85"/>
-
-  <!-- Wooden Crossroads Signpost (left of center, marking the junction) -->
-  <g id="s4Signpost" transform="translate(178, 785)">
-    <!-- cool rim edge on post -->
-    <rect x="-3" y="-215" width="8" height="215" fill="#60a5fa" opacity=".2"/>
-    <!-- main wooden post -->
-    <rect x="-4" y="-215" width="8" height="215" fill="#0b1019"/>
-    <!-- top directional sign pointing right -->
-    <path d="M -6 -196 L 44 -196 L 54 -188 L 44 -180 L -6 -180 Z" fill="#0e1522"/>
-    <path d="M -6 -196 L 44 -196 L 54 -188" stroke="#60a5fa" stroke-width="1.2" fill="none" opacity=".3"/>
-    <!-- lower directional sign pointing left -->
-    <path d="M 6 -166 L -38 -166 L -47 -158 L -38 -150 L 6 -150 Z" fill="#090e17"/>
+ <!-- sky + distant haze -->
+ <rect x="0" y="0" width="540" height="960" fill="url(#s4Sky)"/>
+ <circle cx="270" cy="640" r="380" fill="url(#s4FogG)" opacity=".55"/>
+ <!-- far tree/telegraph silhouettes for depth -->
+ <g fill="#04060c" opacity=".85">
+  <path d="M 40 640 L 60 560 L 74 600 L 88 560 L 104 640 Z"/>
+  <path d="M 430 640 L 450 566 L 462 604 L 478 560 L 496 640 Z"/>
+  <rect x="256" y="470" width="6" height="180"/><path d="M 244 486 L 274 486 L 272 492 L 246 492 Z"/>
+ </g>
+ <!-- crossroads ground -->
+ <rect x="0" y="620" width="540" height="340" fill="url(#s4Road)"/>
+ <!-- fork roads -->
+ <polygon points="270,620 150,960 390,960" fill="#0b141c" opacity=".9"/>
+ <polygon points="0,660 540,660 540,700 0,700" fill="#0d1822" opacity=".75"/>
+ <!-- cobble hints -->
+ <g stroke="#1a2a36" stroke-width="1.5" opacity=".6">
+  <line x1="80" y1="720" x2="140" y2="720"/><line x1="180" y1="760" x2="250" y2="760"/>
+  <line x1="320" y1="800" x2="390" y2="800"/><line x1="120" y1="840" x2="200" y2="840"/>
+  <line x1="360" y1="870" x2="440" y2="870"/>
+ </g>
+ <!-- fog bands (animated drift) -->
+ <ellipse class="s4fog" cx="140" cy="700" rx="220" ry="40" fill="#22d3ee" opacity=".07"/>
+ <ellipse class="s4fog" cx="400" cy="760" rx="260" ry="46" fill="#22d3ee" opacity=".06"/>
+ <ellipse class="s4fog" cx="260" cy="820" rx="300" ry="52" fill="#22d3ee" opacity=".05"/>
+ <!-- ember on the road (warm accent) -->
+ <g id="s4Ember">
+  <circle cx="360" cy="806" r="60" fill="url(#s4EmberG)" opacity=".8"/>
+  <ellipse cx="360" cy="806" rx="7" ry="4" fill="#fef08a"/>
+  <ellipse cx="360" cy="806" rx="3" ry="1.8" fill="#fff"/>
+ </g>
+ <!-- shadow streamers (two directions) -->
+ <g id="s4ShadowsL" filter="url(#s4Blur)">
+  <g class="sh" fill="#04060c" opacity=".9"><circle cx="0" cy="-140" r="20"/><path d="M -12 -122 L 12 -122 L 16 -40 L -16 -40 Z"/><path d="M -16 -40 L -20 40 L -8 40 L -6 -40 Z"/><path d="M 6 -40 L 8 40 L 20 40 L 16 -40 Z"/></g>
+  <g class="sh" fill="#04060c" opacity=".8"><circle cx="0" cy="-140" r="20"/><path d="M -12 -122 L 12 -122 L 16 -40 L -16 -40 Z"/><path d="M -16 -40 L -20 40 L -8 40 L -6 -40 Z"/><path d="M 6 -40 L 8 40 L 20 40 L 16 -40 Z"/></g>
+  <g class="sh" fill="#04060c" opacity=".7"><circle cx="0" cy="-140" r="20"/><path d="M -12 -122 L 12 -122 L 16 -40 L -16 -40 Z"/><path d="M -16 -40 L -20 40 L -8 40 L -6 -40 Z"/><path d="M 6 -40 L 8 40 L 20 40 L 16 -40 Z"/></g>
+ </g>
+ <g id="s4ShadowsR" filter="url(#s4Blur)">
+  <g class="sh" fill="#04060c" opacity=".85"><circle cx="0" cy="-130" r="18"/><path d="M -11 -114 L 11 -114 L 14 -38 L -14 -38 Z"/><path d="M -14 -38 L -18 34 L -7 34 L -5 -38 Z"/><path d="M 5 -38 L 7 34 L 18 34 L 14 -38 Z"/></g>
+  <g class="sh" fill="#04060c" opacity=".75"><circle cx="0" cy="-130" r="18"/><path d="M -11 -114 L 11 -114 L 14 -38 L -14 -38 Z"/><path d="M -14 -38 L -18 34 L -7 34 L -5 -38 Z"/><path d="M 5 -38 L 7 34 L 18 34 L 14 -38 Z"/></g>
+ </g>
+ <!-- HERO: standing still at crossroads, facing camera, teal rim -->
+ <g id="s4Char" transform="translate(270,785)">
+  <ellipse cx="0" cy="4" rx="34" ry="7" fill="#000" opacity=".9"/>
+  <!-- legs (still, planted) -->
+  <path d="M -6 -50 L -7 44" stroke="#08070c" stroke-width="11" stroke-linecap="round"/>
+  <path d="M 6 -50 L 7 44" stroke="#0d0b12" stroke-width="11" stroke-linecap="round"/>
+  <path d="M -13 44 L 2 44 L 3 50 L -14 50 Z" fill="#08070c"/>
+  <path d="M 2 44 L 16 44 L 17 50 L 1 50 Z" class="hd"/>
+  <!-- far arm -->
+  <path d="M -12 -100 L -16 -76 L -12 -56" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- coat with teal rim -->
+  <path d="M -13 -108 L 14 -108 L 19 -26 L -17 -26 Z" fill="#22d3ee" opacity=".38" transform="translate(2,0)"/>
+  <path d="M -13 -108 L 14 -108 L 19 -26 L -17 -26 Z" fill="#1e2330"/>
+  <!-- coat seam lines -->
+  <g stroke="#141a24" stroke-width="1.4"><line x1="0" y1="-104" x2="0" y2="-30"/><line x1="-9" y1="-70" x2="-14" y2="-34"/><line x1="10" y1="-70" x2="15" y2="-34"/></g>
+  <!-- scarf accent (teal) -->
+  <path d="M -12 -112 Q 0 -104 13 -112 L 13 -102 Q 0 -94 -12 -102 Z" fill="#0e7490"/>
+  <path d="M 6 -102 L 14 -70 L 4 -70 L 0 -100 Z" fill="#155e75"/>
+  <!-- front arm (still) -->
+  <path d="M 3 -100 L 12 -78 L 16 -58" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- head -->
+  <g id="s4Head" transform="translate(2,-130)">
+   <circle cx="1.8" cy="0" r="22" fill="#22d3ee" opacity=".5"/>
+   <circle cx="0" cy="0" r="22" class="hd"/>
+   <!-- tiny beanie -->
+   <path d="M -18 -14 Q -18 -34 0 -34 Q 18 -34 18 -14 Z" fill="#0e7490"/>
+   <rect x="-18" y="-16" width="36" height="4" fill="#155e75"/>
+   <!-- eyes: calm open dots, deadpan -->
+   <g id="s4Face">
+    <circle class="fc" cx="-3" cy="0" r="2.2"/>
+    <circle class="fc" cx="3.5" cy="0" r="2.2"/>
+    <line class="fs" x1="-2" y1="8" x2="3" y2="8" stroke-width="1.8"/>
+   </g>
   </g>
-
-  <!-- Crossroads Ground & Intersecting Paths -->
-  <rect x="0" y="785" width="540" height="175" fill="url(#s4Ground)"/>
-  <!-- Perspective crossroads path diverging toward foreground -->
-  <polygon points="215,785 325,785 450,960 90,960" fill="#0d1622" opacity=".85"/>
-  <g stroke="#132030" stroke-width="1.8">
-    <line x1="0" y1="785" x2="540" y2="785"/>
-    <line x1="215" y1="785" x2="90" y2="960"/>
-    <line x1="325" y1="785" x2="450" y2="960"/>
-  </g>
-
-  <!-- One Lone Ember Glow on the Road (dropped ember / small roadside marker at x=348, y=792) -->
-  <g id="s4EmberMarker">
-    <circle id="s4EmberHalo" cx="348" cy="788" r="145" fill="url(#s4RoadEmber)" opacity=".85"/>
-    <ellipse cx="348" cy="792" rx="52" ry="8" fill="#f59e0b" opacity=".25"/>
-    <!-- tiny glowing coal/ember stone on road -->
-    <ellipse cx="348" cy="792" rx="7" ry="3.2" fill="#d97706"/>
-    <ellipse id="s4EmberCore" cx="348" cy="791.5" rx="3.8" ry="1.8" fill="#fef08a"/>
-  </g>
-
-  <!-- BACKGROUND STREAMING SHADOWS (Left to Right, behind standing figure) -->
-  <g id="s4ShadowsLR"></g>
-
-  <!-- LONE FIGURE STANDING STILL AT THE CROSSROADS (Hero from Scenes 1–3, stationary) -->
-  <g id="s4Hero" transform="translate(262, 785)">
-    <ellipse cx="0" cy="2" rx="30" ry="6" fill="#000" opacity=".92"/>
-    <!-- back leg (planted still) -->
-    <g transform="translate(-5,-50)">
-      <path d="M 0 0 L -1 26 L -2 47" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <path d="M -7 44 L 9 44 L 10 50 L -9 50 Z" fill="#08070c"/>
-    </g>
-    <!-- front leg (planted still) -->
-    <g transform="translate(5,-50)">
-      <path d="M 0 0 L 1 26 L 2 47" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <path d="M -2 44 L 13 44 L 14 50 L -4 50 Z" class="hd"/>
-    </g>
-    <!-- far arm -->
-    <path d="M -7 -100 L -11 -77 L -10 -56" stroke="#18202c" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- cool moonlight rim on left side of torso -->
-    <path d="M -14.8 -108 L 12 -108 L 16 -26 L -17.8 -26 Z" fill="#60a5fa" opacity=".32"/>
-    <!-- warm road-ember rim on right lower edge of torso -->
-    <path d="M -11.5 -108 L 15.5 -108 L 19.5 -26 L -14.5 -26 Z" fill="#fcd34d" opacity=".26"/>
-    <!-- torso trapezoid -->
-    <path d="M -13 -108 L 14 -108 L 18 -26 L -16 -26 Z" fill="#1e2330"/>
-    <!-- same muted slate scarf from Scenes 1–3 -->
-    <path d="M -13 -108 L 14 -108 L 15 -97 L -14 -97 Z" fill="#2d3748"/>
-    <path d="M 2 -98 L 11 -98 L 12 -74 L 3 -76 Z" fill="#242c3a"/>
-    <!-- front arm hanging still at side -->
-    <path d="M 3 -100 L 8 -77 L 10 -56" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- head group (watches passing shadows left-to-right, then right-to-left) -->
-    <g id="s4HeroHead" transform="translate(0,-130) rotate(0)">
-      <!-- dual rim lights: cool moonlight left, faint ember right -->
-      <circle cx="-1.5" cy="0" r="22" fill="#60a5fa" opacity=".36"/>
-      <circle cx="1.5" cy="0" r="22" fill="#fcd34d" opacity=".28"/>
-      <circle cx="0" cy="0" r="22" class="hd"/>
-      <!-- eyes group shifts subtly as head tracks passersby -->
-      <g id="s4HeroFace">
-        <circle id="s4EyeL" class="fc" cx="5" cy="-2" r="2.1"/>
-        <circle id="s4EyeR" class="fc" cx="12.5" cy="-2" r="2.1"/>
-        <line id="s4Mouth" class="fs" x1="5.5" y1="7" x2="11.5" y2="7" stroke-width="1.8"/>
-      </g>
-    </g>
-  </g>
-
-  <!-- FOREGROUND STREAMING SHADOWS (Right to Left, passing in front of standing figure) -->
-  <g id="s4ShadowsRL"></g>
-
-  <!-- Low drifting teal fog in foreground -->
-  <rect id="s4FogFront" x="-80" y="680" width="700" height="145" fill="url(#s4TealFog)" opacity=".65"/>
-
-  <!-- Subtle heartbeat pulse ring radiating quietly from standing figure's chest -->
-  <circle id="s4PulseRing" cx="262" cy="705" r="8" fill="none" stroke="#5eead4" stroke-width="1.2" opacity="0"/>
+ </g>
+ <!-- foreground fog wash -->
+ <rect x="0" y="820" width="540" height="140" fill="#22d3ee" opacity=".04"/>
+ <rect x="0" y="0" width="540" height="960" fill="url(#s4Vig)" opacity=".5"/>
 </g>
 </svg>
 </div>
-
 <div class="controls">
-  <button id="playBtn" class="primary">▶ Play (14.0s)</button>
-  <button id="replayBtn">↺ 0.0s</button>
-  <button id="soundBtn">🔊 Sound: ON</button>
+ <button id="playBtn" class="primary">▶ Play (6.0s)</button>
+ <button id="replayBtn">↺ 0.0s</button>
+ <button id="soundBtn">🔊 Sound: ON</button>
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
-const $ = id => document.getElementById(id);
-const playBtn = $('playBtn'), replayBtn = $('replayBtn'), soundBtn = $('soundBtn');
+const $=id=>document.getElementById(id);
+const playBtn=$('playBtn'),replayBtn=$('replayBtn'),soundBtn=$('soundBtn');
 
-// ---------- PROCEDURAL WEB AUDIO FOLEY ----------
-let audioCtx = null, soundEnabled = true;
-function initAudio() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
+// ---------- AUDIO (procedural foley) ----------
+let audioCtx=null,soundEnabled=true;
+function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}
+function tone(type,f0,f1,d,g,att){
+ if(!audioCtx||!soundEnabled)return;
+ const t=audioCtx.currentTime,o=audioCtx.createOscillator(),v=audioCtx.createGain();
+ o.type=type;o.frequency.setValueAtTime(f0,t);
+ if(f1)o.frequency.exponentialRampToValueAtTime(f1,t+d);
+ v.gain.setValueAtTime(.0001,t);
+ v.gain.linearRampToValueAtTime(g,t+(att||.01));
+ v.gain.exponentialRampToValueAtTime(.0001,t+d);
+ o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+d+.02);
 }
-
-// Steady passing footsteps (panned subtly left-to-right or right-to-left if StereoPanner is supported)
-function playPassingStep(panVal = 0, vol = 0.055, pitch = 1.0) {
-  if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-
-  osc.type = 'triangle';
-  osc.frequency.setValueAtTime(102 * pitch, t);
-  osc.frequency.exponentialRampToValueAtTime(38 * pitch, t + 0.08);
-
-  gain.gain.setValueAtTime(vol, t);
-  gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
-
-  if (audioCtx.createStereoPanner) {
-    const panner = audioCtx.createStereoPanner();
-    panner.pan.setValueAtTime(Math.max(-1, Math.min(1, panVal)), t);
-    osc.connect(gain).connect(panner).connect(audioCtx.destination);
-  } else {
-    osc.connect(gain).connect(audioCtx.destination);
-  }
-
-  osc.start(t);
-  osc.stop(t + 0.095);
+function noise(d,type,f,q,g,att){
+ if(!audioCtx||!soundEnabled)return;
+ const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);
+ for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
+ const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();
+ s.buffer=b;fl.type=type;fl.frequency.value=f;fl.Q.value=q;
+ v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+att);v.gain.exponentialRampToValueAt(.0001,t+d);
+ s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);
 }
-
-// One slow, deep pulse every 2 seconds (very quiet heartbeat-like sub thud)
-function playDeepPulse() {
-  if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime;
-
-  // Primary deep thump
-  const osc1 = audioCtx.createOscillator();
-  const g1 = audioCtx.createGain();
-  osc1.type = 'sine';
-  osc1.frequency.setValueAtTime(56, t);
-  osc1.frequency.exponentialRampToValueAtTime(31, t + 0.28);
-  g1.gain.setValueAtTime(0.0001, t);
-  g1.gain.linearRampToValueAtTime(0.095, t + 0.025);
-  g1.gain.exponentialRampToValueAtTime(0.0001, t + 0.34);
-  osc1.connect(g1).connect(audioCtx.destination);
-  osc1.start(t);
-  osc1.stop(t + 0.36);
-
-  // Faint second heartbeat echo 0.28s later
-  const osc2 = audioCtx.createOscillator();
-  const g2 = audioCtx.createGain();
-  osc2.type = 'sine';
-  osc2.frequency.setValueAtTime(48, t + 0.28);
-  osc2.frequency.exponentialRampToValueAtTime(28, t + 0.52);
-  g2.gain.setValueAtTime(0.0001, t + 0.28);
-  g2.gain.linearRampToValueAtTime(0.052, t + 0.305);
-  g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.56);
-  osc2.connect(g2).connect(audioCtx.destination);
-  osc2.start(t + 0.28);
-  osc2.stop(t + 0.58);
+// passing footstep: soft triangle thump
+function playStep(pan){
+ if(!audioCtx||!soundEnabled)return;
+ tone('triangle',130,46,.09,.09);
+ if(audioCtx.createStereoPanner){/* pan handled in beat timing, not per-call */}
 }
-
-// 14.0s Cold Drone + Thinning Wind (warm tones drop out early, leaving cold low drone & thin wind)
-function playColdDroneAndThinningWind(dur = 13.9) {
-  if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime;
-
-  // 1. Wind that starts gently and thins out by ~7.5s, leaving pulse and footsteps exposed
-  const n = Math.floor(audioCtx.sampleRate * dur);
-  const buf = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
-  const data = buf.getChannelData(0);
-  for (let i = 0; i < n; i++) data[i] = Math.random() * 2 - 1;
-
-  const windSrc = audioCtx.createBufferSource();
-  windSrc.buffer = buf;
-  const windFilter = audioCtx.createBiquadFilter();
-  windFilter.type = 'bandpass';
-  windFilter.frequency.setValueAtTime(290, t);
-  windFilter.frequency.linearRampToValueAtTime(210, t + 8.0);
-  windFilter.Q.value = 3.0;
-
-  const windGain = audioCtx.createGain();
-  windGain.gain.setValueAtTime(0.026, t);
-  windGain.gain.linearRampToValueAtTime(0.018, t + 4.5);
-  windGain.gain.exponentialRampToValueAtTime(0.0008, t + 9.5);
-  windGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-
-  windSrc.connect(windFilter).connect(windGain).connect(audioCtx.destination);
-  windSrc.start(t);
-
-  // 2. Warm upper harmonic drops out in first 2.5s
-  const warmNote = audioCtx.createOscillator();
-  const warmGain = audioCtx.createGain();
-  warmNote.type = 'sine';
-  warmNote.frequency.setValueAtTime(220.0, t); // A3 from Scene 3
-  warmNote.frequency.linearRampToValueAtTime(196.0, t + 2.4);
-  warmGain.gain.setValueAtTime(0.024, t);
-  warmGain.gain.exponentialRampToValueAtTime(0.0001, t + 2.6);
-  warmNote.connect(warmGain).connect(audioCtx.destination);
-  warmNote.start(t);
-  warmNote.stop(t + 2.7);
-
-  // 3. Cold, lower drone settles into deep register (C2 -> G1 / F1)
-  const coldLow = audioCtx.createOscillator();
-  const coldSub = audioCtx.createOscillator();
-  const coldGain = audioCtx.createGain();
-
-  coldLow.type = 'triangle';
-  coldSub.type = 'sine';
-  coldLow.frequency.setValueAtTime(87.31, t);     // F2
-  coldLow.frequency.linearRampToValueAtTime(65.41, t + 3.5); // drops to C2
-  coldLow.frequency.linearRampToValueAtTime(55.00, t + 9.0); // colder A1
-
-  coldSub.frequency.setValueAtTime(65.41, t);     // C2
-  coldSub.frequency.linearRampToValueAtTime(43.65, t + 5.0); // drops to deep F1
-
-  coldGain.gain.setValueAtTime(0.038, t);
-  coldGain.gain.linearRampToValueAtTime(0.048, t + 4.0);
-  coldGain.gain.linearRampToValueAtTime(0.036, t + dur - 1.0);
-  coldGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-
-  coldLow.connect(coldGain);
-  coldSub.connect(coldGain);
-  coldGain.connect(audioCtx.destination);
-
-  coldLow.start(t); coldSub.start(t);
-  coldLow.stop(t + dur + 0.05); coldSub.stop(t + dur + 0.05);
+// cold drone: low sine fading downward
+function playColdDrone(dur){
+ if(!audioCtx||!soundEnabled)return;
+ const t=audioCtx.currentTime,o=audioCtx.createOscillator(),v=audioCtx.createGain();
+ o.type='sine';o.frequency.setValueAtTime(55,t);o.frequency.exponentialRampToValueAtTime(38,t+dur);
+ v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(.055,t+1.2);v.gain.exponentialRampToValueAtTime(.0001,t+dur);
+ o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+dur+.02);
 }
-
-// ---------- CREATE STREAMING SHADOW SILHOUETTES ----------
-const svgNS = 'http://www.w3.org/2000/svg';
-const shadowsLRContainer = $('s4ShadowsLR');
-const shadowsRLContainer = $('s4ShadowsRL');
-
-function buildShadowWalker(dir, scale, y, shade) {
-  const g = document.createElementNS(svgNS, 'g');
-  const faceSign = dir === 1 ? 1 : -1;
-  g.innerHTML = `
-    <ellipse cx="0" cy="2" rx="26" ry="5" fill="#000" opacity=".75"/>
-    <g class="legB" transform="translate(${-4 * faceSign},-50)">
-      <path d="M 0 0 L ${-1 * faceSign} 26 L ${-3 * faceSign} 47" stroke="#05070c" stroke-width="10.5" stroke-linecap="round" fill="none"/>
-      <path d="M ${-6 * faceSign} 44 L ${10 * faceSign} 44 L ${11 * faceSign} 50 L ${-8 * faceSign} 50 Z" fill="#05070c"/>
-    </g>
-    <g class="legF" transform="translate(${4 * faceSign},-50)">
-      <path d="M 0 0 L ${1 * faceSign} 26 L ${4 * faceSign} 47" stroke="${shade}" stroke-width="11" stroke-linecap="round" fill="none"/>
-      <path d="M 0 44 L ${14 * faceSign} 44 L ${15 * faceSign} 50 L ${-2 * faceSign} 50 Z" fill="${shade}"/>
-    </g>
-    <path d="M ${-11.5 * faceSign} -108 L ${15.5 * faceSign} -108 L ${19.5 * faceSign} -26 L ${-14.5 * faceSign} -26 Z" fill="#60a5fa" opacity=".22"/>
-    <path d="M ${-13 * faceSign} -108 L ${14 * faceSign} -108 L ${18 * faceSign} -26 L ${-16 * faceSign} -26 Z" fill="${shade}"/>
-    <path class="armF" d="M ${3 * faceSign} -100 L ${9 * faceSign} -78 L ${12 * faceSign} -57" stroke="${shade}" stroke-width="8.5" stroke-linecap="round" fill="none"/>
-    <g transform="translate(${1 * faceSign},-130) rotate(${2 * faceSign})">
-      <circle cx="${-1.5 * faceSign}" cy="0" r="22" fill="#60a5fa" opacity=".26"/>
-      <circle cx="0" cy="0" r="22" fill="${shade}"/>
-      <circle cx="${10.5 * faceSign}" cy="-2" r="2" fill="#cbd5e1" opacity=".75"/>
-      <circle cx="${17.5 * faceSign}" cy="-2" r="2" fill="#cbd5e1" opacity=".75"/>
-    </g>
-  `;
-  return {
-    el: g,
-    legF: g.querySelector('.legF'),
-    legB: g.querySelector('.legB'),
-    armF: g.querySelector('.armF'),
-    dir,
-    scale,
-    y,
-    x: dir === 1 ? -70 : 610,
-    stride: 0,
-    bob: 0,
-    opacity: 0
-  };
+// deep slow heartbeat pulse (quiet)
+function playPulse(){
+ if(!audioCtx||!soundEnabled)return;
+ const t=audioCtx.currentTime,o=audioCtx.createOscillator(),v=audioCtx.createGain();
+ o.type='sine';o.frequency.setValueAtTime(58,t);o.frequency.exponentialRampToValueAtTime(42,t+.35);
+ v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(.03,t+.05);v.gain.exponentialRampToValueAtTime(.0001,t+.55);
+ o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+.6);
 }
-
-// Wave 1 (0.0s - 7.5s): Shadows streaming Left -> Right behind the standing hero
-const lrSpecs = [
-  { start: 0.2, dur: 5.2, y: 768, scale: 0.80, shade: '#090e17' },
-  { start: 1.1, dur: 5.0, y: 774, scale: 0.86, shade: '#0b111c' },
-  { start: 2.0, dur: 5.3, y: 764, scale: 0.75, shade: '#080c14' },
-  { start: 3.1, dur: 4.9, y: 772, scale: 0.84, shade: '#0a0f19' },
-  { start: 4.2, dur: 5.1, y: 766, scale: 0.78, shade: '#080d16' }
-];
-const lrWalkers = lrSpecs.map(s => {
-  const w = buildShadowWalker(1, s.scale, s.y, s.shade);
-  w.spec = s;
-  shadowsLRContainer.appendChild(w.el);
-  return w;
-});
-
-// Wave 2 (6.2s - 14.0s): Shadows streaming Right -> Left in front of the standing hero
-const rlSpecs = [
-  { start: 6.2,  dur: 5.2, y: 794, scale: 0.96, shade: '#070a10' },
-  { start: 7.3,  dur: 5.0, y: 800, scale: 1.02, shade: '#06090f' },
-  { start: 8.4,  dur: 5.2, y: 792, scale: 0.94, shade: '#080b12' },
-  { start: 9.5,  dur: 4.9, y: 798, scale: 1.00, shade: '#06080e' },
-  { start: 10.6, dur: 4.8, y: 795, scale: 0.97, shade: '#070a11' }
-];
-const rlWalkers = rlSpecs.map(s => {
-  const w = buildShadowWalker(-1, s.scale, s.y, s.shade);
-  w.spec = s;
-  shadowsRLContainer.appendChild(w.el);
-  return w;
-});
-
-const allWalkers = [...lrWalkers, ...rlWalkers];
+// thinning wind
+function playWind(dur){
+ if(!audioCtx||!soundEnabled)return;
+ const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*dur),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);
+ for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
+ const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();
+ s.buffer=b;fl.type='bandpass';fl.frequency.value=260;fl.Q.value=2.4;
+ v.gain.setValueAtTime(.02,t);v.gain.exponentialRampToValueAtTime(.004,t+dur);
+ s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);
+}
 
 // ---------- RIG STATE ----------
-const st = { headRot: 0, eyeShift: 0 };
+const st={head:0,bob:0,armSwing:0,emberPulse:1};
 
-function render() {
-  $('s4HeroHead').setAttribute('transform', `translate(0,-130) rotate(${st.headRot.toFixed(2)})`);
-  $('s4EyeL').setAttribute('cx', (5 + st.eyeShift).toFixed(2));
-  $('s4EyeR').setAttribute('cx', (12.5 + st.eyeShift).toFixed(2));
-  $('s4Mouth').setAttribute('x1', (5.5 + st.eyeShift * 0.85).toFixed(2));
-  $('s4Mouth').setAttribute('x2', (11.5 + st.eyeShift * 0.85).toFixed(2));
-
-  allWalkers.forEach(w => {
-    const f = w.dir;
-    w.el.setAttribute('transform', `translate(${w.x.toFixed(1)},${(w.y + w.bob).toFixed(1)}) scale(${w.scale})`);
-    w.el.setAttribute('opacity', w.opacity.toFixed(2));
-    w.legF.setAttribute('transform', `translate(${4 * f},-50) rotate(${w.stride.toFixed(2)})`);
-    w.legB.setAttribute('transform', `translate(${-4 * f},-50) rotate(${(-w.stride).toFixed(2)})`);
-    w.armF.setAttribute('d', `M ${3 * f} -100 L ${(9 - w.stride * 0.35) * f} -78 L ${(12 - w.stride * 0.8) * f} -57`);
-  });
+function render(){
+ const c=$('s4Char');
+ c.setAttribute('transform',`translate(270,${785+st.bob})`);
+ $('s4Head').setAttribute('transform',`translate(2,-130) rotate(${st.head})`);
 }
 
-// ---------- TIMELINE (14.0s) ----------
-let sceneTl = null;
+// ---------- TIMELINE ----------
+let sceneTl=null;
 
-function resetScene4ToStart() {
-  if (sceneTl) { sceneTl.kill(); sceneTl = null; }
-  Object.assign(st, { headRot: 0, eyeShift: 0 });
-  allWalkers.forEach(w => {
-    w.x = w.dir === 1 ? -70 : 610;
-    w.stride = 0;
-    w.bob = 0;
-    w.opacity = 0;
-  });
-  gsap.set('#s4Camera', { scale: 1, svgOrigin: '262 670' });
-  gsap.set('#s4FogBack', { x: 0, opacity: 0.85 });
-  gsap.set('#s4FogFront', { x: 0, opacity: 0.65 });
-  gsap.set('#s4EmberHalo', { opacity: 0.85 });
-  gsap.set('#s4PulseRing', { attr: { r: 8 }, opacity: 0 });
-  render();
-  replayBtn.textContent = '↺ 0.0s';
+function resetScene4ToStart(){
+ if(sceneTl){sceneTl.kill();sceneTl=null;}
+ Object.assign(st,{head:0,bob:0,armSwing:0,emberPulse:1});
+ gsap.set('#s4Camera',{scale:1,svgOrigin:'270 560'});
+ gsap.set('#s4Char',{opacity:1});
+ gsap.set('#s4Head',{rotation:0});
+ gsap.set('.s4fog',{x:0,opacity:o=>o});
+ gsap.set('.s4fog',{attr:{opacity:(i)=>[0.07,0.06,0.05][i]}});
+ gsap.set('#s4Ember',{opacity:1});
+ gsap.set('#s4Ember circle',{attr:{r:(i)=>i===0?60:(i===1?7:3)}});
+ gsap.set('#s4ShadowsL .sh, #s4ShadowsR .sh',{opacity:(i,el)=>el.parentNode.id==='s4ShadowsL'?0.9-i*0.1:0.85-i*0.1});
+ gsap.set('#s4ShadowsL',{x:-300,y:0,opacity:0});
+ gsap.set('#s4ShadowsR',{x:300,y:0,opacity:0});
+ gsap.set('#s4Face',{opacity:1});
+ render();
+ replayBtn.textContent='↺ 0.0s';
 }
 
-function playScene4() {
-  resetScene4ToStart();
-  sceneTl = gsap.timeline({
-    onUpdate: () => {
-      render();
-      replayBtn.textContent = `↺ ${sceneTl.time().toFixed(1)}s`;
-    },
-    onComplete: () => replayBtn.textContent = '↺ 14.0s'
-  });
+function playScene4(){
+ resetScene4ToStart();
+ sceneTl=gsap.timeline({
+  onUpdate:()=>{render();replayBtn.textContent=`↺ ${sceneTl.time().toFixed(1)}s`;},
+  onComplete:()=>replayBtn.textContent='↺ 6.0s'
+ });
 
-  // 0.00s - 14.00s: Slow camera push-in toward the lone figure standing still at the crossroads
-  sceneTl.to('#s4Camera', { scale: 1.06, svgOrigin: '262 670', duration: 14.0, ease: 'power1.inOut' }, 0);
+ // camera slow push-in, focus on hero
+ sceneTl.to('#s4Camera',{scale:1.06,svgOrigin:'270 560',duration:6.0,ease:'power1.inOut'},0);
 
-  // 0.00s: Warm tones drop out, drone gets colder & lower, wind thins out
-  sceneTl.call(() => playColdDroneAndThinningWind(13.9), null, 0.02);
+ // ambience from the start
+ sceneTl.call(playColdDrone,null,0.0, [5.8]);
+ sceneTl.call(playWind,null,0.0,[5.8]);
 
-  // Teal fog drifting across crossroads + lone ember glowing steadily on the road
-  sceneTl.to('#s4FogBack', { x: 45, duration: 14.0, ease: 'sine.inOut' }, 0);
-  sceneTl.to('#s4FogFront', { x: -55, duration: 14.0, ease: 'sine.inOut' }, 0);
-  sceneTl.to('#s4EmberHalo', { opacity: 0.55, duration: 0.9, yoyo: true, repeat: 14, ease: 'sine.inOut' }, 0);
+ // 0.0-1.0s: hero stands, fog drifts, ember glows
+ sceneTl.to(st,{head:2,duration:1.2,ease:'sine.inOut'},0.0);
+ sceneTl.to('.s4fog',{x:40,duration:6.0,ease:'sine.inOut'},0);
+ sceneTl.to('#s4Ember',{opacity:.65,duration:.6,yoyo:true,repeat:9,ease:'sine.inOut'},0);
 
-  // Every 2.0 seconds: One slow, deep pulse (quiet heartbeat thud + subtle visual ring)
-  [1.0, 3.0, 5.0, 7.0, 9.0, 11.0, 13.0].forEach(pulseT => {
-    sceneTl.call(playDeepPulse, null, pulseT);
-    sceneTl.fromTo('#s4PulseRing',
-      { attr: { r: 8 }, opacity: 0.34 },
-      { attr: { r: 44 }, opacity: 0, duration: 1.25, ease: 'power2.out', immediateRender: false },
-      pulseT
-    );
-  });
+ // 0.0s: quiet heartbeat pulse, then every 2s (0.0, 2.0, 4.0)
+ sceneTl.call(playPulse,null,0.0);
+ sceneTl.call(playPulse,null,2.0);
+ sceneTl.call(playPulse,null,4.0);
 
-  // Animate Wave 1 (Left -> Right shadows, 0.2s - 9.3s)
-  lrWalkers.forEach((w, idx) => {
-    const t0 = w.spec.start;
-    const dur = w.spec.dur;
-    sceneTl.to(w, { opacity: 0.88, duration: 0.5, ease: 'power1.out' }, t0);
-    sceneTl.to(w, { x: 610, duration: dur, ease: 'none' }, t0);
-    sceneTl.to(w, { opacity: 0, duration: 0.5, ease: 'power1.in' }, t0 + dur - 0.5);
+ // 0.6s-2.4s: shadows stream LEFT -> RIGHT (with footsteps)
+ gsap.set('#s4ShadowsL',{x:-320,opacity:0});
+ [0,0.18,0.36].forEach((delay,i)=>{
+  const t0=0.6+delay;
+  sceneTl.fromTo('#s4ShadowsL .sh',{x:-320-i*22,opacity:0.9-i*0.1},{x:560,opacity:0,duration:1.5,ease:'none',immediateRender:false},t0);
+  sceneTl.call(playStep,null,t0+0.05+i*0.06);
+  sceneTl.call(playStep,null,t0+0.45+i*0.06);
+  sceneTl.call(playStep,null,t0+0.95+i*0.06);
+ });
 
-    const stepInt = 0.48;
-    const steps = Math.floor(dur / stepInt);
-    for (let s = 0; s < steps; s++) {
-      const ts = t0 + s * stepInt;
-      const dirSign = s % 2 === 0 ? 8.5 : -8.5;
-      sceneTl.to(w, { stride: dirSign, duration: stepInt * 0.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, ts);
-      sceneTl.to(w, { bob: -1.8, duration: stepInt * 0.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, ts);
+ // 2.8s-4.6s: shadows stream RIGHT -> LEFT (returning)
+ [0,0.22].forEach((delay,i)=>{
+  const t0=2.8+delay;
+  sceneTl.fromTo('#s4ShadowsR .sh',{x:560+i*22,opacity:0.85-i*0.1},{x:-320,opacity:0,duration:1.6,ease:'none',immediateRender:false},t0);
+  sceneTl.call(playStep,null,t0+0.1+i*0.06);
+  sceneTl.call(playStep,null,t0+0.55+i*0.06);
+  sceneTl.call(playStep,null,t0+1.1+i*0.06);
+ });
 
-      // Footsteps panned Left -> Right for primary walkers
-      if (idx % 2 === 0 && ts < 6.4) {
-        const progress = (ts - t0) / dur;
-        const pan = -0.65 + progress * 1.3;
-        sceneTl.call(() => playPassingStep(pan, 0.048, 0.96), null, ts);
-      }
-    }
-  });
+ // 3.2s: hero's head turns slightly to follow one shadow (deadpan)
+ sceneTl.to(st,{head:-6,duration:0.7,ease:'sine.inOut'},3.2);
 
-  // Animate Wave 2 (Right -> Left shadows, 6.2s - 14.0s)
-  rlWalkers.forEach((w, idx) => {
-    const t0 = w.spec.start;
-    const dur = w.spec.dur;
-    sceneTl.to(w, { opacity: 0.94, duration: 0.45, ease: 'power1.out' }, t0);
-    sceneTl.to(w, { x: -70, duration: dur, ease: 'none' }, t0);
-    if (t0 + dur <= 14.0) {
-      sceneTl.to(w, { opacity: 0, duration: 0.45, ease: 'power1.in' }, t0 + dur - 0.45);
-    }
+ // 4.6s: warm accent drops — ember dims, fog thickens
+ sceneTl.to('#s4Ember',{opacity:.4,duration:1.0,ease:'power1.out'},4.6);
+ sceneTl.to('#s4Camera',{scale:1.075,duration:1.4,ease:'power1.inOut'},4.6);
 
-    const stepInt = 0.46;
-    const steps = Math.floor(Math.min(dur, 14.0 - t0) / stepInt);
-    for (let s = 0; s < steps; s++) {
-      const ts = t0 + s * stepInt;
-      const dirSign = s % 2 === 0 ? 9.0 : -9.0;
-      sceneTl.to(w, { stride: dirSign, duration: stepInt * 0.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, ts);
-      sceneTl.to(w, { bob: -2.0, duration: stepInt * 0.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, ts);
+ // 5.0s: hero returns to face camera deadpan hold (loop point)
+ sceneTl.to(st,{head:0,duration:0.8,ease:'sine.inOut'},5.0);
 
-      // Footsteps panned Right -> Left as wind thins out
-      if (idx % 2 === 0 && ts < 13.8) {
-        const progress = (ts - t0) / dur;
-        const pan = 0.65 - progress * 1.3;
-        sceneTl.call(() => playPassingStep(pan, 0.056, 1.04), null, ts);
-      }
-    }
-  });
-
-  // Standing Hero's deadpan reaction: watches left-to-right stream, then turns gaze right-to-left, then freezes at crossroads
-  sceneTl.to(st, { headRot: -3, eyeShift: -2.5, duration: 0.8, ease: 'sine.inOut' }, 0.8);
-  sceneTl.to(st, { headRot: 3, eyeShift: 3.5, duration: 1.6, ease: 'sine.inOut' }, 2.4);
-  sceneTl.to(st, { headRot: 4, eyeShift: 4.0, duration: 1.0, ease: 'sine.inOut' }, 6.0);
-  sceneTl.to(st, { headRot: -3, eyeShift: -3.5, duration: 1.8, ease: 'sine.inOut' }, 7.8);
-  sceneTl.to(st, { headRot: 0, eyeShift: 0, duration: 1.4, ease: 'sine.inOut' }, 11.2);
+ // 5.6s: final ember flicker, held still
+ sceneTl.to('#s4Ember',{opacity:.5,duration:.4,yoyo:true,repeat:1,ease:'sine.inOut'},5.6);
 }
 
-playBtn.addEventListener('click', () => { initAudio(); playScene4(); });
-replayBtn.addEventListener('click', () => { resetScene4ToStart(); });
-soundBtn.addEventListener('click', () => {
-  soundEnabled = !soundEnabled;
-  soundBtn.textContent = '🔊 Sound: ' + (soundEnabled ? 'ON' : 'OFF');
-  if (soundEnabled) initAudio();
-});
-
-window.addEventListener('load', () => {
-  resetScene4ToStart();
-  setTimeout(playScene4, 250);
-});
+playBtn.addEventListener('click',()=>{initAudio();playScene4();});
+replayBtn.addEventListener('click',()=>{resetScene4ToStart();});
+soundBtn.addEventListener('click',()=>{soundEnabled=!soundEnabled;soundBtn.textContent='🔊 Sound: '+(soundEnabled?'ON':'OFF');if(soundEnabled)initAudio();});
+window.addEventListener('load',()=>{resetScene4ToStart();setTimeout(playScene4,250);});
 </script>
-</body>
-</html>
+</body></html>
