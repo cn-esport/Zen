@@ -1,407 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — The Servant Who Left Scene 1: The Broom (5.0s + Foley SFX)</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zenspiris — Nukemairi Scene 2: Japan 1830 (9.0s + Foley SFX)</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #040406;
-    color: #e2e8f0;
-    font-family: system-ui, -apple-system, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    overflow: hidden;
-  }
-  .stage-wrapper {
-    position: relative;
-    width: 100vw;
-    max-width: 355px;
-    aspect-ratio: 9 / 16;
-    background: #04060c;
-    overflow: hidden;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, .95);
-    border-radius: 4px;
-  }
-  svg.scene-svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    shape-rendering: geometricPrecision;
-  }
-  .vignette {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(circle at 50% 48%, transparent 36%, rgba(3, 4, 8, .92) 100%);
-    z-index: 10;
-  }
-  .letterbox {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 5.5%;
-    background: #000;
-    z-index: 12;
-    pointer-events: none;
-  }
-  .letterbox.top {
-    top: 0;
-    border-bottom: 1px solid rgba(252, 211, 77, .35);
-  }
-  .letterbox.bottom {
-    bottom: 0;
-    border-top: 1px solid rgba(252, 211, 77, .35);
-  }
-  .controls {
-    display: flex;
-    gap: 10px;
-    z-index: 20;
-  }
-  button {
-    background: #16161f;
-    color: #e2e8f0;
-    border: 1px solid rgba(255, 255, 255, .12);
-    padding: 8px 15px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background .15s, border-color .15s;
-  }
-  button:hover {
-    background: #222230;
-    border-color: rgba(255, 255, 255, .25);
-  }
-  button.primary {
-    background: #1e3a5f;
-    border-color: rgba(96, 165, 250, .4);
-  }
-  button.primary:hover {
-    background: #264975;
-  }
-</style>
-</head>
-<body>
-
-<div class="stage-wrapper">
-  <div class="letterbox top"></div>
-  <div class="letterbox bottom"></div>
-  <div class="vignette"></div>
-
-  <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <!-- Pre-dawn sky gradient -->
-      <linearGradient id="s1Sky" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#04060c"/>
-        <stop offset="55%" stop-color="#0a0f1c"/>
-        <stop offset="100%" stop-color="#111827"/>
-      </linearGradient>
-
-      <!-- Cool upper-right dawn wash -->
-      <radialGradient id="s1DawnGlow" cx="85%" cy="18%" r="68%">
-        <stop offset="0%" stop-color="#60a5fa" stop-opacity=".22"/>
-        <stop offset="45%" stop-color="#38bdf8" stop-opacity=".08"/>
-        <stop offset="100%" stop-color="#04060c" stop-opacity="0"/>
-      </radialGradient>
-
-      <!-- Warm paper shoji window glow -->
-      <radialGradient id="s1WinGlow" cx="50%" cy="50%" r="55%">
-        <stop offset="0%" stop-color="#fef08a" stop-opacity=".95"/>
-        <stop offset="45%" stop-color="#fcd34d" stop-opacity=".75"/>
-        <stop offset="85%" stop-color="#d97706" stop-opacity=".25"/>
-        <stop offset="100%" stop-color="#0a0f1c" stop-opacity="0"/>
-      </radialGradient>
-
-      <!-- Ambient window spill onto veranda & Tomi's back -->
-      <radialGradient id="s1WinSpill" cx="22%" cy="54%" r="48%">
-        <stop offset="0%" stop-color="#fcd34d" stop-opacity=".20"/>
-        <stop offset="55%" stop-color="#f59e0b" stop-opacity=".06"/>
-        <stop offset="100%" stop-color="#04060c" stop-opacity="0"/>
-      </radialGradient>
-
-      <!-- Packed dirt courtyard floor -->
-      <linearGradient id="s1Floor" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#0d1322"/>
-        <stop offset="35%" stop-color="#131b2e"/>
-        <stop offset="100%" stop-color="#070a12"/>
-      </linearGradient>
-    </defs>
-
-    <g id="s1Camera">
-      <!-- Sky & Dawn Wash -->
-      <rect width="540" height="960" fill="url(#s1Sky)"/>
-      <rect width="540" height="960" fill="url(#s1DawnGlow)"/>
-
-      <!-- Subtle dawn light rays from upper right -->
-      <polygon points="540,0 380,0 140,785 360,785" fill="#60a5fa" opacity=".045"/>
-      <polygon points="540,120 460,0 240,785 450,785" fill="#bae6fd" opacity=".035"/>
-
-      <!-- Distant bamboo grove silhouettes -->
-      <g fill="#070b14" opacity=".85">
-        <rect x="210" y="180" width="7" height="605"/>
-        <rect x="245" y="140" width="9" height="645"/>
-        <rect x="285" y="210" width="6" height="575"/>
-        <rect x="330" y="160" width="8" height="625"/>
-        <rect x="375" y="195" width="6" height="590"/>
-        <!-- Bamboo nodes -->
-        <rect x="244" y="280" width="11" height="2" fill="#131b2e"/>
-        <rect x="244" y="410" width="11" height="2" fill="#131b2e"/>
-        <rect x="329" y="330" width="10" height="2" fill="#131b2e"/>
-        <rect x="329" y="470" width="10" height="2" fill="#131b2e"/>
-      </g>
-
-      <!-- Bamboo courtyard fence (mid-ground) -->
-      <g id="s1Fence">
-        <rect x="155" y="460" width="325" height="6" fill="#0d1322"/>
-        <rect x="155" y="585" width="325" height="6" fill="#0d1322"/>
-        <rect x="155" y="710" width="325" height="7" fill="#0b101d"/>
-        <!-- Vertical bamboo poles -->
-        <g fill="#0a0f1c" stroke="#131b2e" stroke-width="1">
-          <rect x="175" y="435" width="10" height="350" rx="2"/>
-          <rect x="195" y="438" width="10" height="347" rx="2"/>
-          <rect x="215" y="433" width="10" height="352" rx="2"/>
-          <rect x="235" y="437" width="10" height="348" rx="2"/>
-          <rect x="255" y="434" width="10" height="351" rx="2"/>
-          <rect x="275" y="439" width="10" height="346" rx="2"/>
-          <rect x="295" y="435" width="10" height="350" rx="2"/>
-          <rect x="315" y="436" width="10" height="349" rx="2"/>
-          <rect x="335" y="433" width="10" height="352" rx="2"/>
-          <rect x="355" y="438" width="10" height="347" rx="2"/>
-          <rect x="375" y="434" width="10" height="351" rx="2"/>
-          <rect x="395" y="437" width="10" height="348" rx="2"/>
-          <rect x="415" y="435" width="10" height="350" rx="2"/>
-          <rect x="435" y="436" width="10" height="349" rx="2"/>
-        </g>
-        <!-- Cool dawn rim highlight on right side of fence poles -->
-        <g fill="#60a5fa" opacity=".18">
-          <rect x="263" y="435" width="1.5" height="350"/>
-          <rect x="303" y="436" width="1.5" height="349"/>
-          <rect x="343" y="434" width="1.5" height="351"/>
-          <rect x="383" y="435" width="1.5" height="350"/>
-          <rect x="423" y="436" width="1.5" height="349"/>
-        </g>
-      </g>
-
-      <!-- Stone Lantern (Toro) unlit in pre-dawn -->
-      <g id="s1Lantern" transform="translate(392, 785)">
-        <rect x="-24" y="-16" width="48" height="16" rx="3" fill="#0d1322"/>
-        <rect x="-12" y="-76" width="24" height="60" fill="#0a0f1c"/>
-        <rect x="-20" y="-86" width="40" height="10" rx="2" fill="#131b2e"/>
-        <!-- Firebox -->
-        <rect x="-15" y="-116" width="30" height="30" fill="#080c16"/>
-        <rect x="-9" y="-110" width="18" height="18" fill="#04060c"/>
-        <!-- Pagoda roof & finial -->
-        <polygon points="-28,-116 28,-116 16,-132 -16,-132" fill="#131b2e"/>
-        <circle cx="0" cy="-137" r="5" fill="#131b2e"/>
-        <!-- Cool dawn rim on right edge -->
-        <path d="M 16 -132 L 28 -116 L 15 -116 L 15 -86 L 20 -86 L 20 -76 L 12 -76 L 12 -16 L 24 -16 L 24 0" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity=".32"/>
-      </g>
-
-      <!-- Left Traditional House & Wooden Veranda (Engawa) -->
-      <g id="s1House">
-        <!-- Main wall -->
-        <rect x="0" y="180" width="168" height="605" fill="#070a12"/>
-        <!-- Eaves overhang -->
-        <polygon points="0,220 205,255 205,268 0,242" fill="#0b101d"/>
-        <line x1="0" y1="220" x2="205" y2="255" stroke="#1e293b" stroke-width="2"/>
-
-        <!-- Shoji sliding door / window with warm interior glow -->
-        <rect x="28" y="340" width="112" height="295" fill="#1a120b"/>
-        <rect x="32" y="344" width="104" height="287" fill="url(#s1WinGlow)"/>
-        <!-- Shoji wooden lattice -->
-        <g stroke="#0d0a08" stroke-width="3">
-          <line x1="68" y1="344" x2="68" y2="631"/>
-          <line x1="102" y1="344" x2="102" y2="631"/>
-          <line x1="32" y1="402" x2="136" y2="402"/>
-          <line x1="32" y1="460" x2="136" y2="460"/>
-          <line x1="32" y1="518" x2="136" y2="518"/>
-          <line x1="32" y1="576" x2="136" y2="576"/>
-        </g>
-        <rect x="28" y="340" width="112" height="295" fill="none" stroke="#131b2e" stroke-width="5"/>
-
-        <!-- Wooden Veranda (Engawa) -->
-        <rect x="0" y="655" width="186" height="16" fill="#131b2e"/>
-        <rect x="0" y="655" width="186" height="2.5" fill="#fcd34d" opacity=".28"/>
-        <!-- Veranda support posts -->
-        <rect x="24" y="671" width="12" height="114" fill="#0a0f1c"/>
-        <rect x="162" y="671" width="12" height="114" fill="#0a0f1c"/>
-        <!-- Stepping stone -->
-        <ellipse cx="192" cy="783" rx="24" ry="7" fill="#131b2e"/>
-      </g>
-
-      <!-- Warm light spill from window -->
-      <rect width="540" height="960" fill="url(#s1WinSpill)"/>
-
-      <!-- Packed Dirt Courtyard Floor -->
-      <rect x="0" y="782" width="540" height="178" fill="url(#s1Floor)"/>
-      <line x1="0" y1="782" x2="540" y2="782" stroke="#1e293b" stroke-width="1.5" opacity=".6"/>
-      <!-- Subtle dirt texture lines -->
-      <g stroke="#1e293b" stroke-width="1" opacity=".35">
-        <line x1="140" y1="805" x2="230" y2="805"/>
-        <line x1="290" y1="822" x2="410" y2="822"/>
-        <line x1="180" y1="848" x2="275" y2="848"/>
-      </g>
-
-      <!-- Character Layer: Tomi -->
-      <g id="s1HeroLayer"></g>
-
-      <!-- Standalone Dropped Broom (revealed when Tomi lets go at 1.8s) -->
-      <g id="s1DroppedBroom" opacity="0">
-        <!-- Bamboo handle -->
-        <line x1="0" y1="-92" x2="0" y2="6" stroke="#475569" stroke-width="4.2" stroke-linecap="round"/>
-        <line x1="1" y1="-92" x2="1" y2="6" stroke="#60a5fa" stroke-width="1" opacity=".45"/>
-        <!-- Straw binding & bristles -->
-        <rect x="-4.5" y="2" width="9" height="6" rx="1" fill="#b5523b"/>
-        <polygon points="-4,8 4,8 13,34 -13,34" fill="#334155"/>
-        <line x1="-6" y1="10" x2="-9" y2="33" stroke="#1e293b" stroke-width="1.2"/>
-        <line x1="0" y1="10" x2="0" y2="34" stroke="#1e293b" stroke-width="1.2"/>
-        <line x1="6" y1="10" x2="9" y2="33" stroke="#1e293b" stroke-width="1.2"/>
-      </g>
-
-      <!-- Foreground Right Gate Post (Tomi walks past this to exit) -->
-      <g id="s1GatePost">
-        <rect x="478" y="360" width="38" height="445" fill="#070a12"/>
-        <!-- Cool dawn rim on right edge & subtle warm inner edge -->
-        <line x1="478" y1="360" x2="478" y2="805" stroke="#60a5fa" stroke-width="1.5" opacity=".25"/>
-        <rect x="472" y="455" width="12" height="14" fill="#131b2e"/>
-        <rect x="472" y="640" width="12" height="14" fill="#131b2e"/>
-      </g>
-    </g>
-  </svg>
-</div>
-
-<div class="controls">
-  <button id="playBtn" class="primary">▶ Play (5.0s)</button>
-  <button id="replayBtn">↺ 0.0s</button>
-  <button id="soundBtn">🔊 Sound: ON</button>
-</div>
-
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#040406;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+.stage-wrapper{position:relative;width:100vw;max-width:355px;aspect-ratio:9/16;background:#070911;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.95)}
+svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrecision}
+.vignette{position:absolute;inset:0;z-index:10;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 36%,rgba(3,4,8,.92) 100%)}
+.letterbox{position:absolute;left:0;right:0;height:5.5%;background:#000;z-index:12;pointer-events:none}
+.letterbox.top{top:0;border-bottom:1px solid rgba(252,211,77,.35)}
+.letterbox.bottom{bottom:0;border-top:1px solid rgba(252,211,77,.35)}
+.controls{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+.controls button{background:#16161f;color:#e6e2d6;border:1px solid #2a2a38;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
+.controls button.primary{background:#1e3a5f;border-color:#2f5688}
+</style></head><body>
+<div class="stage-wrapper"><div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
+<svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="s2Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset=".55" stop-color="#0b101d"/><stop offset="1" stop-color="#131b2e"/></linearGradient>
+  <radialGradient id="s2MoonHalo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#60a5fa" stop-opacity=".32"/><stop offset=".35" stop-color="#60a5fa" stop-opacity=".14"/><stop offset=".7" stop-color="#38bdf8" stop-opacity=".04"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/></radialGradient>
+  <linearGradient id="s2Mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#131b2e" stop-opacity="0"/><stop offset="1" stop-color="#131b2e" stop-opacity=".35"/></linearGradient>
+  <filter id="s2Blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+ </defs>
+ <g id="s2Camera">
+  <rect x="-60" y="-40" width="660" height="1040" fill="url(#s2Sky)"/>
+  <g id="s2Stars" fill="#cfe0ff"></g>
+  <ellipse cx="330" cy="610" rx="300" ry="260" fill="url(#s2MoonHalo)"/>
+  <circle id="s2Moon" cx="330" cy="640" r="82" fill="#60a5fa" opacity=".4"/>
+  <circle cx="306" cy="620" r="14" fill="#bae6fd" opacity=".07"/><circle cx="352" cy="662" r="20" fill="#bae6fd" opacity=".06"/><circle cx="342" cy="606" r="8" fill="#bae6fd" opacity=".06"/>
+  <ellipse cx="120" cy="520" rx="150" ry="9" fill="#1a2438" opacity=".35"/><ellipse cx="470" cy="470" rx="120" ry="7" fill="#1a2438" opacity=".3"/><ellipse cx="300" cy="590" rx="210" ry="6" fill="#1a2438" opacity=".25"/>
+  <path d="M -60 762 Q 90 690 220 716 T 430 684 T 600 728 L 600 1000 L -60 1000 Z" fill="#080b14"/>
+  <g id="s2Pines" fill="#04060b"></g>
+  <path d="M -60 776 Q 270 700 600 778 L 600 1000 L -60 1000 Z" fill="#05070d"/>
+  <path d="M -60 766 Q 270 692 600 768" fill="none" stroke="#60a5fa" stroke-opacity=".07" stroke-width="2"/>
+  <!-- Tokaido road -->
+  <path d="M -60 806 Q 270 754 600 806" fill="none" stroke="#141a27" stroke-width="62"/>
+  <path d="M -60 806 Q 270 754 600 806" fill="none" stroke="#1c2333" stroke-width="42" opacity=".85"/>
+  <path d="M -60 797 Q 270 745 600 797" fill="none" stroke="#0b0f19" stroke-width="2"/>
+  <path d="M -60 816 Q 270 764 600 816" fill="none" stroke="#0b0f19" stroke-width="2"/>
+  <path d="M -60 775 Q 270 723 600 775" fill="none" stroke="#60a5fa" stroke-opacity=".08" stroke-width="2"/>
+  <g id="s2ExtraLayer0"></g><g id="s2ExtraLayer1"></g><g id="s2ExtraLayer2"></g><g id="s2ExtraLayer3"></g><g id="s2ExtraLayer4"></g>
+  <g id="s2Hero1Layer"></g>
+  <g id="s2Hero2Layer"></g>
+  <g id="s2HeroLayer"></g>
+  <g id="s2KanjiG" opacity="0" font-family="'Noto Serif JP','Yu Mincho','Hiragino Mincho ProN','MS Mincho',serif" font-size="46" text-anchor="middle" letter-spacing="8">
+   <text x="270" y="520" fill="#b5523b" filter="url(#s2Blur)" opacity=".7">抜参り</text>
+   <text x="270" y="520" fill="#b5523b">抜参り</text>
+  </g>
+  <rect x="-60" y="840" width="660" height="140" fill="url(#s2Mist)"/>
+  <path id="s2Grass" d="" fill="#030407"/>
+ </g>
+ <text id="s2Year" x="44" y="868" fill="#ece7da" opacity="0" font-family="Georgia,'Times New Roman',serif" font-size="15" letter-spacing="5">1830</text>
+</svg></div>
+<div class="controls"><button id="playBtn" class="primary">▶ Play (9.0s)</button><button id="replayBtn">↺ 0.0s</button><button id="soundBtn">🔊 Sound: ON</button></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
-const $ = id => document.getElementById(id),
-      playBtn = $('playBtn'),
-      replayBtn = $('replayBtn'),
-      soundBtn = $('soundBtn');
-
-/* ===== PROCEDURAL WEB AUDIO (Section 7) ===== */
-let audioCtx = null, soundEnabled = true;
-
-function initAudio() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-}
-
-function tone(type, f0, f1, d, g, when = 0) {
-  if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime + when,
-        o = audioCtx.createOscillator(),
-        v = audioCtx.createGain();
-  o.type = type;
-  o.frequency.setValueAtTime(f0, t);
-  o.frequency.exponentialRampToValueAtTime(f1, t + d);
-  v.gain.setValueAtTime(g, t);
-  v.gain.exponentialRampToValueAtTime(.0001, t + d);
-  o.connect(v).connect(audioCtx.destination);
-  o.start(t);
-  o.stop(t + d + .02);
-}
-
-function noise(d, type, f, q, g, att, when = 0) {
-  if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime + when,
-        n = Math.floor(audioCtx.sampleRate * d),
-        b = audioCtx.createBuffer(1, n, audioCtx.sampleRate),
-        a = b.getChannelData(0);
-  for (let i = 0; i < n; i++) a[i] = Math.random() * 2 - 1;
-  const s = audioCtx.createBufferSource(),
-        fl = audioCtx.createBiquadFilter(),
-        v = audioCtx.createGain();
-  s.buffer = b;
-  fl.type = type;
-  fl.frequency.value = f;
-  fl.Q.value = q;
-  v.gain.setValueAtTime(.0001, t);
-  v.gain.linearRampToValueAtTime(g, t + att);
-  v.gain.exponentialRampToValueAtTime(.0001, t + d);
-  s.connect(fl).connect(v).connect(audioCtx.destination);
-  s.start(t);
-}
-
-function bed(d, type, f, q, g) {
-  if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime,
-        n = Math.floor(audioCtx.sampleRate * d),
-        b = audioCtx.createBuffer(1, n, audioCtx.sampleRate),
-        a = b.getChannelData(0);
-  // Brown-ish filtered noise approximation
-  let last = 0;
-  for (let i = 0; i < n; i++) {
-    const w = Math.random() * 2 - 1;
-    last = (last + 0.04 * w) / 1.04;
-    a[i] = last * 3.2;
-  }
-  const s = audioCtx.createBufferSource(),
-        fl = audioCtx.createBiquadFilter(),
-        v = audioCtx.createGain();
-  s.buffer = b;
-  fl.type = type;
-  fl.frequency.value = f;
-  fl.Q.value = q;
-  v.gain.setValueAtTime(.0001, t);
-  v.gain.linearRampToValueAtTime(g, t + .35);
-  v.gain.setValueAtTime(g, t + d - .45);
-  v.gain.linearRampToValueAtTime(.0001, t + d);
-  s.connect(fl).connect(v).connect(audioCtx.destination);
-  s.start(t);
-}
-
-// Scene 1 Spot SFX
-const playSweep = () => {
-  // Dry straw-on-dirt swish (bandpass 1.2 kHz)
-  noise(0.26, 'bandpass', 1200, 1.4, 0.065, 0.05);
-};
-
-const playBroomClatter = () => {
-  // Hollow wooden clatter: two hits 0.08s apart + 120 Hz thump
-  tone('triangle', 125, 48, 0.14, 0.12, 0);
-  noise(0.09, 'bandpass', 950, 2.2, 0.085, 0.005, 0);
-  tone('triangle', 140, 58, 0.10, 0.075, 0.08);
-  noise(0.07, 'bandpass', 1150, 2.5, 0.06, 0.004, 0.08);
-};
-
-const playDirtStep = (gain = 0.085) => {
-  // Soft packed dirt thud (lowpass 700 Hz)
-  noise(0.09, 'lowpass', 700, 0.7, gain, 0.012);
-  tone('sine', 95, 42, 0.07, gain * 0.65);
-};
-
-const playInsectChirp = () => {
-  // Sparse 4.2 kHz cricket chirp
-  tone('sine', 4200, 4120, 0.045, 0.01, 0);
-  tone('sine', 4200, 4120, 0.045, 0.01, 0.065);
-};
-
-const playWindSwell = (dur = 0.7, g = 0.025) => {
-  noise(dur, 'bandpass', 320, 1.8, g, dur * 0.35);
-};
+const $=id=>document.getElementById(id),playBtn=$('playBtn'),replayBtn=$('replayBtn'),soundBtn=$('soundBtn');
+const DUR=9.0;
+/* ---- AUDIO helpers ---- */
+let audioCtx=null,soundEnabled=true;
+function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}
+function tone(type,f0,f1,d,g,when=0){if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime+when,o=audioCtx.createOscillator(),v=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);v.gain.setValueAtTime(g,t);v.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+d+.02);}
+function noise(d,type,f,q,g,att,when=0){if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime+when,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type=type;fl.frequency.value=f;fl.Q.value=q;v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+att);v.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
+function bed(d,type,f,q,g){ // steady ambience: fades in 0.4s, holds, fades out 0.5s
+ if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
+ const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type=type;fl.frequency.value=f;fl.Q.value=q;v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+.4);v.gain.setValueAtTime(g,t+d-.5);v.gain.linearRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
+/* scene-specific audio */
+function drone(d,f,g){ // distant shamisen-like drone: soft triangle, lowpassed, slow fade in/out
+ if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,o=audioCtx.createOscillator(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();
+ o.type='triangle';o.frequency.value=f;fl.type='lowpass';fl.frequency.value=520;fl.Q.value=.5;
+ v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+.8);v.gain.setValueAtTime(g,t+d-.7);v.gain.linearRampToValueAtTime(.0001,t+d);
+ o.connect(fl).connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+d+.05);}
+function crickets(d,f,rate,g,phase){ // sine carrier pulsed at ~12 Hz, chirp bursts
+ if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,o=audioCtx.createOscillator(),amp=audioCtx.createGain(),lfo=audioCtx.createOscillator(),lg=audioCtx.createGain(),env=audioCtx.createGain();
+ o.type='sine';o.frequency.value=f;amp.gain.value=g/2;lfo.frequency.value=rate;lg.gain.value=g/2;lfo.connect(lg).connect(amp.gain);
+ env.gain.setValueAtTime(0,t);for(let s=phase;s<d-.4;s+=.9){env.gain.setValueAtTime(0,t+s);env.gain.linearRampToValueAtTime(1,t+s+.03);env.gain.setValueAtTime(1,t+s+.3);env.gain.linearRampToValueAtTime(0,t+s+.34);}
+ o.connect(amp).connect(env).connect(audioCtx.destination);o.start(t);lfo.start(t);o.stop(t+d);lfo.stop(t+d);}
+function sweep(d,f0,f1,g){ // filtered noise sweep (brush stroke)
+ if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
+ const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type='bandpass';fl.Q.value=.9;fl.frequency.setValueAtTime(f0,t);fl.frequency.exponentialRampToValueAtTime(f1,t+d);
+ v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+.08);v.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
+// dirt-road step + straw swish; gm = layered level (-3 dB per extra walker), small random jitter so steps never align
+const playStep=(gm=1)=>{const j=Math.random()*.02;noise(.07,'lowpass',900,.6,.05*gm,.005,j);noise(.1,'bandpass',3400,.9,.02*gm,.012,j+.015);};
+const playTing=()=>tone('sine',880,840,.3,.03);   // small nervous "ting", like a held breath
+const playBrush=()=>sweep(.4,3000,800,.05);       // brush-stroke whoosh
 
 /* ===== ZChar v1 — Zenspiris base character rig (copy verbatim, never redraw) ===== */
 const ZNS='http://www.w3.org/2000/svg',ZD=Math.PI/180;
 const ZDEF={stride:16,legOffset:0,kneeStatic:4,kneeBend:30,bob:2,armTilt:10,elbow:10,arm:18,height:1,torsoLen:0,legLen:1,tw:24,bw:22,torsoBot:-48,belly:0,tilt:0,headNod:2,headR:22,limb:11,footSize:1,eyeGap:7.5,eyeR:2.1,lookRange:4};
-const ZHATS={none:[],chef:[['M -16 -12 L -18 -34 Q -26 -52 -8 -54 Q 0 -66 11 -55 Q 26 -52 18 -34 L 16 -12 Z','#ece8dc'],['M -17 -20 H 17 V -16 H -17 Z','#cfc9b8']],cap:[['M -20 -8 Q -20 -30 0 -30 Q 20 -30 20 -8 Z','#2b4a6b'],['M 8 -10 L 30 -8 L 30 -4 L 8 -5 Z','#1f3650',1]],flatcap:[['M -21 -10 Q -18 -28 4 -26 Q 22 -24 22 -10 Z','#3a3f4a'],['M 12 -11 L 27 -9 L 27 -6 L 12 -8 Z','#2a2e38',1]],top:[['M -14 -16 V -52 H 14 V -16 Z','#2b2f3d'],['M -24 -18 H 24 V -13 H -24 Z','#2b2f3d'],['M -14 -24 H 14 V -20 H -14 Z','#6b3a3a']],hood:[['M -26 8 Q -31 -30 0 -35 Q 31 -30 26 8 Q 20 -15 0 -17 Q -20 -15 -26 8 Z','#5b4a3a']],helmet:[['M -23 -4 Q -24 -34 0 -34 Q 24 -34 23 -4 Z','#7b8596'],['M -23 -8 H 23 V -4 H -23 Z','#5d6675']],beanie:[['M -21 -8 Q -22 -34 0 -34 Q 22 -34 21 -8 Z','#8b2e2e'],['M -21 -12 H 21 V -7 H -21 Z','#6d2222']],tenugui:[['M -21 -9 Q -22 -24 0 -24 Q 22 -24 21 -9 Q 12 -13 0 -13 Q -12 -13 -21 -9 Z','#d9d2c0'],['M -21 -11 H 21 V -7 H -21 Z','#ece8dc'],['M -20 -9 L -26 2 L -21 4 L -17 -7 Z','#d9d2c0',1]]};
-const ZSHOES={none:null,bare:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12']],shoe:[['M -6 -5 L 7 -5 L 9 0 L 15 2 L 16 6 L -7 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#3a3f4d']],boot:[['M -7 -5 L 8 -5 L 9 0 L 16 2 L 17 6 L -8 6 Z','#3b2a1d'],['M -8 4 L 17 4 L 17 6 L -8 6 Z','#1f150e']],sandal:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#8a6a3d'],['M -5 -1 H 7 V 0.5 H -5 Z','#8a6a3d']],waraji:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#9c7c4c'],['M -4 -1 L 7 3 M 2 -2 L -3 3','#9c7c4c']]};
+const ZHATS={none:[],chef:[['M -16 -12 L -18 -34 Q -26 -52 -8 -54 Q 0 -66 11 -55 Q 26 -52 18 -34 L 16 -12 Z','#ece8dc'],['M -17 -20 H 17 V -16 H -17 Z','#cfc9b8']],cap:[['M -20 -8 Q -20 -30 0 -30 Q 20 -30 20 -8 Z','#2b4a6b'],['M 8 -10 L 30 -8 L 30 -4 L 8 -5 Z','#1f3650',1]],flatcap:[['M -21 -10 Q -18 -28 4 -26 Q 22 -24 22 -10 Z','#3a3f4a'],['M 12 -11 L 27 -9 L 27 -6 L 12 -8 Z','#2a2e38',1]],top:[['M -14 -16 V -52 H 14 V -16 Z','#2b2f3d'],['M -24 -18 H 24 V -13 H -24 Z','#2b2f3d'],['M -14 -24 H 14 V -20 H -14 Z','#6b3a3a']],hood:[['M -26 8 Q -31 -30 0 -35 Q 31 -30 26 8 Q 20 -15 0 -17 Q -20 -15 -26 8 Z','#5b4a3a']],helmet:[['M -23 -4 Q -24 -34 0 -34 Q 24 -34 23 -4 Z','#7b8596'],['M -23 -8 H 23 V -4 H -23 Z','#5d6675']],beanie:[['M -21 -8 Q -22 -34 0 -34 Q 22 -34 21 -8 Z','#8b2e2e'],['M -21 -12 H 21 V -7 H -21 Z','#6d2222']]};
+const ZSHOES={none:null,bare:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12']],shoe:[['M -6 -5 L 7 -5 L 9 0 L 15 2 L 16 6 L -7 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#3a3f4d']],boot:[['M -7 -5 L 8 -5 L 9 0 L 16 2 L 17 6 L -8 6 Z','#3b2a1d'],['M -8 4 L 17 4 L 17 6 L -8 6 Z','#1f150e']],sandal:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#8a6a3d'],['M -5 -1 H 7 V 0.5 H -5 Z','#8a6a3d']]};
 /* outfit = {shirt:[color,dTop,bottomY,pad,flare], sl:[len 's'|'l',color], pa:[len 'l'|'k',color], hat, shoe, ex:'apron'|'tie'|'belt'} — any field optional. Example outfits, NOT a limit: invent new ones per story. */
 const ZOUT={'Tee + Jeans':{shirt:['#3d5a80',0,-36,2,1],sl:['s','#3d5a80'],pa:['l','#2a3f66'],hat:'none',shoe:'shoe'},'Hoodie + Joggers':{shirt:['#4a4f5c',0,-30,4,3],sl:['l','#4a4f5c'],pa:['l','#2e3340'],hat:'hood',shoe:'shoe'},'Suit + Tie':{shirt:['#1f2433',0,-24,3,4],sl:['l','#1f2433'],pa:['l','#1f2433'],hat:'none',shoe:'shoe',ex:'tie'},
 'Baker':{shirt:['#1e2330',0,-26,2,2],sl:['l','#1e2330'],pa:['l','#15171f'],hat:'chef',shoe:'shoe',ex:'apron'},'Gentleman':{shirt:['#2a2630',0,-10,3,8],sl:['l','#2a2630'],pa:['l','#1a1a22'],hat:'top',shoe:'boot'},'Worker':{shirt:['#6b5a45',0,-34,2,2],sl:['l','#b8ad98'],pa:['l','#4a4034'],hat:'flatcap',shoe:'boot'},
 'Peasant':{shirt:['#7a6446',0,-18,2,6],sl:['s','#7a6446'],pa:['l','#5a4a36'],hat:'none',shoe:'bare'},'Monk robe':{shirt:['#5b4a3a',0,-4,3,12],sl:['l','#5b4a3a'],hat:'hood',shoe:'sandal'},'Knight':{shirt:['#7b8596',0,-30,5,3],sl:['l','#7b8596'],pa:['l','#6b7586'],hat:'helmet',shoe:'boot',ex:'belt'},
-'Roman tunic':{shirt:['#d9d2c0',0,-26,2,4],sl:['s','#d9d2c0'],hat:'none',shoe:'sandal',ex:'belt'},'Toga':{shirt:['#e8e2d0',0,-6,4,8],sl:['s','#e8e2d0'],hat:'none',shoe:'sandal'},'Kilt (bare chest)':{shirt:['#e8e2d0',48,-24,3,8],hat:'none',shoe:'sandal'},
-'Tomi Servant':{shirt:['#1b2338',0,-22,2,5],sl:['s','#1b2338'],pa:['l','#2e3b55'],hat:'tenugui',shoe:'waraji',ex:'belt'}};
+'Roman tunic':{shirt:['#d9d2c0',0,-26,2,4],sl:['s','#d9d2c0'],hat:'none',shoe:'sandal',ex:'belt'},'Toga':{shirt:['#e8e2d0',0,-6,4,8],sl:['s','#e8e2d0'],hat:'none',shoe:'sandal'},'Kilt (bare chest)':{shirt:['#e8e2d0',48,-24,3,8],hat:'none',shoe:'sandal'}};
 const ZT=`<ellipse data-r="shd" cx="0" cy="2" rx="32" ry="6" fill="#000" opacity=".9"/><g data-r="ch">
 <path data-r="lbp" stroke="#08070c" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="lbo" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="lbb" fill="none"/><g data-r="lbs"></g>
 <path data-r="lfp" stroke="#0d0b12" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="lfo" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="lfb" fill="none"/><g data-r="lfs"></g>
@@ -414,6 +106,8 @@ const ZT=`<ellipse data-r="shd" cx="0" cy="2" rx="32" ry="6" fill="#000" opacity
 <path data-r="a1" fill="none" stroke="#f2ede2" stroke-width="2.1" stroke-linecap="round"/><path data-r="a2" fill="none" stroke="#f2ede2" stroke-width="2.1" stroke-linecap="round"/>
 <line data-r="b1" stroke="#f2ede2" stroke-width="1.8" stroke-linecap="round"/><line data-r="b2" stroke="#f2ede2" stroke-width="1.8" stroke-linecap="round"/>
 <path data-r="mp" fill="none" stroke="#f2ede2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g></g>`;
+/* Usage: const c=ZChar(parentG,{outfit:'Baker',params:{height:1.05},rim:'#fcd34d'}); c.update({x:200,y:785,walk:1,ph:cycles,yaw:0,headTurn:0,lookX:0,lookY:0,eyes:'deadpan',mouth:'flat',brow:'none',tilt:0,lean:0,na:[tilt,elbow],fa:[tilt,elbow],t:seconds,blink:true})
+   yaw: 0 faces right, 90 faces camera, 180 faces left, 270 back. Props: append to c.hand (a <g> at the near hand, local origin = hand). */
 function ZChar(parent,o){
  o=o||{};const P=Object.assign({},ZDEF,o.params||{}),g=document.createElementNS(ZNS,'g');g.innerHTML=ZT;parent.appendChild(g);
  const E={};['shd','ch','lbp','lbo','lbb','lbs','lfp','lfo','lfb','lfs','fap','fso','tr','tc','gt','ga','gi','gb','nap','nso','hn','hd','rim','hc','hatg','e1','e2','l1','l2','a1','a2','b1','b2','mp'].forEach(r=>E[r]=g.querySelector('[data-r="'+r+'"]'));
@@ -475,195 +169,113 @@ function ZChar(parent,o){
  C.setHat(o.hat||(C.outfit&&C.outfit.hat)||'none');C.setShoe(o.shoe||(C.outfit&&C.outfit.shoe)||'shoe');if(o.rim)C.setRim(o.rim);
  C.update({});return C;
 }
+/* ===== end ZChar ===== */
 
-/* ===== CHARACTER SETUP: TOMI ===== */
-// Slim servant build, dark indigo kimono hitched up, grey-blue leggings, waraji, tenugui wrap
-const tomi = ZChar($('s1HeroLayer'), {
-  outfit: 'Tomi Servant',
-  params: { tw: 21, bw: 19, height: 1.0 },
-  rim: '#60a5fa' // Cool dawn rim from upper right
+/* ---- Scene 2 wardrobe: Edo-period travellers (new entries, same anatomy) ---- */
+Object.assign(ZHATS,{
+ sugegasa:[['M -36 -9 Q -16 -14 0 -35 Q 16 -14 36 -9 Q 0 -3 -36 -9 Z','#7a6d52'],['M -34 -9 Q 0 -3 34 -9 L 34 -7.5 Q 0 -1.5 -34 -7.5 Z','#5b5039']],
+ hachimaki:[['M -20 -11 Q 0 -19 20 -11 L 20 -6.5 Q 0 -14.5 -20 -6.5 Z','#a04a38'],['M 17 -10 L 28 -5 L 26 -1.5 L 15 -6.5 Z','#a04a38',1]],
+ headcloth:[['M -20 -9 Q -22 -30 0 -30 Q 22 -30 20 -9 Q 0 -15 -20 -9 Z','#59626f']],
+ bun:[['M -6 -20 Q -10 -34 0 -34 Q 10 -34 6 -20 Z','#2f3544'],['M -3.5 -30 H 3.5 V -27 H -3.5 Z','#a04a38']]
 });
-
-// Add dual-tone rim/tasuki cord detail onto Tomi's torso & hand broom
-const handBroom = document.createElementNS(ZNS, 'g');
-handBroom.innerHTML = `
-  <g id="s1HandBroomInner" transform="rotate(-14)">
-    <line x1="0" y1="-88" x2="0" y2="10" stroke="#475569" stroke-width="4.2" stroke-linecap="round"/>
-    <line x1="1" y1="-88" x2="1" y2="10" stroke="#60a5fa" stroke-width="1" opacity=".45"/>
-    <rect x="-4.5" y="6" width="9" height="6" rx="1" fill="#b5523b"/>
-    <polygon points="-4,12 4,12 13,38 -13,38" fill="#334155"/>
-    <line x1="-6" y1="14" x2="-9" y2="37" stroke="#1e293b" stroke-width="1.2"/>
-    <line x1="0" y1="14" x2="0" y2="38" stroke="#1e293b" stroke-width="1.2"/>
-    <line x1="6" y1="14" x2="9" y2="37" stroke="#1e293b" stroke-width="1.2"/>
-  </g>
-`;
-tomi.hand.appendChild(handBroom);
-
-// Note: yaw in ZChar is in degrees (0 = right, 90 = camera, 180 = left).
-// Script specifies three-quarter facing left (yaw ~142 deg) turning to facing right toward gate (yaw ~18 deg).
-const HERO0 = {
-  x: 318,
-  walk: 0,
-  ph: 0,
-  yaw: 142,       // Three-quarter facing left (back-left catches warm window rim, right catches cool dawn rim)
-  headTurn: 0,
-  tilt: 4,
-  eyes: 'deadpan',
-  mouth: 'flat',
-  brow: 'none',
-  lookX: 0.25,
-  lookY: -0.2,    // Looking down at ground
-  lean: 3,        // Slight forward sweeping lean
-  naT: 26,
-  naE: 28,
-  faT: 18,
-  faE: 35,
-  t: 0
+Object.assign(ZSHOES,{waraji:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#7a6a46'],['M -5 -1 H 7 V 0.5 H -5 Z','#7a6a46']]});
+const OUT={
+ tomi:{shirt:['#2b384b',0,-16,3,7],sl:['l','#2b384b'],pa:['k','#262f3f'],hat:'sugegasa',shoe:'waraji',ex:'belt'},
+ kichi:{shirt:['#232e3f',0,-14,3,6],sl:['l','#232e3f'],pa:['k','#222b3a'],hat:'hachimaki',shoe:'waraji',ex:'belt'},
+ hana:{shirt:['#3a3146',0,-8,3,9],sl:['l','#3a3146'],hat:'bun',shoe:'waraji'},
+ exA:{shirt:['#2f3743',0,-12,3,7],sl:['l','#2f3743'],pa:['k','#262c38'],hat:'sugegasa',shoe:'waraji'},
+ exB:{shirt:['#2e3a3a',0,-14,3,6],sl:['l','#2e3a3a'],pa:['k','#222a2c'],hat:'headcloth',shoe:'waraji',ex:'belt'},
+ exC:{shirt:['#473a40',0,-8,3,9],sl:['l','#473a40'],hat:'bun',shoe:'waraji'},
+ exD:{shirt:['#33384a',0,-14,3,6],sl:['l','#33384a'],pa:['k','#242838'],hat:'hachimaki',shoe:'waraji'}
 };
-const st = { ...HERO0 };
-const droppedBroom = $('s1DroppedBroom');
+const roadY=x=>806-26*Math.sin(Math.PI*Math.min(Math.max((x+60)/660,0),1)); // road crest follows the hill
+const FEET=55; // px advanced per walk cycle at height 1; cycle = FEET*h/speed so feet never skate
+const RIM='#60a5fa'; // cool moon rim on everyone, no warm source
 
-const render = () => {
-  // Subtle dynamic rim switch: warm window glow when facing left, cool dawn light when turning toward gate
-  const rimCol = st.yaw > 90 ? '#fcd34d' : '#60a5fa';
-  tomi.setRim(rimCol);
-  tomi.update({
-    ...st,
-    y: 785,
-    na: [st.naT, st.naE],
-    fa: [st.faT, st.faE]
-  });
-};
-
-// Walk helper with packed-dirt footsteps (0.7 cycles/s => cycle = 1/0.7 ≈ 1.43s)
-function walk(tl, t0, x1, dur, cycle = 1.43) {
-  tl.to(st, { walk: 0.85, duration: 0.14 }, t0)
-    .to(st, { x: x1, duration: dur, ease: 'none' }, t0)
-    .to(st, { ph: '+=' + (dur / cycle), duration: dur, ease: 'none' }, t0);
-  const stepInterval = cycle / 2;
-  for (let k = 0; k * stepInterval < dur - 0.15; k++) {
-    const stepTime = t0 + k * stepInterval + 0.08;
-    const fadeGain = stepTime > 4.2 ? 0.045 : 0.085;
-    tl.call(() => playDirtStep(fadeGain), null, stepTime);
-  }
+/* ---- Walkers: Tomi (lead), Kichi, Hana (hand-held), 5 faded extras ---- */
+function mkWalker(o){
+ const c=ZChar($(o.layer),{outfit:o.outfit,params:o.params,rim:RIM}),h=(o.params&&o.params.height)||1;
+ const w=Object.assign({c,h,cyc:FEET*h/o.v,dy:0,hold:false,gm:1},o);
+ w.init=()=>({x:o.xStart!=null?o.xStart:-220,walk:1,ph:o.ph0,yaw:o.yaw||0,headTurn:0,tilt:0,eyes:'deadpan',mouth:'flat',brow:'none',lookX:0,lookY:0,lean:o.lean==null?4:o.lean,naT:o.naT==null?10:o.naT,naE:o.naE==null?10:o.naE,t:0});
+ w.st=w.init();return w;
 }
+const tomi =mkWalker({layer:'s2HeroLayer', outfit:OUT.tomi, te:0,  x0:-45, v:55,ph0:.10,gm:1,   yaw:-.8,lean:3,naT:25,naE:70,hold:true,xStart:-45});
+const kichi=mkWalker({layer:'s2Hero2Layer',outfit:OUT.kichi,params:{height:1.06},te:1.4,x0:-50,v:55,ph0:.35,gm:.71,naT:-32,naE:6,hold:true});
+const hana =mkWalker({layer:'s2Hero1Layer',outfit:OUT.hana, params:{height:.72}, te:2.6,x0:-35,v:55,ph0:.60,gm:.5, naT:62,naE:12,hold:true});
+const EXT=[
+ {outfit:OUT.exA,params:{height:.95},x0:-45,v:46,ph0:.30,gm:.35},
+ {outfit:OUT.exB,params:{height:1},  x0:-10,v:47,ph0:.70,gm:.25},
+ {outfit:OUT.exC,params:{height:.7}, x0:25, v:45,ph0:.45,gm:.18},
+ {outfit:OUT.exD,params:{height:.92},x0:60, v:44,ph0:.90,gm:.18},
+ {outfit:OUT.exA,params:{height:.98},x0:85, v:46,ph0:.55,gm:.18}
+].map((e,i)=>mkWalker(Object.assign({layer:'s2ExtraLayer'+i,te:3.6,dy:-14,lean:3.5},e)));
+const WALKERS=[...EXT,hana,kichi,tomi]; // back to front
+// Tomi's bundle on a stick, resting over the shoulder (prop lives in the near hand)
+tomi.c.hand.innerHTML='<path d="M 6 4 L -90 -42" stroke="#3b2a1d" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M -88 -42 L -88 -26" stroke="#5a4a36" stroke-width="1.5" fill="none"/><ellipse cx="-88" cy="-17" rx="13" ry="11" fill="#2c3547"/><path d="M -98 -17 Q -88 -12 -78 -17 M -88 -27 L -88 -7" stroke="#222a3a" stroke-width="1.5" fill="none"/><path d="M -99 -23 Q -88 -32 -77 -23" stroke="#60a5fa" stroke-opacity=".4" stroke-width="1.4" fill="none"/>';
+function renderW(w){const s=w.st,sw=w.hold?w.c.P.arm*s.walk*Math.sin(2*Math.PI*s.ph):0; // hold: cancel arm swing so the hand-hold / carry pose stays locked
+ w.c.update({x:s.x,y:roadY(s.x)+w.dy,walk:s.walk,ph:s.ph,yaw:s.yaw,headTurn:s.headTurn,tilt:s.tilt,eyes:s.eyes,mouth:s.mouth,brow:s.brow,lookX:s.lookX,lookY:s.lookY,lean:s.lean,na:[s.naT+sw,s.naE],t:s.t});}
+const renderAll=()=>WALKERS.forEach(renderW);
 
-/* ===== TIMELINE (5.0s) ===== */
-let sceneTl = null;
+/* ---- Static set dressing ---- */
+(function(){
+ let stars='';[[40,90,1.2],[110,160,1],[190,60,1.4],[250,210,1],[420,80,1.3],[480,170,1],[390,240,1.1],[60,300,1],[500,320,1.2],[150,380,.9],[455,400,1],[230,120,1],[330,150,.9],[90,450,1],[520,500,.9]].forEach(([x,y,r])=>stars+=`<circle cx="${x}" cy="${y}" r="${r}" opacity="${(.25+((x*y)%7)/20).toFixed(2)}"/>`);$('s2Stars').innerHTML=stars;
+ const pine=(x,b,h,fl)=>{let s=`<path d="M ${x-4} ${b} Q ${x+6} ${b-h*.45} ${x-2} ${b-h*.85} L ${x+3} ${b-h*.85} Q ${x+11} ${b-h*.45} ${x+5} ${b} Z"/>`;
+  [[.50,.30,-.14],[.66,.25,.15],[.82,.20,-.08],[.96,.14,.05]].forEach(([yy,rr,dx])=>{const cx=x+dx*h*fl,cy=b-h*yy;s+=`<ellipse cx="${cx}" cy="${cy}" rx="${h*rr}" ry="${h*.05}"/><ellipse cx="${cx+h*rr*.1}" cy="${cy-h*.04}" rx="${h*rr*.68}" ry="${h*.04}"/><path d="M ${x} ${cy+h*.03} L ${cx} ${cy}" stroke="#04060b" stroke-width="3"/>`;});return s;};
+ $('s2Pines').innerHTML=pine(46,748,210,1)+pine(150,728,120,-1)+pine(238,716,86,1)+pine(430,706,170,-1)+pine(506,722,128,1)+pine(588,740,200,-1)+pine(-10,760,150,1);
+ let gr='M -60 1000 L -60 930 ';for(let x=-60;x<=600;x+=11){const hh=14+((x*7)%23);gr+=`L ${x+3} ${930-hh} L ${x+6} 930 `;}gr+='L 600 1000 Z';$('s2Grass').setAttribute('d',gr);
+})();
 
-function resetScene1ToStart() {
-  if (sceneTl) {
-    sceneTl.kill();
-    sceneTl = null;
-  }
-  Object.assign(st, HERO0);
-  gsap.set('#s1Camera', { scale: 1, svgOrigin: '310 680' });
-  gsap.set('#s1HandBroomInner', { opacity: 1, rotation: -14, y: 0 });
-  gsap.set(droppedBroom, { opacity: 0, x: 292, y: 742, rotation: 0, svgOrigin: '0 -92' });
-  render();
-  replayBtn.textContent = '↺ 0.0s';
+/* ---- TIMELINE (9.0s) ---- */
+let sceneTl=null;
+function resetScene2ToStart(){
+ if(sceneTl){sceneTl.kill();sceneTl=null;}
+ WALKERS.forEach(w=>{w.st=w.init();});
+ gsap.set('#s2Camera',{scale:1,x:0,svgOrigin:'300 700'});
+ gsap.set('#s2Year',{opacity:0});
+ gsap.set('#s2KanjiG',{opacity:0,y:0});
+ EXT.forEach(w=>gsap.set(w.c.g.parentNode,{opacity:0}));
+ renderAll();replayBtn.textContent='↺ 0.0s';
 }
-
-function playScene1() {
-  resetScene1ToStart();
-
-  sceneTl = gsap.timeline({
-    onUpdate: () => {
-      st.t = sceneTl.time();
-      render();
-      replayBtn.textContent = `↺ ${sceneTl.time().toFixed(1)}s`;
-    },
-    onComplete: () => {
-      replayBtn.textContent = '↺ 5.0s';
-    }
-  });
-
-  // Camera: slow push-in toward Tomi's hands (zoom 1.0 -> 1.08 over 5.0s)
-  sceneTl.to('#s1Camera', {
-    scale: 1.08,
-    svgOrigin: '310 680',
-    duration: 5.0,
-    ease: 'power1.inOut'
-  }, 0);
-
-  // Ambient bed: Low brown-noise air tone (lowpass 220 Hz, gain 0.05)
-  sceneTl.call(() => bed(4.9, 'lowpass', 220, 0.7, 0.05), null, 0.05);
-  // Sparse sine-chirp insects (4.2 kHz)
-  sceneTl.call(playInsectChirp, null, 0.4);
-  sceneTl.call(playInsectChirp, null, 1.65);
-  sceneTl.call(playInsectChirp, null, 2.9);
-  sceneTl.call(playInsectChirp, null, 4.1);
-  // Very faint wind swell at 2.5s
-  sceneTl.call(() => playWindSwell(0.9, 0.02), null, 2.5);
-
-  // 0.0s - 0.8s: Sweeping in slow repeated strokes (+/- 12 deg) + straw swish every 0.6s
-  sceneTl.call(playSweep, null, 0.05);
-  sceneTl.to(st, { naT: 38, faT: 26, duration: 0.3, ease: 'sine.inOut' }, 0.0)
-         .to(st, { naT: 14, faT: 12, duration: 0.3, ease: 'sine.inOut' }, 0.3)
-         .call(playSweep, null, 0.65)
-         .to(st, { naT: 36, faT: 24, duration: 0.32, ease: 'sine.inOut' }, 0.6);
-
-  // 0.8s - 1.8s: Sweeping slows down and stops
-  sceneTl.call(playSweep, null, 1.25);
-  sceneTl.to(st, { naT: 20, faT: 14, duration: 0.35, ease: 'power1.out' }, 0.92)
-         .to(st, { naT: 30, faT: 18, duration: 0.38, ease: 'power2.out' }, 1.27)
-         .to(st, { lean: 1.5, tilt: 2, duration: 0.35, ease: 'power1.out' }, 1.45);
-
-  // 1.8s - 2.3s: Broom rises slightly, Tomi opens hand; broom tips & falls along arc (0 -> 82 deg over 0.5s)
-  sceneTl.to(st, { naT: 38, naE: 20, duration: 0.16, ease: 'power2.out' }, 1.64)
-         .set('#s1HandBroomInner', { opacity: 0 }, 1.8)
-         .set(droppedBroom, { opacity: 1, x: 288, y: 746, rotation: 8 }, 1.8)
-         .to(droppedBroom, {
-           rotation: 82,
-           y: 774,
-           x: 282,
-           duration: 0.5,
-           ease: 'power2.in'
-         }, 1.8)
-         // Tomi watches it fall (eyes deadpan, brow none)
-         .to(st, { lookY: -0.55, tilt: 7, naT: 12, naE: 12, faT: 10, faE: 12, duration: 0.35, ease: 'power2.out' }, 1.85);
-
-  // 2.3s: Hollow wooden clatter on packed dirt
-  sceneTl.call(playBroomClatter, null, 2.3);
-  // Tiny bounce settle on fallen broom
-  sceneTl.to(droppedBroom, { rotation: 79, duration: 0.06, ease: 'power1.out' }, 2.3)
-         .to(droppedBroom, { rotation: 82, duration: 0.08, ease: 'power1.in' }, 2.36);
-
-  // 2.5s - 3.0s: Brief stillness before turning
-  sceneTl.to(st, { tilt: 2, lookY: -0.1, lean: 0, duration: 0.35, ease: 'power1.inOut' }, 2.65);
-
-  // 3.0s - 4.2s: Tomi turns toward the gate (yaw -> 18 deg facing right), walk starts at 0.7 cycles/s, lookX forward
-  sceneTl.to(st, {
-    yaw: 18,
-    lookX: 0.5,
-    lookY: 0,
-    tilt: 0,
-    duration: 0.45,
-    ease: 'power2.inOut'
-  }, 3.0);
-
-  // Walk from x=318 out past the right gate post (x=545) from 3.1s to 5.0s
-  walk(sceneTl, 3.1, 548, 1.9, 1.43);
-
-  // 4.2s - 5.0s: Passes gate post without pausing; final step fades; brief 0.3s breath of wind
-  sceneTl.call(() => playWindSwell(0.35, 0.022), null, 4.45);
+function stepTimes(w){const a=[];for(let n=0;;n++){const t=w.te+((n/2+.25)-w.ph0)*w.cyc;if(t>DUR-.05)break;if(t>=w.te+.02)a.push(t);}return a;}
+function walkIn(tl,w){ // walker moves right at constant pace from te to the end, feet in phase with distance
+ const dur=DUR-w.te;
+ tl.fromTo(w.st,{x:w.x0},{x:w.x0+w.v*dur,duration:dur,ease:'none',immediateRender:false},w.te);
+ tl.fromTo(w.st,{ph:w.ph0},{ph:w.ph0+dur/w.cyc,duration:dur,ease:'none',immediateRender:false},w.te);
+ stepTimes(w).forEach(t=>tl.call(()=>playStep(w.gm),null,t));
 }
-
-playBtn.addEventListener('click', () => {
-  initAudio();
-  playScene1();
-});
-replayBtn.addEventListener('click', () => resetScene1ToStart());
-soundBtn.addEventListener('click', () => {
-  soundEnabled = !soundEnabled;
-  soundBtn.textContent = '🔊 Sound: ' + (soundEnabled ? 'ON' : 'OFF');
-  if (soundEnabled) initAudio();
-});
-
-window.addEventListener('load', () => {
-  resetScene1ToStart();
-  setTimeout(playScene1, 250);
-});
-</script>
-</body>
-</html>
+function playScene2(){
+ resetScene2ToStart();
+ sceneTl=gsap.timeline({onUpdate:()=>{WALKERS.forEach(w=>w.st.t=sceneTl.time());renderAll();replayBtn.textContent=`↺ ${sceneTl.time().toFixed(1)}s`;},onComplete:()=>{replayBtn.textContent='↺ 9.0s';}});
+ // camera: slow pan-right ~3% (16 units) + zoom 1.0 -> 1.05, anchored on the lead group
+ sceneTl.to('#s2Camera',{scale:1.05,x:-16,svgOrigin:'300 700',duration:DUR,ease:'sine.inOut'},0);
+ // ambience (night air, shamisen-like drone, crickets)
+ sceneTl.call(()=>bed(8.9,'lowpass',300,.7,.04),null,.05);
+ sceneTl.call(()=>drone(8.8,110,.015),null,.1);
+ sceneTl.call(()=>crickets(8.7,4200,12,.010,.2),null,.1);
+ sceneTl.call(()=>crickets(8.7,4500,11,.007,.55),null,.1);
+ // 0.0-1.2s  VO "Japan, 1830..."  title card: lower-third "1830", Tomi walks in from left, deadpan
+ sceneTl.fromTo('#s2Year',{opacity:0},{opacity:.85,duration:.4,ease:'power1.out',immediateRender:false},.15);
+ sceneTl.to('#s2Year',{opacity:0,duration:.5,ease:'power1.in'},1.3);
+ walkIn(sceneTl,tomi);
+ // 1.2-4.5s  VO "Servants, apprentices, and children began walking toward the Grand Shrine at Ise."
+ walkIn(sceneTl,kichi);   // 1.4s Kichi enters from left
+ walkIn(sceneTl,hana);    // 2.6s Hana enters, hand-held (her near hand reaches up into Kichi's)
+ // 3.6s road fills with 4-5 faded extras behind them
+ EXT.forEach((w,i)=>{sceneTl.fromTo(w.c.g.parentNode,{opacity:0},{opacity:.38,duration:.8,ease:'power1.out',immediateRender:false},3.6+i*.12);walkIn(sceneTl,w);});
+ // 4.5-6.0s  VO "Many left without leave."  Kichi glances back left, Hana looks up at him
+ sceneTl.set(kichi.st,{eyes:'squint'},4.5).to(kichi.st,{lookX:-.6,headTurn:25,duration:.18,ease:'power2.out'},4.5);
+ sceneTl.call(playTing,null,4.8);                                  // small nervous "ting" at 4.8s
+ sceneTl.to(kichi.st,{lookX:0,headTurn:0,duration:.25,ease:'power2.inOut'},5.1).set(kichi.st,{eyes:'deadpan'},5.2); // 0.6s glance, then forward
+ sceneTl.to(hana.st,{tilt:-6,lookX:.5,lookY:-.7,duration:.35,ease:'power2.out'},4.6);
+ sceneTl.to(hana.st,{tilt:0,lookX:0,lookY:0,duration:.4,ease:'power2.inOut'},6.3);
+ // 6.0-9.0s  VO "It even had a name: nukemairi, the escape pilgrimage."
+ sceneTl.fromTo('#s2KanjiG',{opacity:0,y:6},{opacity:1,y:0,duration:.6,ease:'power1.out',immediateRender:false},7.0); // vermilion 抜参り
+ sceneTl.call(playBrush,null,7.0);                                 // brush-stroke whoosh
+ sceneTl.set(tomi.st,{mouth:'smile'},8.1).set(tomi.st,{mouth:'flat'},8.6); // tiny smile on "escape"
+ // 8.6-9.0s hold, everyone still moving right
+}
+playBtn.addEventListener('click',()=>{initAudio();playScene2();});
+replayBtn.addEventListener('click',()=>resetScene2ToStart());
+soundBtn.addEventListener('click',()=>{soundEnabled=!soundEnabled;soundBtn.textContent='🔊 Sound: '+(soundEnabled?'ON':'OFF');if(soundEnabled)initAudio();});
+window.addEventListener('load',()=>{resetScene2ToStart();setTimeout(playScene2,250);});
+</script></body></html>
