@@ -3,184 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — Okage Mairi Scene 1: Putting Down the Broom (5.0s + Foley SFX)</title>
+<title>Zenspiris — The Servant Who Left Scene 1: The Broom (5.0s + Foley SFX)</title>
 <style>
-:root{--head:#0d0b12;--face:#f2ede2;--rim:#fcd34d;--rim-cool:#60a5fa}
-*{box-sizing:border-box;margin:0}
-body{background:#040406;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;font-family:system-ui,sans-serif}
-.stage-wrapper{position:relative;width:100vw;max-width:355px;aspect-ratio:9/16;background:#070911;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.95)}
-svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrecision}
-.vignette{position:absolute;inset:0;z-index:10;pointer-events:none;background:radial-gradient(circle at 50% 48%,transparent 36%,rgba(3,4,8,.92) 100%)}
-.letterbox{position:absolute;left:0;right:0;height:5.5%;background:#000;z-index:12}
-.letterbox.top{top:0;border-bottom:1px solid rgba(252,211,77,.35)}
-.letterbox.bottom{bottom:0;border-top:1px solid rgba(252,211,77,.35)}
-.controls{display:flex;gap:8px}
-.controls button{background:#16161f;color:#cbd5e1;border:1px solid #2a2a38;border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
-.controls button.primary{background:#1e3a5f;border-color:#3b6ea8;color:#fff}
-.hd{fill:var(--head)}.fc{fill:var(--face)}.fs{stroke:var(--face);stroke-linecap:round;fill:none}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #040406;
+    color: #e2e8f0;
+    font-family: system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    overflow: hidden;
+  }
+  .stage-wrapper {
+    position: relative;
+    width: 100vw;
+    max-width: 355px;
+    aspect-ratio: 9 / 16;
+    background: #04060c;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .95);
+    border-radius: 4px;
+  }
+  svg.scene-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    shape-rendering: geometricPrecision;
+  }
+  .vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 48%, transparent 36%, rgba(3, 4, 8, .92) 100%);
+    z-index: 10;
+  }
+  .letterbox {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 5.5%;
+    background: #000;
+    z-index: 12;
+    pointer-events: none;
+  }
+  .letterbox.top {
+    top: 0;
+    border-bottom: 1px solid rgba(252, 211, 77, .35);
+  }
+  .letterbox.bottom {
+    bottom: 0;
+    border-top: 1px solid rgba(252, 211, 77, .35);
+  }
+  .controls {
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+  }
+  button {
+    background: #16161f;
+    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, .12);
+    padding: 8px 15px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+  }
+  button:hover {
+    background: #222230;
+    border-color: rgba(255, 255, 255, .25);
+  }
+  button.primary {
+    background: #1e3a5f;
+    border-color: rgba(96, 165, 250, .4);
+  }
+  button.primary:hover {
+    background: #264975;
+  }
 </style>
 </head>
 <body>
+
 <div class="stage-wrapper">
-<div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
-<svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-<defs>
-  <!-- Flat dark teal bare interior wall -->
-  <linearGradient id="s1Wall" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#061217"/>
-    <stop offset="1" stop-color="#0d232b"/>
-  </linearGradient>
-  <!-- Bare wooden floor -->
-  <linearGradient id="s1Floor" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#0a1319"/>
-    <stop offset="1" stop-color="#04070b"/>
-  </linearGradient>
-  <!-- Ember orange doorway glow -->
-  <linearGradient id="s1DoorGlow" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#f59e0b"/>
-    <stop offset=".5" stop-color="#fb923c"/>
-    <stop offset="1" stop-color="#fef08a"/>
-  </linearGradient>
-  <!-- Radial ambient glow spilling from doorway -->
-  <radialGradient id="s1AmbientGlow" cx="80%" cy="62%" r="65%">
-    <stop offset="0" stop-color="#fef08a" stop-opacity=".8"/>
-    <stop offset=".38" stop-color="#f59e0b" stop-opacity=".38"/>
-    <stop offset=".75" stop-color="#b45309" stop-opacity=".12"/>
-    <stop offset="1" stop-color="#78350f" stop-opacity="0"/>
-  </radialGradient>
-  <!-- Thin beam of warm light stretching across the floor toward the servant -->
-  <linearGradient id="s1FloorBeam" x1="1" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#fef08a" stop-opacity=".46"/>
-    <stop offset=".5" stop-color="#f59e0b" stop-opacity=".2"/>
-    <stop offset="1" stop-color="#d97706" stop-opacity="0"/>
-  </linearGradient>
-  <clipPath id="s1DoorClip">
-    <rect x="345" y="420" width="160" height="365"/>
-  </clipPath>
-</defs>
+  <div class="letterbox top"></div>
+  <div class="letterbox bottom"></div>
+  <div class="vignette"></div>
 
-<g id="s1Camera">
-  <!-- Bare dark teal wall & wooden floor -->
-  <rect x="0" y="0" width="540" height="790" fill="url(#s1Wall)"/>
-  <rect x="0" y="785" width="540" height="175" fill="url(#s1Floor)"/>
+  <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Pre-dawn sky gradient -->
+      <linearGradient id="s1Sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#04060c"/>
+        <stop offset="55%" stop-color="#0a0f1c"/>
+        <stop offset="100%" stop-color="#111827"/>
+      </linearGradient>
 
-  <!-- Subtle wooden floor plank lines & baseboard -->
-  <line x1="0" y1="785" x2="540" y2="785" stroke="#060d12" stroke-width="3"/>
-  <g stroke="#0e1b23" stroke-width="1.8">
-    <line x1="0" y1="818" x2="540" y2="818"/>
-    <line x1="0" y1="856" x2="540" y2="856"/>
-    <line x1="0" y1="902" x2="540" y2="902"/>
-  </g>
+      <!-- Cool upper-right dawn wash -->
+      <radialGradient id="s1DawnGlow" cx="85%" cy="18%" r="68%">
+        <stop offset="0%" stop-color="#60a5fa" stop-opacity=".22"/>
+        <stop offset="45%" stop-color="#38bdf8" stop-opacity=".08"/>
+        <stop offset="100%" stop-color="#04060c" stop-opacity="0"/>
+      </radialGradient>
 
-  <!-- Ambient warm ember wash -->
-  <circle id="s1AmbientC" cx="425" cy="610" r="320" fill="url(#s1AmbientGlow)" opacity=".75"/>
+      <!-- Warm paper shoji window glow -->
+      <radialGradient id="s1WinGlow" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#fef08a" stop-opacity=".95"/>
+        <stop offset="45%" stop-color="#fcd34d" stop-opacity=".75"/>
+        <stop offset="85%" stop-color="#d97706" stop-opacity=".25"/>
+        <stop offset="100%" stop-color="#0a0f1c" stop-opacity="0"/>
+      </radialGradient>
 
-  <!-- Open Sliding Doorway on the right third glowing ember orange -->
-  <rect x="337" y="412" width="176" height="373" fill="#061015"/>
-  <g clip-path="url(#s1DoorClip)">
-    <rect x="345" y="420" width="160" height="365" fill="url(#s1DoorGlow)"/>
-    <!-- Sliding door panel (partially visible on far right, slides open slightly at 2.0s) -->
-    <g id="s1DoorPanel" transform="translate(105,0)">
-      <rect x="345" y="420" width="160" height="365" fill="#0b1b22" stroke="#050d11" stroke-width="3"/>
-      <g stroke="#122832" stroke-width="2">
-        <line x1="398" y1="420" x2="398" y2="785"/>
-        <line x1="452" y1="420" x2="452" y2="785"/>
-        <line x1="345" y1="540" x2="505" y2="540"/>
-        <line x1="345" y1="660" x2="505" y2="660"/>
-      </g>
-    </g>
-  </g>
+      <!-- Ambient window spill onto veranda & Tomi's back -->
+      <radialGradient id="s1WinSpill" cx="22%" cy="54%" r="48%">
+        <stop offset="0%" stop-color="#fcd34d" stop-opacity=".20"/>
+        <stop offset="55%" stop-color="#f59e0b" stop-opacity=".06"/>
+        <stop offset="100%" stop-color="#04060c" stop-opacity="0"/>
+      </radialGradient>
 
-  <!-- Thin beam of warm light stretching across the floor toward the servant (pulses slightly) -->
-  <g id="s1BeamGroup" opacity=".9">
-    <polygon points="345,785 430,785 215,960 95,960" fill="url(#s1FloorBeam)"/>
-    <polygon points="345,540 430,630 430,785 345,785" fill="#fef08a" opacity=".08"/>
-  </g>
+      <!-- Packed dirt courtyard floor -->
+      <linearGradient id="s1Floor" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0d1322"/>
+        <stop offset="35%" stop-color="#131b2e"/>
+        <stop offset="100%" stop-color="#070a12"/>
+      </linearGradient>
+    </defs>
 
-  <!-- Dust floating in the warm light beam -->
-  <g fill="#fef08a">
-    <circle class="s1Dust" cx="370" cy="630" r="1.6" opacity="0"/>
-    <circle class="s1Dust" cx="340" cy="705" r="2.0" opacity="0"/>
-    <circle class="s1Dust" cx="290" cy="795" r="1.5" opacity="0"/>
-    <circle class="s1Dust" cx="385" cy="745" r="1.8" opacity="0"/>
-    <circle class="s1Dust" cx="220" cy="865" r="1.7" opacity="0"/>
-    <circle class="s1Dust" cx="305" cy="830" r="1.4" opacity="0"/>
-  </g>
+    <g id="s1Camera">
+      <!-- Sky & Dawn Wash -->
+      <rect width="540" height="960" fill="url(#s1Sky)"/>
+      <rect width="540" height="960" fill="url(#s1DawnGlow)"/>
 
-  <!-- Servant's long shadow falling to the left across the wooden floor -->
-  <polygon id="s1LongShadow" points="168,785 192,785 75,920 20,920" fill="#03060a" opacity=".78"/>
+      <!-- Subtle dawn light rays from upper right -->
+      <polygon points="540,0 380,0 140,785 360,785" fill="#60a5fa" opacity=".045"/>
+      <polygon points="540,120 460,0 240,785 450,785" fill="#bae6fd" opacity=".035"/>
 
-  <!-- SERVANT SILHOUETTE IN SIMPLE KIMONO (Left third, x=180, starts facing left in profile) -->
-  <g id="s1Servant" transform="translate(180, 785)">
-    <ellipse cx="0" cy="2" rx="28" ry="5.5" fill="#000" opacity=".9"/>
-
-    <!-- Back leg -->
-    <g id="s1LegB" transform="translate(-4,-48)">
-      <path d="M 0 0 L -1 25 L -2 45" stroke="#08070c" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <path id="s1FootB" d="M -12 42 L 4 42 L 6 48 L -14 48 Z" fill="#08070c"/>
-    </g>
-    <!-- Front leg -->
-    <g id="s1LegF" transform="translate(4,-48)">
-      <path d="M 0 0 L 1 25 L 3 45" stroke="#0d0b12" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      <path id="s1FootF" d="M -14 42 L 2 42 L 4 48 L -16 48 Z" class="hd"/>
-    </g>
-
-    <!-- Far arm (holds upright broom with both hands at 0:00, drops loose at 0:02) -->
-    <path id="s1ArmB" d="M -3 -98 L -20 -86 L -34 -88" stroke="#131c24" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-
-    <!-- Warm ember rim light on right/back edge of kimono -->
-    <path id="s1TorsoRim" d="M -12.5 -108 L 15.5 -108 L 21.5 -16 L -16.5 -16 Z" fill="#fcd34d" opacity=".42"/>
-
-    <!-- Simple Kimono body (shoulders slightly rounded at 0:00, straightens at 0:02) -->
-    <g id="s1TorsoGroup" transform="rotate(-3)">
-      <path id="s1KimonoBody" d="M -14 -108 L 14 -108 L 20 -16 L -18 -16 Z" fill="#0d0b12"/>
-      <rect id="s1Obi" x="-15.5" y="-68" width="32" height="12" rx="1.5" fill="#16212b"/>
-      <!-- Kimono sleeve -->
-      <path id="s1Sleeve" d="M -6 -102 L 6 -102 L 8 -75 L -7 -77 Z" fill="#0d0b12"/>
-    </g>
-
-    <!-- Front arm (holds upright broom with both hands at 0:00, drops loose at 0:02) -->
-    <path id="s1ArmF" d="M 2 -98 L -16 -80 L -32 -78" stroke="#0d0b12" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-
-    <!-- Head group (facing left in profile at 0:00, bowed with eyes down; turns right at 0:02) -->
-    <g id="s1Head" transform="translate(-2,-130) rotate(-14)">
-      <circle id="s1HeadRim" cx="1.6" cy="0" r="22" fill="#fcd34d" opacity=".48"/>
-      <circle id="s1HeadCore" cx="0" cy="0" r="22" class="hd"/>
-      <!-- Tied hair bun on back of head (switches side when turning right) -->
-      <circle id="s1Bun" cx="19" cy="-10" r="5.5" class="hd"/>
-
-      <!-- Face Left (0:00 - 0:02: profile facing left, eyes looking down toward floor/broom) -->
-      <g id="s1FaceLeft">
-        <circle class="fc" cx="-11" cy="1" r="2.1"/>
-        <circle class="fc" cx="-18" cy="1" r="2.1"/>
-        <line class="fs" x1="-15.5" y1="8.5" x2="-9.5" y2="8.5" stroke-width="1.8"/>
+      <!-- Distant bamboo grove silhouettes -->
+      <g fill="#070b14" opacity=".85">
+        <rect x="210" y="180" width="7" height="605"/>
+        <rect x="245" y="140" width="9" height="645"/>
+        <rect x="285" y="210" width="6" height="575"/>
+        <rect x="330" y="160" width="8" height="625"/>
+        <rect x="375" y="195" width="6" height="590"/>
+        <!-- Bamboo nodes -->
+        <rect x="244" y="280" width="11" height="2" fill="#131b2e"/>
+        <rect x="244" y="410" width="11" height="2" fill="#131b2e"/>
+        <rect x="329" y="330" width="10" height="2" fill="#131b2e"/>
+        <rect x="329" y="470" width="10" height="2" fill="#131b2e"/>
       </g>
 
-      <!-- Face Right (0:02 - 0:05: head up, looking right toward glowing doorway) -->
-      <g id="s1FaceRight" opacity="0">
-        <circle class="fc" cx="10.5" cy="-2" r="2.1"/>
-        <circle class="fc" cx="17.5" cy="-2" r="2.1"/>
-        <line class="fs" x1="9" y1="7" x2="15" y2="7" stroke-width="1.8"/>
+      <!-- Bamboo courtyard fence (mid-ground) -->
+      <g id="s1Fence">
+        <rect x="155" y="460" width="325" height="6" fill="#0d1322"/>
+        <rect x="155" y="585" width="325" height="6" fill="#0d1322"/>
+        <rect x="155" y="710" width="325" height="7" fill="#0b101d"/>
+        <!-- Vertical bamboo poles -->
+        <g fill="#0a0f1c" stroke="#131b2e" stroke-width="1">
+          <rect x="175" y="435" width="10" height="350" rx="2"/>
+          <rect x="195" y="438" width="10" height="347" rx="2"/>
+          <rect x="215" y="433" width="10" height="352" rx="2"/>
+          <rect x="235" y="437" width="10" height="348" rx="2"/>
+          <rect x="255" y="434" width="10" height="351" rx="2"/>
+          <rect x="275" y="439" width="10" height="346" rx="2"/>
+          <rect x="295" y="435" width="10" height="350" rx="2"/>
+          <rect x="315" y="436" width="10" height="349" rx="2"/>
+          <rect x="335" y="433" width="10" height="352" rx="2"/>
+          <rect x="355" y="438" width="10" height="347" rx="2"/>
+          <rect x="375" y="434" width="10" height="351" rx="2"/>
+          <rect x="395" y="437" width="10" height="348" rx="2"/>
+          <rect x="415" y="435" width="10" height="350" rx="2"/>
+          <rect x="435" y="436" width="10" height="349" rx="2"/>
+        </g>
+        <!-- Cool dawn rim highlight on right side of fence poles -->
+        <g fill="#60a5fa" opacity=".18">
+          <rect x="263" y="435" width="1.5" height="350"/>
+          <rect x="303" y="436" width="1.5" height="349"/>
+          <rect x="343" y="434" width="1.5" height="351"/>
+          <rect x="383" y="435" width="1.5" height="350"/>
+          <rect x="423" y="436" width="1.5" height="349"/>
+        </g>
+      </g>
+
+      <!-- Stone Lantern (Toro) unlit in pre-dawn -->
+      <g id="s1Lantern" transform="translate(392, 785)">
+        <rect x="-24" y="-16" width="48" height="16" rx="3" fill="#0d1322"/>
+        <rect x="-12" y="-76" width="24" height="60" fill="#0a0f1c"/>
+        <rect x="-20" y="-86" width="40" height="10" rx="2" fill="#131b2e"/>
+        <!-- Firebox -->
+        <rect x="-15" y="-116" width="30" height="30" fill="#080c16"/>
+        <rect x="-9" y="-110" width="18" height="18" fill="#04060c"/>
+        <!-- Pagoda roof & finial -->
+        <polygon points="-28,-116 28,-116 16,-132 -16,-132" fill="#131b2e"/>
+        <circle cx="0" cy="-137" r="5" fill="#131b2e"/>
+        <!-- Cool dawn rim on right edge -->
+        <path d="M 16 -132 L 28 -116 L 15 -116 L 15 -86 L 20 -86 L 20 -76 L 12 -76 L 12 -16 L 24 -16 L 24 0" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity=".32"/>
+      </g>
+
+      <!-- Left Traditional House & Wooden Veranda (Engawa) -->
+      <g id="s1House">
+        <!-- Main wall -->
+        <rect x="0" y="180" width="168" height="605" fill="#070a12"/>
+        <!-- Eaves overhang -->
+        <polygon points="0,220 205,255 205,268 0,242" fill="#0b101d"/>
+        <line x1="0" y1="220" x2="205" y2="255" stroke="#1e293b" stroke-width="2"/>
+
+        <!-- Shoji sliding door / window with warm interior glow -->
+        <rect x="28" y="340" width="112" height="295" fill="#1a120b"/>
+        <rect x="32" y="344" width="104" height="287" fill="url(#s1WinGlow)"/>
+        <!-- Shoji wooden lattice -->
+        <g stroke="#0d0a08" stroke-width="3">
+          <line x1="68" y1="344" x2="68" y2="631"/>
+          <line x1="102" y1="344" x2="102" y2="631"/>
+          <line x1="32" y1="402" x2="136" y2="402"/>
+          <line x1="32" y1="460" x2="136" y2="460"/>
+          <line x1="32" y1="518" x2="136" y2="518"/>
+          <line x1="32" y1="576" x2="136" y2="576"/>
+        </g>
+        <rect x="28" y="340" width="112" height="295" fill="none" stroke="#131b2e" stroke-width="5"/>
+
+        <!-- Wooden Veranda (Engawa) -->
+        <rect x="0" y="655" width="186" height="16" fill="#131b2e"/>
+        <rect x="0" y="655" width="186" height="2.5" fill="#fcd34d" opacity=".28"/>
+        <!-- Veranda support posts -->
+        <rect x="24" y="671" width="12" height="114" fill="#0a0f1c"/>
+        <rect x="162" y="671" width="12" height="114" fill="#0a0f1c"/>
+        <!-- Stepping stone -->
+        <ellipse cx="192" cy="783" rx="24" ry="7" fill="#131b2e"/>
+      </g>
+
+      <!-- Warm light spill from window -->
+      <rect width="540" height="960" fill="url(#s1WinSpill)"/>
+
+      <!-- Packed Dirt Courtyard Floor -->
+      <rect x="0" y="782" width="540" height="178" fill="url(#s1Floor)"/>
+      <line x1="0" y1="782" x2="540" y2="782" stroke="#1e293b" stroke-width="1.5" opacity=".6"/>
+      <!-- Subtle dirt texture lines -->
+      <g stroke="#1e293b" stroke-width="1" opacity=".35">
+        <line x1="140" y1="805" x2="230" y2="805"/>
+        <line x1="290" y1="822" x2="410" y2="822"/>
+        <line x1="180" y1="848" x2="275" y2="848"/>
+      </g>
+
+      <!-- Character Layer: Tomi -->
+      <g id="s1HeroLayer"></g>
+
+      <!-- Standalone Dropped Broom (revealed when Tomi lets go at 1.8s) -->
+      <g id="s1DroppedBroom" opacity="0">
+        <!-- Bamboo handle -->
+        <line x1="0" y1="-92" x2="0" y2="6" stroke="#475569" stroke-width="4.2" stroke-linecap="round"/>
+        <line x1="1" y1="-92" x2="1" y2="6" stroke="#60a5fa" stroke-width="1" opacity=".45"/>
+        <!-- Straw binding & bristles -->
+        <rect x="-4.5" y="2" width="9" height="6" rx="1" fill="#b5523b"/>
+        <polygon points="-4,8 4,8 13,34 -13,34" fill="#334155"/>
+        <line x1="-6" y1="10" x2="-9" y2="33" stroke="#1e293b" stroke-width="1.2"/>
+        <line x1="0" y1="10" x2="0" y2="34" stroke="#1e293b" stroke-width="1.2"/>
+        <line x1="6" y1="10" x2="9" y2="33" stroke="#1e293b" stroke-width="1.2"/>
+      </g>
+
+      <!-- Foreground Right Gate Post (Tomi walks past this to exit) -->
+      <g id="s1GatePost">
+        <rect x="478" y="360" width="38" height="445" fill="#070a12"/>
+        <!-- Cool dawn rim on right edge & subtle warm inner edge -->
+        <line x1="478" y1="360" x2="478" y2="805" stroke="#60a5fa" stroke-width="1.5" opacity=".25"/>
+        <rect x="472" y="455" width="12" height="14" fill="#131b2e"/>
+        <rect x="472" y="640" width="12" height="14" fill="#131b2e"/>
       </g>
     </g>
-  </g>
-
-  <!-- TALL STRAW BROOM IN LEFT FOREGROUND (held upright at x=147 at 0:00, leaned against left wall at 0:01) -->
-  <g id="s1Broom" transform="translate(147, 785) rotate(0)">
-    <!-- Warm ember rim edge along broom -->
-    <line x1="1.8" y1="-36" x2="1.8" y2="-246" stroke="#fcd34d" stroke-width="6" stroke-linecap="round" opacity=".35"/>
-    <!-- Tall handle -->
-    <line x1="0" y1="-36" x2="0" y2="-246" stroke="#0d0b12" stroke-width="6" stroke-linecap="round"/>
-    <!-- Straw broom head & binding -->
-    <path d="M -9 -44 L 9 -44 L 16 0 L -16 0 Z" fill="#0d0b12"/>
-    <rect x="-9.5" y="-46" width="19" height="5" rx="2" fill="#1e293b"/>
-  </g>
-
-  <!-- Soft wooden knock ripple at broom base -->
-  <circle id="s1KnockR1" cx="122" cy="785" r="3" fill="none" stroke="#fcd34d" stroke-width="1.4" opacity="0"/>
-  <circle id="s1KnockR2" cx="122" cy="785" r="3" fill="none" stroke="#fcd34d" stroke-width="1.1" opacity="0"/>
-</g>
-</svg>
+  </svg>
 </div>
 
 <div class="controls">
@@ -191,292 +284,376 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
-const $ = id => document.getElementById(id);
-const playBtn = $('playBtn'), replayBtn = $('replayBtn'), soundBtn = $('soundBtn');
+const $ = id => document.getElementById(id),
+      playBtn = $('playBtn'),
+      replayBtn = $('replayBtn'),
+      soundBtn = $('soundBtn');
 
-// ---------- PROCEDURAL WEB AUDIO FOLEY ----------
+/* ===== PROCEDURAL WEB AUDIO (Section 7) ===== */
 let audioCtx = null, soundEnabled = true;
+
 function initAudio() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   if (audioCtx.state === 'suspended') audioCtx.resume();
 }
 
-// 0:00 / 0:01: One soft wooden knock (broom set down)
-function playWoodKnock() {
+function tone(type, f0, f1, d, g, when = 0) {
   if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = 'triangle';
-  osc.frequency.setValueAtTime(155, t);
-  osc.frequency.exponentialRampToValueAtTime(56, t + 0.085);
-  gain.gain.setValueAtTime(0.14, t);
-  gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
-  osc.connect(gain).connect(audioCtx.destination);
-  osc.start(t);
-  osc.stop(t + 0.11);
+  const t = audioCtx.currentTime + when,
+        o = audioCtx.createOscillator(),
+        v = audioCtx.createGain();
+  o.type = type;
+  o.frequency.setValueAtTime(f0, t);
+  o.frequency.exponentialRampToValueAtTime(f1, t + d);
+  v.gain.setValueAtTime(g, t);
+  v.gain.exponentialRampToValueAtTime(.0001, t + d);
+  o.connect(v).connect(audioCtx.destination);
+  o.start(t);
+  o.stop(t + d + .02);
 }
 
-// 0:02+: Quiet footsteps on wood
-function playWoodStep(vol = 0.078) {
+function noise(d, type, f, q, g, att, when = 0) {
   if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(118, t);
-  osc.frequency.exponentialRampToValueAtTime(46, t + 0.075);
-  gain.gain.setValueAtTime(vol, t);
-  gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.085);
-  osc.connect(gain).connect(audioCtx.destination);
-  osc.start(t);
-  osc.stop(t + 0.09);
+  const t = audioCtx.currentTime + when,
+        n = Math.floor(audioCtx.sampleRate * d),
+        b = audioCtx.createBuffer(1, n, audioCtx.sampleRate),
+        a = b.getChannelData(0);
+  for (let i = 0; i < n; i++) a[i] = Math.random() * 2 - 1;
+  const s = audioCtx.createBufferSource(),
+        fl = audioCtx.createBiquadFilter(),
+        v = audioCtx.createGain();
+  s.buffer = b;
+  fl.type = type;
+  fl.frequency.value = f;
+  fl.Q.value = q;
+  v.gain.setValueAtTime(.0001, t);
+  v.gain.linearRampToValueAtTime(g, t + att);
+  v.gain.exponentialRampToValueAtTime(.0001, t + d);
+  s.connect(fl).connect(v).connect(audioCtx.destination);
+  s.start(t);
 }
 
-// 0:02+: Sliding door sound
-function playShojiSlide() {
+function bed(d, type, f, q, g) {
   if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime;
-  const dur = 0.9;
-  const n = Math.floor(audioCtx.sampleRate * dur);
-  const buf = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
-  const d = buf.getChannelData(0);
-  for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
-
-  const src = audioCtx.createBufferSource();
-  src.buffer = buf;
-  const filter = audioCtx.createBiquadFilter();
-  filter.type = 'bandpass';
-  filter.frequency.setValueAtTime(360, t);
-  filter.frequency.linearRampToValueAtTime(480, t + dur * 0.5);
-  filter.frequency.linearRampToValueAtTime(310, t + dur);
-  filter.Q.value = 3.4;
-
-  const gain = audioCtx.createGain();
-  gain.gain.setValueAtTime(0.0001, t);
-  gain.gain.linearRampToValueAtTime(0.055, t + 0.12);
-  gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-
-  src.connect(filter).connect(gain).connect(audioCtx.destination);
-  src.start(t);
+  const t = audioCtx.currentTime,
+        n = Math.floor(audioCtx.sampleRate * d),
+        b = audioCtx.createBuffer(1, n, audioCtx.sampleRate),
+        a = b.getChannelData(0);
+  // Brown-ish filtered noise approximation
+  let last = 0;
+  for (let i = 0; i < n; i++) {
+    const w = Math.random() * 2 - 1;
+    last = (last + 0.04 * w) / 1.04;
+    a[i] = last * 3.2;
+  }
+  const s = audioCtx.createBufferSource(),
+        fl = audioCtx.createBiquadFilter(),
+        v = audioCtx.createGain();
+  s.buffer = b;
+  fl.type = type;
+  fl.frequency.value = f;
+  fl.Q.value = q;
+  v.gain.setValueAtTime(.0001, t);
+  v.gain.linearRampToValueAtTime(g, t + .35);
+  v.gain.setValueAtTime(g, t + d - .45);
+  v.gain.linearRampToValueAtTime(.0001, t + d);
+  s.connect(fl).connect(v).connect(audioCtx.destination);
+  s.start(t);
 }
 
-// Soft wind + low drone fades in
-function playWindAndDrone(dur = 4.95) {
-  if (!audioCtx || !soundEnabled) return;
-  const t = audioCtx.currentTime;
-
-  const n = Math.floor(audioCtx.sampleRate * dur);
-  const buf = audioCtx.createBuffer(1, n, audioCtx.sampleRate);
-  const data = buf.getChannelData(0);
-  for (let i = 0; i < n; i++) data[i] = Math.random() * 2 - 1;
-
-  const windSrc = audioCtx.createBufferSource();
-  windSrc.buffer = buf;
-  const windFilter = audioCtx.createBiquadFilter();
-  windFilter.type = 'bandpass';
-  windFilter.frequency.value = 265;
-  windFilter.Q.value = 2.6;
-
-  const windGain = audioCtx.createGain();
-  windGain.gain.setValueAtTime(0.0001, t);
-  windGain.gain.linearRampToValueAtTime(0.025, t + 1.2);
-  windGain.gain.linearRampToValueAtTime(0.022, t + dur - 0.3);
-  windGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-  windSrc.connect(windFilter).connect(windGain).connect(audioCtx.destination);
-  windSrc.start(t);
-
-  const d1 = audioCtx.createOscillator();
-  const d2 = audioCtx.createOscillator();
-  const dGain = audioCtx.createGain();
-  d1.type = 'sine';
-  d2.type = 'triangle';
-  d1.frequency.setValueAtTime(65.41, t); // C2
-  d2.frequency.setValueAtTime(98.00, t); // G2
-
-  dGain.gain.setValueAtTime(0.0001, t);
-  dGain.gain.linearRampToValueAtTime(0.048, t + 2.5);
-  dGain.gain.linearRampToValueAtTime(0.062, t + dur - 0.35);
-  dGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-
-  d1.connect(dGain);
-  d2.connect(dGain);
-  dGain.connect(audioCtx.destination);
-  d1.start(t); d2.start(t);
-  d1.stop(t + dur + 0.05); d2.stop(t + dur + 0.05);
-}
-
-// ---------- RIG STATE ----------
-const st = {
-  charX: 180,
-  bob: 0,
-  stride: 0,
-  torsoTilt: -3,    // -3 rounded/tired facing left at 0:00 -> 0 upright at 0:02
-  headX: -2,
-  headRot: -14,     // bowed down facing left at 0:00 -> 0 upright facing right at 0:02
-  armPhase: 0,      // 0 = holding upright broom w/ both hands, 1 = leaning broom left, 2 = dropped loose at sides
-  broomX: 147,
-  broomAngle: 0,    // 0 upright -> -15 leaned against left wall
-  doorX: 105,
-  outlineFade: 0    // 0 = full silhouette w/ face, 1 = thin dark outline inside glowing doorway
+// Scene 1 Spot SFX
+const playSweep = () => {
+  // Dry straw-on-dirt swish (bandpass 1.2 kHz)
+  noise(0.26, 'bandpass', 1200, 1.4, 0.065, 0.05);
 };
 
-const lerp = (a, b, t) => a + (b - a) * t;
+const playBroomClatter = () => {
+  // Hollow wooden clatter: two hits 0.08s apart + 120 Hz thump
+  tone('triangle', 125, 48, 0.14, 0.12, 0);
+  noise(0.09, 'bandpass', 950, 2.2, 0.085, 0.005, 0);
+  tone('triangle', 140, 58, 0.10, 0.075, 0.08);
+  noise(0.07, 'bandpass', 1150, 2.5, 0.06, 0.004, 0.08);
+};
 
-function render() {
-  // Servant group & long floor shadow
-  $('s1Servant').setAttribute('transform', `translate(${st.charX.toFixed(1)},${(785 + st.bob).toFixed(1)})`);
-  $('s1LongShadow').setAttribute('points', `${(st.charX - 12).toFixed(1)},785 ${(st.charX + 12).toFixed(1)},785 ${(st.charX - 105).toFixed(1)},920 ${(st.charX - 160).toFixed(1)},920`);
+const playDirtStep = (gain = 0.085) => {
+  // Soft packed dirt thud (lowpass 700 Hz)
+  noise(0.09, 'lowpass', 700, 0.7, gain, 0.012);
+  tone('sine', 95, 42, 0.07, gain * 0.65);
+};
 
-  // Torso posture & head
-  $('s1TorsoGroup').setAttribute('transform', `rotate(${st.torsoTilt.toFixed(2)})`);
-  $('s1Head').setAttribute('transform', `translate(${st.headX.toFixed(1)},-130) rotate(${st.headRot.toFixed(2)})`);
+const playInsectChirp = () => {
+  // Sparse 4.2 kHz cricket chirp
+  tone('sine', 4200, 4120, 0.045, 0.01, 0);
+  tone('sine', 4200, 4120, 0.045, 0.01, 0.065);
+};
 
-  // Legs
-  $('s1LegF').setAttribute('transform', `translate(4,-48) rotate(${st.stride.toFixed(2)})`);
-  $('s1LegB').setAttribute('transform', `translate(-4,-48) rotate(${(-st.stride).toFixed(2)})`);
+const playWindSwell = (dur = 0.7, g = 0.025) => {
+  noise(dur, 'bandpass', 320, 1.8, g, dur * 0.35);
+};
 
-  // Both hands holding upright broom -> leaning broom -> arms dropped loose at sides
-  let fEx, fEy, fHx, fHy, bEx, bEy, bHx, bHy;
-  if (st.armPhase <= 1) {
-    // Lowering broom with both hands toward left wall
-    fEx = lerp(-16, -24, st.armPhase);
-    fEy = lerp(-80, -76, st.armPhase);
-    fHx = lerp(-32, -46, st.armPhase);
-    fHy = lerp(-78, -72, st.armPhase);
-
-    bEx = lerp(-20, -28, st.armPhase);
-    bEy = lerp(-88, -84, st.armPhase);
-    bHx = lerp(-34, -48, st.armPhase);
-    bHy = lerp(-88, -82, st.armPhase);
-  } else {
-    // Arms drop loose at the sides as body turns right
-    const k = st.armPhase - 1;
-    fEx = lerp(-24, 5 - st.stride * 0.25, k);
-    fEy = lerp(-76, -76, k);
-    fHx = lerp(-46, 6 - st.stride * 0.55, k);
-    fHy = lerp(-72, -54, k);
-
-    bEx = lerp(-28, -6 + st.stride * 0.25, k);
-    bEy = lerp(-84, -76, k);
-    bHx = lerp(-48, -7 + st.stride * 0.55, k);
-    bHy = lerp(-82, -55, k);
-  }
-  $('s1ArmF').setAttribute('d', `M 2 -98 L ${fEx.toFixed(1)} ${fEy.toFixed(1)} L ${fHx.toFixed(1)} ${fHy.toFixed(1)}`);
-  $('s1ArmB').setAttribute('d', `M -3 -98 L ${bEx.toFixed(1)} ${bEy.toFixed(1)} L ${bHx.toFixed(1)} ${bHy.toFixed(1)}`);
-
-  // Broom in left foreground
-  $('s1Broom').setAttribute('transform', `translate(${st.broomX.toFixed(1)},785) rotate(${st.broomAngle.toFixed(2)})`);
-
-  // Sliding door panel
-  $('s1DoorPanel').setAttribute('transform', `translate(${st.doorX.toFixed(1)},0)`);
-
-  // 0:04 Steps into the light and becomes a thin dark outline against the glow
-  const f = st.outlineFade;
-  $('s1FaceRight').setAttribute('opacity', st.headX > 0 ? (1 - f).toFixed(2) : '0');
-  $('s1Obi').setAttribute('opacity', (1 - f * 0.85).toFixed(2));
-  $('s1HeadRim').setAttribute('opacity', lerp(0.48, 0.94, f).toFixed(2));
-  $('s1TorsoRim').setAttribute('opacity', lerp(0.42, 0.90, f).toFixed(2));
-  $('s1KimonoBody').setAttribute('transform', `scale(${(1 - f * 0.18).toFixed(3)}, 1)`);
-  $('s1HeadCore').setAttribute('r', (22 - f * 1.6).toFixed(2));
+/* ===== ZChar v1 — Zenspiris base character rig (copy verbatim, never redraw) ===== */
+const ZNS='http://www.w3.org/2000/svg',ZD=Math.PI/180;
+const ZDEF={stride:16,legOffset:0,kneeStatic:4,kneeBend:30,bob:2,armTilt:10,elbow:10,arm:18,height:1,torsoLen:0,legLen:1,tw:24,bw:22,torsoBot:-48,belly:0,tilt:0,headNod:2,headR:22,limb:11,footSize:1,eyeGap:7.5,eyeR:2.1,lookRange:4};
+const ZHATS={none:[],chef:[['M -16 -12 L -18 -34 Q -26 -52 -8 -54 Q 0 -66 11 -55 Q 26 -52 18 -34 L 16 -12 Z','#ece8dc'],['M -17 -20 H 17 V -16 H -17 Z','#cfc9b8']],cap:[['M -20 -8 Q -20 -30 0 -30 Q 20 -30 20 -8 Z','#2b4a6b'],['M 8 -10 L 30 -8 L 30 -4 L 8 -5 Z','#1f3650',1]],flatcap:[['M -21 -10 Q -18 -28 4 -26 Q 22 -24 22 -10 Z','#3a3f4a'],['M 12 -11 L 27 -9 L 27 -6 L 12 -8 Z','#2a2e38',1]],top:[['M -14 -16 V -52 H 14 V -16 Z','#2b2f3d'],['M -24 -18 H 24 V -13 H -24 Z','#2b2f3d'],['M -14 -24 H 14 V -20 H -14 Z','#6b3a3a']],hood:[['M -26 8 Q -31 -30 0 -35 Q 31 -30 26 8 Q 20 -15 0 -17 Q -20 -15 -26 8 Z','#5b4a3a']],helmet:[['M -23 -4 Q -24 -34 0 -34 Q 24 -34 23 -4 Z','#7b8596'],['M -23 -8 H 23 V -4 H -23 Z','#5d6675']],beanie:[['M -21 -8 Q -22 -34 0 -34 Q 22 -34 21 -8 Z','#8b2e2e'],['M -21 -12 H 21 V -7 H -21 Z','#6d2222']],tenugui:[['M -21 -9 Q -22 -24 0 -24 Q 22 -24 21 -9 Q 12 -13 0 -13 Q -12 -13 -21 -9 Z','#d9d2c0'],['M -21 -11 H 21 V -7 H -21 Z','#ece8dc'],['M -20 -9 L -26 2 L -21 4 L -17 -7 Z','#d9d2c0',1]]};
+const ZSHOES={none:null,bare:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12']],shoe:[['M -6 -5 L 7 -5 L 9 0 L 15 2 L 16 6 L -7 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#3a3f4d']],boot:[['M -7 -5 L 8 -5 L 9 0 L 16 2 L 17 6 L -8 6 Z','#3b2a1d'],['M -8 4 L 17 4 L 17 6 L -8 6 Z','#1f150e']],sandal:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#8a6a3d'],['M -5 -1 H 7 V 0.5 H -5 Z','#8a6a3d']],waraji:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#9c7c4c'],['M -4 -1 L 7 3 M 2 -2 L -3 3','#9c7c4c']]};
+/* outfit = {shirt:[color,dTop,bottomY,pad,flare], sl:[len 's'|'l',color], pa:[len 'l'|'k',color], hat, shoe, ex:'apron'|'tie'|'belt'} — any field optional. Example outfits, NOT a limit: invent new ones per story. */
+const ZOUT={'Tee + Jeans':{shirt:['#3d5a80',0,-36,2,1],sl:['s','#3d5a80'],pa:['l','#2a3f66'],hat:'none',shoe:'shoe'},'Hoodie + Joggers':{shirt:['#4a4f5c',0,-30,4,3],sl:['l','#4a4f5c'],pa:['l','#2e3340'],hat:'hood',shoe:'shoe'},'Suit + Tie':{shirt:['#1f2433',0,-24,3,4],sl:['l','#1f2433'],pa:['l','#1f2433'],hat:'none',shoe:'shoe',ex:'tie'},
+'Baker':{shirt:['#1e2330',0,-26,2,2],sl:['l','#1e2330'],pa:['l','#15171f'],hat:'chef',shoe:'shoe',ex:'apron'},'Gentleman':{shirt:['#2a2630',0,-10,3,8],sl:['l','#2a2630'],pa:['l','#1a1a22'],hat:'top',shoe:'boot'},'Worker':{shirt:['#6b5a45',0,-34,2,2],sl:['l','#b8ad98'],pa:['l','#4a4034'],hat:'flatcap',shoe:'boot'},
+'Peasant':{shirt:['#7a6446',0,-18,2,6],sl:['s','#7a6446'],pa:['l','#5a4a36'],hat:'none',shoe:'bare'},'Monk robe':{shirt:['#5b4a3a',0,-4,3,12],sl:['l','#5b4a3a'],hat:'hood',shoe:'sandal'},'Knight':{shirt:['#7b8596',0,-30,5,3],sl:['l','#7b8596'],pa:['l','#6b7586'],hat:'helmet',shoe:'boot',ex:'belt'},
+'Roman tunic':{shirt:['#d9d2c0',0,-26,2,4],sl:['s','#d9d2c0'],hat:'none',shoe:'sandal',ex:'belt'},'Toga':{shirt:['#e8e2d0',0,-6,4,8],sl:['s','#e8e2d0'],hat:'none',shoe:'sandal'},'Kilt (bare chest)':{shirt:['#e8e2d0',48,-24,3,8],hat:'none',shoe:'sandal'},
+'Tomi Servant':{shirt:['#1b2338',0,-22,2,5],sl:['s','#1b2338'],pa:['l','#2e3b55'],hat:'tenugui',shoe:'waraji',ex:'belt'}};
+const ZT=`<ellipse data-r="shd" cx="0" cy="2" rx="32" ry="6" fill="#000" opacity=".9"/><g data-r="ch">
+<path data-r="lbp" stroke="#08070c" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="lbo" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="lbb" fill="none"/><g data-r="lbs"></g>
+<path data-r="lfp" stroke="#0d0b12" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="lfo" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="lfb" fill="none"/><g data-r="lfs"></g>
+<path data-r="fap" stroke="#18202c" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="fso" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<path data-r="tr" fill="#fcd34d" opacity=".4"/><path data-r="tc" fill="#0d0b12"/>
+<path data-r="gt"/><path data-r="ga" fill="#d9d5c8"/><path data-r="gi" fill="#7a2e3a"/><path data-r="gb" fill="#3b2a1d"/>
+<path data-r="nap" stroke="#0d0b12" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path data-r="nso" stroke-linecap="round" stroke-linejoin="round" fill="none"/><g data-r="hn"></g>
+<g data-r="hd"><circle data-r="rim" cx="1.6" cy="0" r="22" fill="#fcd34d" opacity=".5"/><circle data-r="hc" cx="0" cy="0" r="22" fill="#0d0b12"/><g data-r="hatg"></g>
+<ellipse data-r="e1" fill="#f2ede2"/><ellipse data-r="e2" fill="#f2ede2"/><line data-r="l1" stroke="#f2ede2" stroke-width="2.1" stroke-linecap="round"/><line data-r="l2" stroke="#f2ede2" stroke-width="2.1" stroke-linecap="round"/>
+<path data-r="a1" fill="none" stroke="#f2ede2" stroke-width="2.1" stroke-linecap="round"/><path data-r="a2" fill="none" stroke="#f2ede2" stroke-width="2.1" stroke-linecap="round"/>
+<line data-r="b1" stroke="#f2ede2" stroke-width="1.8" stroke-linecap="round"/><line data-r="b2" stroke="#f2ede2" stroke-width="1.8" stroke-linecap="round"/>
+<path data-r="mp" fill="none" stroke="#f2ede2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g></g>`;
+function ZChar(parent,o){
+ o=o||{};const P=Object.assign({},ZDEF,o.params||{}),g=document.createElementNS(ZNS,'g');g.innerHTML=ZT;parent.appendChild(g);
+ const E={};['shd','ch','lbp','lbo','lbb','lbs','lfp','lfo','lfb','lfs','fap','fso','tr','tc','gt','ga','gi','gb','nap','nso','hn','hd','rim','hc','hatg','e1','e2','l1','l2','a1','a2','b1','b2','mp'].forEach(r=>E[r]=g.querySelector('[data-r="'+r+'"]'));
+ const C={g,P,hand:E.hn,outfit:null,hat:'none',shoe:'shoe'};
+ C.setOutfit=v=>{C.outfit=typeof v==='string'?(ZOUT[v]||null):(v||null);return C;};
+ C.setHat=h=>{C.hat=h;E.hatg.innerHTML=(ZHATS[h]||[]).map(([d,f,b])=>`<path ${b?'class="hb" ':''}d="${d}" fill="${f}"/>`).join('');return C;};
+ C.setShoe=n=>{C.shoe=n;const S=ZSHOES[n];[E.lbs,E.lfs].forEach(e=>{e.style.display=S?'':'none';e.innerHTML=S?S.map(([d,f])=>`<path d="${d}" fill="${f}"/>`).join(''):'';});return C;};
+ C.setRim=col=>{E.rim.setAttribute('fill',col);E.tr.setAttribute('fill',col);return C;};
+ C.update=function(s){
+  s=s||{};const O=C.outfit,h=P.height,tl=P.torsoLen,wk=s.walk==null?0:s.walk,ph=2*Math.PI*(s.ph||0),sn=Math.sin(ph),tt=s.t||0;
+  const yaw=s.yaw||0,cyw=Math.cos(yaw*ZD),sg=cyw>=0?1:-1,c=Math.abs(cyw),yh=(yaw+(s.headTurn||0))*ZD,hcx=Math.cos(yh)*sg,hs=Math.sin(yh),hw=4+3*(1-c);
+  const fr=Math.sin(yaw*ZD)>-.2,WF=1+.35*(1-c),FS=.5+.5*c,SW=(.3+.7*c)*wk;
+  const show=(el,d,fill)=>{if(!d){el.style.display='none';return;}el.style.display='';el.setAttribute('d',d);if(fill)el.setAttribute('fill',fill);};
+  const body=(dt,bot,ht,hb,bel)=>{ht*=WF;hb*=WF;const y0=-108-tl+dt,ym=(y0+bot)/2;return `M ${1-ht} ${y0} L ${1+ht} ${y0} Q ${1+(ht+hb)/2+bel} ${ym} ${1+hb} ${bot} L ${1-hb} ${bot} Q ${1-(ht+hb)/2-bel} ${ym} ${1-ht} ${y0} Z`;};
+  const leg=(hx,ps,p,ov,sh,w,bb)=>{const L=P.legLen,hy=-50*L,th=(P.legOffset+P.stride*SW*Math.sin(ps))*ZD,bend=(P.kneeStatic+P.kneeBend*wk*Math.max(0,Math.cos(ps)))*ZD;
+   const kx=hx+Math.sin(th)*26*L,ky=hy+Math.cos(th)*26*L,t2=th-bend,fx=kx+Math.sin(t2)*24*L,fy=ky+Math.cos(t2)*24*L;
+   p.setAttribute('d',`M ${hx} ${hy} L ${kx} ${ky} L ${fx} ${fy-6}`);p.setAttribute('stroke-width',w);
+   const pa=O&&O.pa;if(pa){ov.style.display='';ov.setAttribute('d',pa[0]==='l'?`M ${hx} ${hy} L ${kx} ${ky} L ${fx} ${fy-6}`:`M ${hx} ${hy} L ${kx} ${ky}`);ov.setAttribute('stroke',pa[1]);ov.setAttribute('stroke-width',w+3.5);}else ov.style.display='none';
+   sh.setAttribute('transform',`translate(${fx},${fy-4}) rotate(${Math.max(-35,Math.min(35,-(t2/ZD)*.7))}) scale(${P.footSize*FS},${P.footSize})`);
+   if(C.shoe==='boot'){bb.style.display='';bb.setAttribute('d',`M ${kx+(fx-kx)*.5} ${ky+(fy-ky)*.5} L ${fx} ${fy-5}`);bb.setAttribute('stroke','#3b2a1d');bb.setAttribute('stroke-width',w+5);bb.setAttribute('stroke-linecap','butt');}else bb.style.display='none';};
+  const arm=(sx,sw,tilt,elb,p,ov,w)=>{const sy=-100-tl,a1=(tilt+sw)*ZD,a2=a1+elb*ZD,ex=sx+Math.sin(a1)*23,ey=sy+Math.cos(a1)*23,hx=ex+Math.sin(a2)*21,hy=ey+Math.cos(a2)*21;
+   p.setAttribute('d',`M ${sx} ${sy} L ${ex} ${ey} L ${hx} ${hy}`);p.setAttribute('stroke-width',w);
+   const sl=O&&O.sl;if(sl){ov.style.display='';ov.setAttribute('d',sl[0]==='l'?`M ${sx} ${sy} L ${ex} ${ey} L ${ex+(hx-ex)*.7} ${ey+(hy-ey)*.7}`:`M ${sx} ${sy} L ${sx+(ex-sx)*.6} ${sy+(ey-sy)*.6}`);ov.setAttribute('stroke',sl[1]);ov.setAttribute('stroke-width',w+3);}else ov.style.display='none';
+   return[hx,hy];};
+  g.setAttribute('transform',`translate(${s.x||0},${s.y||0})`);
+  E.ch.setAttribute('transform',`translate(0,${-P.bob*wk*Math.abs(sn)}) rotate(${s.lean||0}) scale(${h*sg},${h})`);E.shd.setAttribute('rx',32*h);
+  leg(hw,ph,E.lfp,E.lfo,E.lfs,P.limb,E.lfb);leg(-hw,ph+Math.PI,E.lbp,E.lbo,E.lbs,P.limb*.95,E.lbb);
+  const sh0=P.tw/2-9.5,shF=P.tw*WF/2-3,nsx=sh0+(1-c)*(shF-sh0),fsh=-shF*(1-c)+(8.5-P.tw/2)*c,na=s.na||[P.armTilt,P.elbow],fa=s.fa||[P.armTilt,P.elbow];
+  const hand=arm(nsx,-P.arm*SW*sn,na[0],na[1],E.nap,E.nso,P.limb*.78);arm(fsh,P.arm*SW*sn,fa[0],fa[1],E.fap,E.fso,P.limb*.6);
+  E.hn.setAttribute('transform',`translate(${hand[0]},${hand[1]})`);
+  const tb=body(0,P.torsoBot,P.tw/2,P.bw/2,P.belly);E.tc.setAttribute('d',tb);E.tr.setAttribute('d',tb);E.tr.setAttribute('transform',`translate(${1.5*sg},0)`);
+  const sh=O&&O.shirt,y1=-98-tl;
+  show(E.gt,sh&&body(sh[1],sh[2],P.tw/2+sh[3],P.bw/2+sh[3]+sh[4],P.belly+sh[3]*.5),sh&&sh[0]);
+  show(E.ga,O&&O.ex==='apron'&&fr&&`M -1 ${y1} L 17 ${y1} L ${21+P.belly} -28 L -3 -28 Z`);show(E.gi,O&&O.ex==='tie'&&fr&&`M 3 ${y1-2} L 10 ${y1-2} L 12 ${y1+24} L 6.5 ${y1+31} L 1 ${y1+24} Z`);show(E.gb,O&&O.ex==='belt'&&`M ${1-P.bw/2+3} -46 H ${1+P.bw/2-3} V -40 H ${1-P.bw/2+3} Z`);
+  E.hd.setAttribute('transform',`translate(2,${-130-tl}) rotate(${P.tilt+(s.tilt||0)+P.headNod*wk*Math.sin(2*ph)})`);
+  E.hc.setAttribute('r',P.headR);E.rim.setAttribute('r',P.headR);E.rim.setAttribute('cx',1.6*sg*c);E.hatg.setAttribute('transform',`scale(${P.headR/22})`);E.hatg.querySelectorAll('.hb').forEach(e=>e.setAttribute('transform',`scale(${hcx},1)`));
+  const ex=s.eyes||'deadpan',mo=s.mouth||'flat',br=s.brow||'none',cf=14.75*hcx,x1=cf-P.eyeGap/2,x2=cf+P.eyeGap/2,r=P.eyeR,fv=hs>-.15;
+  let lx=(s.lookX||0)*sg,ly=s.lookY||0;const R=P.lookRange,fsx=lx*R*.4,lim=P.headR-3;
+  const pos=x=>{let X=x+lx*R+fsx,Y=-2+ly*R*.75,d=Math.hypot(X,Y);if(d>lim){X*=lim/d;Y*=lim/d;}return[X,Y];};
+  const bl=(s.blink!==false&&(tt%3.6)>3.48)?.12:1,ry=(ex==='startled'?r*1.5:ex==='squint'?r*.35:r)*bl,rx=ex==='startled'?r*1.5:r,gro=ex==='groggy',up=ex==='happy';
+  [['e1','l1','a1','b1',x1,0],['e2','l2','a2','b2',x2,1]].forEach(([ie,il,ia,ib,x,k])=>{
+   const[X,Y]=pos(x),e=E[ie],l=E[il],a=E[ia],b=E[ib],dn=ex==='closed'||(ex==='wink'&&k===1);
+   e.setAttribute('cx',X);e.setAttribute('cy',Y);e.setAttribute('rx',rx);e.setAttribute('ry',ry);e.style.display=(fv&&!gro&&!dn&&!up)?'':'none';
+   l.setAttribute('x1',X-2.5);l.setAttribute('x2',X+2.5);l.setAttribute('y1',Y);l.setAttribute('y2',Y);l.style.display=(fv&&gro)?'':'none';
+   a.style.display=(fv&&(dn||up))?'':'none';a.setAttribute('d',up?`M ${X-3} ${Y+1.5} Q ${X} ${Y-4} ${X+3} ${Y+1.5}`:`M ${X-3} ${Y-1} Q ${X} ${Y+3} ${X+3} ${Y-1}`);
+   const by=Y-6.5;let q=null;
+   if(br==='sad')q=k===0?[X-3,by+1,X+3,by-2]:[X-3,by-2,X+3,by+1];else if(br==='angry')q=k===0?[X-3,by-2,X+3,by+1]:[X-3,by+1,X+3,by-2];else if(br==='raised')q=[X-3,by-3,X+3,by-3];
+   if(q&&fv){b.setAttribute('x1',q[0]);b.setAttribute('y1',q[1]);b.setAttribute('x2',q[2]);b.setAttribute('y2',q[3]);b.style.display='';}else b.style.display='none';});
+  const mx=12*hcx+fsx;let md='',mf=false;
+  if(mo==='flat')md=`M ${mx-3} 7 L ${mx+3} 7`;else if(mo==='smile')md=`M ${mx-4} 6 Q ${mx} 11.5 ${mx+4} 6`;else if(mo==='bigsmile'){md=`M ${mx-5} 5 Q ${mx} 15 ${mx+5} 5 Z`;mf=true;}
+  else if(mo==='frown')md=`M ${mx-4} 9.5 Q ${mx} 3.5 ${mx+4} 9.5`;else if(mo==='open'){md=`M ${mx-2.6} 7 Q ${mx-2.6} 2 ${mx} 2 Q ${mx+2.6} 2 ${mx+2.6} 7 Q ${mx+2.6} 12 ${mx} 12 Q ${mx-2.6} 12 ${mx-2.6} 7 Z`;mf=true;}
+  else if(mo==='smirk')md=`M ${mx-4} 8 Q ${mx} 8.5 ${mx+2} 6.5 Q ${mx+4} 5 ${mx+5} 3.5`;
+  else if(mo==='talk'){const m=.8+3.2*Math.abs(Math.sin(tt*11));md=`M ${mx-3} 7 Q ${mx} ${7-m} ${mx+3} 7 Q ${mx} ${7+m} ${mx-3} 7 Z`;mf=true;}
+  else if(mo==='snore'){const m=1.2+Math.sin(tt*2.2);md=`M ${mx-2} 7 Q ${mx} ${6-m} ${mx+2} 7 Q ${mx} ${8+m} ${mx-2} 7 Z`;mf=true;}
+  E.mp.setAttribute('d',md);E.mp.setAttribute('fill',mf?'#f2ede2':'none');E.mp.style.display=fv?'':'none';
+  return{hand,yaw,facing:sg};
+ };
+ if(o.outfit)C.setOutfit(o.outfit);
+ C.setHat(o.hat||(C.outfit&&C.outfit.hat)||'none');C.setShoe(o.shoe||(C.outfit&&C.outfit.shoe)||'shoe');if(o.rim)C.setRim(o.rim);
+ C.update({});return C;
 }
 
-// ---------- TIMELINE (5.0s) ----------
+/* ===== CHARACTER SETUP: TOMI ===== */
+// Slim servant build, dark indigo kimono hitched up, grey-blue leggings, waraji, tenugui wrap
+const tomi = ZChar($('s1HeroLayer'), {
+  outfit: 'Tomi Servant',
+  params: { tw: 21, bw: 19, height: 1.0 },
+  rim: '#60a5fa' // Cool dawn rim from upper right
+});
+
+// Add dual-tone rim/tasuki cord detail onto Tomi's torso & hand broom
+const handBroom = document.createElementNS(ZNS, 'g');
+handBroom.innerHTML = `
+  <g id="s1HandBroomInner" transform="rotate(-14)">
+    <line x1="0" y1="-88" x2="0" y2="10" stroke="#475569" stroke-width="4.2" stroke-linecap="round"/>
+    <line x1="1" y1="-88" x2="1" y2="10" stroke="#60a5fa" stroke-width="1" opacity=".45"/>
+    <rect x="-4.5" y="6" width="9" height="6" rx="1" fill="#b5523b"/>
+    <polygon points="-4,12 4,12 13,38 -13,38" fill="#334155"/>
+    <line x1="-6" y1="14" x2="-9" y2="37" stroke="#1e293b" stroke-width="1.2"/>
+    <line x1="0" y1="14" x2="0" y2="38" stroke="#1e293b" stroke-width="1.2"/>
+    <line x1="6" y1="14" x2="9" y2="37" stroke="#1e293b" stroke-width="1.2"/>
+  </g>
+`;
+tomi.hand.appendChild(handBroom);
+
+// Note: yaw in ZChar is in degrees (0 = right, 90 = camera, 180 = left).
+// Script specifies three-quarter facing left (yaw ~142 deg) turning to facing right toward gate (yaw ~18 deg).
+const HERO0 = {
+  x: 318,
+  walk: 0,
+  ph: 0,
+  yaw: 142,       // Three-quarter facing left (back-left catches warm window rim, right catches cool dawn rim)
+  headTurn: 0,
+  tilt: 4,
+  eyes: 'deadpan',
+  mouth: 'flat',
+  brow: 'none',
+  lookX: 0.25,
+  lookY: -0.2,    // Looking down at ground
+  lean: 3,        // Slight forward sweeping lean
+  naT: 26,
+  naE: 28,
+  faT: 18,
+  faE: 35,
+  t: 0
+};
+const st = { ...HERO0 };
+const droppedBroom = $('s1DroppedBroom');
+
+const render = () => {
+  // Subtle dynamic rim switch: warm window glow when facing left, cool dawn light when turning toward gate
+  const rimCol = st.yaw > 90 ? '#fcd34d' : '#60a5fa';
+  tomi.setRim(rimCol);
+  tomi.update({
+    ...st,
+    y: 785,
+    na: [st.naT, st.naE],
+    fa: [st.faT, st.faE]
+  });
+};
+
+// Walk helper with packed-dirt footsteps (0.7 cycles/s => cycle = 1/0.7 ≈ 1.43s)
+function walk(tl, t0, x1, dur, cycle = 1.43) {
+  tl.to(st, { walk: 0.85, duration: 0.14 }, t0)
+    .to(st, { x: x1, duration: dur, ease: 'none' }, t0)
+    .to(st, { ph: '+=' + (dur / cycle), duration: dur, ease: 'none' }, t0);
+  const stepInterval = cycle / 2;
+  for (let k = 0; k * stepInterval < dur - 0.15; k++) {
+    const stepTime = t0 + k * stepInterval + 0.08;
+    const fadeGain = stepTime > 4.2 ? 0.045 : 0.085;
+    tl.call(() => playDirtStep(fadeGain), null, stepTime);
+  }
+}
+
+/* ===== TIMELINE (5.0s) ===== */
 let sceneTl = null;
 
 function resetScene1ToStart() {
-  if (sceneTl) { sceneTl.kill(); sceneTl = null; }
-  Object.assign(st, {
-    charX: 180,
-    bob: 0,
-    stride: 0,
-    torsoTilt: -3,
-    headX: -2,
-    headRot: -14,
-    armPhase: 0,
-    broomX: 147,
-    broomAngle: 0,
-    doorX: 105,
-    outlineFade: 0
-  });
-  gsap.set('#s1Camera', { scale: 1, svgOrigin: '270 590' });
-  gsap.set('#s1FaceLeft', { opacity: 1 });
-  gsap.set('#s1FaceRight', { opacity: 0 });
-  gsap.set('#s1Bun', { attr: { cx: 19 } });
-  gsap.set('#s1HeadRim', { attr: { cx: 1.6 } });
-  gsap.set('#s1FootF', { attr: { d: 'M -14 42 L 2 42 L 4 48 L -16 48 Z' } });
-  gsap.set('#s1FootB', { attr: { d: 'M -12 42 L 4 42 L 6 48 L -14 48 Z' } });
-  gsap.set('#s1KnockR1, #s1KnockR2', { attr: { r: 3 }, opacity: 0 });
-  gsap.set('#s1BeamGroup', { opacity: 0.9 });
-  gsap.set('.s1Dust', { opacity: 0, y: 0, x: 0 });
+  if (sceneTl) {
+    sceneTl.kill();
+    sceneTl = null;
+  }
+  Object.assign(st, HERO0);
+  gsap.set('#s1Camera', { scale: 1, svgOrigin: '310 680' });
+  gsap.set('#s1HandBroomInner', { opacity: 1, rotation: -14, y: 0 });
+  gsap.set(droppedBroom, { opacity: 0, x: 292, y: 742, rotation: 0, svgOrigin: '0 -92' });
   render();
   replayBtn.textContent = '↺ 0.0s';
 }
 
 function playScene1() {
   resetScene1ToStart();
+
   sceneTl = gsap.timeline({
     onUpdate: () => {
+      st.t = sceneTl.time();
       render();
       replayBtn.textContent = `↺ ${sceneTl.time().toFixed(1)}s`;
     },
-    onComplete: () => replayBtn.textContent = '↺ 5.0s'
+    onComplete: () => {
+      replayBtn.textContent = '↺ 5.0s';
+    }
   });
 
-  // Camera: Static, very slow push-in the whole scene
-  sceneTl.to('#s1Camera', { scale: 1.06, svgOrigin: '280 595', duration: 5.0, ease: 'power1.inOut' }, 0);
+  // Camera: slow push-in toward Tomi's hands (zoom 1.0 -> 1.08 over 5.0s)
+  sceneTl.to('#s1Camera', {
+    scale: 1.08,
+    svgOrigin: '310 680',
+    duration: 5.0,
+    ease: 'power1.inOut'
+  }, 0);
 
-  // Light beam pulses very slightly + dust floats in the beam
-  sceneTl.to('#s1BeamGroup', { opacity: 1.0, duration: 1.25, yoyo: true, repeat: 3, ease: 'sine.inOut' }, 0);
-  sceneTl.fromTo('.s1Dust',
-    { opacity: 0, y: 0, x: 0 },
-    { opacity: 0.72, y: -32, x: i => (i % 2 ? 10 : -8), duration: 4.5, stagger: 0.25, ease: 'sine.out', immediateRender: false },
-    0.15
-  );
+  // Ambient bed: Low brown-noise air tone (lowpass 220 Hz, gain 0.05)
+  sceneTl.call(() => bed(4.9, 'lowpass', 220, 0.7, 0.05), null, 0.05);
+  // Sparse sine-chirp insects (4.2 kHz)
+  sceneTl.call(playInsectChirp, null, 0.4);
+  sceneTl.call(playInsectChirp, null, 1.65);
+  sceneTl.call(playInsectChirp, null, 2.9);
+  sceneTl.call(playInsectChirp, null, 4.1);
+  // Very faint wind swell at 2.5s
+  sceneTl.call(() => playWindSwell(0.9, 0.02), null, 2.5);
 
-  // 0:00: One soft wooden knock + soft wind & drone fade in
-  sceneTl.call(() => { playWindAndDrone(4.95); playWoodKnock(); }, null, 0.02);
+  // 0.0s - 0.8s: Sweeping in slow repeated strokes (+/- 12 deg) + straw swish every 0.6s
+  sceneTl.call(playSweep, null, 0.05);
+  sceneTl.to(st, { naT: 38, faT: 26, duration: 0.3, ease: 'sine.inOut' }, 0.0)
+         .to(st, { naT: 14, faT: 12, duration: 0.3, ease: 'sine.inOut' }, 0.3)
+         .call(playSweep, null, 0.65)
+         .to(st, { naT: 36, faT: 24, duration: 0.32, ease: 'sine.inOut' }, 0.6);
 
-  // 0:01: Slowly lowers the broom with both hands and leans it against the wall on the left; tilts slightly and settles
-  sceneTl.to(st, { armPhase: 1, duration: 0.6, ease: 'power2.inOut' }, 0.95);
-  sceneTl.to(st, { broomX: 122, broomAngle: -16.5, duration: 0.65, ease: 'power2.out' }, 1.0);
-  sceneTl.call(playWoodKnock, null, 1.55);
-  sceneTl.to(st, { broomAngle: -14.0, duration: 0.35, ease: 'bounce.out' }, 1.65);
-  sceneTl.fromTo('#s1KnockR1', { attr: { r: 3 }, opacity: 0.5 }, { attr: { r: 20 }, opacity: 0, duration: 0.5, ease: 'power2.out', immediateRender: false }, 1.55);
-  sceneTl.fromTo('#s1KnockR2', { attr: { r: 3 }, opacity: 0.35 }, { attr: { r: 30 }, opacity: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, 1.62);
+  // 0.8s - 1.8s: Sweeping slows down and stops
+  sceneTl.call(playSweep, null, 1.25);
+  sceneTl.to(st, { naT: 20, faT: 14, duration: 0.35, ease: 'power1.out' }, 0.92)
+         .to(st, { naT: 30, faT: 18, duration: 0.38, ease: 'power2.out' }, 1.27)
+         .to(st, { lean: 1.5, tilt: 2, duration: 0.35, ease: 'power1.out' }, 1.45);
 
-  // 0:02: Lifts head, turns body right, looks at glowing doorway; arms drop loose at sides + door slides
-  sceneTl.to(st, { armPhase: 2, torsoTilt: 0, headX: 2, headRot: 0, duration: 0.55, ease: 'power2.out' }, 2.0);
-  sceneTl.set('#s1FaceLeft', { opacity: 0 }, 2.22);
-  sceneTl.set('#s1FaceRight', { opacity: 1 }, 2.22);
-  sceneTl.set('#s1Bun', { attr: { cx: -19 } }, 2.22);
-  sceneTl.set('#s1FootF', { attr: { d: 'M 0 42 L 16 42 L 18 48 L -2 48 Z' } }, 2.22);
-  sceneTl.set('#s1FootB', { attr: { d: 'M -4 42 L 12 42 L 14 48 L -6 48 Z' } }, 2.22);
+  // 1.8s - 2.3s: Broom rises slightly, Tomi opens hand; broom tips & falls along arc (0 -> 82 deg over 0.5s)
+  sceneTl.to(st, { naT: 38, naE: 20, duration: 0.16, ease: 'power2.out' }, 1.64)
+         .set('#s1HandBroomInner', { opacity: 0 }, 1.8)
+         .set(droppedBroom, { opacity: 1, x: 288, y: 746, rotation: 8 }, 1.8)
+         .to(droppedBroom, {
+           rotation: 82,
+           y: 774,
+           x: 282,
+           duration: 0.5,
+           ease: 'power2.in'
+         }, 1.8)
+         // Tomi watches it fall (eyes deadpan, brow none)
+         .to(st, { lookY: -0.55, tilt: 7, naT: 12, naE: 12, faT: 10, faE: 12, duration: 0.35, ease: 'power2.out' }, 1.85);
 
-  sceneTl.call(playShojiSlide, null, 2.2);
-  sceneTl.to(st, { doorX: 142, duration: 0.9, ease: 'power2.inOut' }, 2.2);
+  // 2.3s: Hollow wooden clatter on packed dirt
+  sceneTl.call(playBroomClatter, null, 2.3);
+  // Tiny bounce settle on fallen broom
+  sceneTl.to(droppedBroom, { rotation: 79, duration: 0.06, ease: 'power1.out' }, 2.3)
+         .to(droppedBroom, { rotation: 82, duration: 0.08, ease: 'power1.in' }, 2.36);
 
-  // 0:03: Walks right toward the door, 4 slow steady steps, shoulders relaxed, head up, no looking back
-  const steps = [
-    [2.65, 224, 7.0],
-    [3.12, 268, -7.0],
-    [3.59, 314, 7.0],
-    [4.06, 362, -6.5]
-  ];
-  steps.forEach(([t, targetX, strideVal]) => {
-    sceneTl.call(() => playWoodStep(0.075), null, t)
-      .to(st, { charX: targetX, duration: 0.45, ease: 'none' }, t)
-      .to(st, { stride: strideVal, duration: 0.225, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t)
-      .to(st, { bob: -1.6, duration: 0.225, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t);
-  });
-  sceneTl.call(() => { st.stride = 0; st.bob = 0; render(); }, null, 4.54);
+  // 2.5s - 3.0s: Brief stillness before turning
+  sceneTl.to(st, { tilt: 2, lookY: -0.1, lean: 0, duration: 0.35, ease: 'power1.inOut' }, 2.65);
 
-  // 0:04: Steps into the light and becomes a thin dark outline against the glow
-  sceneTl.to(st, { outlineFade: 1, duration: 0.85, ease: 'power2.inOut' }, 4.0);
+  // 3.0s - 4.2s: Tomi turns toward the gate (yaw -> 18 deg facing right), walk starts at 0.7 cycles/s, lookX forward
+  sceneTl.to(st, {
+    yaw: 18,
+    lookX: 0.5,
+    lookY: 0,
+    tilt: 0,
+    duration: 0.45,
+    ease: 'power2.inOut'
+  }, 3.0);
+
+  // Walk from x=318 out past the right gate post (x=545) from 3.1s to 5.0s
+  walk(sceneTl, 3.1, 548, 1.9, 1.43);
+
+  // 4.2s - 5.0s: Passes gate post without pausing; final step fades; brief 0.3s breath of wind
+  sceneTl.call(() => playWindSwell(0.35, 0.022), null, 4.45);
 }
 
-playBtn.addEventListener('click', () => { initAudio(); playScene1(); });
-replayBtn.addEventListener('click', () => { resetScene1ToStart(); });
+playBtn.addEventListener('click', () => {
+  initAudio();
+  playScene1();
+});
+replayBtn.addEventListener('click', () => resetScene1ToStart());
 soundBtn.addEventListener('click', () => {
   soundEnabled = !soundEnabled;
   soundBtn.textContent = '🔊 Sound: ' + (soundEnabled ? 'ON' : 'OFF');
