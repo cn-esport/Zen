@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — Nukemairi Scene 8: Still Feeling It (6.0s + Foley SFX)</title>
+<title>Zenspiris — Nukemairi Scene 9: Someone Goes First (4.5s + Foley SFX)</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;background:#040406;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
@@ -16,138 +16,65 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
 <div class="stage-wrapper"><div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
 <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <linearGradient id="s8Wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset=".55" stop-color="#0b101d"/><stop offset="1" stop-color="#1a1410"/></linearGradient>
-  <linearGradient id="s8Floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a130e"/><stop offset=".5" stop-color="#0f0b09"/><stop offset="1" stop-color="#070605"/></linearGradient>
-  <linearGradient id="s8BgB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset=".6" stop-color="#0a0f1c"/><stop offset="1" stop-color="#101a30"/></linearGradient>
-  <radialGradient id="s8Glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fef08a" stop-opacity=".85"/><stop offset=".15" stop-color="#fcd34d" stop-opacity=".5"/><stop offset=".45" stop-color="#f59e0b" stop-opacity=".16"/><stop offset="1" stop-color="#d97706" stop-opacity="0"/></radialGradient>
-  <radialGradient id="s8Wash" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fcd34d" stop-opacity=".2"/><stop offset=".6" stop-color="#f59e0b" stop-opacity=".06"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
-  <radialGradient id="s8Cool" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#bae6fd" stop-opacity=".7"/><stop offset=".2" stop-color="#60a5fa" stop-opacity=".4"/><stop offset=".55" stop-color="#38bdf8" stop-opacity=".1"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/></radialGradient>
-  <radialGradient id="s8BokW" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fcd34d" stop-opacity=".5"/><stop offset=".7" stop-color="#f59e0b" stop-opacity=".25"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
-  <radialGradient id="s8BokC" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#60a5fa" stop-opacity=".4"/><stop offset=".7" stop-color="#60a5fa" stop-opacity=".18"/><stop offset="1" stop-color="#60a5fa" stop-opacity="0"/></radialGradient>
-  <linearGradient id="s8Cone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fcd34d" stop-opacity=".16"/><stop offset="1" stop-color="#fcd34d" stop-opacity="0"/></linearGradient>
-  <linearGradient id="s8Mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#131b2e" stop-opacity="0"/><stop offset="1" stop-color="#131b2e" stop-opacity=".35"/></linearGradient>
+  <linearGradient id="s1Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset=".55" stop-color="#0b101d"/><stop offset="1" stop-color="#131b2e"/></linearGradient>
+  <radialGradient id="s1Dawn" cx="100%" cy="0%" r="95%"><stop offset="0" stop-color="#60a5fa" stop-opacity=".42"/><stop offset=".35" stop-color="#38bdf8" stop-opacity=".14"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="s1Win" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fef08a" stop-opacity=".6"/><stop offset=".3" stop-color="#fcd34d" stop-opacity=".25"/><stop offset="1" stop-color="#d97706" stop-opacity="0"/></radialGradient>
+  <linearGradient id="s1Gap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2a4a" stop-opacity="0"/><stop offset="1" stop-color="#22345a" stop-opacity=".9"/></linearGradient>
+  <linearGradient id="s1Mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#131b2e" stop-opacity="0"/><stop offset="1" stop-color="#131b2e" stop-opacity=".35"/></linearGradient>
  </defs>
-
- <!-- ============ PANEL A: crowded restaurant (0.0 - 2.0s) ============ -->
- <g id="s8PanelA"><g id="s8CamA">
-  <rect x="-60" y="-120" width="660" height="840" fill="url(#s8Wall)"/>
-  <g id="s8WallLines" stroke="#0e121c" stroke-width="2" opacity=".8"></g>
-  <rect x="-60" y="540" width="660" height="162" fill="#080a10" opacity=".7"/><path d="M -60 540 H 600" stroke="#2a1f16" stroke-width="3"/><path d="M -60 543 H 600" stroke="#fcd34d" stroke-opacity=".1" stroke-width="1.2"/>
-  <!-- window (night city bokeh) -->
-  <rect x="392" y="226" width="108" height="246" fill="#0a0e18" stroke="#181f30" stroke-width="6"/><rect x="398" y="232" width="96" height="234" fill="#0d1428"/>
-  <g id="s8CityLights"></g>
-  <path d="M 398 232 L 450 232 L 398 330 Z" fill="#bae6fd" opacity=".05"/><path d="M 446 232 V 466 M 398 350 H 494" stroke="#181f30" stroke-width="4"/><rect x="386" y="470" width="120" height="8" fill="#1a2030"/>
-  <!-- shelf with bottles -->
-  <rect x="12" y="372" width="160" height="6" fill="#2a1f16"/><rect x="12" y="300" width="160" height="6" fill="#2a1f16"/>
-  <rect x="12" y="378" width="160" height="12" fill="#fcd34d" opacity=".1"/><rect x="12" y="306" width="160" height="12" fill="#fcd34d" opacity=".08"/>
-  <g id="s8Bottles" fill="#090b12"></g>
-  <!-- pictures -->
-  <rect x="206" y="236" width="54" height="72" fill="#0a0d16" stroke="#2a1f16" stroke-width="3"/><path d="M 210 296 L 226 270 L 238 286 L 248 266 L 256 296 Z" fill="#12182a"/>
-  <rect x="286" y="252" width="42" height="56" fill="#0a0d16" stroke="#2a1f16" stroke-width="3"/><circle cx="307" cy="274" r="9" fill="#1a2034"/>
-  <!-- floor: dark wood, carpet under the foreground table (extended cleanly to bottom edge) -->
-  <path d="M -60 700 L 600 700 L 600 1080 L -60 1080 Z" fill="url(#s8Floor)"/>
-  <g id="s8Planks" stroke="#070605" stroke-width="1.4" opacity=".85"></g>
-  <g id="s8FloorGlows"><ellipse cx="110" cy="752" rx="150" ry="20" fill="#fcd34d" opacity=".08"/><ellipse cx="270" cy="770" rx="170" ry="24" fill="#fcd34d" opacity=".08"/><ellipse cx="430" cy="752" rx="150" ry="20" fill="#fcd34d" opacity=".08"/></g>
-  <path d="M 96 826 L 444 826 L 494 966 L 46 966 Z" fill="#191d2c"/><path d="M 108 834 L 432 834 L 476 958 L 64 958 Z" fill="none" stroke="#2a3248" stroke-width="2"/>
-  <g id="s8Weave" stroke="#2a3248" stroke-width="1" opacity=".45"></g>
-  <!-- pendant lamps -->
-  <g id="s8LampCones"><path d="M 86 296 L 134 296 L 232 700 L -12 700 Z" fill="url(#s8Cone)"/><path d="M 246 330 L 294 330 L 392 700 L 148 700 Z" fill="url(#s8Cone)"/><path d="M 406 296 L 454 296 L 552 700 L 308 700 Z" fill="url(#s8Cone)"/></g>
-  <g id="s8LampGlows"><circle cx="110" cy="320" r="190" fill="url(#s8Glow)" opacity=".7"/><circle cx="270" cy="352" r="210" fill="url(#s8Glow)" opacity=".75"/><circle cx="430" cy="320" r="190" fill="url(#s8Glow)" opacity=".7"/></g>
-  <g id="s8Lamps">
-   <path d="M 110 -120 V 262" stroke="#14100a" stroke-width="1.6"/><path d="M 96 296 L 124 296 L 118 262 L 102 262 Z" fill="#b45309"/><ellipse cx="110" cy="296" rx="14" ry="4" fill="#fef08a"/>
-   <path d="M 270 -120 V 296" stroke="#14100a" stroke-width="1.6"/><path d="M 252 332 L 288 332 L 280 296 L 260 296 Z" fill="#b45309"/><ellipse cx="270" cy="332" rx="18" ry="5" fill="#fef08a"/>
-   <path d="M 430 -120 V 262" stroke="#14100a" stroke-width="1.6"/><path d="M 416 296 L 444 296 L 438 262 L 422 262 Z" fill="#b45309"/><ellipse cx="430" cy="296" rx="14" ry="4" fill="#fef08a"/>
+ <g id="s1Camera">
+  <rect x="-120" y="-140" width="780" height="1260" fill="url(#s1Sky)"/>
+  <rect x="-120" y="-140" width="780" height="1260" fill="url(#s1Dawn)"/>
+  <g id="s1Stars" fill="#cfe0ff"></g>
+  <path d="M -120 700 Q 60 640 170 676 T 330 660 T 470 640 T 660 690 L 660 1080 L -120 1080 Z" fill="#0a0f1a"/>
+  <!-- servant quarters, engawa, warm window -->
+  <rect x="-20" y="560" width="310" height="186" fill="#0b0e17"/>
+  <rect x="-30" y="538" width="350" height="30" fill="#06080f"/><path d="M -30 538 H 320" stroke="#60a5fa" stroke-opacity=".18" stroke-width="2"/>
+  <g fill="#101626" stroke="#1b2438" stroke-width="1.5"><rect x="8" y="625" width="56" height="112"/><rect x="72" y="625" width="56" height="112"/><rect x="136" y="625" width="56" height="112"/></g>
+  <g stroke="#1b2438" stroke-width="1"><path d="M 36 625 V 737 M 100 625 V 737 M 164 625 V 737 M 8 681 H 192"/></g>
+  <ellipse id="s1WinGlow" cx="236" cy="668" rx="190" ry="150" fill="url(#s1Win)"/>
+  <rect x="206" y="625" width="60" height="82" fill="#f59e0b" opacity=".38"/><rect x="210" y="629" width="52" height="74" fill="#fcd34d" opacity=".5"/>
+  <path d="M 226 629 V 703 M 246 629 V 703 M 210 666 H 262" stroke="#0b0e17" stroke-width="3"/>
+  <rect x="-20" y="745" width="300" height="14" fill="#3b2a1d"/><rect x="-20" y="759" width="300" height="6" fill="#241a12"/>
+  <rect x="150" y="745" width="120" height="3" fill="#fcd34d" opacity=".3"/>
+  <g fill="#1a130d"><rect x="10" y="765" width="9" height="25"/><rect x="110" y="765" width="9" height="25"/><rect x="215" y="765" width="9" height="25"/></g>
+  <rect x="270" y="772" width="40" height="18" rx="3" fill="#1d2230"/><path d="M 270 772 H 310" stroke="#60a5fa" stroke-opacity=".15" stroke-width="1.5"/>
+  <!-- ground: packed dirt (extended cleanly to bottom edge) -->
+  <path d="M -120 782 Q 270 770 660 784 L 660 1080 L -120 1080 Z" fill="#10131c"/>
+  <ellipse cx="270" cy="796" rx="150" ry="10" fill="#fcd34d" opacity=".07"/>
+  <g stroke="#1b2030" stroke-width="1.5" fill="none" opacity=".9">
+   <path d="M 250 806 Q 300 812 350 806"/>
+   <path d="M 230 818 Q 290 826 360 818"/>
+   <path d="M 280 830 Q 340 838 400 828"/>
+   <path d="M 120 812 Q 170 818 215 812"/>
+   <path d="M 90 858 Q 165 866 245 856"/>
+   <path d="M 260 874 Q 340 882 430 870"/>
+   <path d="M 150 905 Q 240 914 335 902"/>
+   <path d="M 60 932 Q 180 942 290 930"/>
+   <path d="M 310 946 Q 410 954 495 944"/>
   </g>
-  <!-- background tables: chairs, diners, then cloth in front -->
-  <g fill="#1a130c"><rect x="73" y="590" width="30" height="100" rx="4"/><rect x="157" y="590" width="30" height="100" rx="4"/><rect x="373" y="590" width="30" height="100" rx="4"/><rect x="447" y="590" width="30" height="100" rx="4"/></g>
-  <g id="s8DinerLayer"></g>
-  <g id="s8BgTables">
-   <rect x="46" y="650" width="168" height="5" fill="#3b2a1d"/><rect x="46" y="655" width="168" height="46" fill="#161b2a"/><path d="M 46 650 H 214" stroke="#fcd34d" stroke-opacity=".3" stroke-width="1.4"/><path d="M 70 658 V 700 M 130 658 V 700 M 190 658 V 700" stroke="#0e121c" stroke-width="2"/>
-   <rect x="336" y="650" width="168" height="5" fill="#3b2a1d"/><rect x="336" y="655" width="168" height="46" fill="#161b2a"/><path d="M 336 650 H 504" stroke="#fcd34d" stroke-opacity=".3" stroke-width="1.4"/><path d="M 360 658 V 700 M 420 658 V 700 M 480 658 V 700" stroke="#0e121c" stroke-width="2"/>
-   <ellipse cx="100" cy="648" rx="16" ry="3.5" fill="#cfc9b8" opacity=".6"/><ellipse cx="160" cy="648" rx="16" ry="3.5" fill="#cfc9b8" opacity=".6"/><ellipse cx="390" cy="648" rx="16" ry="3.5" fill="#cfc9b8" opacity=".6"/><ellipse cx="458" cy="648" rx="16" ry="3.5" fill="#cfc9b8" opacity=".6"/>
-   <ellipse id="s8Fg0" cx="130" cy="636" rx="30" ry="22" fill="url(#s8Glow)" opacity=".7"/><ellipse id="s8Fg1" cx="424" cy="636" rx="30" ry="22" fill="url(#s8Glow)" opacity=".7"/>
-   <rect x="127" y="644" width="6" height="8" fill="#cfc9b8" opacity=".8"/><ellipse id="s8Fl0" cx="130" cy="640" rx="2.4" ry="5" fill="#fef08a"/>
-   <rect x="421" y="644" width="6" height="8" fill="#cfc9b8" opacity=".8"/><ellipse id="s8Fl1" cx="424" cy="640" rx="2.4" ry="5" fill="#fef08a"/>
-  </g>
-  <!-- Mika's chair (behind her), Mika, foreground table -->
-  <rect x="226" y="632" width="88" height="170" rx="12" fill="#1a130c"/><path d="M 238 650 V 790 M 252 650 V 790 M 288 650 V 790 M 302 650 V 790" stroke="#0e0a06" stroke-width="3"/><path d="M 226 640 Q 270 626 314 640" fill="none" stroke="#fcd34d" stroke-opacity=".25" stroke-width="1.6"/>
-  <g id="s8MikaALayer"></g>
-  <rect x="140" y="768" width="260" height="8" fill="#4a3524"/><path d="M 140 768 H 400" stroke="#fcd34d" stroke-opacity=".4" stroke-width="1.6"/>
-  <rect x="146" y="776" width="248" height="184" fill="#151a28"/><path d="M 176 780 V 960 M 218 780 V 960 M 262 780 V 960 M 306 780 V 960 M 350 780 V 960" stroke="#0e121c" stroke-width="2.4"/>
-  <rect x="146" y="776" width="248" height="10" fill="#fcd34d" opacity=".05"/>
-  <ellipse cx="196" cy="765" rx="30" ry="6" fill="#cfc9b8" opacity=".8"/><ellipse cx="196" cy="763" rx="19" ry="3.5" fill="#8a8473" opacity=".7"/><path d="M 236 758 L 262 760 M 238 762 L 262 764" stroke="#cfc9b8" stroke-width="1.6" stroke-linecap="round" opacity=".8"/>
-  <path d="M 318 766 L 318 748 Q 318 744 322 744 L 336 744 Q 340 744 340 748 L 340 766 Z" fill="#cfd8e6" opacity=".18"/><path d="M 340 752 Q 348 754 346 760 Q 344 764 340 762" fill="none" stroke="#cfd8e6" stroke-opacity=".3" stroke-width="1.4"/>
-  <ellipse id="s8Fg2" cx="364" cy="752" rx="34" ry="24" fill="url(#s8Glow)" opacity=".75"/><rect x="361" y="756" width="6" height="10" fill="#cfc9b8" opacity=".85"/><ellipse id="s8Fl2" cx="364" cy="752" rx="2.6" ry="5.5" fill="#fef08a"/>
-  <path id="s8Glint1" d="M 196 756 L 199 762 L 205 764 L 199 766 L 196 772 L 193 766 L 187 764 L 193 762 Z" fill="#fff6c8" opacity="0"/>
-  <path id="s8Glint2" d="M 329 740 L 331 745 L 336 747 L 331 749 L 329 754 L 327 749 L 322 747 L 327 745 Z" fill="#fff6c8" opacity="0"/>
-  <ellipse cx="270" cy="700" rx="320" ry="280" fill="url(#s8Wash)"/>
-  <rect x="-60" y="860" width="660" height="220" fill="url(#s8Mist)"/>
- </g></g>
-
- <!-- ============ PANEL B: Mika scrolling (2.0 - 4.0s) ============ -->
- <g id="s8PanelB" style="display:none"><g id="s8CamB">
-  <rect x="-120" y="-140" width="780" height="1260" fill="url(#s8BgB)"/>
-  <g id="s8BokB"></g>
-  <ellipse id="s8BGlow" cx="290" cy="510" rx="300" ry="300" fill="url(#s8Cool)" opacity=".6"/>
-  <g id="s8MikaBLayer" transform="translate(190 730) scale(2.4)"></g>
-  <ellipse id="s8BFace" cx="250" cy="470" rx="170" ry="170" fill="url(#s8Cool)" opacity=".22" style="mix-blend-mode:screen"/>
-  <rect x="-120" y="612" width="780" height="480" fill="#080b14"/><path d="M -120 612 H 660" stroke="#fcd34d" stroke-opacity=".28" stroke-width="1.6"/>
-  <ellipse cx="290" cy="650" rx="190" ry="22" fill="#60a5fa" opacity=".12"/><ellipse cx="90" cy="700" rx="60" ry="9" fill="#cfc9b8" opacity=".1"/><ellipse cx="440" cy="690" rx="50" ry="8" fill="#cfc9b8" opacity=".08"/>
-  <g id="s8Hearts"></g>
-  <circle id="s8Bub" cx="318" cy="452" r="4" fill="none" stroke="#bae6fd" stroke-width="1.6" opacity="0"/>
-  <ellipse cx="270" cy="700" rx="320" ry="260" fill="url(#s8Wash)" opacity=".6"/>
-  <rect x="-120" y="860" width="780" height="240" fill="url(#s8Mist)"/>
- </g></g>
-
- <!-- ============ PANEL C: group chat, thumb over "Leave" (4.0 - 6.0s) ============ -->
- <g id="s8PanelC" style="display:none"><g id="s8CamC">
-  <rect x="-120" y="-140" width="780" height="1260" fill="url(#s8BgB)"/>
-  <g id="s8BokC"></g>
-  <ellipse id="s8CGlow" cx="270" cy="560" rx="320" ry="340" fill="url(#s8Cool)" opacity=".5"/>
-  <g id="s8MikaCLayer" transform="translate(270 440) scale(1.9)"></g>
-  <ellipse id="s8CFace" cx="270" cy="250" rx="170" ry="150" fill="url(#s8Cool)" opacity=".3" style="mix-blend-mode:screen"/>
-  <g id="s8PhoneC">
-   <rect x="128" y="328" width="284" height="720" rx="40" fill="#0d0b12" stroke="#1e2538" stroke-width="3"/>
-   <rect x="138" y="338" width="264" height="700" rx="32" fill="#0b1220"/>
-   <rect x="138" y="338" width="264" height="700" rx="32" fill="url(#s8Cool)" opacity=".12"/>
-   <rect x="228" y="346" width="84" height="14" rx="7" fill="#05070d"/>
-   <path d="M 138 420 H 402" stroke="#1b2437" stroke-width="2"/>
-   <path d="M 160 388 L 150 396 L 160 404" fill="none" stroke="#8a93a8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-   <circle cx="188" cy="396" r="14" fill="#2a3f66"/><circle cx="204" cy="396" r="14" fill="#33283a"/><circle cx="196" cy="388" r="3" fill="#0b1220" opacity="0"/>
-   <text x="224" y="394" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" font-weight="600" fill="#e6e2d6">Weekend crew</text>
-   <text x="224" y="410" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="10" fill="#8a93a8">12 members</text>
-   <path d="M 372 404 Q 362 404 364 392 Q 364 380 372 378 Q 380 380 380 392 Q 382 404 372 404 Z M 368 408 H 376" fill="none" stroke="#8a93a8" stroke-width="2" stroke-linecap="round"/>
-   <rect x="152" y="438" width="150" height="34" rx="14" fill="#1b2437"/><rect x="164" y="450" width="96" height="4" rx="2" fill="#3a4560"/><rect x="164" y="459" width="62" height="4" rx="2" fill="#3a4560"/>
-   <rect x="214" y="484" width="174" height="34" rx="14" fill="#2a3f66"/><rect x="226" y="496" width="110" height="4" rx="2" fill="#6f8fc4" opacity=".7"/><rect x="226" y="505" width="70" height="4" rx="2" fill="#6f8fc4" opacity=".7"/>
-   <rect x="152" y="530" width="118" height="34" rx="14" fill="#1b2437"/><rect x="164" y="542" width="74" height="4" rx="2" fill="#3a4560"/><rect x="164" y="551" width="44" height="4" rx="2" fill="#3a4560"/>
-   <rect x="152" y="576" width="40" height="30" rx="14" fill="#1b2437"/><circle cx="164" cy="591" r="3" fill="#3a4560"/><circle cx="172" cy="591" r="3" fill="#3a4560"/><circle cx="180" cy="591" r="3" fill="#3a4560"/>
-   <rect x="268" y="618" width="120" height="34" rx="14" fill="#2a3f66"/><rect x="280" y="630" width="72" height="4" rx="2" fill="#6f8fc4" opacity=".7"/>
-   <path d="M 154 690 H 386" stroke="#1b2437" stroke-width="2"/>
-   <text x="156" y="716" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="11" fill="#6a7490" letter-spacing="1.5">GROUP SETTINGS</text>
-   <rect x="158" y="738" width="224" height="52" rx="16" fill="#1a0f10"/><rect x="158" y="738" width="224" height="52" rx="16" fill="none" stroke="#b5523b" stroke-opacity=".8" stroke-width="2"/>
-   <text x="270" y="770" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="17" font-weight="600" fill="#e8c9bf">Leave</text>
-   <rect x="158" y="806" width="224" height="40" rx="14" fill="#101828"/><text x="270" y="831" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#6a7490">Mute</text>
-   <circle id="s8DotRing" cx="379" cy="381" r="8" fill="none" stroke="#b5523b" stroke-width="2" opacity="0"/>
-   <circle id="s8Dot" cx="379" cy="381" r="7" fill="#b5523b" opacity="0"/>
-   <circle id="s8DotGlow" cx="379" cy="381" r="30" fill="#b5523b" opacity="0"/>
-  </g>
-  <g fill="#0d0b12" stroke="#60a5fa" stroke-opacity=".45" stroke-width="1.6">
-   <ellipse cx="132" cy="700" rx="22" ry="60"/><ellipse cx="146" cy="660" rx="14" ry="9"/><ellipse cx="148" cy="690" rx="14" ry="9"/><ellipse cx="148" cy="720" rx="14" ry="9"/>
-   <ellipse cx="410" cy="760" rx="20" ry="52"/>
-  </g>
-  <g id="s8ThumbC">
-   <path d="M -6 -4 Q -32 4 -28 36 L 14 280 L 126 280 L 74 40 Q 66 -12 16 -8 Z" fill="#0d0b12" stroke="#60a5fa" stroke-opacity=".55" stroke-width="2"/>
-   <path d="M -14 8 Q -10 -2 8 -3 Q 22 -3 28 6 Q 22 24 4 26 Q -12 24 -14 8 Z" fill="#161c2c"/>
-   <path d="M -26 34 L 12 270" fill="none" stroke="#bae6fd" stroke-opacity=".3" stroke-width="2"/>
-  </g>
-  <ellipse cx="270" cy="700" rx="320" ry="260" fill="url(#s8Wash)" opacity=".4"/>
- </g></g>
+  <!-- bamboo fence + gate posts -->
+  <rect x="401" y="650" width="84" height="140" fill="url(#s1Gap)"/>
+  <g id="s9Ghosts" opacity="0"></g>
+  <g id="s1Fence" fill="#1b2420"></g>
+  <g fill="#10151a"><rect x="285" y="720" width="108" height="4"/><rect x="285" y="768" width="108" height="4"/><rect x="487" y="720" width="120" height="4"/><rect x="487" y="768" width="120" height="4"/></g>
+  <rect x="389" y="648" width="12" height="144" fill="#241c14"/><rect x="386" y="642" width="18" height="8" fill="#2a2218"/><rect x="479" y="648" width="12" height="144" fill="#241c14"/><rect x="476" y="642" width="18" height="8" fill="#2a2218"/>
+  <path d="M 401 650 V 790 M 491 650 V 790" stroke="#60a5fa" stroke-opacity=".25" stroke-width="1.5"/>
+  <!-- stone lantern -->
+  <g id="s1Lantern" fill="#161b27"><rect x="93" y="772" width="30" height="18" rx="2"/><rect x="103" y="716" width="10" height="58"/><rect x="95" y="704" width="26" height="14" rx="2"/><rect x="99" y="676" width="18" height="30" rx="1"/><path d="M 84 678 L 108 656 L 132 678 Z"/><circle cx="108" cy="652" r="5"/><rect x="105" y="684" width="6" height="14" fill="#0a0d14"/></g>
+  <path d="M 84 678 L 108 656 L 132 678" fill="none" stroke="#60a5fa" stroke-opacity=".3" stroke-width="1.5"/><path d="M 123 705 V 772" stroke="#60a5fa" stroke-opacity=".2" stroke-width="1.5"/>
+  <g id="s1HeroLayer"></g>
+  <g id="s1BroomRot"><g id="s1BroomPose" opacity="0"></g></g>
+  <g id="s1Dust" opacity="0"><ellipse cx="0" cy="0" rx="14" ry="4" fill="#3a3f52" opacity=".6"/><ellipse cx="-12" cy="-4" rx="9" ry="3" fill="#3a3f52" opacity=".45"/><ellipse cx="11" cy="-3" rx="8" ry="3" fill="#3a3f52" opacity=".45"/></g>
+  <rect x="-120" y="840" width="780" height="240" fill="url(#s1Mist)"/>
+ </g>
+ <rect id="s9Black" x="-120" y="-140" width="780" height="1260" fill="#000" opacity="0"/>
 </svg></div>
-<div class="controls"><button id="playBtn" class="primary">▶ Play (6.0s)</button><button id="replayBtn">↺ 0.0s</button><button id="soundBtn">🔊 Sound: ON</button></div>
+<div class="controls"><button id="playBtn" class="primary">▶ Play (4.5s)</button><button id="replayBtn">↺ 0.0s</button><button id="soundBtn">🔊 Sound: ON</button></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
 const $=id=>document.getElementById(id),playBtn=$('playBtn'),replayBtn=$('replayBtn'),soundBtn=$('soundBtn');
-const DUR=6.0;
+const DUR=4.5;
 /* ---- AUDIO helpers ---- */
 let audioCtx=null,soundEnabled=true;
 function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}
@@ -156,18 +83,11 @@ function noise(d,type,f,q,g,att,when=0){if(!audioCtx||!soundEnabled)return;const
 function bed(d,type,f,q,g){
  if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
  const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type=type;fl.frequency.value=f;fl.Q.value=q;v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+.4);v.gain.setValueAtTime(g,t+d-.5);v.gain.linearRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
-function voice(g){
- if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,n0=2+((Math.random()*2)|0),d=.15*n0+.1,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
- const s=audioCtx.createBufferSource(),f1=audioCtx.createBiquadFilter(),f2=audioCtx.createBiquadFilter(),lp=audioCtx.createBiquadFilter(),v=audioCtx.createGain();
- s.buffer=b;f1.type='bandpass';f1.frequency.value=380+Math.random()*320;f1.Q.value=4;f2.type='bandpass';f2.frequency.value=1000+Math.random()*900;f2.Q.value=5;lp.type='lowpass';lp.frequency.value=1800;
- v.gain.setValueAtTime(.0001,t);for(let i=0;i<n0;i++){const s0=t+i*.15;v.gain.linearRampToValueAtTime(g,s0+.04);v.gain.linearRampToValueAtTime(.0001,s0+.13);}
- s.connect(f1).connect(v);s.connect(f2).connect(v);v.connect(lp).connect(audioCtx.destination);s.start(t);}
-const playClink=()=>{tone('sine',2400,2300,.05,.05);tone('sine',3600,3400,.03,.015);};
-const playMuffled=()=>tone('sine',2800,2600,.04,.006);
-const playScrollTick=()=>noise(.012,'bandpass',4000,2,.01,.001);
-const playPop=()=>tone('sine',800,1400,.08,.05);
-const playPing=()=>{tone('sine',1100,1080,.2,.06);tone('sine',2200,2150,.12,.015);};
-const playBuzz=()=>tone('triangle',80,78,.1,.09);
+const playSwish=(g=1)=>noise(.14,'bandpass',1200,1.2,.05*g,.02);
+const playChirp=()=>{tone('sine',4200,4300,.05,.01);tone('sine',4200,4300,.05,.01,.09);};
+const playClatter=g=>{tone('triangle',120,55,.08,.1*g);noise(.07,'bandpass',900,1,.07*g,.003);};
+const playDirt=g=>{noise(.09,'lowpass',700,.5,.07*g,.006);tone('triangle',100,50,.06,.04*g);};
+const playWind=(d,g,att)=>noise(d,'bandpass',500,.6,g,att);
 
 /* ===== ZChar v1 — Zenspiris base character rig ===== */
 const ZNS='http://www.w3.org/2000/svg',ZD=Math.PI/180;
@@ -253,122 +173,86 @@ function ZChar(parent,o){
 }
 /* ===== end ZChar ===== */
 
-/* ---- wardrobe: Mika + diners ---- */
-Object.assign(ZHATS,{bun:[['M -6 -20 Q -10 -34 0 -34 Q 10 -34 6 -20 Z','#2f3544'],['M -3.5 -30 H 3.5 V -27 H -3.5 Z','#a04a38']]});
-const OUT={
- mika:{shirt:['#4a3a46',0,-30,3,4],sl:['l','#4a3a46'],pa:['l','#222a3c'],hat:'bun',shoe:'shoe'},
- d1:{shirt:['#2a3550',0,-34,2,1],sl:['s','#2a3550'],pa:['l','#1c2438'],hat:'none',shoe:'shoe'},
- d2:{shirt:['#3a3a46',0,-30,4,3],sl:['l','#3a3a46'],pa:['l','#262a38'],hat:'none',shoe:'shoe'},
- d3:{shirt:['#1f2433',0,-24,3,4],sl:['l','#1f2433'],pa:['l','#1f2433'],hat:'none',shoe:'shoe',ex:'tie'},
- d4:{shirt:['#2e3a3a',0,-34,2,1],sl:['s','#2e3a3a'],pa:['l','#1e2828'],hat:'cap',shoe:'shoe'}
-};
-const GOLD='#fcd34d',COOL='#60a5fa';
-
-/* ---- characters ---- */
-function mkChar(o){
- const c=ZChar($(o.layer),{outfit:o.outfit,params:o.params,rim:o.rim}),h=(o.params&&o.params.height)||1;
- const w=Object.assign({c,h,rimOp:.5,idle:0},o);
- w.rimEl=c.g.querySelector('[data-r="rim"]');w.trEl=c.g.querySelector('[data-r="tr"]');
- w.rimEl.setAttribute('opacity',w.rimOp);w.trEl.setAttribute('opacity',w.rimOp*.8);
- w.init=()=>Object.assign({x:o.x,y:o.y,walk:0,ph:0,yaw:0,headTurn:0,tilt:0,eyes:'deadpan',mouth:'flat',brow:'none',lookX:0,lookY:0,lean:0,naT:10,naE:10,faT:10,faE:10,t:0},o.s||{});
- w.st=w.init();return w;
+/* ---- Tomi, the servant ---- */
+Object.assign(ZSHOES,{waraji:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#7a6a46'],['M -5 -1 H 7 V 0.5 H -5 Z','#7a6a46']]});
+const TOMI_OUT={shirt:['#2b384b',0,-16,3,7],sl:['l','#2b384b'],pa:['k','#262f3f'],hat:'none',shoe:'waraji',ex:'belt'};
+const WARM='#fcd34d',COOL='#60a5fa',GY=790;
+const tomi=ZChar($('s1HeroLayer'),{outfit:TOMI_OUT,rim:WARM});
+const q=r=>tomi.g.querySelector('[data-r="'+r+'"]'),rimW=q('rim'),trW=q('tr'),hcEl=q('hc'),tcEl=q('tc');
+const rimC=document.createElementNS(ZNS,'circle');rimC.setAttribute('fill',COOL);rimC.setAttribute('opacity','.7');hcEl.parentNode.insertBefore(rimC,hcEl);
+const trC=document.createElementNS(ZNS,'path');trC.setAttribute('fill',COOL);trC.setAttribute('opacity','.6');tcEl.parentNode.insertBefore(trC,tcEl);
+rimW.setAttribute('opacity','.5');trW.setAttribute('opacity','.4');
+/* ---- ghost extras beyond the gate ---- */
+Object.assign(ZHATS,{
+ sugegasa:[['M -36 -9 Q -16 -14 0 -35 Q 16 -14 36 -9 Q 0 -3 -36 -9 Z','#7a6d52'],['M -34 -9 Q 0 -3 34 -9 L 34 -7.5 Q 0 -1.5 -34 -7.5 Z','#5b5039']],
+ hachimaki:[['M -20 -11 Q 0 -19 20 -11 L 20 -6.5 Q 0 -14.5 -20 -6.5 Z','#a04a38'],['M 17 -10 L 28 -5 L 26 -1.5 L 15 -6.5 Z','#a04a38',1]],
+ headcloth:[['M -20 -9 Q -22 -30 0 -30 Q 22 -30 20 -9 Q 0 -15 -20 -9 Z','#59626f']],
+ bun:[['M -6 -20 Q -10 -34 0 -34 Q 10 -34 6 -20 Z','#2f3544'],['M -3.5 -30 H 3.5 V -27 H -3.5 Z','#a04a38']]
+});
+const GHOSTS=[[418,774,.62,'sugegasa','#2f3743'],[436,770,.5,'bun','#473a40'],[452,775,.64,'headcloth','#2e3a3a'],[468,771,.56,'hachimaki','#33384a'],[428,764,.42,'sugegasa','#2f3743']].map(([x,y,h,hat,col])=>{
+ const c=ZChar($('s9Ghosts'),{outfit:{shirt:[col,0,-12,3,7],sl:['l',col],pa:['k','#262c38'],hat,shoe:'waraji'},params:{height:h},rim:COOL});
+ c.update({x,y,walk:0,yaw:180,eyes:'deadpan',mouth:'flat',lean:0,t:0,blink:false});return c;});
+/* bundle on his back (vermilion cord crosses the chest) */
+const chEl=q('ch'),bundleG=document.createElementNS(ZNS,'g'),cordG=document.createElementNS(ZNS,'g');
+bundleG.setAttribute('opacity','0');cordG.setAttribute('opacity','0');
+bundleG.innerHTML='<rect x="-31" y="-102" width="27" height="42" rx="9" fill="#2c3547"/><path d="M -31 -84 H -4" stroke="#222a3a" stroke-width="1.5"/><path d="M -31 -102 Q -17 -110 -4 -102" stroke="#60a5fa" stroke-opacity=".45" stroke-width="1.4" fill="none"/>';
+cordG.innerHTML='<path d="M -6 -104 L 11 -62" stroke="#b5523b" stroke-width="2.8" stroke-linecap="round"/><path d="M -6 -104 Q -14 -108 -20 -102" stroke="#b5523b" stroke-width="2.6" stroke-linecap="round" fill="none"/>';
+chEl.insertBefore(bundleG,q('tr'));chEl.insertBefore(cordG,q('nap'));
+const T0={x:335,y:GY,walk:0,ph:0,yaw:150,headTurn:0,tilt:0,eyes:'deadpan',mouth:'flat',brow:'none',lookX:0,lookY:-.2,lean:-3,nb:25,swA:8,naT:25,naE:20,t:0};
+const st={...T0};let hand=[0,0];
+const broomMarkup='<path d="M 8 -34 L -14 52" stroke="#5a4326" stroke-width="3.2" stroke-linecap="round" fill="none"/><path d="M -14 44 L -9 44 L -8 68 L -27 68 Z" fill="#8a7448"/><path d="M -18 52 L -12 52 M -20 60 L -11 60" stroke="#5a4a2a" stroke-width="1.5"/><path d="M -15 47 H -9" stroke="#3b2a1d" stroke-width="2.5"/>';
+tomi.hand.innerHTML='<g id="s1HandBroom">'+broomMarkup+'</g>';
+$('s1BroomPose').innerHTML=broomMarkup;
+const E1={hb:$('s1HandBroom'),bp:$('s1BroomPose'),br:$('s1BroomRot'),dust:$('s1Dust')};
+const fall={a:0,dy:0},bro={px:0,py:0};
+function render(){
+ const r=tomi.update({...st,na:[st.naT,st.naE]});hand=r.hand;
+ const sg=Math.cos(st.yaw*ZD)>=0?1:-1;
+ rimW.setAttribute('cx',-2*sg);trW.setAttribute('transform',`translate(${-1.8*sg},0)`);
+ rimC.setAttribute('cx',2*sg);rimC.setAttribute('r',tomi.P.headR);trC.setAttribute('d',trW.getAttribute('d')||'');trC.setAttribute('transform',`translate(${1.8*sg},0)`);
+ E1.br.setAttribute('transform',`translate(0,${fall.dy.toFixed(2)}) rotate(${(-fall.a).toFixed(2)} ${bro.px.toFixed(1)} ${bro.py.toFixed(1)})`);
 }
-function renderW(w){const s=w.st,idl=w.idle*Math.sin(s.t*1.9+w.h*7);
- w.c.update({x:s.x,y:s.y,walk:s.walk,ph:s.ph,yaw:s.yaw,headTurn:s.headTurn,tilt:s.tilt,eyes:s.eyes,mouth:s.mouth,brow:s.brow,lookX:s.lookX,lookY:s.lookY,lean:s.lean+idl,na:[s.naT,s.naE],fa:[s.faT,s.faE],t:s.t});}
-const SEAT={legLen:.5};
-const diners=[['d1',88],['d2',172],['d3',388],['d4',462]].map(([k,x],i)=>mkChar({layer:'s8DinerLayer',outfit:OUT[k],params:{...SEAT,height:[.78,.8,.8,.76][i]},rim:GOLD,rimOp:.45,x,y:706,idle:.5,s:{yaw:0}}));
-const mikaA=mkChar({layer:'s8MikaALayer',outfit:OUT.mika,params:{...SEAT,height:1.1},rim:GOLD,rimOp:.55,x:270,y:830,idle:.25,s:{yaw:90}});
-const mikaB=mkChar({layer:'s8MikaBLayer',outfit:OUT.mika,rim:COOL,rimOp:.7,x:0,y:0,s:{yaw:0,headTurn:20,tilt:8,eyes:'squint',brow:'raised',lookX:.4,lookY:.8,naT:50,naE:40,faT:12,faE:10}});
-mikaB.c.hand.innerHTML='<g id="s8PhoneB"><path d="M -3 -21 L 5 -23 L 6 6 L -2 8 Z" fill="#0d0b12" stroke="#60a5fa" stroke-opacity=".6" stroke-width=".8"/><path d="M -1.6 -18.5 L 3.4 -19.8 L 4.2 3 L -.8 4.4 Z" fill="#bae6fd" opacity=".95"/><ellipse id="s8Thumb" cx="-2.6" cy="-5" rx="2.4" ry="4.2" fill="#0d0b12" stroke="#60a5fa" stroke-opacity=".55" stroke-width=".7"/></g>';
-const mikaC=mkChar({layer:'s8MikaCLayer',outfit:OUT.mika,rim:COOL,rimOp:.7,x:0,y:0,s:{yaw:90,lookY:.85,eyes:'deadpan',mouth:'flat'}});
-const CH=[...diners,mikaA,mikaB,mikaC];
-
-/* ---- static dressing ---- */
 (function(){
- let s='',r=11;const rnd=()=>(r=(r*9301+49297)%233280)/233280;
- for(let x=-40;x<600;x+=54)s+=`<path d="M ${x} -120 V 540"/>`;$('s8WallLines').innerHTML=s;
- s='';for(let i=-9;i<=9;i++){const xt=270+i*64;s+=`<path d="M ${xt} 700 L ${(270+(xt-270)*5.2).toFixed(0)} 1080"/>`;}
- [716,738,768,806,852,910,980].forEach((y,k)=>{s+=`<path d="M ${-60+k*23} ${y} h ${80+k*40} M ${240+k*30} ${y+4} h ${100+k*30}" opacity=".55"/>`;});$('s8Planks').innerHTML=s;
- s='';for(let y=840;y<960;y+=14)for(let x=110-(y-840)*.4;x<440+(y-840)*.4;x+=22)s+=`<path d="M ${x.toFixed(0)} ${y} l 5 5 l -5 5 l -5 -5 Z"/>`;$('s8Weave').innerHTML=s;
- s='';[[26,34,'#0a0c12'],[46,26,'#0a0c12'],[68,38,'#0a0c12'],[92,28,'#0a0c12'],[116,36,'#0a0c12'],[140,30,'#0a0c12']].forEach(([x,h,f],i)=>{s+=`<rect x="${x}" y="${372-h}" width="11" height="${h}" rx="3"/><rect x="${x+3}" y="${372-h-8}" width="5" height="9" rx="1.5"/>`;});
- [[30,28],[56,22],[84,30],[110,24],[138,32]].forEach(([x,h])=>{s+=`<rect x="${x}" y="${300-h}" width="10" height="${h}" rx="3"/><rect x="${x+2.5}" y="${300-h-7}" width="5" height="8" rx="1.5"/>`;});$('s8Bottles').innerHTML=s;
- s='';for(let i=0;i<16;i++){const warm=rnd()>.45;s+=`<circle cx="${(404+rnd()*84).toFixed(0)}" cy="${(250+rnd()*200).toFixed(0)}" r="${(2+rnd()*4).toFixed(1)}" fill="${warm?'#fcd34d':'#60a5fa'}" opacity="${(.2+rnd()*.35).toFixed(2)}"/>`;}$('s8CityLights').innerHTML=s;
- const bok=(id,n,seed)=>{let q='';r=seed;for(let i=0;i<n;i++){const w=rnd()>.4,rr=14+rnd()*34;q+=`<circle cx="${(rnd()*640-50).toFixed(0)}" cy="${(-80+rnd()*700).toFixed(0)}" r="${rr.toFixed(0)}" fill="url(#${w?'s8BokW':'s8BokC'})" opacity="${(.25+rnd()*.5).toFixed(2)}"/>`;}$(id).innerHTML=q;};
- bok('s8BokB',20,23);bok('s8BokC',18,57);
- let h='';for(let i=0;i<7;i++)h+=`<g transform="translate(${290+(i%2?12:-8)} 492)"><g id="s8H${i}" opacity="0"><path d="M 0 5 C -9 -2 -7 -10 0 -5 C 7 -10 9 -2 0 5 Z" fill="${i%3===0?'#c9645a':'#b5523b'}"/></g></g>`;$('s8Hearts').innerHTML=h;
+ let s='';[[40,90,1.1],[130,170,.9],[230,70,1.2],[330,130,1],[440,60,1.2],[500,190,.9],[90,260,.9],[380,260,.9],[260,300,.8],[75,28,1.0],[195,18,.8],[390,22,1.1],[485,35,.9]].forEach(([x,y,r])=>s+=`<circle cx="${x}" cy="${y}" r="${r}" opacity=".3"/>`);$('s1Stars').innerHTML=s;
+ let f='';const seg=(a,b)=>{for(let x=a;x<b;x+=9){const top=690+((x*13)%9);f+=`<rect x="${x}" y="${top}" width="5" height="${792-top}" rx="2"/><rect x="${x+4}" y="${top}" width="1" height="${792-top}" fill="#60a5fa" opacity=".18"/>`;}};
+ seg(285,387);seg(493,600);$('s1Fence').innerHTML=f;
 })();
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const FL=[['s8Fl0','s8Fg0'],['s8Fl1','s8Fg1'],['s8Fl2','s8Fg2']];
-const fx={dot:0};
 
-/* ---- TIMELINE (6.0s, hard cuts at 2.0s and 4.0s) ---- */
+/* ---- TIMELINE (4.5s) ---- */
 let sceneTl=null;
-function showPanel(k){['A','B','C'].forEach(p=>gsap.set('#s8Panel'+p,{display:p===k?'block':'none'}));}
-function resetScene8ToStart(){
+function resetScene1ToStart(){
  if(sceneTl){sceneTl.kill();sceneTl=null;}
- CH.forEach(w=>{w.st=w.init();});
- fx.dot=0;showPanel('A');
- gsap.set('#s8CamA',{scale:1,svgOrigin:'270 700'});gsap.set('#s8CamB',{scale:1,svgOrigin:'240 500'});gsap.set('#s8CamC',{scale:1,svgOrigin:'300 520'});
- gsap.set('#s8Glint1,#s8Glint2',{opacity:0});
- for(let i=0;i<7;i++)gsap.set('#s8H'+i,{x:0,y:0,scale:.5,opacity:0});
- gsap.set('#s8Thumb',{y:0});gsap.set('#s8Bub',{opacity:0,attr:{r:4}});
- gsap.set('#s8ThumbC',{x:430,y:980});gsap.set('#s8PhoneC',{x:0});
- ['s8Dot','s8DotRing','s8DotGlow'].forEach(i=>$(i).setAttribute('opacity',0));
- CH.forEach(renderW);replayBtn.textContent='↺ 0.0s';
+ Object.assign(st,T0);fall.a=0;fall.dy=0;bro.px=0;bro.py=0;
+ gsap.set('#s1Camera',{scale:1,svgOrigin:'318 726'});
+ gsap.set(E1.hb,{opacity:1});gsap.set(E1.bp,{opacity:0});gsap.set(E1.dust,{opacity:0});gsap.set($('s9Ghosts'),{opacity:0});gsap.set(bundleG,{opacity:0});gsap.set(cordG,{opacity:0});gsap.set($('s9Black'),{opacity:0});
+ render();replayBtn.textContent='↺ 0.0s';
 }
-function playScene8(){
- resetScene8ToStart();
- sceneTl=gsap.timeline({onUpdate:()=>{const t=sceneTl.time();CH.forEach(w=>w.st.t=t);
-   const f=.95+.04*Math.sin(t*7)+.03*Math.sin(t*13+.6);$('s8LampGlows').setAttribute('opacity',f.toFixed(3));
-   FL.forEach(([a,b],i)=>{const k=1+.18*Math.sin(t*11+i*2)+.12*Math.sin(t*19+i);$(a).setAttribute('ry',(5*k).toFixed(2));$(b).setAttribute('opacity',(.7*f*k).toFixed(3));});
-   $('s8BGlow').setAttribute('opacity',(.58+.1*Math.sin(t*8)).toFixed(3));$('s8BFace').setAttribute('opacity',(.2+.05*Math.sin(t*8+1)).toFixed(3));
-   const p=t>=4.3?((t-4.3)*1.8)%1:0;
-   $('s8Dot').setAttribute('opacity',fx.dot);$('s8Dot').setAttribute('r',(7*(1+.14*Math.sin((t-4.3)*7))).toFixed(2));
-   $('s8DotRing').setAttribute('r',(8+16*p).toFixed(2));$('s8DotRing').setAttribute('opacity',(fx.dot*.7*(1-p)).toFixed(3));
-   $('s8DotGlow').setAttribute('opacity',(fx.dot*(.22+.12*Math.sin((t-4.3)*7))).toFixed(3));
-   $('s8CFace').setAttribute('opacity',(.28+.04*Math.sin(t*3)).toFixed(3));
-   CH.forEach(renderW);replayBtn.textContent=`↺ ${t.toFixed(1)}s`;},onComplete:()=>{replayBtn.textContent='↺ 6.0s';}});
- sceneTl.set('#s8PanelA',{display:'none'},2.0).set('#s8PanelB',{display:'block'},2.0);
- sceneTl.set('#s8PanelB',{display:'none'},4.0).set('#s8PanelC',{display:'block'},4.0);
- sceneTl.to('#s8CamA',{scale:1.06,svgOrigin:'270 700',duration:2,ease:'power1.inOut'},0);
- sceneTl.to('#s8CamB',{scale:1.06,svgOrigin:'240 500',duration:2,ease:'power1.inOut'},2.0);
- sceneTl.to('#s8CamC',{scale:1.06,svgOrigin:'300 520',duration:2,ease:'power1.inOut'},4.0);
- sceneTl.call(()=>bed(5.9,'bandpass',620,.45,.04),null,.05);
- [.2,.55,1.05,1.6,2.3,3.0,3.7,4.5,5.2].forEach(t=>sceneTl.call(()=>voice(.016),null,t));
- [.3,1.0,1.8,2.6,3.5,4.4,5.3].forEach(t=>sceneTl.call(playMuffled,null,t));
-
- sceneTl.to(mikaA.st,{lookX:-.5,duration:.3,ease:'sine.out'},.2);
- sceneTl.to(mikaA.st,{lookX:.5,duration:1.0,ease:'sine.inOut'},.5);
- sceneTl.to(mikaA.st,{lookX:0,duration:.4,ease:'sine.inOut'},1.6);
- [[.7,'#s8Glint1'],[1.4,'#s8Glint2']].forEach(([t,g])=>{
-  sceneTl.call(playClink,null,t);
-  sceneTl.fromTo(g,{opacity:0,scale:.4,transformOrigin:'50% 50%'},{opacity:.95,scale:1.15,duration:.07,immediateRender:false},t).to(g,{opacity:0,duration:.25},t+.07);});
-
- sceneTl.fromTo(mikaB.st,{naT:54},{naT:46,duration:.25,ease:'sine.inOut',yoyo:true,repeat:7,immediateRender:false},2.0);
- sceneTl.fromTo('#s8Thumb',{y:-3},{y:3,duration:.25,ease:'sine.inOut',yoyo:true,repeat:7,immediateRender:false},2.0);
- for(let k=0;k<8;k++)sceneTl.call(playScrollTick,null,2.0+k*.25);
- for(let i=0;i<7;i++){const t0=2.2+i*.22,sw=(i%2?1:-1)*(10+i*3);
-  sceneTl.fromTo('#s8H'+i,{x:0,y:0,scale:.5,opacity:0},{x:sw,y:-190-i*8,scale:1.1,duration:1.3,ease:'sine.out',immediateRender:false},t0);
-  sceneTl.fromTo('#s8H'+i,{opacity:0},{opacity:.9,duration:.15,immediateRender:false},t0).to('#s8H'+i,{opacity:0,duration:.45},t0+.85);}
- sceneTl.fromTo('#s8Bub',{opacity:0,attr:{r:4}},{opacity:.85,attr:{r:10},duration:.3,immediateRender:false},2.9);
- sceneTl.call(playPop,null,3.2).to('#s8Bub',{attr:{r:20},opacity:0,duration:.14,ease:'power2.out'},3.2);
-
- sceneTl.set(mikaC.st,{eyes:'groggy'},4.0);
- sceneTl.to('#s8ThumbC',{x:326,y:748,duration:.6,ease:'power2.out'},4.0);
- sceneTl.fromTo('#s8ThumbC',{y:748},{y:754,duration:.35,ease:'sine.inOut',yoyo:true,repeat:2,immediateRender:false},4.7);
- sceneTl.call(playPing,null,4.3).to(fx,{dot:1,duration:.12,ease:'back.out(1.6)'},4.3);
- sceneTl.call(playBuzz,null,5.0);
- sceneTl.fromTo('#s8PhoneC',{x:-2.5},{x:2.5,duration:.03,ease:'none',yoyo:true,repeat:5,immediateRender:false},5.0).set('#s8PhoneC',{x:0},5.2);
- sceneTl.set(mikaC.st,{mouth:'frown'},4.9);
- sceneTl.to('#s8ThumbC',{x:412,y:960,duration:.45,ease:'power2.inOut'},5.5);
+function releaseBroom(){
+ const h=tomi.P.height,sg=Math.cos(st.yaw*ZD)>=0?1:-1,L=st.lean*ZD,lx=hand[0]*h*sg,ly=hand[1]*h;
+ const wx=st.x+lx*Math.cos(L)-ly*Math.sin(L),wy=st.y+lx*Math.sin(L)+ly*Math.cos(L);
+ E1.bp.setAttribute('transform',`translate(${wx},${wy}) scale(${sg*h},${h})`);
+ bro.px=wx+sg*h*(-17.5);bro.py=wy+h*68;
+ gsap.set(E1.hb,{opacity:0});gsap.set(E1.bp,{opacity:1});
+ E1.dust.setAttribute('transform',`translate(${bro.px},${792})`);
 }
-playBtn.addEventListener('click',()=>{initAudio();playScene8();});
-replayBtn.addEventListener('click',()=>resetScene8ToStart());
+function playScene1(){
+ resetScene1ToStart();
+ sceneTl=gsap.timeline({onUpdate:()=>{const t=sceneTl.time();st.t=t;st.naT=st.nb+st.swA*Math.sin(2*Math.PI*t/1.2);render();replayBtn.textContent=`↺ ${t.toFixed(1)}s`;},onComplete:()=>{replayBtn.textContent='↺ 4.5s';}});
+ sceneTl.to('#s1Camera',{scale:1.12,svgOrigin:'318 726',duration:DUR,ease:'sine.inOut'},0);
+ sceneTl.call(()=>bed(4.2,'lowpass',220,.5,.05),null,.05);
+ [.6,1.8,3.0].forEach(t=>sceneTl.call(playChirp,null,t));
+ sceneTl.call(()=>playSwish(1),null,.1).to(st,{swA:0,duration:.4},.1);
+ sceneTl.to($('s9Ghosts'),{opacity:.15,duration:.6,ease:'power1.out'},.3);
+ sceneTl.to(st,{headTurn:-105,lookY:0,duration:.7,ease:'power2.inOut'},.6);
+ sceneTl.to(bundleG,{opacity:1,duration:.4,ease:'power1.out'},2.4).to(cordG,{opacity:1,duration:.4,ease:'power1.out'},2.4);
+ sceneTl.call(()=>tone('sine',110,100,1.5,.02),null,2.4);
+ sceneTl.call(releaseBroom,null,3.4);
+ sceneTl.to(fall,{a:10,duration:1.1,ease:'power2.in'},3.4);
+ sceneTl.to(st,{nb:18,duration:.5,ease:'power2.out'},3.4);
+ sceneTl.set($('s9Black'),{opacity:1},4.46);
+}
+playBtn.addEventListener('click',()=>{initAudio();playScene1();});
+replayBtn.addEventListener('click',()=>resetScene1ToStart());
 soundBtn.addEventListener('click',()=>{soundEnabled=!soundEnabled;soundBtn.textContent='🔊 Sound: '+(soundEnabled?'ON':'OFF');if(soundEnabled)initAudio();});
-window.addEventListener('load',()=>{resetScene8ToStart();setTimeout(playScene8,250);});
-</script></body></html>'''
-
-with open('nukemairi_scene8_9x16.html', 'w', encoding='utf-8') as f:
-    f.write(html_content)
-print("Saved nukemairi_scene8_9x16.html successfully.")
-}
+window.addEventListener('load',()=>{resetScene1ToStart();setTimeout(playScene1,250);});
+</script></body></html>
