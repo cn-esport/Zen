@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — Nukemairi Scene 2: Japan 1830 (9.0s + Foley SFX)</title>
+<title>Zenspiris — Nukemairi Scene 3: Almost Nothing (6.5s + Foley SFX)</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;background:#040406;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
@@ -16,46 +16,61 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
 <div class="stage-wrapper"><div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
 <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <linearGradient id="s2Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset=".55" stop-color="#0b101d"/><stop offset="1" stop-color="#131b2e"/></linearGradient>
-  <radialGradient id="s2MoonHalo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#60a5fa" stop-opacity=".32"/><stop offset=".35" stop-color="#60a5fa" stop-opacity=".14"/><stop offset=".7" stop-color="#38bdf8" stop-opacity=".04"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/></radialGradient>
-  <linearGradient id="s2Mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#131b2e" stop-opacity="0"/><stop offset="1" stop-color="#131b2e" stop-opacity=".35"/></linearGradient>
-  <filter id="s2Blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+  <linearGradient id="s3Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset=".5" stop-color="#0b101d"/><stop offset=".8" stop-color="#131b2e"/><stop offset="1" stop-color="#1c2742"/></linearGradient>
+  <radialGradient id="s3Glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fef08a" stop-opacity=".85"/><stop offset=".15" stop-color="#fcd34d" stop-opacity=".5"/><stop offset=".45" stop-color="#f59e0b" stop-opacity=".16"/><stop offset="1" stop-color="#d97706" stop-opacity="0"/></radialGradient>
+  <radialGradient id="s3Wash" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fcd34d" stop-opacity=".22"/><stop offset=".6" stop-color="#f59e0b" stop-opacity=".06"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
+  <linearGradient id="s3Mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#131b2e" stop-opacity="0"/><stop offset="1" stop-color="#131b2e" stop-opacity=".35"/></linearGradient>
  </defs>
- <g id="s2Camera">
-  <rect x="-60" y="-120" width="660" height="1200" fill="url(#s2Sky)"/>
-  <g id="s2Stars" fill="#cfe0ff"></g>
-  <ellipse cx="330" cy="610" rx="300" ry="260" fill="url(#s2MoonHalo)"/>
-  <circle id="s2Moon" cx="330" cy="640" r="82" fill="#60a5fa" opacity=".4"/>
-  <circle cx="306" cy="620" r="14" fill="#bae6fd" opacity=".07"/><circle cx="352" cy="662" r="20" fill="#bae6fd" opacity=".06"/><circle cx="342" cy="606" r="8" fill="#bae6fd" opacity=".06"/>
-  <ellipse cx="120" cy="520" rx="150" ry="9" fill="#1a2438" opacity=".35"/><ellipse cx="470" cy="470" rx="120" ry="7" fill="#1a2438" opacity=".3"/><ellipse cx="300" cy="590" rx="210" ry="6" fill="#1a2438" opacity=".25"/>
-  <path d="M -60 762 Q 90 690 220 716 T 430 684 T 600 728 L 600 1080 L -60 1080 Z" fill="#080b14"/>
-  <g id="s2Pines" fill="#04060b"></g>
-  <path d="M -60 776 Q 270 700 600 778 L 600 1080 L -60 1080 Z" fill="#05070d"/>
-  <path d="M -60 766 Q 270 692 600 768" fill="none" stroke="#60a5fa" stroke-opacity=".07" stroke-width="2"/>
-  <!-- Tokaido road -->
-  <path d="M -60 806 Q 270 754 600 806" fill="none" stroke="#141a27" stroke-width="62"/>
-  <path d="M -60 806 Q 270 754 600 806" fill="none" stroke="#1c2333" stroke-width="42" opacity=".85"/>
-  <path d="M -60 797 Q 270 745 600 797" fill="none" stroke="#0b0f19" stroke-width="2"/>
-  <path d="M -60 816 Q 270 764 600 816" fill="none" stroke="#0b0f19" stroke-width="2"/>
-  <path d="M -60 775 Q 270 723 600 775" fill="none" stroke="#60a5fa" stroke-opacity=".08" stroke-width="2"/>
-  <g id="s2ExtraLayer0"></g><g id="s2ExtraLayer1"></g><g id="s2ExtraLayer2"></g><g id="s2ExtraLayer3"></g><g id="s2ExtraLayer4"></g>
-  <g id="s2Hero1Layer"></g>
-  <g id="s2Hero2Layer"></g>
-  <g id="s2HeroLayer"></g>
-  <g id="s2KanjiG" opacity="0" font-family="'Noto Serif JP','Yu Mincho','Hiragino Mincho ProN','MS Mincho',serif" font-size="46" text-anchor="middle" letter-spacing="8">
-   <text x="270" y="520" fill="#b5523b" filter="url(#s2Blur)" opacity=".7">抜参り</text>
-   <text x="270" y="520" fill="#b5523b">抜参り</text>
-  </g>
-  <rect x="-60" y="840" width="660" height="240" fill="url(#s2Mist)"/>
-  <path id="s2Grass" d="" fill="#030407"/>
+ <g id="s3Camera">
+  <rect x="-60" y="-120" width="660" height="1200" fill="url(#s3Sky)"/>
+  <g id="s3Stars" fill="#cfe0ff"></g>
+  <ellipse cx="400" cy="720" rx="330" ry="70" fill="#3a4f7a" opacity=".22"/>
+  <path d="M -60 740 Q 100 690 230 722 T 440 700 T 600 730 L 600 1080 L -60 1080 Z" fill="#0a0f1a"/>
+  <g id="s3Pines" fill="#060912"></g>
+  <!-- ground: packed dirt (extended cleanly to bottom edge) -->
+  <path d="M -60 768 Q 270 752 600 770 L 600 1080 L -60 1080 Z" fill="#10131c"/>
+  <ellipse cx="120" cy="792" rx="230" ry="26" fill="#fcd34d" opacity=".11"/>
+  <ellipse cx="300" cy="800" rx="170" ry="9" fill="#0b0d14" opacity=".7"/><ellipse cx="440" cy="812" rx="90" ry="6" fill="#0b0d14" opacity=".6"/><ellipse cx="60" cy="822" rx="70" ry="5" fill="#0b0d14" opacity=".6"/>
+  <ellipse cx="210" cy="868" rx="140" ry="8" fill="#0b0d14" opacity=".55"/><ellipse cx="380" cy="892" rx="120" ry="7" fill="#0b0d14" opacity=".5"/><ellipse cx="140" cy="924" rx="150" ry="8" fill="#0b0d14" opacity=".5"/>
+  <!-- stall (back) -->
+  <rect x="20" y="628" width="170" height="162" fill="#0a0c14"/>
+  <rect x="20" y="628" width="170" height="162" fill="url(#s3Glow)" opacity=".55"/>
+  <rect x="34" y="694" width="140" height="5" fill="#2a1f16"/>
+  <g fill="#cfc9b8" opacity=".75"><path d="M 46 694 L 46 682 Q 52 678 58 682 L 58 694 Z"/><path d="M 70 694 L 70 680 Q 76 676 82 680 L 82 694 Z"/><path d="M 140 694 L 140 683 Q 146 679 152 683 L 152 694 Z"/></g>
+  <rect x="12" y="585" width="9" height="205" fill="#2a1f16"/><rect x="188" y="585" width="9" height="205" fill="#2a1f16"/>
+  <path d="M -34 628 L 105 516 L 244 628 Q 105 600 -34 628 Z" fill="#2b2318"/>
+  <path d="M -34 628 Q 105 600 244 628 L 244 640 Q 105 614 -34 640 Z" fill="#14100a"/>
+  <g stroke="#1b160e" stroke-width="2" fill="none" opacity=".8"><path d="M 20 600 L 60 556"/><path d="M 50 606 L 90 548"/><path d="M 84 604 L 118 540"/><path d="M 120 604 L 144 548"/><path d="M 150 608 L 180 560"/><path d="M 180 612 L 208 574"/></g>
+  <path d="M -34 628 L 105 516 L 244 628" fill="none" stroke="#d97706" stroke-opacity=".28" stroke-width="2"/>
+  <ellipse id="s3GlowBig" cx="96" cy="650" rx="270" ry="250" fill="url(#s3Glow)" opacity=".9"/>
+  <!-- lantern -->
+  <path d="M 96 596 L 96 628" stroke="#14100a" stroke-width="1.5"/>
+  <rect x="88" y="626" width="16" height="5" rx="1.5" fill="#14100a"/>
+  <ellipse cx="96" cy="650" rx="15" ry="21" fill="#b45309"/>
+  <ellipse id="s3LanternCore" cx="96" cy="650" rx="10" ry="15" fill="#fef08a" opacity=".9"/>
+  <path d="M 82 642 Q 96 646 110 642 M 81 652 Q 96 656 111 652 M 83 662 Q 96 666 109 662" stroke="#5a2d08" stroke-width="1.2" fill="none"/>
+  <rect x="88" y="669" width="16" height="4" rx="1.5" fill="#14100a"/>
+  <!-- bench (behind walkers) -->
+  <rect x="335" y="752" width="136" height="8" fill="#3b2a1d"/><rect x="345" y="760" width="7" height="30" fill="#2a1f16"/><rect x="452" y="760" width="7" height="30" fill="#2a1f16"/>
+  <path d="M 335 752 H 471" stroke="#fcd34d" stroke-opacity=".12" stroke-width="1.5"/>
+  <g id="s3OyoneLayer"></g>
+  <!-- counter (front of Oyone) -->
+  <rect x="24" y="738" width="156" height="52" fill="#2a1f16"/><rect x="20" y="732" width="164" height="8" fill="#3b2a1d"/>
+  <path d="M 20 732 H 184" stroke="#fcd34d" stroke-opacity=".35" stroke-width="1.5"/>
+  <ellipse cx="150" cy="728" rx="10" ry="5" fill="#14100a"/><path d="M 158 726 L 168 718" stroke="#14100a" stroke-width="3" stroke-linecap="round"/><path d="M 142 724 Q 150 712 158 724" stroke="#14100a" stroke-width="2" fill="none"/>
+  <g id="s3GBundle" opacity="0"><path d="M 462 788 L 478 722" stroke="#3b2a1d" stroke-width="3" stroke-linecap="round"/><path d="M 478 722 L 478 735" stroke="#5a4a36" stroke-width="1.5"/><ellipse cx="478" cy="743" rx="8" ry="7" fill="#2c3547"/><path d="M 471 741 Q 478 746 485 741" stroke="#222a3a" fill="none" stroke-width="1.3"/></g>
+  <g id="s3KichiLayer"></g>
+  <g id="s3HanaLayer"></g>
+  <g id="s3TomiLayer"></g>
+  <ellipse cx="120" cy="690" rx="300" ry="260" fill="url(#s3Wash)"/>
+  <rect x="-60" y="840" width="660" height="240" fill="url(#s3Mist)"/>
  </g>
- <text id="s2Year" x="44" y="868" fill="#ece7da" opacity="0" font-family="Georgia,'Times New Roman',serif" font-size="15" letter-spacing="5">1830</text>
 </svg></div>
-<div class="controls"><button id="playBtn" class="primary">▶ Play (9.0s)</button><button id="replayBtn">↺ 0.0s</button><button id="soundBtn">🔊 Sound: ON</button></div>
+<div class="controls"><button id="playBtn" class="primary">▶ Play (6.5s)</button><button id="replayBtn">↺ 0.0s</button><button id="soundBtn">🔊 Sound: ON</button></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
 const $=id=>document.getElementById(id),playBtn=$('playBtn'),replayBtn=$('replayBtn'),soundBtn=$('soundBtn');
-const DUR=9.0;
+const DUR=6.5;
 /* ---- AUDIO helpers ---- */
 let audioCtx=null,soundEnabled=true;
 function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}
@@ -64,23 +79,17 @@ function noise(d,type,f,q,g,att,when=0){if(!audioCtx||!soundEnabled)return;const
 function bed(d,type,f,q,g){
  if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
  const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type=type;fl.frequency.value=f;fl.Q.value=q;v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+.4);v.gain.setValueAtTime(g,t+d-.5);v.gain.linearRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
-function drone(d,f,g){
- if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,o=audioCtx.createOscillator(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();
- o.type='triangle';o.frequency.value=f;fl.type='lowpass';fl.frequency.value=520;fl.Q.value=.5;
- v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+.8);v.gain.setValueAtTime(g,t+d-.7);v.gain.linearRampToValueAtTime(.0001,t+d);
- o.connect(fl).connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+d+.05);}
-function crickets(d,f,rate,g,phase){
- if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,o=audioCtx.createOscillator(),amp=audioCtx.createGain(),lfo=audioCtx.createOscillator(),lg=audioCtx.createGain(),env=audioCtx.createGain();
- o.type='sine';o.frequency.value=f;amp.gain.value=g/2;lfo.frequency.value=rate;lg.gain.value=g/2;lfo.connect(lg).connect(amp.gain);
- env.gain.setValueAtTime(0,t);for(let s=phase;s<d-.4;s+=.9){env.gain.setValueAtTime(0,t+s);env.gain.linearRampToValueAtTime(1,t+s+.03);env.gain.setValueAtTime(1,t+s+.3);env.gain.linearRampToValueAtTime(0,t+s+.34);}
- o.connect(amp).connect(env).connect(audioCtx.destination);o.start(t);lfo.start(t);o.stop(t+d);lfo.stop(t+d);}
-function sweep(d,f0,f1,g){
+function flutter(d,g){
  if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
- const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type='bandpass';fl.Q.value=.9;fl.frequency.setValueAtTime(f0,t);fl.frequency.exponentialRampToValueAtTime(f1,t+d);
- v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+.08);v.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
+ const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain(),lfo=audioCtx.createOscillator(),lg=audioCtx.createGain(),e=audioCtx.createGain();
+ s.buffer=b;fl.type='bandpass';fl.frequency.value=800;fl.Q.value=1.2;v.gain.value=g*.6;lfo.frequency.value=.3;lg.gain.value=g*.4;lfo.connect(lg).connect(v.gain);
+ e.gain.setValueAtTime(.0001,t);e.gain.linearRampToValueAtTime(1,t+.4);e.gain.setValueAtTime(1,t+d-.5);e.gain.linearRampToValueAtTime(.0001,t+d);
+ s.connect(fl).connect(v).connect(e).connect(audioCtx.destination);s.start(t);lfo.start(t);lfo.stop(t+d);}
+const playFrog=()=>{tone('triangle',420,300,.07,.012);tone('triangle',450,320,.07,.01,.11);};
 const playStep=(gm=1)=>{const j=Math.random()*.02;noise(.07,'lowpass',900,.6,.05*gm,.005,j);noise(.1,'bandpass',3400,.9,.02*gm,.012,j+.015);};
-const playTing=()=>tone('sine',880,840,.3,.03);
-const playBrush=()=>sweep(.4,3000,800,.05);
+const playSwish=()=>noise(.22,'bandpass',1500,.7,.05,.04);
+const playBowlTap=()=>{tone('sine',1400,1300,.1,.06);tone('triangle',2800,2500,.05,.015);};
+const playCoin=f=>{tone('sine',f,f*.93,.15,.04);tone('sine',f*1.5,f*1.4,.1,.015);};
 
 /* ===== ZChar v1 — Zenspiris base character rig ===== */
 const ZNS='http://www.w3.org/2000/svg',ZD=Math.PI/180;
@@ -166,102 +175,117 @@ function ZChar(parent,o){
 }
 /* ===== end ZChar ===== */
 
-/* ---- Scene 2 wardrobe: Edo-period travellers ---- */
+/* ---- wardrobe ---- */
 Object.assign(ZHATS,{
  sugegasa:[['M -36 -9 Q -16 -14 0 -35 Q 16 -14 36 -9 Q 0 -3 -36 -9 Z','#7a6d52'],['M -34 -9 Q 0 -3 34 -9 L 34 -7.5 Q 0 -1.5 -34 -7.5 Z','#5b5039']],
  hachimaki:[['M -20 -11 Q 0 -19 20 -11 L 20 -6.5 Q 0 -14.5 -20 -6.5 Z','#a04a38'],['M 17 -10 L 28 -5 L 26 -1.5 L 15 -6.5 Z','#a04a38',1]],
- headcloth:[['M -20 -9 Q -22 -30 0 -30 Q 22 -30 20 -9 Q 0 -15 -20 -9 Z','#59626f']],
- bun:[['M -6 -20 Q -10 -34 0 -34 Q 10 -34 6 -20 Z','#2f3544'],['M -3.5 -30 H 3.5 V -27 H -3.5 Z','#a04a38']]
+ bun:[['M -6 -20 Q -10 -34 0 -34 Q 10 -34 6 -20 Z','#2f3544'],['M -3.5 -30 H 3.5 V -27 H -3.5 Z','#a04a38']],
+ shimada:[['M -11 -19 Q -19 -35 0 -35 Q 19 -35 11 -19 Z','#2f3544'],['M 6 -33 L 15 -38 L 16 -35 L 8 -30 Z','#8b6f47',1]]
 });
 Object.assign(ZSHOES,{waraji:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#7a6a46'],['M -5 -1 H 7 V 0.5 H -5 Z','#7a6a46']]});
 const OUT={
  tomi:{shirt:['#2b384b',0,-16,3,7],sl:['l','#2b384b'],pa:['k','#262f3f'],hat:'sugegasa',shoe:'waraji',ex:'belt'},
  kichi:{shirt:['#232e3f',0,-14,3,6],sl:['l','#232e3f'],pa:['k','#222b3a'],hat:'hachimaki',shoe:'waraji',ex:'belt'},
  hana:{shirt:['#3a3146',0,-8,3,9],sl:['l','#3a3146'],hat:'bun',shoe:'waraji'},
- exA:{shirt:['#2f3743',0,-12,3,7],sl:['l','#2f3743'],pa:['k','#262c38'],hat:'sugegasa',shoe:'waraji'},
- exB:{shirt:['#2e3a3a',0,-14,3,6],sl:['l','#2e3a3a'],pa:['k','#222a2c'],hat:'headcloth',shoe:'waraji',ex:'belt'},
- exC:{shirt:['#473a40',0,-8,3,9],sl:['l','#473a40'],hat:'bun',shoe:'waraji'},
- exD:{shirt:['#33384a',0,-14,3,6],sl:['l','#33384a'],pa:['k','#242838'],hat:'hachimaki',shoe:'waraji'}
+ oyone:{shirt:['#3d3036',0,-6,3,9],sl:['l','#3d3036'],hat:'shimada',shoe:'waraji',ex:'apron'}
 };
-const roadY=x=>806-26*Math.sin(Math.PI*Math.min(Math.max((x+60)/660,0),1));
-const FEET=55;
-const RIM='#60a5fa';
+const FEET=55,GOLD='#fcd34d';
 
-/* ---- Walkers: Tomi (lead), Kichi, Hana (hand-held), 5 faded extras ---- */
+/* ---- walkers ---- */
 function mkWalker(o){
- const c=ZChar($(o.layer),{outfit:o.outfit,params:o.params,rim:RIM}),h=(o.params&&o.params.height)||1;
- const w=Object.assign({c,h,cyc:FEET*h/o.v,dy:0,hold:false,gm:1},o);
- w.init=()=>({x:o.xStart!=null?o.xStart:-220,walk:1,ph:o.ph0,yaw:o.yaw||0,headTurn:0,tilt:0,eyes:'deadpan',mouth:'flat',brow:'none',lookX:0,lookY:0,lean:o.lean==null?4:o.lean,naT:o.naT==null?10:o.naT,naE:o.naE==null?10:o.naE,t:0});
+ const c=ZChar($(o.layer),{outfit:o.outfit,params:o.params,rim:GOLD}),h=(o.params&&o.params.height)||1;
+ const w=Object.assign({c,h,gm:1,rimOp:.5,idle:0,backlit:false},o);
+ w.rimEl=c.g.querySelector('[data-r="rim"]');w.trEl=c.g.querySelector('[data-r="tr"]');
+ w.rimEl.setAttribute('opacity',w.rimOp);w.trEl.setAttribute('opacity',w.rimOp*.8);
+ w.init=()=>({x:o.x,y:o.y,walk:0,ph:0,yaw:o.yaw,headTurn:0,tilt:0,eyes:'deadpan',mouth:'flat',brow:'none',lookX:0,lookY:0,lean:0,naT:o.naT==null?10:o.naT,naE:o.naE==null?10:o.naE,faT:o.faT==null?10:o.faT,faE:o.faE==null?10:o.faE,t:0});
  w.st=w.init();return w;
 }
-const tomi =mkWalker({layer:'s2HeroLayer', outfit:OUT.tomi, te:0,  x0:-45, v:55,ph0:.10,gm:1,   yaw:-.8,lean:3,naT:25,naE:70,hold:true,xStart:-45});
-const kichi=mkWalker({layer:'s2Hero2Layer',outfit:OUT.kichi,params:{height:1.06},te:1.4,x0:-50,v:55,ph0:.35,gm:.71,naT:-32,naE:6,hold:true});
-const hana =mkWalker({layer:'s2Hero1Layer',outfit:OUT.hana, params:{height:.72}, te:2.6,x0:-35,v:55,ph0:.60,gm:.5, naT:62,naE:12,hold:true});
-const EXT=[
- {outfit:OUT.exA,params:{height:.95},x0:-45,v:46,ph0:.30,gm:.35},
- {outfit:OUT.exB,params:{height:1},  x0:-10,v:47,ph0:.70,gm:.25},
- {outfit:OUT.exC,params:{height:.7}, x0:25, v:45,ph0:.45,gm:.18},
- {outfit:OUT.exD,params:{height:.92},x0:60, v:44,ph0:.90,gm:.18},
- {outfit:OUT.exA,params:{height:.98},x0:85, v:46,ph0:.55,gm:.18}
-].map((e,i)=>mkWalker(Object.assign({layer:'s2ExtraLayer'+i,te:3.6,dy:-14,lean:3.5},e)));
-const WALKERS=[...EXT,hana,kichi,tomi];
-tomi.c.hand.innerHTML='<path d="M 6 4 L -90 -42" stroke="#3b2a1d" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M -88 -42 L -88 -26" stroke="#5a4a36" stroke-width="1.5" fill="none"/><ellipse cx="-88" cy="-17" rx="13" ry="11" fill="#2c3547"/><path d="M -98 -17 Q -88 -12 -78 -17 M -88 -27 L -88 -7" stroke="#222a3a" stroke-width="1.5" fill="none"/><path d="M -99 -23 Q -88 -32 -77 -23" stroke="#60a5fa" stroke-opacity=".4" stroke-width="1.4" fill="none"/>';
-function renderW(w){const s=w.st,sw=w.hold?w.c.P.arm*s.walk*Math.sin(2*Math.PI*s.ph):0;
- w.c.update({x:s.x,y:roadY(s.x)+w.dy,walk:s.walk,ph:s.ph,yaw:s.yaw,headTurn:s.headTurn,tilt:s.tilt,eyes:s.eyes,mouth:s.mouth,brow:s.brow,lookX:s.lookX,lookY:s.lookY,lean:s.lean,na:[s.naT+sw,s.naE],t:s.t});}
-const renderAll=()=>WALKERS.forEach(renderW);
-
-/* ---- Static set dressing (extended cleanly to top and bottom edges) ---- */
+function renderW(w){const s=w.st,sw=w.c.P.arm*s.walk*Math.sin(2*Math.PI*s.ph);
+ const sg=Math.cos(s.yaw*ZD)>=0?1:-1,idl=w.idle*Math.sin(s.t*1.9+w.h*7);
+ w.c.update({x:s.x,y:s.y,walk:s.walk,ph:s.ph,yaw:s.yaw,headTurn:s.headTurn,tilt:s.tilt,eyes:s.eyes,mouth:s.mouth,brow:s.brow,lookX:s.lookX,lookY:s.lookY,lean:s.lean+idl,na:[s.naT+sw,s.naE],fa:[s.faT,s.faE],t:s.t});
+ if(w.backlit){w.rimEl.setAttribute('cx',-2*sg/w.h);w.trEl.setAttribute('transform',`translate(${-1.8*sg/w.h},0)`);}
+}
+const tomi =mkWalker({layer:'s3TomiLayer', outfit:OUT.tomi, x:300,y:790,yaw:180,naT:8,naE:25,rimOp:.5});
+const hana =mkWalker({layer:'s3HanaLayer', outfit:OUT.hana, params:{height:.72},x:325,y:788,yaw:180,rimOp:.4,idle:.5});
+const kichi=mkWalker({layer:'s3KichiLayer',outfit:OUT.kichi,params:{height:1.06},x:355,y:783,yaw:180,rimOp:.28,idle:.5});
+const oyone=mkWalker({layer:'s3OyoneLayer',outfit:OUT.oyone,x:120,y:790,yaw:.4,naT:25,naE:70,rimOp:.55,backlit:true,idle:.3});
+const WALKERS=[oyone,kichi,hana,tomi],gm={oyone:.71,hana:.5};
+const bowl=id=>`<g id="${id}"><path d="M -8 -12 Q -9 -1 2 -1 Q 13 -1 12 -12 Z" fill="#cfc9b8"/><ellipse cx="2" cy="-12" rx="10" ry="2.6" fill="#7a5a3a"/><path d="M 0 -16 q -3 -4 0 -8 t 0 -8 M 6 -16 q -3 -4 0 -8 t 0 -8" stroke="#cfd8e6" stroke-opacity=".35" fill="none" stroke-width="1.4"/></g>`;
+const coins='<circle cx="3" cy="5" r="3.2" fill="#fcd34d"/><circle cx="8" cy="3" r="3.2" fill="#e5b93c"/><circle cx="1" cy="1" r="3.2" fill="#fde68a"/>';
+tomi.c.hand.innerHTML='<g id="s3Stick"><path d="M -4 2 L 34 -44" stroke="#3b2a1d" stroke-width="3" stroke-linecap="round"/><g id="s3Pouch"><path d="M 34 -44 L 34 -31" stroke="#5a4a36" stroke-width="1.5"/><ellipse cx="34" cy="-24" rx="8" ry="7" fill="#2c3547"/><path d="M 27 -26 Q 34 -21 41 -26" stroke="#222a3a" fill="none" stroke-width="1.3"/><path d="M 28 -29 Q 34 -35 40 -29" stroke="#fcd34d" stroke-opacity=".35" fill="none"/></g></g>'+bowl('s3TomiBowl');
+oyone.c.hand.innerHTML=bowl('s3OyoneBowl')+'<g id="s3OyoneCoins" opacity="0">'+coins+'</g>';
+hana.c.hand.innerHTML='<g id="s3HanaCoins" opacity="0">'+coins+'</g><circle id="s3Spark" cx="4" cy="3" r="7" fill="#fef08a" opacity="0"/>';
+const E3={stick:$('s3Stick'),pouch:$('s3Pouch'),tBowl:$('s3TomiBowl'),oBowl:$('s3OyoneBowl'),oCoins:$('s3OyoneCoins'),hCoins:$('s3HanaCoins'),spark:$('s3Spark'),gBundle:$('s3GBundle')};
 (function(){
- let stars='';[[40,90,1.2],[110,160,1],[190,60,1.4],[250,210,1],[420,80,1.3],[480,170,1],[390,240,1.1],[60,300,1],[500,320,1.2],[150,380,.9],[455,400,1],[230,120,1],[330,150,.9],[90,450,1],[520,500,.9],[75,22,1.1],[275,18,.9],[375,26,1.2],[495,32,1.0]].forEach(([x,y,r])=>stars+=`<circle cx="${x}" cy="${y}" r="${r}" opacity="${(.25+((x*y)%7)/20).toFixed(2)}"/>`);$('s2Stars').innerHTML=stars;
+ let st='';[[40,90,1.1],[130,170,.9],[230,70,1.2],[330,130,1],[440,60,1.2],[500,190,.9],[90,260,.9],[380,260,.9],[260,300,.8],[80,24,1.0],[210,18,.8],[395,22,1.1],[490,34,.9]].forEach(([x,y,r])=>st+=`<circle cx="${x}" cy="${y}" r="${r}" opacity=".35"/>`);$('s3Stars').innerHTML=st;
  const pine=(x,b,h,fl)=>{let s=`<path d="M ${x-4} ${b} Q ${x+6} ${b-h*.45} ${x-2} ${b-h*.85} L ${x+3} ${b-h*.85} Q ${x+11} ${b-h*.45} ${x+5} ${b} Z"/>`;
-  [[.50,.30,-.14],[.66,.25,.15],[.82,.20,-.08],[.96,.14,.05]].forEach(([yy,rr,dx])=>{const cx=x+dx*h*fl,cy=b-h*yy;s+=`<ellipse cx="${cx}" cy="${cy}" rx="${h*rr}" ry="${h*.05}"/><ellipse cx="${cx+h*rr*.1}" cy="${cy-h*.04}" rx="${h*rr*.68}" ry="${h*.04}"/><path d="M ${x} ${cy+h*.03} L ${cx} ${cy}" stroke="#04060b" stroke-width="3"/>`;});return s;};
- $('s2Pines').innerHTML=pine(46,748,210,1)+pine(150,728,120,-1)+pine(238,716,86,1)+pine(430,706,170,-1)+pine(506,722,128,1)+pine(588,740,200,-1)+pine(-10,760,150,1);
- let gr='M -60 1080 L -60 950 ';for(let x=-60;x<=600;x+=11){const hh=16+((x*7)%25);gr+=`L ${x+3} ${950-hh} L ${x+6} 950 `;}gr+='L 600 1080 Z';$('s2Grass').setAttribute('d',gr);
+  [[.50,.30,-.14],[.66,.25,.15],[.82,.20,-.08],[.96,.14,.05]].forEach(([yy,rr,dx])=>{const cx=x+dx*h*fl,cy=b-h*yy;s+=`<ellipse cx="${cx}" cy="${cy}" rx="${h*rr}" ry="${h*.05}"/><ellipse cx="${cx+h*rr*.1}" cy="${cy-h*.04}" rx="${h*rr*.68}" ry="${h*.04}"/><path d="M ${x} ${cy+h*.03} L ${cx} ${cy}" stroke="#060912" stroke-width="3"/>`;});return s;};
+ $('s3Pines').innerHTML=pine(262,730,110,1)+pine(520,730,200,-1)+pine(440,716,120,1)+pine(600,740,170,1);
 })();
+const swingAng=t=>{const d=t-.9;return d<0?0:34*Math.exp(-d*2.4)*Math.sin(d*9);};
 
-/* ---- TIMELINE (9.0s) ---- */
+/* ---- TIMELINE (6.5s) ---- */
 let sceneTl=null;
-function resetScene2ToStart(){
+function resetScene3ToStart(){
  if(sceneTl){sceneTl.kill();sceneTl=null;}
  WALKERS.forEach(w=>{w.st=w.init();});
- gsap.set('#s2Camera',{scale:1,x:0,svgOrigin:'300 700'});
- gsap.set('#s2Year',{opacity:0});
- gsap.set('#s2KanjiG',{opacity:0,y:0});
- EXT.forEach(w=>gsap.set(w.c.g.parentNode,{opacity:0}));
- renderAll();replayBtn.textContent='↺ 0.0s';
+ gsap.set('#s3Camera',{scale:1,svgOrigin:'260 650'});
+ gsap.set(E3.stick,{opacity:1});gsap.set(E3.tBowl,{opacity:0});gsap.set(E3.oBowl,{opacity:1});gsap.set(E3.oCoins,{opacity:0});gsap.set(E3.hCoins,{opacity:0});gsap.set(E3.spark,{opacity:0});gsap.set(E3.gBundle,{opacity:0});
+ E3.pouch.setAttribute('transform','rotate(0 34 -44)');
+ $('s3GlowBig').setAttribute('opacity',.9);$('s3LanternCore').setAttribute('opacity',.9);
+ WALKERS.forEach(renderW);replayBtn.textContent='↺ 0.0s';
 }
-function stepTimes(w){const a=[];for(let n=0;;n++){const t=w.te+((n/2+.25)-w.ph0)*w.cyc;if(t>DUR-.05)break;if(t>=w.te+.02)a.push(t);}return a;}
-function walkIn(tl,w){
- const dur=DUR-w.te;
- tl.fromTo(w.st,{x:w.x0},{x:w.x0+w.v*dur,duration:dur,ease:'none',immediateRender:false},w.te);
- tl.fromTo(w.st,{ph:w.ph0},{ph:w.ph0+dur/w.cyc,duration:dur,ease:'none',immediateRender:false},w.te);
- stepTimes(w).forEach(t=>tl.call(()=>playStep(w.gm),null,t));
+function walkSeg(tl,w,t0,t1,x0,x1,ph0,g){
+ const dur=t1-t0,v=Math.abs(x1-x0)/dur,cyc=FEET*w.h/v;
+ tl.to(w.st,{walk:1,duration:.12},t0);
+ tl.fromTo(w.st,{x:x0,ph:ph0},{x:x1,ph:ph0+dur/cyc,duration:dur,ease:'none',immediateRender:false},t0);
+ tl.to(w.st,{walk:0,duration:.2},t1-.2);
+ for(let n=0;;n++){const t=t0+((n/2+.25)-ph0)*cyc;if(t>t1-.15)break;if(t>=t0+.05)tl.call(()=>playStep(g),null,t);}
 }
-function playScene2(){
- resetScene2ToStart();
- sceneTl=gsap.timeline({onUpdate:()=>{WALKERS.forEach(w=>w.st.t=sceneTl.time());renderAll();replayBtn.textContent=`↺ ${sceneTl.time().toFixed(1)}s`;},onComplete:()=>{replayBtn.textContent='↺ 9.0s';}});
- sceneTl.to('#s2Camera',{scale:1.05,x:-16,svgOrigin:'300 700',duration:DUR,ease:'sine.inOut'},0);
- sceneTl.call(()=>bed(8.9,'lowpass',300,.7,.04),null,.05);
- sceneTl.call(()=>drone(8.8,110,.015),null,.1);
- sceneTl.call(()=>crickets(8.7,4200,12,.010,.2),null,.1);
- sceneTl.call(()=>crickets(8.7,4500,11,.007,.55),null,.1);
- sceneTl.fromTo('#s2Year',{opacity:0},{opacity:.85,duration:.4,ease:'power1.out',immediateRender:false},.15);
- sceneTl.to('#s2Year',{opacity:0,duration:.5,ease:'power1.in'},1.3);
- walkIn(sceneTl,tomi);
- walkIn(sceneTl,kichi);
- walkIn(sceneTl,hana);
- EXT.forEach((w,i)=>{sceneTl.fromTo(w.c.g.parentNode,{opacity:0},{opacity:.38,duration:.8,ease:'power1.out',immediateRender:false},3.6+i*.12);walkIn(sceneTl,w);});
- sceneTl.set(kichi.st,{eyes:'squint'},4.5).to(kichi.st,{lookX:-.6,headTurn:25,duration:.18,ease:'power2.out'},4.5);
- sceneTl.call(playTing,null,4.8);
- sceneTl.to(kichi.st,{lookX:0,headTurn:0,duration:.25,ease:'power2.inOut'},5.1).set(kichi.st,{eyes:'deadpan'},5.2);
- sceneTl.to(hana.st,{tilt:-6,lookX:.5,lookY:-.7,duration:.35,ease:'power2.out'},4.6);
- sceneTl.to(hana.st,{tilt:0,lookX:0,lookY:0,duration:.4,ease:'power2.inOut'},6.3);
- sceneTl.fromTo('#s2KanjiG',{opacity:0,y:6},{opacity:1,y:0,duration:.6,ease:'power1.out',immediateRender:false},7.0);
- sceneTl.call(playBrush,null,7.0);
- sceneTl.set(tomi.st,{mouth:'smile'},8.1).set(tomi.st,{mouth:'flat'},8.6);
+function playScene3(){
+ resetScene3ToStart();
+ sceneTl=gsap.timeline({onUpdate:()=>{const t=sceneTl.time();WALKERS.forEach(w=>w.st.t=t);
+   E3.pouch.setAttribute('transform',`rotate(${swingAng(t).toFixed(2)} 34 -44)`);
+   const f=.94+.04*Math.sin(t*13)+.03*Math.sin(t*23+1.3);$('s3GlowBig').setAttribute('opacity',(.9*f).toFixed(3));$('s3LanternCore').setAttribute('opacity',(.9*f).toFixed(3));
+   WALKERS.forEach(renderW);replayBtn.textContent=`↺ ${t.toFixed(1)}s`;},onComplete:()=>{replayBtn.textContent='↺ 6.5s';}});
+ sceneTl.to('#s3Camera',{scale:1.1,svgOrigin:'260 650',duration:DUR,ease:'power1.inOut'},0);
+ sceneTl.call(()=>bed(6.4,'lowpass',260,.7,.03),null,.05);
+ sceneTl.call(()=>flutter(6.4,.02),null,.05);
+ [.4,1.7,2.0,3.6,5.0,5.9].forEach(t=>sceneTl.call(playFrog,null,t));
+ sceneTl.to(tomi.st,{naT:40,naE:40,duration:.6,ease:'power2.out'},.4);
+ sceneTl.call(playSwish,null,1.0);
+ sceneTl.to(kichi.st,{lookX:.5,duration:.3},.6);
+ sceneTl.to(E3.stick,{opacity:0,duration:.3},1.9);
+ sceneTl.to(E3.gBundle,{opacity:1,duration:.3},2.1);
+ walkSeg(sceneTl,oyone,2.0,3.0,120,210,.25,gm.oyone);
+ sceneTl.to(oyone.st,{naT:70,naE:10,duration:.5,ease:'power2.out'},2.4);
+ sceneTl.to(tomi.st,{naT:70,naE:10,faT:70,faE:10,duration:.5,ease:'power2.inOut'},2.3);
+ sceneTl.to(hana.st,{lookX:.5,duration:.3},2.4);
+ sceneTl.call(playBowlTap,null,3.0);
+ sceneTl.set(E3.oBowl,{opacity:0},3.0).set(E3.tBowl,{opacity:1},3.0);
+ sceneTl.set(tomi.st,{eyes:'startled'},3.0).set(tomi.st,{eyes:'deadpan',mouth:'smile'},3.3);
+ sceneTl.to(tomi.st,{naT:15,naE:40,faT:15,faE:40,duration:.5,ease:'power2.inOut'},3.4);
+ sceneTl.to(oyone.st,{naT:25,naE:70,duration:.4,ease:'power2.inOut'},3.3).set(E3.oCoins,{opacity:1},3.4);
+ walkSeg(sceneTl,hana,3.2,4.0,325,266,.6,gm.hana);
+ sceneTl.to(hana.st,{naT:55,naE:10,duration:.35,ease:'power2.out'},4.0);
+ sceneTl.to(oyone.st,{naT:20,naE:35,duration:.5,ease:'power2.inOut'},3.9);
+ sceneTl.call(()=>playCoin(3200),null,4.6);
+ sceneTl.set(E3.oCoins,{opacity:0},4.6).set(E3.hCoins,{opacity:1},4.6);
+ sceneTl.set(oyone.st,{mouth:'smile'},4.6);
+ sceneTl.set(hana.st,{eyes:'happy',mouth:'smile'},4.6).to(hana.st,{tilt:-8,duration:.3,ease:'power2.out'},4.6);
+ sceneTl.call(()=>playCoin(2800),null,4.9);
+ sceneTl.set(E3.spark,{opacity:.9},4.9).to(E3.spark,{opacity:0,duration:.3},4.9);
+ sceneTl.to(oyone.st,{naT:25,naE:70,duration:.5,ease:'power2.inOut'},5.2);
+ sceneTl.to(tomi.st,{lean:-11,tilt:-4,duration:.8,ease:'power1.inOut'},4.2);
+ sceneTl.to(tomi.st,{lean:0,tilt:0,duration:.9,ease:'power1.inOut'},5.4);
 }
-playBtn.addEventListener('click',()=>{initAudio();playScene2();});
-replayBtn.addEventListener('click',()=>resetScene2ToStart());
+playBtn.addEventListener('click',()=>{initAudio();playScene3();});
+replayBtn.addEventListener('click',()=>resetScene3ToStart());
 soundBtn.addEventListener('click',()=>{soundEnabled=!soundEnabled;soundBtn.textContent='🔊 Sound: '+(soundEnabled?'ON':'OFF');if(soundEnabled)initAudio();});
-window.addEventListener('load',()=>{resetScene2ToStart();setTimeout(playScene2,250);});
-</script></body></html>
+window.addEventListener('load',()=>{resetScene3ToStart();setTimeout(playScene3,250);});
+</script></body></html>'''
+
+with open('zenspiris_nukemairi_scene3_9x16.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+print("Saved zenspiris_nukemairi_scene3_9x16.html successfully.")
+}
