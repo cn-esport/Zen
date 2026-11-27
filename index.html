@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenspiris — Nukemairi Scene 6: Leaving Looks Normal (5.5s + Foley SFX)</title>
+<title>Zenspiris — Nukemairi Scene 7: Social Proof (6.5s + Foley SFX)</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;background:#040406;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
@@ -16,83 +16,61 @@ svg.scene-svg{width:100%;height:100%;display:block;shape-rendering:geometricPrec
 <div class="stage-wrapper"><div class="letterbox top"></div><div class="letterbox bottom"></div><div class="vignette"></div>
 <svg class="scene-svg" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <linearGradient id="s6Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060c"/><stop offset=".5" stop-color="#0b101d"/><stop offset=".8" stop-color="#131b2e"/><stop offset="1" stop-color="#1c2742"/></linearGradient>
-  <radialGradient id="s6Glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fef08a" stop-opacity=".85"/><stop offset=".15" stop-color="#fcd34d" stop-opacity=".5"/><stop offset=".45" stop-color="#f59e0b" stop-opacity=".16"/><stop offset="1" stop-color="#d97706" stop-opacity="0"/></radialGradient>
-  <radialGradient id="s6Wash" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fcd34d" stop-opacity=".2"/><stop offset=".6" stop-color="#f59e0b" stop-opacity=".06"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient>
-  <radialGradient id="s6Vermil" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#b5523b" stop-opacity=".35"/><stop offset="1" stop-color="#b5523b" stop-opacity="0"/></radialGradient>
-  <linearGradient id="s6Mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#131b2e" stop-opacity="0"/><stop offset="1" stop-color="#131b2e" stop-opacity=".35"/></linearGradient>
-  <linearGradient id="s6Haze" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2742" stop-opacity="0"/><stop offset=".6" stop-color="#1c2742" stop-opacity=".5"/><stop offset="1" stop-color="#1c2742" stop-opacity="0"/></linearGradient>
+  <radialGradient id="s7Cool" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#60a5fa" stop-opacity=".36"/><stop offset=".22" stop-color="#60a5fa" stop-opacity=".2"/><stop offset=".55" stop-color="#38bdf8" stop-opacity=".07"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/></radialGradient>
+  <radialGradient id="s7Core" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#bae6fd" stop-opacity=".3"/><stop offset=".3" stop-color="#60a5fa" stop-opacity=".14"/><stop offset="1" stop-color="#60a5fa" stop-opacity="0"/></radialGradient>
+  <radialGradient id="s7Pool" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#60a5fa" stop-opacity=".22"/><stop offset=".6" stop-color="#60a5fa" stop-opacity=".07"/><stop offset="1" stop-color="#60a5fa" stop-opacity="0"/></radialGradient>
+  <linearGradient id="s7Beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bae6fd" stop-opacity="0"/><stop offset=".45" stop-color="#60a5fa" stop-opacity=".5"/><stop offset="1" stop-color="#60a5fa" stop-opacity="0"/></linearGradient>
+  <radialGradient id="s7Risk" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#b5523b" stop-opacity="0"/><stop offset=".75" stop-color="#b5523b" stop-opacity=".12"/><stop offset="1" stop-color="#b5523b" stop-opacity=".3"/></radialGradient>
  </defs>
- <g id="s6Camera">
-  <rect x="-60" y="-120" width="660" height="1200" fill="url(#s6Sky)"/>
-  <g id="s6Stars" fill="#cfe0ff"></g>
-  <!-- distant hills + street buildings (right) -->
-  <path d="M -60 700 Q 120 650 280 690 T 600 676 L 600 780 L -60 780 Z" fill="#0a0f1a"/>
-  <g fill="#080b14">
-   <rect x="300" y="640" width="110" height="130"/><path d="M 292 640 L 355 606 L 418 640 Z"/>
-   <rect x="420" y="660" width="150" height="110"/><path d="M 412 660 L 495 626 L 578 660 Z"/>
-   <rect x="250" y="676" width="60" height="94"/><path d="M 244 676 L 280 654 L 316 676 Z"/>
+ <g id="s7Camera">
+  <rect x="-120" y="-140" width="780" height="1260" fill="#04060c"/>
+  <!-- cool radial glow behind centre -->
+  <ellipse id="s7GlowBig" cx="270" cy="540" rx="460" ry="540" fill="url(#s7Cool)"/>
+  <path d="M 206 -140 L 334 -140 L 445 1080 L 95 1080 Z" fill="url(#s7Beam)" opacity=".1"/>
+  <path d="M 92 -140 L 146 -140 L 350 1080 L 175 1080 Z" fill="url(#s7Beam)" opacity=".05"/>
+  <ellipse id="s7GlowCore" cx="270" cy="600" rx="190" ry="250" fill="url(#s7Core)"/>
+  <g id="s7Motes" fill="#bae6fd"></g>
+  <!-- soft light pool (no floor line) -->
+  <ellipse cx="270" cy="772" rx="300" ry="40" fill="url(#s7Pool)"/>
+  <ellipse cx="270" cy="768" rx="130" ry="16" fill="#60a5fa" opacity=".1"/>
+  <!-- title -->
+  <text id="s7Txt" x="270" y="214" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="24" font-weight="300" letter-spacing="9" fill="#f2ede2" opacity="0">SOCIAL PROOF</text>
+  <path id="s7Rule" d="M 220 232 H 320" stroke="#f2ede2" stroke-width="1" opacity="0"/>
+  <!-- risk zone (vermilion ring) -->
+  <g id="s7Ring" opacity="0">
+   <ellipse cx="0" cy="0" rx="82" ry="16" fill="url(#s7Risk)"/>
+   <ellipse cx="0" cy="0" rx="82" ry="16" fill="none" stroke="#b5523b" stroke-width="2"/>
+   <ellipse cx="0" cy="0" rx="100" ry="21" fill="none" stroke="#b5523b" stroke-opacity=".45" stroke-width="1"/>
   </g>
-  <g fill="#fcd34d" opacity=".4"><rect x="322" y="690" width="10" height="14"/><rect x="346" y="690" width="10" height="14"/><rect x="450" y="700" width="12" height="14"/><rect x="520" y="700" width="12" height="14"/><rect x="266" y="704" width="8" height="12"/></g>
-  <!-- torii (distant, dim vermilion) -->
-  <ellipse cx="478" cy="712" rx="120" ry="60" fill="url(#s6Vermil)"/>
-  <g id="s6Torii" fill="#b5523b" opacity=".62">
-   <rect x="446" y="640" width="7" height="72"/><rect x="503" y="640" width="7" height="72"/>
-   <path d="M 430 634 Q 478 645 526 634 L 524 643 Q 478 654 432 643 Z"/>
-   <rect x="440" y="657" width="76" height="5"/><rect x="474" y="643" width="8" height="14"/>
-  </g>
-  <rect x="-60" y="660" width="660" height="120" fill="url(#s6Haze)"/>
-  <!-- ground: packed dirt -> stone paving (extended cleanly to bottom edge) -->
-  <path d="M -60 770 Q 270 756 600 774 L 600 1080 L -60 1080 Z" fill="#10131c"/>
-  <ellipse cx="80" cy="806" rx="110" ry="8" fill="#0b0d14" opacity=".7"/><ellipse cx="150" cy="838" rx="90" ry="6" fill="#0b0d14" opacity=".6"/><ellipse cx="30" cy="870" rx="70" ry="5" fill="#0b0d14" opacity=".6"/><ellipse cx="95" cy="912" rx="85" ry="6" fill="#0b0d14" opacity=".55"/>
-  <g fill="#1a1e2b" opacity=".9"><circle cx="60" cy="790" r="2"/><circle cx="130" cy="800" r="1.6"/><circle cx="170" cy="826" r="2.2"/><circle cx="90" cy="850" r="1.8"/><circle cx="40" cy="830" r="1.5"/><circle cx="115" cy="895" r="2"/><circle cx="55" cy="935" r="1.7"/></g>
-  <path d="M 214 764 L 600 768 L 600 1080 L 163 1080 Z" fill="#1b2030"/>
-  <g id="s6Slabs" stroke="#0b0e16" stroke-width="1.6" fill="none" opacity=".85"></g>
-  <path d="M 214 764 L 163 1080" stroke="#0b0e16" stroke-width="4"/><path d="M 217 764 L 168 1080" stroke="#fcd34d" stroke-opacity=".13" stroke-width="1.3"/>
-  <ellipse cx="170" cy="796" rx="240" ry="26" fill="#fcd34d" opacity=".1"/>
-  <ellipse cx="360" cy="800" rx="190" ry="14" fill="#fcd34d" opacity=".08"/>
-  <!-- left machiya with three sliding doors -->
-  <rect x="-60" y="586" width="270" height="198" fill="#0a0e18"/>
-  <g stroke="#161c2b" stroke-width="3"><path d="M -60 612 H 210"/><path d="M -60 784 H 210"/><path d="M 4 612 V 784"/><path d="M 66 612 V 784"/><path d="M 126 612 V 784"/><path d="M 188 612 V 784"/></g>
-  <g id="s6Windows" fill="#1a1308"></g>
-  <path d="M -80 590 L 70 540 L 224 590 Q 70 566 -80 590 Z" fill="#1a2030"/>
-  <path d="M -80 590 Q 70 566 224 590 L 224 604 Q 70 580 -80 604 Z" fill="#0e121c"/>
-  <path d="M -80 590 L 70 540 L 224 590" fill="none" stroke="#d97706" stroke-opacity=".3" stroke-width="2"/>
-  <g id="s6Doors"></g>
-  <!-- overhead lanterns -->
-  <g id="s6Ropes"></g>
-  <g id="s6LanGlows"></g>
-  <g id="s6Lanterns"></g>
-  <g id="s6ExtraLayer"></g>
-  <g id="s6Sv1Layer"></g><g id="s6Sv2Layer"></g><g id="s6Sv3Layer"></g>
-  <g id="s6TomiLayer"></g>
-  <ellipse cx="230" cy="660" rx="320" ry="280" fill="url(#s6Wash)"/>
-  <rect x="-60" y="840" width="660" height="240" fill="url(#s6Mist)"/>
-  <rect x="-60" y="-120" width="660" height="230" fill="#04060c" opacity=".35"/>
+  <g id="s7WalkLayer"></g>
+  <g id="s7TomiLayer"></g>
  </g>
 </svg></div>
-<div class="controls"><button id="playBtn" class="primary">▶ Play (5.5s)</button><button id="replayBtn">↺ 0.0s</button><button id="soundBtn">🔊 Sound: ON</button></div>
+<div class="controls"><button id="playBtn" class="primary">▶ Play (6.5s)</button><button id="replayBtn">↺ 0.0s</button><button id="soundBtn">🔊 Sound: ON</button></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script>
 const $=id=>document.getElementById(id),playBtn=$('playBtn'),replayBtn=$('replayBtn'),soundBtn=$('soundBtn');
-const DUR=5.5;
+const DUR=6.5;
 /* ---- AUDIO helpers ---- */
 let audioCtx=null,soundEnabled=true;
 function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}
 function tone(type,f0,f1,d,g,when=0){if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime+when,o=audioCtx.createOscillator(),v=audioCtx.createGain();o.type=type;o.frequency.setValueAtTime(f0,t);o.frequency.exponentialRampToValueAtTime(f1,t+d);v.gain.setValueAtTime(g,t);v.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(v).connect(audioCtx.destination);o.start(t);o.stop(t+d+.02);}
 function noise(d,type,f,q,g,att,when=0){if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime+when,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type=type;fl.frequency.value=f;fl.Q.value=q;v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+att);v.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
-function bed(d,type,f,q,g){
- if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
- const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type=type;fl.frequency.value=f;fl.Q.value=q;v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+.4);v.gain.setValueAtTime(g,t+d-.5);v.gain.linearRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
-function sweep(d,f0,f1,q,g,when=0){
- if(!audioCtx||!soundEnabled)return;const t=audioCtx.currentTime+when,n=Math.floor(audioCtx.sampleRate*d),b=audioCtx.createBuffer(1,n,audioCtx.sampleRate),a=b.getChannelData(0);for(let i=0;i<n;i++)a[i]=Math.random()*2-1;
- const s=audioCtx.createBufferSource(),fl=audioCtx.createBiquadFilter(),v=audioCtx.createGain();s.buffer=b;fl.type='bandpass';fl.Q.value=q;fl.frequency.setValueAtTime(f0,t);fl.frequency.exponentialRampToValueAtTime(f1,t+d);
- v.gain.setValueAtTime(.0001,t);v.gain.linearRampToValueAtTime(g,t+.03);v.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(fl).connect(v).connect(audioCtx.destination);s.start(t);}
-const playDirt=()=>{const j=Math.random()*.02;noise(.08,'lowpass',700,.6,.05,.006,j);noise(.1,'bandpass',2600,.9,.012,.015,j+.01);};
-const playClick=()=>{noise(.06,'bandpass',1800,1.4,.085,.002);tone('triangle',190,70,.05,.04);};
-const playStone=gm=>{const j=Math.random()*.02;noise(.05,'bandpass',1800,1,.04*gm,.003,j);tone('triangle',140,55,.07,.05*gm,j);};
-const playDoor=()=>{sweep(.2,600,200,1.2,.07);tone('triangle',110,55,.07,.035,.21);};
-const playClap=()=>{tone('triangle',1000,620,.04,.01);tone('triangle',1500,900,.03,.007,.08);};
+/* scene-specific audio */
+let drone=null;
+function stopDrone(){if(!drone||!audioCtx){drone=null;return;}const n=audioCtx.currentTime;try{drone.g.gain.cancelScheduledValues(n);drone.g.gain.setValueAtTime(drone.g.gain.value,n);drone.g.gain.linearRampToValueAtTime(.0001,n+.05);drone.o1.stop(n+.08);drone.o2.stop(n+.08);drone.lfo.stop(n+.08);}catch(e){}drone=null;}
+function startDrone(d){
+ if(!audioCtx||!soundEnabled)return;stopDrone();const t=audioCtx.currentTime,g=audioCtx.createGain(),g2=audioCtx.createGain(),lfo=audioCtx.createOscillator(),lg=audioCtx.createGain(),o1=audioCtx.createOscillator(),o2=audioCtx.createOscillator();
+ o1.type='sine';o1.frequency.setValueAtTime(82,t);o2.type='sine';o2.frequency.setValueAtTime(164,t);g2.gain.value=.22;lfo.frequency.value=.25;lg.gain.value=.004;
+ g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.012,t+.5);g.gain.linearRampToValueAtTime(.03,t+d-.6);g.gain.linearRampToValueAtTime(.0001,t+d);
+ lfo.connect(lg).connect(g.gain);o1.connect(g);o2.connect(g2).connect(g);g.connect(audioCtx.destination);o1.start(t);o2.start(t);lfo.start(t);o1.stop(t+d+.05);o2.stop(t+d+.05);lfo.stop(t+d+.05);drone={o1,o2,g,lfo};}
+function droneRise(){
+ if(!drone||!audioCtx)return;const t=audioCtx.currentTime;drone.o1.frequency.setValueAtTime(82,t);drone.o1.frequency.linearRampToValueAtTime(87,t+1);drone.o2.frequency.setValueAtTime(164,t);drone.o2.frequency.linearRampToValueAtTime(174,t+1);}
+const playTick=()=>tone('triangle',1800,1500,.012,.008);
+const playPulse=()=>tone('sine',60,54,.2,.1);
+const playOneStep=()=>noise(.09,'lowpass',600,.6,.03,.008);
+function playSteps6(){
+ SIDE.forEach(w=>{if(w.st.x>-30&&w.st.x<570)noise(.09,'lowpass',600,.6,.018,.008,Math.random()*.025);});}
 
 /* ===== ZChar v1 — Zenspiris base character rig ===== */
 const ZNS='http://www.w3.org/2000/svg',ZD=Math.PI/180;
@@ -189,72 +167,54 @@ Object.assign(ZHATS,{
 Object.assign(ZSHOES,{waraji:[['M -5 -4 L 6 -4 L 8 1 L 14 3 L 14 6 L -6 6 Z','#0d0b12'],['M -7 4 L 16 4 L 16 6 L -7 6 Z','#7a6a46'],['M -5 -1 H 7 V 0.5 H -5 Z','#7a6a46']]});
 const OUT={
  tomi:{shirt:['#2b384b',0,-16,3,7],sl:['l','#2b384b'],pa:['k','#262f3f'],hat:'sugegasa',shoe:'waraji',ex:'belt'},
- srvA:{shirt:['#2c3445',0,-14,3,5],sl:['s','#2c3445'],pa:['k','#242b39'],hat:'hachimaki',shoe:'waraji',ex:'belt'},
- srvB:{shirt:['#33303f',0,-8,3,8],sl:['l','#33303f'],hat:'bun',shoe:'waraji'},
- srvC:{shirt:['#2a3a38',0,-14,3,6],sl:['l','#2a3a38'],pa:['k','#222f2d'],hat:'tenugui',shoe:'waraji',ex:'belt'},
- ex1:{shirt:['#232e3f',0,-14,3,6],sl:['l','#232e3f'],pa:['k','#222b3a'],hat:'sugegasa',shoe:'waraji',ex:'belt'},
- ex2:{shirt:['#3a3146',0,-8,3,9],sl:['l','#3a3146'],hat:'shimada',shoe:'waraji'},
- ex3:{shirt:['#2e3440',0,-16,3,6],sl:['l','#2e3440'],pa:['k','#262b36'],hat:'hachimaki',shoe:'waraji',ex:'belt'},
- ex4:{shirt:['#3d3036',0,-6,3,9],sl:['l','#3d3036'],hat:'bun',shoe:'waraji'}
+ w1:{shirt:['#1a2030',0,-8,3,9],sl:['l','#1a2030'],hat:'shimada',shoe:'waraji'},
+ w2:{shirt:['#202638',0,-14,3,6],sl:['s','#202638'],pa:['k','#1a2030'],hat:'hachimaki',shoe:'waraji',ex:'belt'},
+ w3:{shirt:['#1d2433',0,-16,3,7],sl:['l','#1d2433'],pa:['k','#181e2c'],hat:'sugegasa',shoe:'waraji',ex:'belt'},
+ w4:{shirt:['#262b3b',0,-14,3,6],sl:['l','#262b3b'],pa:['k','#1e2332'],hat:'tenugui',shoe:'waraji',ex:'belt'},
+ w5:{shirt:['#2a2434',0,-8,3,9],sl:['l','#2a2434'],hat:'bun',shoe:'waraji'},
+ w6:{shirt:['#1c2a2c',0,-16,3,7],sl:['l','#1c2a2c'],pa:['k','#172224'],hat:'sugegasa',shoe:'waraji',ex:'belt'}
 };
-const FEET=55,GOLD='#fcd34d';
+const FEET=55,COOL='#60a5fa',CYC=.46,CX=270;
 
 /* ---- walkers ---- */
 function mkWalker(o){
- const c=ZChar($(o.layer),{outfit:o.outfit,params:o.params,rim:GOLD}),h=(o.params&&o.params.height)||1;
- const w=Object.assign({c,h,gm:1,rimOp:.5,idle:0},o);
+ const c=ZChar($(o.layer),{outfit:o.outfit,params:o.params,rim:COOL}),h=(o.params&&o.params.height)||1;
+ const w=Object.assign({c,h,rimOp:.5,idle:0,glowRim:false,walk:0},o);
  w.rimEl=c.g.querySelector('[data-r="rim"]');w.trEl=c.g.querySelector('[data-r="tr"]');
  w.rimEl.setAttribute('opacity',w.rimOp);w.trEl.setAttribute('opacity',w.rimOp*.8);
- w.init=()=>({x:o.x,y:o.y,walk:0,ph:0,yaw:o.yaw,headTurn:0,tilt:0,eyes:'deadpan',mouth:'flat',brow:'none',lookX:0,lookY:0,lean:0,naT:10,naE:10,faT:10,faE:10,t:0});
+ w.init=()=>({x:o.x,y:o.y,walk:o.walk,ph:0,yaw:0,headTurn:o.headTurn||0,tilt:0,eyes:'deadpan',mouth:'flat',brow:'none',lookX:0,lookY:0,lean:0,naT:10,naE:10,faT:10,faE:10,t:0});
  w.st=w.init();return w;
 }
 function renderW(w){const s=w.st,idl=w.idle*Math.sin(s.t*1.9+w.h*7);
- w.c.update({x:s.x,y:s.y,walk:s.walk,ph:s.ph,yaw:s.yaw,headTurn:s.headTurn,tilt:s.tilt,eyes:s.eyes,mouth:s.mouth,brow:s.brow,lookX:s.lookX,lookY:s.lookY,lean:s.lean+idl,na:[s.naT,s.naE],fa:[s.faT,s.faE],t:s.t});}
-const ex1=mkWalker({layer:'s6ExtraLayer',outfit:OUT.ex1,params:{height:.86},x:300,y:768,yaw:0,rimOp:.55,idle:.5});
-const ex2=mkWalker({layer:'s6ExtraLayer',outfit:OUT.ex2,params:{height:.8},x:352,y:770,yaw:0,rimOp:.5,idle:.4});
-const ex3=mkWalker({layer:'s6ExtraLayer',outfit:OUT.ex3,params:{height:.88},x:406,y:768,yaw:0,rimOp:.45,idle:.5});
-const ex4=mkWalker({layer:'s6ExtraLayer',outfit:OUT.ex4,params:{height:.78},x:458,y:771,yaw:0,rimOp:.4,idle:.4});
-const sv1=mkWalker({layer:'s6Sv1Layer',outfit:OUT.srvA,params:{height:.98},x:36,y:782,yaw:0,rimOp:.5,idle:.4,gm:.7});
-const sv2=mkWalker({layer:'s6Sv2Layer',outfit:OUT.srvB,params:{height:.9},x:96,y:782,yaw:0,rimOp:.5,idle:.4,gm:.85});
-const sv3=mkWalker({layer:'s6Sv3Layer',outfit:OUT.srvC,params:{height:1.02},x:156,y:782,yaw:0,rimOp:.5,idle:.4,gm:1});
-const tomi=mkWalker({layer:'s6TomiLayer',outfit:OUT.tomi,x:100,y:790,yaw:-.8,rimOp:.5});
-const WALKERS=[ex1,ex2,ex3,ex4,sv1,sv2,sv3,tomi],SERV=[sv1,sv2,sv3];
+ w.c.update({x:s.x,y:s.y,walk:s.walk,ph:s.ph,yaw:s.yaw,headTurn:s.headTurn,tilt:s.tilt,eyes:s.eyes,mouth:s.mouth,brow:s.brow,lookX:s.lookX,lookY:s.lookY,lean:s.lean+idl,na:[s.naT,s.naE],fa:[s.faT,s.faE],t:s.t});
+ if(w.glowRim){const k=Math.max(-1,Math.min(1,(CX-s.x)/25));
+  w.rimEl.setAttribute('cx',(1.7*k).toFixed(2));w.trEl.setAttribute('transform',`translate(${(1.5*k).toFixed(2)},0)`);}
+}
+const SPEC=[[OUT.w1,.88,736,-2],[OUT.w2,.92,740,112],[OUT.w3,.96,744,36],[OUT.w4,1,748,150],[OUT.w5,1.02,751,-40],[OUT.w6,1.04,754,74]];
+const SIDE=SPEC.map(([o,h,y,x])=>{const w=mkWalker({layer:'s7WalkLayer',outfit:o,params:{height:h},x,y,walk:1,rimOp:.5,idle:0,glowRim:true});w.v=FEET*h/CYC;return w;});
+const tomi=mkWalker({layer:'s7TomiLayer',outfit:OUT.tomi,x:CX,y:765,rimOp:.6,headTurn:70});
+const WALKERS=[...SIDE,tomi];
+const fx={trk:0,ring:0};
 
-/* ---- static dressing: stars, slabs, windows, doors, lanterns ---- */
-(function(){
- let s='';[[40,90,1.1],[130,170,.9],[230,70,1.2],[330,130,1],[440,60,1.2],[500,190,.9],[90,260,.9],[380,260,.9],[260,300,.8],[500,330,.8],[85,22,1.0],[275,16,.9],[460,24,1.1]].forEach(([x,y,r])=>s+=`<circle cx="${x}" cy="${y}" r="${r}" opacity=".3"/>`);$('s6Stars').innerHTML=s;
- let sl='';[790,812,840,876,920,972,1030].forEach(y=>sl+=`<path d="M ${214-(y-764)*.16} ${y} H 600"/>`);
- for(let i=0;i<9;i++){const x=250+i*52;sl+=`<path d="M ${x} 766 L ${x*1.0+(x-470)*2.55} 1080"/>`;}
- $('s6Slabs').innerHTML=sl;
- let w='';[10,76,136,196].forEach(x=>w+=`<rect x="${x}" y="622" width="40" height="0" />`);$('s6Windows').innerHTML=w;
- let d='';[36,96,156].forEach((cx,i)=>{
-  d+=`<rect x="${cx-26}" y="782" width="52" height="6" fill="#1a1e2b"/><rect x="${cx-24}" y="636" width="48" height="146" fill="#120e08"/>`
-   +`<rect id="s6Dg${i}" x="${cx-22}" y="638" width="44" height="142" fill="#f59e0b" opacity="0"/>`
-   +`<g id="s6Dp${i}"><rect x="${cx-22}" y="638" width="44" height="142" fill="#1c2233"/><path d="M ${cx-22} 690 H ${cx+22} M ${cx-22} 740 H ${cx+22} M ${cx} 638 V 780" stroke="#2c3547" stroke-width="1.4"/><rect x="${cx-22}" y="638" width="44" height="142" fill="none" stroke="#fcd34d" stroke-opacity=".12"/></g>`;
- });
- $('s6Doors').innerHTML=d;
- let rp='',gl='',bd='';
- [[[-30,100],[200,175],[470,335],9,1],[[590,110],[540,210],[490,330],4,.9]].forEach(([p0,p1,p2,n,tmax])=>{
-  rp+=`<path d="M ${p0[0]} ${p0[1]} Q ${p1[0]} ${p1[1]} ${p2[0]} ${p2[1]}" stroke="#14100a" stroke-width="1.6" fill="none"/>`;
-  for(let i=0;i<n;i++){const t=(i+.5)/n*tmax,u=1-t,x=u*u*p0[0]+2*u*t*p1[0]+t*t*p2[0],y=u*u*p0[1]+2*u*t*p1[1]+t*t*p2[1],sc=1.25-.85*t,by=y+15*sc;
-   gl+=`<circle cx="${x.toFixed(1)}" cy="${by.toFixed(1)}" r="${(50*sc).toFixed(1)}" fill="url(#s6Glow)" opacity=".8"/>`;
-   bd+=`<path d="M ${x.toFixed(1)} ${y.toFixed(1)} V ${(y+3*sc).toFixed(1)}" stroke="#14100a" stroke-width="1.2"/><rect x="${(x-4.5*sc).toFixed(1)}" y="${(y+3*sc).toFixed(1)}" width="${9*sc}" height="${3*sc}" rx="1" fill="#14100a"/>`
-    +`<ellipse cx="${x.toFixed(1)}" cy="${by.toFixed(1)}" rx="${8*sc}" ry="${11*sc}" fill="#b45309"/><ellipse cx="${x.toFixed(1)}" cy="${by.toFixed(1)}" rx="${5.2*sc}" ry="${8*sc}" fill="#fef08a" opacity=".92"/>`
-    +`<path d="M ${(x-7*sc).toFixed(1)} ${(by-3*sc).toFixed(1)} Q ${x.toFixed(1)} ${(by-1*sc).toFixed(1)} ${(x+7*sc).toFixed(1)} ${(by-3*sc).toFixed(1)} M ${(x-7*sc).toFixed(1)} ${(by+4*sc).toFixed(1)} Q ${x.toFixed(1)} ${(by+6*sc).toFixed(1)} ${(x+7*sc).toFixed(1)} ${(by+4*sc).toFixed(1)}" stroke="#5a2d08" stroke-width="${Math.max(.6,1.1*sc).toFixed(2)}" fill="none"/>`
-    +`<rect x="${(x-4.5*sc).toFixed(1)}" y="${(by+10*sc).toFixed(1)}" width="${9*sc}" height="${3*sc}" rx="1" fill="#14100a"/>`;}
- });
- $('s6Ropes').innerHTML=rp;$('s6LanGlows').innerHTML=gl;$('s6Lanterns').innerHTML=bd;
+(function(){ // static dressing: drifting motes extended to top and bottom edges
+ let s='',r=7;const rnd=()=>(r=(r*9301+49297)%233280)/233280;
+ for(let i=0;i<36;i++)s+=`<circle cx="${(rnd()*640-50).toFixed(0)}" cy="${(-80+rnd()*1120).toFixed(0)}" r="${(.7+rnd()*1.3).toFixed(1)}" opacity="${(.08+rnd()*.2).toFixed(2)}"/>`;
+ $('s7Motes').innerHTML=s;
 })();
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
-/* ---- TIMELINE (5.5s) ---- */
+/* ---- TIMELINE (6.5s) ---- */
 let sceneTl=null;
-const DOOR_X=[36,96,156],DOOR_T=[2.2,2.9,3.6];
-function resetScene6ToStart(){
+function resetScene7ToStart(){
  if(sceneTl){sceneTl.kill();sceneTl=null;}
+ stopDrone();
  WALKERS.forEach(w=>{w.st=w.init();});
- gsap.set('#s6Camera',{scale:1,svgOrigin:'200 650'});
- [0,1,2].forEach(i=>{gsap.set('#s6Dp'+i,{scaleX:1,svgOrigin:`${DOOR_X[i]-22} 700`});gsap.set('#s6Dg'+i,{opacity:0});gsap.set('#s6Sv'+(i+1)+'Layer',{opacity:0});});
- gsap.set('#s6LanGlows',{opacity:1});
+ fx.trk=0;fx.ring=0;
+ gsap.set('#s7Camera',{scale:1,svgOrigin:'270 650'});
+ gsap.set('#s7Txt',{opacity:0});gsap.set('#s7Rule',{opacity:0});gsap.set('#s7Ring',{opacity:0});
+ $('s7Ring').setAttribute('transform','translate(270 767)');
+ $('s7Motes').setAttribute('transform','translate(0 0)');
+ $('s7GlowBig').setAttribute('opacity',1);$('s7GlowCore').setAttribute('opacity',1);
  WALKERS.forEach(renderW);replayBtn.textContent='↺ 0.0s';
 }
 function walkSeg(tl,w,t0,t1,x0,x1,ph0,amp,fn){
@@ -264,39 +224,34 @@ function walkSeg(tl,w,t0,t1,x0,x1,ph0,amp,fn){
  tl.to(w.st,{walk:0,duration:.2},t1-.2);
  for(let n=0;;n++){const t=t0+((n/2+.25)-ph0)*cyc;if(t>t1-.15)break;if(t>=t0+.05)tl.call(fn,null,t);}
 }
-function playScene6(){
- resetScene6ToStart();
+function playScene7(){
+ resetScene7ToStart();
  sceneTl=gsap.timeline({onUpdate:()=>{const t=sceneTl.time();WALKERS.forEach(w=>w.st.t=t);
-   $('s6LanGlows').setAttribute('opacity',(.94+.04*Math.sin(t*9)+.03*Math.sin(t*17+1.1)).toFixed(3));
-   WALKERS.forEach(renderW);replayBtn.textContent=`↺ ${t.toFixed(1)}s`;},onComplete:()=>{replayBtn.textContent='↺ 5.5s';}});
- sceneTl.to('#s6Camera',{scale:1.1,svgOrigin:'200 650',duration:DUR,ease:'power1.inOut'},0);
- sceneTl.call(()=>bed(5.4,'bandpass',320,.6,.022),null,.05);
- sceneTl.call(()=>bed(5.4,'bandpass',620,.8,.012),null,.05);
- [.9,3.4].forEach(t=>sceneTl.call(playClap,null,t));
- walkSeg(sceneTl,tomi,0,1.5,100,215,0,.5,playDirt);
- sceneTl.call(playClick,null,1.4);
- sceneTl.to(tomi.st,{headTurn:90,duration:.4,ease:'power2.inOut'},1.5);
- sceneTl.to(tomi.st,{lookX:-.9,duration:.25,ease:'sine.out'},2.0);
- const spec=[[sv1,36,265,2.35,4.15,.25],[sv2,96,330,3.05,4.75,.55],[sv3,156,395,3.75,5.25,.8]];
- spec.forEach(([w,x0,x1,t0,t1,ph0],i)=>{
-  const td=DOOR_T[i];
-  sceneTl.call(playDoor,null,td);
-  sceneTl.to('#s6Dp'+i,{scaleX:.16,svgOrigin:`${DOOR_X[i]-22} 700`,duration:.25,ease:'power2.out'},td);
-  sceneTl.to('#s6Dg'+i,{opacity:.55,duration:.3},td);
-  sceneTl.to('#s6Dg'+i,{opacity:.2,duration:.8},td+.9);
-  sceneTl.to('#s6Sv'+(i+1)+'Layer',{opacity:1,duration:.15},td+.1);
-  walkSeg(sceneTl,w,t0,t1,x0,x1,ph0,1,()=>playStone(w.gm));
- });
- sceneTl.to(tomi.st,{lookX:1,duration:.8,ease:'sine.inOut'},2.6);
- sceneTl.set(tomi.st,{mouth:'smile'},4.6).to(tomi.st,{tilt:-3,duration:.5,ease:'power2.out'},4.6);
- sceneTl.to(tomi.st,{lookX:.4,duration:.6,ease:'sine.inOut'},4.9);
+   const cx=SIDE.reduce((a,w)=>a+w.st.x,0)/SIDE.length;
+   tomi.st.lookX=fx.trk*clamp((cx-CX)/160,-1,1);
+   const wv=.5+.5*Math.sin((t-2.5)*2.4);
+   $('s7Ring').setAttribute('opacity',(fx.ring*(.3+.4*wv)).toFixed(3));
+   $('s7Ring').setAttribute('transform',`translate(${(270+tomi.st.x-CX)*0+270} 767) scale(${(1+.05*wv).toFixed(3)} ${(1+.05*wv).toFixed(3)})`);
+   $('s7GlowBig').setAttribute('opacity',(.95+.05*Math.sin(t*1.3)).toFixed(3));$('s7GlowCore').setAttribute('opacity',(.93+.07*Math.sin(t*1.9+.8)).toFixed(3));
+   $('s7Motes').setAttribute('transform',`translate(${(-t*3).toFixed(1)} ${(-t*6).toFixed(1)})`);
+   WALKERS.forEach(renderW);replayBtn.textContent=`↺ ${t.toFixed(1)}s`;},onComplete:()=>{replayBtn.textContent='↺ 6.5s';}});
+ sceneTl.to('#s7Camera',{scale:1.12,svgOrigin:'270 650',duration:DUR,ease:'power1.inOut'},0);
+ sceneTl.call(()=>startDrone(6.4),null,.05);
+ for(let k=0;k<7;k++)sceneTl.call(playTick,null,.5+k);
+ SIDE.forEach(w=>sceneTl.fromTo(w.st,{x:w.st.x,ph:0},{x:w.st.x+w.v*DUR,ph:DUR/CYC,duration:DUR,ease:'none',immediateRender:false},0));
+ for(let n=0;;n++){const t=(n/2+.25)*CYC;if(t>5.6)break;sceneTl.call(playSteps6,null,t);}
+ sceneTl.to('#s7Txt',{opacity:.88,duration:.9,ease:'sine.out'},1.0);
+ sceneTl.to('#s7Rule',{opacity:.35,duration:.9,ease:'sine.out'},1.2);
+ sceneTl.to(fx,{trk:1,duration:.4,ease:'sine.inOut'},2.3);
+ sceneTl.to(fx,{ring:1,duration:.5,ease:'sine.out'},2.5);
+ sceneTl.set(tomi.st,{eyes:'squint',brow:'sad'},4.8).to(tomi.st,{lean:-5,duration:.5,ease:'power2.out'},4.8);
+ sceneTl.call(droneRise,null,4.8);
+ sceneTl.call(playPulse,null,5.8);
+ walkSeg(sceneTl,tomi,5.8,6.3,CX,CX+24,0,.5,playOneStep);
+ sceneTl.to(tomi.st,{lean:-3,duration:.3,ease:'power2.inOut'},6.2);
 }
-playBtn.addEventListener('click',()=>{initAudio();playScene6();});
-replayBtn.addEventListener('click',()=>resetScene6ToStart());
+playBtn.addEventListener('click',()=>{initAudio();playScene7();});
+replayBtn.addEventListener('click',()=>resetScene7ToStart());
 soundBtn.addEventListener('click',()=>{soundEnabled=!soundEnabled;soundBtn.textContent='🔊 Sound: '+(soundEnabled?'ON':'OFF');if(soundEnabled)initAudio();});
-window.addEventListener('load',()=>{resetScene6ToStart();setTimeout(playScene6,250);});
-</script></body></html>'''
-
-with open('nukemairi_scene6_9x16.html', 'w', encoding='utf-8') as f:
-    f.write(html_content)
-print("Saved nukemairi_scene6_9x16.html successfully.")
+window.addEventListener('load',()=>{resetScene7ToStart();setTimeout(playScene7,250);});
+</script></body></html>
